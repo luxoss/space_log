@@ -1,0 +1,53 @@
+<!-- The space log main page
+     @copyright by Luxoss -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script src="http://cdn.socket.io/stable/socket.io.js"></script>
+    <link rel="stylesheet" href="text/css" href="main.css"/>
+    <title>The Space Log - Free online real-time strategy game</title>
+  </head>
+  <body>
+    <header>
+      <h1>The Space Log - Free online real-time strategy game</h1>
+    </header>
+    <!-- userInfo section -->
+    <div class="userInput">
+        <table id="connUserTable">
+          <tr>
+            <td><strong>Username:<strong></td>
+            <td><input type="text" id="username" name="username" value=""/></td>
+          </tr>
+          <tr>
+            <td><strong>&nbsp;Password:</strong></td>
+            <td><input type="password" id="password" name="password" value=""/></td>
+          </tr>
+          <tr>
+            <td><button type="submit" name="playButton">Play Game</button></td>
+          </tr>
+        </table>
+    </div>
+    <div class="joinUser">
+      <form id="userInput" action="main.html" method="post">
+        <table id="connUserTable">
+          <tr>
+            <td><strong>Username:<strong></td>
+            <td><input type="text" id="username" name="username" value="" placeholder="username"/></td>
+          </tr>
+          <tr>
+            <td><strong>&nbsp;Password:</strong></td>
+            <td><input type="password" id="password" name="password" value="" placeholder=""/></td>
+          </tr>
+          <tr>
+            <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:</strong></td>
+            <td><input type="password" id="password" name="password" value="" placeholder="guest@domain.com"/></td>
+          </tr>
+          <tr>
+            <td><button type="submit" id=JoinUser name="JoinUser">Sign In</button></td>
+          </tr>
+        </table>
+      </form>
+    </div>
+  </body>
+</html>
