@@ -5,16 +5,16 @@
   <head>
     <meta charset="utf-8">
     <script src="http://cdn.socket.io/stable/socket.io.js"></script>
-    <link rel="stylesheet" href="text/css" href="main_design.css"/>
+    <link rel="stylesheet" href="text/css" href="./main_design.css"/>
     <title>The Space Log - Free online real-time strategy game</title>
   </head>
   <body>
-    <header>
+    <div id="header">
       <h1>The Space Log - Free online real-time strategy web game</h1>
-    </header>
+    </div>
     <!-- userInfo section -->
-    <div class="userInput">
-        <table id="connUserTable">
+    <div id="contents">
+        <table class="userTable">
           <tr>
             <td><strong>Username:<strong></td>
             <td><input type="text" id="username" name="username" value=""/></td>
@@ -24,30 +24,34 @@
             <td><input type="password" id="password" name="password" value=""/></td>
           </tr>
           <tr>
-            <td><button type="submit" name="playButton">Play Game</button></td>
+            <td colspan="2"><button type="submit" class="inputBtn" name="playBtn">Play Game</button></td>
           </tr>
         </table>
+        <form id="userInput" action="main.html" method="post">
+            <table class="userTable">
+              <tr>
+                <td><strong>Username:<strong></td>
+                <td><input type="text" id="username" name="username" value="" placeholder="username"/></td>
+              </tr>
+              <tr>
+                <td><strong>&nbsp;Password:</strong></td>
+                <td><input type="password" id="password" name="password" value="" placeholder=""/></td>
+              </tr>
+              <tr>
+                <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:</strong></td>
+                <td><input type="password" id="password" name="password" value="" placeholder="guest@domain.com"/></td>
+              </tr>
+              <tr>
+                <td colspan="2"><input type="checkbox" value="">이메일 수신여부를 체크해주세요.</input></td>
+              </tr>
+              <tr>
+                <td colspan="2"><button type="submit" class=inputBtn name="joinBtn">Sign In</button></td>
+              </tr>
+            </table>
+        </form>
     </div>
-    <div class="joinUser">
-      <form id="userInput" action="main.html" method="post">
-        <table id="connUserTable">
-          <tr>
-            <td><strong>Username:<strong></td>
-            <td><input type="text" id="username" name="username" value="" placeholder="username"/></td>
-          </tr>
-          <tr>
-            <td><strong>&nbsp;Password:</strong></td>
-            <td><input type="password" id="password" name="password" value="" placeholder=""/></td>
-          </tr>
-          <tr>
-            <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:</strong></td>
-            <td><input type="password" id="password" name="password" value="" placeholder="guest@domain.com"/></td>
-          </tr>
-          <tr>
-            <td><button type="submit" id=JoinUser name="JoinUser">Sign In</button></td>
-          </tr>
-        </table>
-      </form>
+    <div id="footer">
+      Copyright @luxoss
     </div>
   </body>
 </html>

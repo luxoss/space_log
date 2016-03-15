@@ -1,0 +1,23 @@
+/* Main page designed by css */
+#header {
+  background-color: rgb(255, 0, 0);
+  color: white;
+  text-align: center;
+  padding: 5px;
+}
+
+#contents {
+
+}
+
+#footer {
+
+}
+
+.connUserTable {
+
+}
+
+.inputBtn {
+  text-align: center;
+}
