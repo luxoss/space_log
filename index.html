@@ -5,7 +5,8 @@
   <head>
     <meta charset="utf-8">
     <script src="http://cdn.socket.io/stable/socket.io.js"></script>
-    <link rel="stylesheet" type="text/css" href="./main_design.css"/>
+    <script src="./index_page_control.js"></script>
+    <link rel="stylesheet" type="text/css" href="./index_page_design.css"/>
     <title>The Space Log - Free online real-time strategy game</title>
   </head>
   <body>
@@ -27,7 +28,7 @@
             <td colspan="2"><button type="submit" class="inputBtn" name="playBtn">Play Game</button></td>
           </tr>
         </table>
-        <form id="userInput" action="main.html" method="post">
+        <form id="userInput" action="" method="post"> <!-- action = "해당 값을 보낼 url주소"-->
             <table class="userTable">
               <tr>
                 <td><strong>Username:<strong></td>
@@ -35,7 +36,7 @@
               </tr>
               <tr>
                 <td><strong>&nbsp;Password:</strong></td>
-                <td><input type="password" id="password" name="password" value="" placeholder=""/></td>
+                <td><input type="password" id="password" name="password" value="" placeholder="" maxlength=""/></td>
               </tr>
               <tr>
                 <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:</strong></td>
