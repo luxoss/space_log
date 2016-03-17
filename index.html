@@ -28,7 +28,7 @@
             <td colspan="2"><button type="submit" class="inputBtn" name="playBtn" onclick="startGame()">Play Game</button></td>
           </tr>
         </table>
-        <form id="userInput" action="" method="post"> <!-- action = "해당 값을 보낼 url주소"-->
+        <form id="userInput" action="http://localhost:8080/" method="post"> <!-- action = "해당 값을 보낼 url주소"-->
             <table class="userTable">
               <tr>
                 <td><strong>Username:<strong></td>
@@ -40,13 +40,13 @@
               </tr>
               <tr>
                 <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:</strong></td>
-                <td><input type="password" id="password" name="password" value="" placeholder="guest@domain.com"/></td>
+                <td><input type="email" id="email" name="email" value="" placeholder="guest@domain.com"/></td>
               </tr>
               <tr>
-                <td colspan="2"><input type="checkbox" value="">이메일 수신여부를 체크해주세요.</input></td>
+                <td colspan="2"><input type="checkbox" name="checkEmail">이메일 수신여부를 체크해주세요.</input></td>
               </tr>
               <tr>
-                <td colspan="2"><button type="submit" class=inputBtn name="joinBtn" onclick="">Sign In</button></td>
+                <td colspan="2"><button type="submit" id="submitBtn" onclick="">Sign In</button></td>
               </tr>
             </table>
         </form>
