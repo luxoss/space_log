@@ -25,25 +25,25 @@
             <td><input type="password" id="password" name="password" value=""/></td>
           </tr>
           <tr>
-            <td colspan="2"><button type="submit" class="inputBtn" name="playBtn" onclick="startGame()">Play Game</button></td>
+            <td colspan="2"><button type="submit" class="inputBtn" name="playBtn" onclick="start()">Play Game</button></td>
           </tr>
         </table>
         <form id="userInput" action="http://localhost:8080/" method="post"> <!-- action = "해당 값을 보낼 url주소"-->
             <table class="userTable">
               <tr>
                 <td><strong>Username:<strong></td>
-                <td><input type="text" id="username" name="username" value="" placeholder="username"/></td>
+                <td><input type="text" id="username" name="username" value="" placeholder="Wrtie down your ID"/></td>
               </tr>
               <tr>
                 <td><strong>&nbsp;Password:</strong></td>
-                <td><input type="password" id="password" name="password" value="" placeholder="" maxlength=""/></td>
+                <td><input type="password" id="password" name="password" value="" placeholder="" maxlength="8"/></td>
               </tr>
               <tr>
-                <td><strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Email:</strong></td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Email:</strong></td>
                 <td><input type="email" id="email" name="email" value="" placeholder="guest@domain.com"/></td>
               </tr>
               <tr>
-                <td colspan="2"><input type="checkbox" name="checkEmail">이메일 수신여부를 체크해주세요.</input></td>
+                <td colspan="2"><input type="checkbox" name="checkEmail"><strong>이메일 수신여부를 체크해주세요.</strong></input></td>
               </tr>
               <tr>
                 <td colspan="2"><button type="submit" id="submitBtn" onclick="">Sign In</button></td>
