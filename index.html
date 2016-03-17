@@ -15,21 +15,25 @@
     </div>
     <!-- userInfo section -->
     <div id="contents">
-        <table class="userTable">
+        <table class="user_table">
           <tr>
             <td><strong>Username:<strong></td>
             <td><input type="text" id="username" name="username" value=""/></td>
           </tr>
           <tr>
             <td><strong>&nbsp;Password:</strong></td>
-            <td><input type="password" id="password" name="password" value=""/></td>
+            <td><input type="password" id="password" name="password" value="" maxlength="8"/></td>
           </tr>
           <tr>
-            <td colspan="2"><button type="submit" class="inputBtn" name="playBtn" onclick="start()">Play Game</button></td>
+            <td colspan="2">
+              <button type="submit" class="inputBtn" name="playBtn" onclick="connect_main_display()">
+                <a href="#">Play Game</a> <!-- move the main page -->
+              </button>
+            </td>
           </tr>
         </table>
-        <form id="userInput" action="http://localhost:8080/" method="post"> <!-- action = "해당 값을 보낼 url주소"-->
-            <table class="userTable">
+        <form id="user_input" action="http://localhost:8080/" method="post"> <!-- action = "해당 값을 보낼 url주소"-->
+            <table class="user_table">
               <tr>
                 <td><strong>Username:<strong></td>
                 <td><input type="text" id="username" name="username" value="" placeholder="Wrtie down your ID"/></td>
@@ -43,16 +47,16 @@
                 <td><input type="email" id="email" name="email" value="" placeholder="guest@domain.com"/></td>
               </tr>
               <tr>
-                <td colspan="2"><input type="checkbox" name="checkEmail"><strong>이메일 수신여부를 체크해주세요.</strong></input></td>
+                <td colspan="2"><input type="checkbox" name="check_email"><strong>이메일 수신여부를 체크해주세요.</strong></input></td>
               </tr>
               <tr>
-                <td colspan="2"><button type="submit" id="submitBtn" onclick="">Sign In</button></td>
+                <td colspan="2"><button type="submit" id="submit_btn" onclick="">Sign Up</button></td>
               </tr>
             </table>
         </form>
     </div>
     <div id="footer">
-      Copyright @luxoss
+      <strong>This is strategy web game. Try sign up this.</strong>
     </div>
   </body>
 </html>
