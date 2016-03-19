@@ -24,9 +24,9 @@
             <td><input type="password" id="password" name="password" value="" pattern="" maxlength="12"/></td>
           </tr>
           <tr>
-            <td colspan="2">
-              <button type="submit" class="inputBtn" name="playBtn" onclick="connect_main_display()">
-                <a href="#">Play Game</a> <!-- move the main page -->
+            <td rowspan="2">
+              <button type="submit" class="input_btn" name="login_btn" onclick="connect_main_display()">
+                <a href="#" id="connect_in">Play Game</a> <!-- move the main page -->
               </button>
             </td>
           </tr>
@@ -35,21 +35,20 @@
             <table class="user_table">
               <tr>
                 <td><strong>Username:</strong></td>
-                <td><input type="text" id="username" name="username" value="" placeholder="Wrtie down your ID" pattern="" maxlength="9"/></td>
+                <td><input type="text" id="username" name="username" value="" placeholder="사용자 아이디" pattern="" maxlength="9"/></td>
               </tr>
               <tr>
                 <td><strong>&nbsp;Password:</strong></td>
-                <td><input type="password" id="password" name="password" value="" placeholder="" maxlength="12"/></td>
+                <td><input type="password" id="password" name="password" value="" placeholder="비밀번호" maxlength="12"/></td>
               </tr>
               <tr>
                 <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Email:</strong></td>
                 <td><input type="email" id="email" name="email" value="" placeholder="guest@domain.com"/></td>
               </tr>
-              <tr>
                 <td colspan="2"><input type="checkbox" name="check_email"><strong>이메일 수신여부를 체크해주세요.</strong></input></td>
               </tr>
               <tr>
-                <td colspan="2"><button type="submit" id="submit_btn" onclick="">Sign Up</button></td>
+                <td rowspan="3"><button type="submit" class="input_btn" name="sign_up" onclick="">Sign Up</button></td>
               </tr>
             </table>
         </form>
