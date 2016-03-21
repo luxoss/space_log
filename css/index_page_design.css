@@ -1,6 +1,6 @@
 /* Index page css design */
 body {
-
+  background-color: rgb(0, 0, 0);
 }
 
 td, strong {
@@ -9,16 +9,20 @@ td, strong {
 
 div.container {
   background-image: url('../img/space.jpg');
+  border : 1px solid;
+  border-color: rgb(255, 0, 0);
 }
 
 .user_input {
-  background-color: rgb(0, 0, 0);
+  background-color: rgba(102, 153, 102, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
+  width: 300px;
+  height: 200px;
   border : 1px solid;
   border-color: rgb(255, 0, 0);
 }
 
 input.submit_btn {
-  color: rgb(255, 255, 255);
+  color: rgb(255, 255, 255); /* font color: white */
   background-color: rgb(0, 0, 0);
   border : 1px solid;
   border-color: rgb(255, 0, 0);
@@ -26,8 +30,7 @@ input.submit_btn {
 }
 
 #header {
-  /*background-color: rgb(0, 0, 0);*/
-  background-image: url('../img/space.jpg');
+  background-color: rgb(0, 0, 0);
   color: rgb(255, 255, 255);
   border : 1px solid;
   border-color: rgb(255, 0, 0);
