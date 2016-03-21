@@ -1,47 +1,44 @@
-/* Main page designed by css */
-#header {
-  background-color: rgb(0, 0, 0);
-  color: white;
-  text-align: center;
-  width: 100%;
-  height: 30%;
-  padding: 20px;
+/* Index page css design */
+body {
+
 }
 
-#contents {
-  background-image: url('../img/space.jpg');
-  width: 100%;
-  height: 50%;
-  padding: 120px;
+td, strong {
+  text-align: right;
+}
+
+div.container {
+
+}
+
+input.submit_btn {
+  color: rgb(255, 255, 255);
+  background-color: rgb(0, 0, 0);
+  border : 1px solid;
+  border-color: red;
+  border-radius: 10px;
+}
+
+.user_input {
+
+}
+
+#header {
+  background-color: rgb(0, 0, 0);
+  color: rgb(255, 255, 255);
+  text-align: center;
 }
 
 #footer {
   background-color: rgb(0, 0, 0);
-  color: white;
+  color: rgb(255, 255, 255);
   text-align: center;
-  width: 100%;
-  height: 20%;
-  padding: 10px;
 }
 
-#connect_in {
-  text-decoration: none;
+#login {
+
 }
 
-div .user_table {
-  color: white;
-  text-align: right;
-  width: 200px;
-  height: 100px;
-}
+#sign_up {
 
-button.input_btn {
-  font-family: Arial;
-  font-size: 10pt;
-  font-weight: bold;
-  color: white;
-  width: 50px;
-  height: 50px;
-  background-color: rgb(0, 0, 0);
-  border-radius: 12px;
 }

@@ -1,60 +1,67 @@
-<!-- The space log main page -->
 <!DOCTYPE html>
 <html>
   <head>
     <meta charset="utf-8">
-    <script src="./socket.io.js"></script>
-    <script src="./js/index_page_control.js"></script>
-    <link rel="stylesheet" type="text/css" href="./css/index_page_design.css"/>
-    <title>The Space Log - Free online real-time strategy game</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- 지정된 doctype에 상관없이, ie8 버전에서 항상 최신 표준 모드로 렌더링 적용하기 위함. 마이크로소프트 권장 사항 -->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1">
+<!--<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
+<!--<script type="text/javascript" src="./js/index_page_control.js"></script>-->
+    <link rel="stylesheet" href="./css/index_page_design.css" media="screen" charset="utf-8">
+    <title>The Space Log - RTS web game</title>
   </head>
   <body>
-    <div id="header">
-      <h1>The Space Log - Free online real-time strategy web game</h1>
-    </div>
-    <!-- userInfo section -->
-    <div id="contents">
-        <table class="user_table">
-          <tr>
-            <td><strong>Username:<strong></td>
-            <td><input type="text" id="username" name="username" value="" pattern="" maxlength="9"/></td>
-          </tr>
-          <tr>
-            <td><strong>&nbsp;Password:</strong></td>
-            <td><input type="password" id="password" name="password" value="" pattern="" maxlength="12"/></td>
-          </tr>
-          <tr>
-            <td rowspan="2">
-              <button type="submit" class="input_btn" name="login_btn" onclick="connect_main_display()">
-                <a href="#" id="connect_in">Play Game</a> <!-- move the main page -->
-              </button>
-            </td>
-          </tr>
-        </table>
-        <form id="user_input" action="https://localhost:8080/" method="post"> <!-- action = "해당 값을 보낼 url주소" action 폼은 해당 url주소로 보내게 되어있는데 이는 hijack의 위험이 내포되어 있음 바꿔야 할 것-->
-            <table class="user_table">
-              <tr>
-                <td><strong>Username:</strong></td>
-                <td><input type="text" id="username" name="username" value="" placeholder="사용자 아이디" pattern="" maxlength="9"/></td>
-              </tr>
-              <tr>
-                <td><strong>&nbsp;Password:</strong></td>
-                <td><input type="password" id="password" name="password" value="" placeholder="비밀번호" maxlength="12"/></td>
-              </tr>
-              <tr>
-                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<strong>Email:</strong></td>
-                <td><input type="email" id="email" name="email" value="" placeholder="guest@domain.com"/></td>
-              </tr>
-                <td colspan="2"><input type="checkbox" name="check_email"><strong>이메일 수신여부를 체크해주세요.</strong></input></td>
-              </tr>
-              <tr>
-                <td rowspan="3"><button type="submit" class="input_btn" name="sign_up" onclick="">Sign Up</button></td>
-              </tr>
+    <div class="container">
+      <div id="header">
+        <h1>The Space Log - Real Time Strategy web game</h1>
+      </div>
+      <div id="contents">
+
+      </div>
+      <div class="user_input">
+        <div id="login">
+          <table>
+                 <tr>
+                   <td><strong>Username:<strong></td>
+                   <td><input type="text" id="username" name="username" value="" pattern="" maxlength="9"/></td>
+                 </tr>
+                 <tr>
+                   <td><strong>&nbsp;Password:</strong></td>
+                   <td><input type="password" id="password" name="password" value="" pattern="" maxlength="12"/></td>
+                 </tr>
+                 <tr>
+                   <td colspan="2">
+                     <input type="button" class="submit_btn" name="play_btn" value="Play Game" onclick="connect_main_display()"></input> <!-- connect_main_display() is connected by socket.io -->
+                   </td>
+                 </tr>
             </table>
-        </form>
+        </div>
+        <div id="sign_up">
+          <form action="http://localhost:8080/" method="post">
+            <table>
+             <tr>
+               <td><strong>Username:</strong></td>
+               <td><input type="text" id="username" name="username" value="" placeholder="Voyager ID"/></td> <!-- Not yet pattern, maxlength property -->
+             </tr>
+             <tr>
+               <td><strong>Password:</strong></td>
+               <td><input type="password" id="password" name="password"/></td>  <!-- Not yet pattern, maxlength property -->
+             </tr>
+             <tr>
+               <td><strong>Email:</strong></td>
+               <td><input type="email" id="email" name="email" value="" placeholder="guest@domain.com"/></td>
+             </tr>
+             <tr>
+               <td colspan="2"><input type="checkbox" name="check_email"><strong>이메일 수신여부를 체크해주세요.</strong></input></td> <!-- 체크 시 'on' 이라는 데이터가 서버로 전송됨 -->
+             </tr>
+             <tr>
+               <td colspan="2"><input type="submit" class="submit_btn" onclick="" value="Sign Up"/></td> <!-- 서버로 전송 시 자바스크립트 객체 형태(key: value, ...)로 전송됨 -->
+             </tr>
+           </table>
+          </form>
+        </div>
+      </div>
+      <div id="footer">
+        <h3>This is strategy web game. Travel in the universe with us.</h3>
+      </div>
     </div>
-    <div id="footer">
-      <strong>This is strategy web game. Try sign up this.</strong>
-    </div>
-  </body>
 </html>
