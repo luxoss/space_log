@@ -15,7 +15,7 @@ td, strong {
 
 .user_input {
   background-color: rgba(102, 153, 102, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
-  width: 300px;
+  width: 100%;
   height: 200px;
   border : 1px solid;
   border-color: rgb(255, 0, 0);
