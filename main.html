@@ -2,6 +2,9 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./css/main_page_design.css" media="screen" charset="utf-8">
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     <script tpye="text/javascript">
     </script>
@@ -16,9 +19,8 @@
 
       </div>
       <div class="ui_minimap_layer"> <!-- 해당 플레이어의 현재 위치를 가늠할 수 있게끔 메인 화면의 축소판을 만들고 앵커포인트를 찍어주는 역할-->
-          <!-- iframe -->
+          <canvas id="minimap_canvas" width="150px" height="150px"></canvas><!-- iframe -->
       </div>
     </div>
-    <div class="containter"><h1>hello jquery world</h1></div>
   </body>
 </html>

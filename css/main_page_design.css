@@ -1,0 +1,13 @@
+/* main css design */
+
+#main_layer {
+  background-image: url('../img/space_galaxy.jpg');
+  background-size: cover;
+}
+
+#minimap_canvas {
+  position: relative;
+  background-color : rgba(102, 153, 102, .5);
+  border: solid 1px;
+  border-color: rgba(102, 153, 255, 1);
+}
