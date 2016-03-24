@@ -1,21 +1,33 @@
 /* main css design */
+.ui_user_info_layer {
+  border: solid 1px;
+  border-color: rgba(102, 153, 255, 1);
+  width: 400px;
+  height: 100px;
+  position: fixed;
+  top: 20px;
+  left: 30px;
+}
+
+.ui_minimap_layer {
+  border: solid 1px;
+  border-color: rgba(102, 153, 255, 1);
+  width: 250px;
+  height: 250px;
+  position: fixed;
+  bottom: 20px;
+  right: 30px;
+}
+
 .ui_menu_layer {
   border: solid 1px;
   border-color: rgba(102, 153, 255, 1);
   cursor:pointer;
-  width: 250px;
+  width: 400px;
   height: 25px;
   position: fixed;
   bottom: 20px;
   left: 30px;
-}
-
-.ui_resource_layer {
-
-}
-
-.ui_minimap_layer {
-
 }
 
 .menu_btn {

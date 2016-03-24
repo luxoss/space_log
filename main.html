@@ -13,15 +13,15 @@
   </head>
   <body>
     <div id="main_layer">
-      <div class="ui_menu_layer"> <!-- 좌상단에 고정 및 버튼 클릭 시 애니메이션 효과-->
+      <div class="ui_menu_layer"> <!-- If u click this menu button, u see that is infomation in menu button -->
         <input class="menu_btn" type="button" value="HOME" onClick="window.open('index.html','pop_up','width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=150,top=100')"/>
         <input class="menu_btn" type="button" value="BUILDING" onClick="window.open('index.html','pop_up','width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=150,top=100')"/>
         <input class="menu_btn" type="button" value="RESOURCE" onClick="window.open('index.html','pop_up','width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=150,top=100')"/>
       </div>
-      <div class="ui_resource_layer"> <!-- 우상단에 고정 및 서버로 부터 현재 자원의 수를 요청하여 전달 받은 값을 뿌려준다. -->
+      <div class="ui_user_info_layer"> <!-- This is user information layer -->
 
       </div>
-      <div class="ui_minimap_layer"> <!-- 해당 플레이어의 현재 위치를 가늠할 수 있게끔 메인 화면의 축소판을 만들고 앵커포인트를 찍어주는 역할-->
+      <div class="ui_minimap_layer"> <!-- This is minimap layer -->
           <canvas id="minimap_canvas" width="150px" height="150px"></canvas><!-- iframe -->
       </div>
     </div>
