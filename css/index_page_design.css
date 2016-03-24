@@ -15,20 +15,20 @@ td, strong {
 }
 
 .user_input {
-  background-color: rgba(0, 0, 0, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
+  background-color: rgba(255, 255, 255, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
   width: 300px;
   height: 400px;
   position: fixed;
   top: 250px;
   right: 30px;
   border : 1px solid;
-  border-color: rgb(0, 255, 0);
+  border-color: rgb(255, 255, 255);
 }
 
 .submit_btn {
   color: rgb(255, 255, 255); /* font color: white */
   font-weight: bold;
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 0, 128, .7);
   border : 1px solid;
   border-color: rgb(255, 0, 0);
   border-radius: 10px;
