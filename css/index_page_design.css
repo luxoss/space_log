@@ -1,8 +1,8 @@
 /* Index page css design */
 body {
   position: fixed;
-  /*background-color: rgb(0, 0, 0);*/
-  background-image: url('../img/space.jpg');
+  background-color: rgb(124, 64, 32);
+/*  background-image: url('../img/space.jpg');*/
   background-size: 3056px 1024px;
 }
 
