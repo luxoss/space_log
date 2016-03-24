@@ -37,8 +37,8 @@ td, strong {
   font-weight: bold;
   background-color: rgba(0, 0, 0, .7);
   border : 1px solid;
-  border-color: rgb(255, 0, 0);
-  border-radius: 10px;
+  border-color: rgb(0, 0, 0);
+  border-radius: 5px;
 }
 
 #header {
@@ -46,6 +46,8 @@ td, strong {
   background-color: rgba(0, 128, 128, .7);
   border : 1px solid;
   border-color: rgb(255, 255, 255);
+  border-top-left-radius: 30px;
+  border-top-right-radius: 30px;
   text-align: center;
   position: fixed;
   top: 30px;
@@ -59,6 +61,8 @@ td, strong {
   background-color: rgba(0, 128, 128, .7);
   border : 1px solid;
   border-color: rgb(255, 255, 255);
+  border-bottom-left-radius: 30px;
+  border-bottom-right-radius: 30px;
   text-align: center;
   position: fixed;
   bottom: 30px;
@@ -69,9 +73,10 @@ td, strong {
 
 #login {
   color : rgb(255, 255, 255);
-  background-color: rgba(0, 128, 255, .7);
+  background-color: rgba(0, 0, 128, .5);
   border : 1px solid;
-  border-color: rgb(255, 255, 255);
+  border-color: rgb(0, 0, 114);
+  border-radius: 5px;
   width: 300px;
   height: 75px;
   top: 300px;
@@ -81,9 +86,10 @@ td, strong {
 
 #sign_up {
   color : rgb(255, 255, 255);
-  background-color: rgba(0, 128, 255, .7);
+  background-color: rgba(0, 0, 128, .5);
   border : 1px solid;
-  border-color: rgb(255, 255, 255);
+  border-color: rgb(0, 0, 114);
+  border-radius: 5px;
   width: 300px;
   height: 125px;
   bottom: 300px;
