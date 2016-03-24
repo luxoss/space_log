@@ -1,8 +1,9 @@
 /* Index page css design */
 body {
   position: fixed;
-  background-color: rgb(124, 64, 32);
+/*  background-color: rgb(124, 64, 30); */
 /*  background-image: url('../img/space.jpg');*/
+  background-color: rgb(0, 0, 0);
   background-size: 3056px 1024px;
 }
 
@@ -11,11 +12,10 @@ td, strong {
 }
 
 .container {
-  background-color: rgb(0, 0, 0);
 }
 
 .user_input {
-  background-color: rgba(255, 255, 255, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
+  background-color: rgba(0, 128, 128, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
   width: 300px;
   height: 400px;
   position: fixed;
@@ -28,7 +28,7 @@ td, strong {
 .submit_btn {
   color: rgb(255, 255, 255); /* font color: white */
   font-weight: bold;
-  background-color: rgba(0, 0, 128, .7);
+  background-color: rgba(0, 0, 0, .7);
   border : 1px solid;
   border-color: rgb(255, 0, 0);
   border-radius: 10px;
@@ -36,9 +36,9 @@ td, strong {
 
 #header {
   color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 128, 128, .7);
   border : 1px solid;
-  border-color: rgb(0, 255, 0);
+  border-color: rgb(255, 255, 255);
   text-align: center;
   position: fixed;
   top: 30px;
@@ -49,9 +49,9 @@ td, strong {
 
 #footer {
   color: rgb(255, 255, 255);
-  background-color: rgba(0, 0, 0, .7);
+  background-color: rgba(0, 128, 128, .7);
   border : 1px solid;
-  border-color: rgb(0, 255, 0);
+  border-color: rgb(255, 255, 255);
   text-align: center;
   position: fixed;
   bottom: 30px;
