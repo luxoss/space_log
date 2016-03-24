@@ -17,21 +17,23 @@
       <div class="user_input">
         <div id="login">
           <table>
-                 <tr>
-                   <td><strong>Username:<strong></td>
-                   <td><input type="text" id="username" name="username" value="" pattern="" maxlength="9"/></td>
-                 </tr>
-                 <tr>
-                   <td><strong>Password:</strong></td>
-                   <td><input type="password" id="password" name="password" value="" pattern="" maxlength="12"/></td>
-                 </tr>
-                 <tr>
-                   <td colspan="2">
-                     <input type="button" class="submit_btn" name="play_btn" value="Play Game" onclick="connect_main_display()"></input> <!-- connect_main_display() is connected by socket.io -->
-                   </td>
-                 </tr>
-            </table>
+            <br/><br/><br/><br/>
+            <tr>
+              <td><strong>Username:<strong></td>
+              <td><input type="text" id="username" name="username" value="" pattern="" maxlength="9"/></td>
+            </tr>
+            <tr>
+              <td><strong>Password:</strong></td>
+              <td><input type="password" id="password" name="password" value="" pattern="" maxlength="12"/></td>
+            </tr>
+            <tr>
+              <td colspan="2">
+                <input type="button" class="submit_btn" name="play_btn" value="Play Game" onclick="connect_main_display()"></input> <!-- connect_main_display() is connected by socket.io -->
+              </td>
+            </tr>
+          </table>
         </div>
+        <br/><br/><br/><br/>
         <div id="sign_up">
           <form action="https://localhost:8080/" method="post">
             <table>
