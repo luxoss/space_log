@@ -22,7 +22,7 @@ td, strong {
   top: 250px;
   right: 30px;
   border : 1px solid;
-  border-color: rgb(255, 0, 0);
+  border-color: rgb(0, 255, 0);
 }
 
 .submit_btn {
@@ -38,7 +38,7 @@ td, strong {
   color: rgb(255, 255, 255);
   background-color: rgba(0, 0, 0, .7);
   border : 1px solid;
-  border-color: rgb(255, 0, 0);
+  border-color: rgb(0, 255, 0);
   text-align: center;
   position: fixed;
   top: 30px;
@@ -51,7 +51,7 @@ td, strong {
   color: rgb(255, 255, 255);
   background-color: rgba(0, 0, 0, .7);
   border : 1px solid;
-  border-color: rgb(255, 0, 0);
+  border-color: rgb(0, 255, 0);
   text-align: center;
   position: fixed;
   bottom: 30px;
