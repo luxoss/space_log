@@ -1,17 +1,24 @@
 /* Index page css design */
 body {
   position: fixed;
-/*  background-color: rgb(124, 64, 30); */
-/*  background-image: url('../img/space.jpg');*/
   background-color: rgb(0, 0, 0);
-  background-size: 3056px 1024px;
 }
 
 td, strong {
   text-align: right;
 }
 
-.container {
+.mid_container {
+    background-image: url("../img/space.jpg");
+    background-size: cover;
+    /*height: 670px;*/
+    position: fixed;
+    top: 30px;
+    bottom: 30px;
+    left: 10px;
+    right: 10px;
+    border : 1px solid;
+    border-color: rgb(255, 255, 255);
 }
 
 .user_input {
@@ -62,8 +69,24 @@ td, strong {
 
 #login {
   color : rgb(255, 255, 255);
+  background-color: rgba(0, 128, 255, .7);
+  border : 1px solid;
+  border-color: rgb(255, 255, 255);
+  width: 300px;
+  height: 75px;
+  top: 300px;
+  position: fixed;
+  box-shadow: 8px 8px 20px 2px rgb(0, 0, 0);
 }
 
 #sign_up {
   color : rgb(255, 255, 255);
+  background-color: rgba(0, 128, 255, .7);
+  border : 1px solid;
+  border-color: rgb(255, 255, 255);
+  width: 300px;
+  height: 125px;
+  bottom: 300px;
+  position: fixed;
+  box-shadow: 8px 8px 20px 2px rgb(0, 0, 0);
 }
