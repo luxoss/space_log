@@ -40,6 +40,12 @@ td, strong {
   border : 1px solid;
   border-color: rgb(0, 0, 0);
   border-radius: 5px;
+  /* transition property that is animate effect */
+  cursor: pointer;
+}
+
+.sumit_btn:hover {
+  /* Apply hover property and  detail effect */
 }
 
 #header {
