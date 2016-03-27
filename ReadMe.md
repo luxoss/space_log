@@ -1,4 +1,4 @@
 The Space log
 =============
 
-This is space real time stratey web browser game. 
+This is space real time strategy web browser game.
