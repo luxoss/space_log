@@ -8,6 +8,19 @@
 <!--<script type="text/javascript" src="./js/index_page_control.js"></script>-->
     <link rel="stylesheet" href="./css/index_page_design.css" media="screen" charset="utf-8">
     <title>The Space Log - RTS web game</title>
+    <script type="text/javascript">
+      function checkUserId() {
+        var id = document.getElementById('username').value;
+        var pwd = document.getElementById('password').value;
+        var email = document.getElementById('email').value;
+
+        if(){ // If received data is ture, reload a current page.
+          location.reload(true); // Page reload
+        }else{ // Error handling
+          alert('해당 유저 정보가 이미 있습니다. 다시 시도해주세요.');
+        }
+      }
+    </script>
   </head>
   <body>
     <div class="mid_container">
@@ -33,7 +46,7 @@
           </table>
         </div>
         <div id="sign_up">
-          <form action="https://localhost:8080/" method="post">
+          <form action="http://localhost:8080/" method="post">
             <table>
              <tr>
                <td><strong>Username:</strong></td>
@@ -41,7 +54,7 @@
              </tr>
              <tr>
                <td><strong>Password:</strong></td>
-               <td><input type="password" id="password" name="password" /></td>  <!-- Not yet pattern, maxlength property -->
+               <td><input type="password" id="password" name="password" value=""/></td>  <!-- Not yet pattern, maxlength property -->
              </tr>
              <tr>
                <td><strong>Email:</strong></td>
@@ -51,7 +64,7 @@
                <td colspan="2"><input type="checkbox" name="check_email"><strong>이메일 수신여부를 체크해주세요.</strong></input></td> <!-- 체크 시 'on' 이라는 데이터가 서버로 전송됨 -->
              </tr>
              <tr>
-               <td colspan="2"><input type="submit" class="submit_btn" onclick="" value="JOIN"/></td> <!-- 서버로 전송 시 자바스크립트 객체 형태(key: value, ...)로 전송됨 -->
+               <td colspan="2"><input type="submit" class="submit_btn" onclick="checkUserId();" value="JOIN"/></td> <!-- 서버로 전송 시 자바스크립트 객체 형태(key: value, ...)로 전송됨 -->
              </tr>
            </table>
           </form>
