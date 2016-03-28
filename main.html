@@ -7,16 +7,18 @@
     <link rel="stylesheet" href="./css/main_page_design.css" media="screen" charset="utf-8">
     <script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
     <script tpye="text/javascript">
-
+        function open_popup_view(){
+          window.open('index.html', 'pop_up', 'width=840, height=480, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=300, top=300');
+        }
     </script>
     <title>Welcome to the space log world!!!</title>
   </head>
   <body>
     <div id="main_layer">
       <div class="ui_menu_layer"> <!-- If u click this menu button, u see that is infomation in menu button -->
-        <input id="menu_img0" type="button" value="" onClick="window.open('index.html','pop_up','width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=150,top=100')"/>
-        <input id="menu_img1" type="button" value="" onClick="window.open('index.html','pop_up','width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=150,top=100')"/>
-        <input id="menu_img2" type="button" value="" onClick="window.open('index.html','pop_up','width=500,height=300,toolbar=no,location=no,status=no,menubar=no,scrollbars=yes,resizable=no,left=150,top=100')"/>
+        <input id="menu_img0" type="button" value="" onClick="window.open('index.html');"/>
+        <input id="menu_img1" type="button" value="" onClick="open_popup_view();" />
+        <input id="menu_img2" type="button" value="" onClick="open_popup_view();" />
       </div>
       <div class="ui_user_info_layer"> <!-- This is user information layer -->
 
