@@ -5,30 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- 지정된 doctype에 상관없이, ie8 버전에서 항상 최신 표준 모드로 렌더링 적용하기 위함. 마이크로소프트 권장 사항 -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 <!--<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
-<!--<script type="text/javascript" src="./js/index_page_control.js"></script>-->
     <link rel="stylesheet" href="./css/index_page_design.css" media="screen" charset="utf-8">
+    <script type="text/javascript" src="./js/index_page_control.js"></script>
     <title>The Space Log - RTS web game</title>
-    <script type="text/javascript">
-      function check_user_id()
-      {
-        var id = document.getElementById('username').value;
-        var pwd = document.getElementById('password').value;
-        var email = document.getElementById('email').value;
-        var check_email = document.getElementByid('check_email').value;
-
-        if(){ // If received data is ture, reload a current page.
-          location.reload(true); // Page reload
-        }else{ // Error handling
-          alert('해당 유저 정보가 이미 있습니다. 다시 시도해주세요.');
-        }
-
-      }
-    </script>
   </head>
   <body>
     <div class="mid_container">
       <div id="header">
-        <h1>The Space Log - Real Time Strategy web game</h1>
+        THE SPACE LOG - Real Time Strategy Web Game
       </div>
       <div class="user_input">
         <div id="login">
@@ -67,7 +51,7 @@
                <td colspan="2"><input type="checkbox" name="check_email"><strong>이메일 수신여부를 체크해주세요.</strong></input></td> <!-- 체크 시 'on' 이라는 데이터가 서버로 전송됨 -->
              </tr>
              <tr>
-               <td colspan="2"><input type="submit" class="submit_btn" onclick="check_user_id()" value="JOIN"/></td> <!-- 서버로 전송 시 자바스크립트 객체 형태(key['name']: value, ...)로 전송됨 -->
+               <td colspan="2"><input type="submit" class="submit_btn" onclick="check_user_info()" value="JOIN"/></td> <!-- 서버로 전송 시 자바스크립트 객체 형태(key['name']: value, ...)로 전송됨 -->
              </tr>
            </table>
           </form>
