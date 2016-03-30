@@ -8,12 +8,16 @@ function connect_main_display() {
 }
 */
 
-document.getElementById("header").style.color = "white";
+//Test dom obj in javascript
+var header = document.getElementById('header');
+
+if(typeof header !== 'undefined' && header !== null){
+  document.getElementById('header').style.color = "white";
+}
 
 
 
 
-/*
 // Check user infomation function
 function check_user_info()
 {
@@ -28,4 +32,3 @@ function check_user_info()
     alert('해당 유저 정보가 이미 있습니다. 다시 시도해주세요.');
   }
 }
-*/
