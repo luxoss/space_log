@@ -9,7 +9,7 @@ td, strong {
 }
 
 .mid_container {
-    background-image: url("../img/space.jpg");
+    background-image: url("../res/img/space.jpg");
     background-size: cover;
     /*height: 670px;*/
     position: fixed;
