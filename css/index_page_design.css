@@ -8,11 +8,6 @@ td, strong {
   text-align: right;
 }
 
-table {
-  width: 100%;
-  height: 100px;
-}
-
 .mid_container {
     background-image: url("../img/space.jpg");
     background-size: cover;
