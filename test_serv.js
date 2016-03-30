@@ -6,6 +6,7 @@ http.createServer(function(req, res){
 		var postBody = '';
 		req.on('data', function(data){
 			postBody += data;
+		
 		});
 		req.on('end', function(){
 			var post = qStr.parse(postBody);
