@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- 지정된 doctype에 상관없이, ie8 버전에서 항상 최신 표준 모드로 렌더링 적용하기 위함. 마이크로소프트 권장 사항 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>THE SPACE LOG - Real Time Strategy Web Game</title>
+    <style media="screen">
+      body {
+        background-image: url('../client/res/img/space_galaxy.jpg');
+        background-size: cover;
+      }
+
+      #main_container {
+        background-color: rgba(0, 0, 0, 0.7);
+        color: rgb(255, 255, 255);
+        width: 1280px;
+        height: 760px;
+        margin: 0px auto;
+        padding: 20px;
+        border: 1px solid rgb(188, 188, 188);
+      }
+
+      #header {
+        background-color: rgba(0, 128, 128, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
+        text-align: center;
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid rgb(188, 188, 188);
+      }
+
+      #content {
+        background-color: rgba(0, 128, 128, .7);
+        width: 700px;
+        height: 450px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid rgb(188, 188, 188);
+      }
+
+      #login {
+        background-color: rgba(0, 128, 128, .7);
+        width: 480px;
+        height: 450px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: right;
+        border: 1px solid rgb(188, 188, 188);
+      }
+
+      #footer {
+        background-color: rgba(0, 128, 128, .7);
+        font-weight: bold;
+        text-align: center;
+        clear: both;
+        padding: 20px;
+        border: 1px solid rgb(188, 188, 188);
+      }
+
+      @media screen and (max-width:480px) { /*width의 최소 길이가 480px이면, 아래와 같은 스타일 시트 적용 */
+        #mid_container {
+          width: auto;
+        }
+
+        #content {
+          float: none;
+          width: auto;
+        }
+
+        #sidebar {
+          float: none;
+          width: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main_container">
+         <div id="header">
+           <h1>THE SPACE LOG - Real Time Strategy Web Game</h1>
+         </div>
+         <div id="content">
+           <h2>Content</h2>
+           <p>This game is 'real time strayegy web game.' <br/>that makes html5, javascript, and html5.</p>
+         </div>
+         <div id="login">
+           <h2>SIGN IN</h2>
+           <ul>
+             <li>ID</li>
+             <li>PASSWORD</li>
+           </ul>
+         </div>
+         <div id="footer">
+           <p>Copyright @luxoss</p>
+         </div>
+    </div>
+  </body>
+</html>
