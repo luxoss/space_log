@@ -27,7 +27,8 @@
 
       #content {
         background-color: rgba(0, 128, 128, .7);
-        width: 580px;
+        width: 680px;
+        height:
         padding: 20px;
         margin-bottom: 20px;
         float: left;
@@ -36,7 +37,7 @@
 
       #sidebar {
         background-color: rgba(0, 128, 128, .7);
-        width: 260px;
+        width: 500px;
         padding: 20px;
         margin-bottom: 20px;
         float: right;
@@ -45,13 +46,14 @@
 
       #footer {
         background-color: rgba(0, 128, 128, .7);
+        font-weight: bold;
         text-align: center;
         clear: both;
         padding: 20px;
         border: 1px solid rgb(188, 188, 188);
       }
 
-      @media screen and (max-width:480px) {
+      @media screen and (max-width:480px) { /*width의 최소 길이가 480px이면, 아래와 같은 스타일 시트 적용 */
         #mid_container {
           width: auto;
         }
@@ -65,7 +67,6 @@
           float: none;
           width: auto;
         }
-
       }
     </style>
   </head>
