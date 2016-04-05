@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TEST Responsive Web</title>
+    <style media="screen">
+      #main_container {
+        width: 940px;
+        margin: 0px auto;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+
+      #header {
+        padding: 20px;
+        margin-bottom: 20px;
+        border: 1px solid #bcbcbc;
+      }
+
+      #content {
+        width: 580px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: left;
+        border: 1px solid #bcbcbc;
+      }
+
+      #sidebar {
+        width: 260px;
+        padding: 20px;
+        margin-bottom: 20px;
+        float: right;
+        border: 1px solid #bcbcbc;
+      }
+
+      #footer {
+        clear: both;
+        padding: 20px;
+        border: 1px solid #bcbcbc;
+      }
+
+      @media screen and (max-width:480px) {
+        #mid_container {
+          width: auto;
+        }
+
+        #content {
+          float: none;
+          width: auto;
+        }
+
+        #sidebar {
+          float: none;
+          width: auto;
+        }
+
+      }
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="main_container">
+         <div id="header">
+           <h1>THE SPACE LOG - Real Time Strategy Web Game</h1>
+         </div>
+         <div id="content">
+           <h2>Content</h2>
+           <p>This game is 'real time strayegy web game.' <br/>that makes html5, javascript, and html5.</p>
+         </div>
+         <div id="sidebar">
+           <h2>SIGN IN</h2>
+           <ul>
+             <li>ID</li>
+             <li>PASSWORD</li>
+             <li>EMAIL</li>
+           </ul>
+         </div>
+         <div id="footer">
+           <p>Copyright @luxoss</p>
+         </div>
+    </div>
+  </body>
+</html>
