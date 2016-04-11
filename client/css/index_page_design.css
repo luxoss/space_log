@@ -24,13 +24,14 @@ div table input {
 }
 
 .mid_container {
-    background-image: url("../res/img/space.jpg");
+    /*background-image: url("../res/img/space.jpg");*/
+    background-color: rgb(128, 32, 0);
     background-size: cover;
     border : 1px solid;
     border-color: rgb(255, 255, 255);
     border-radius: 5px;
     position: fixed;
-    top: 30px;
+    top: 0px;
     bottom: 30px;
     left: 300px;
     right: 300px;
@@ -73,6 +74,7 @@ div table input {
   font-weight: bold;
   /*background-color: rgba(0, 128, 128, .7);*/
   background-image: url('../res/img/title_img.png');
+  opacity: 0.8;
   border : 1px solid;
   border-color: rgb(255, 255, 255);
   border-top-left-radius: 5px;
@@ -87,8 +89,8 @@ div table input {
 }
 
 #footer {
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 128, 128, .7);
+  color: rgba(255, 255, 255, 0.7);
+  background-color: rgba(0, 0, 0, 0.7);
   border : 1px solid;
   border-color: rgb(255, 255, 255);
   border-bottom-left-radius: 5px;
