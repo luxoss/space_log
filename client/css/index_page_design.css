@@ -40,7 +40,7 @@ div table input {
 }
 
 .user_input {
-  background-color: rgba(0, 128, 128, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
+  background-color: rgba(0, 128, 128, 0.7); /* rgba : red, green, blue, alpha(That is opacity)*/
   width: 300px;
   height: 400px;
   position: fixed;
@@ -69,7 +69,6 @@ div table input {
 }
 
 #header {
-  color: rgb(255, 255, 255);
   font-size: 32pt;
   font-weight: bold;
   /*background-color: rgba(0, 128, 128, .7);*/
@@ -89,8 +88,8 @@ div table input {
 }
 
 #footer {
-  color: rgba(255, 255, 255, 0.7);
-  background-color: rgba(0, 0, 0, 0.7);
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   border : 1px solid;
   border-color: rgb(255, 255, 255);
   border-bottom-left-radius: 5px;
