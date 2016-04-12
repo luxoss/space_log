@@ -1,135 +1,62 @@
-/* Index page css desig*/
-
-@media screen and (max-width: 1024px, max-height: 768px){
-  /* max-width: 768px 이하일 때, 안의 코드 실행 */
+legend {
+  color: rgb(255, 255, 255);
 }
 
-body {
-  position: fixed;
-  background-color: rgb(255, 255, 255);
-}
-
-td, strong {
-  text-align: right;
-}
-
-div table {
-  width: 100%;
-  height: 100px;
-}
-
-div table input {
-  width: 100%;
-  height: 25px;
-}
-
-.mid_container {
-    /*background-image: url("../res/img/space.jpg");*/
-    background-color: rgb(128, 32, 0);
-    background-size: cover;
-    border : 1px solid;
-    border-color: rgb(255, 255, 255);
-    border-radius: 5px;
-    position: fixed;
-    top: 0px;
-    bottom: 30px;
-    left: 300px;
-    right: 300px;
-    width: 1280px;
-    height: 100%;
-}
-
-.user_input {
-  background-color: rgba(0, 128, 128, 0.7); /* rgba : red, green, blue, alpha(That is opacity)*/
-  width: 300px;
-  height: 400px;
-  position: fixed;
-  top: 250px;
-  right: 300px;
-  border : 1px solid;
-  border-color: rgb(255, 255, 255);
-  border-radius: 5px;
-}
-
-.submit_btn {
-  color: rgb(255, 255, 255); /* font color: white */
-  width: 290px;
-  height: 25px;
-  font-weight: bold;
-  background-color: rgba(0, 0, 0, .7);
-  border : 1px solid;
-  border-color: rgb(0, 0, 0);
-  border-radius: 5px;
-  /* transition property that is animate effect */
-  cursor: pointer;
-}
-
-.sumit_btn:hover {
-  /* Apply hover property and  detail effect */
+#main_container {
+  background-color: rgb(0, 128, 255);
+  width: 1280px;
+  margin: 0px auto;
+  padding: 1px;
 }
 
 #header {
-  font-size: 32pt;
-  font-weight: bold;
-  /*background-color: rgba(0, 128, 128, .7);*/
   background-image: url('../res/img/title_img.png');
-  opacity: 0.8;
-  border : 1px solid;
-  border-color: rgb(255, 255, 255);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  text-align: center;
-  position: fixed;
-  top: 0px;
-  left: 300px;
-  right: 300px;
-  width: 1280px;
-  height: 200px;
+  width: 1278px;
+  height: 150px;
+  position: relative;
+  float: none;
+  margin: 1px;
+  padding: 1px;
+  /*border: 1px solid rgb(255, 255, 255);*/
 }
 
-#footer {
-  color: rgba(255, 255, 255, 0.8);
-  background-color: rgba(0, 0, 0, 0.8);
-  border : 1px solid;
-  border-color: rgb(255, 255, 255);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
-  text-align: center;
-  position: fixed;
-  bottom: 0px;
-  left: 300px;
-  right: 300px;
-  width: 1280px;
-  height: 50px;
+#inner_container {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 58.59375%; /* 가변 그리드 공식 적용:  target(element width) ÷ context(parent element width) = result */
+  height: 500px;
+  float: left;
+  /*border-left: 1px solid rgb(255, 255, 255);*/
+  margin: 1px;
+  padding: 1px;
+}
+
+#user_info {
+  background-color: rgba(0, 0, 0, 0.7);
+  width: 40.70625%;
+  height: 500px;
+  float: right;
+  margin: 1px;
+  padding: 1px;
 }
 
 #login {
-  color : rgb(255, 255, 255);
-  background-color: rgba(0, 0, 128, .5);
-  border : 1px solid;
-  border-color: rgb(0, 0, 114);
-  border-radius: 5px;
-  width: 300px;
-  height: 100px;
-  top: 300px;
-  position: fixed;
-  box-shadow: 8px 8px 20px 2px rgb(0, 0, 0);
+  width: 200px;
+  height: 150px;
 }
 
-#sign_up {
-  color : rgb(255, 255, 255);
-  background-color: rgba(0, 0, 128, .5);
-  border : 1px solid;
-  border-color: rgb(0, 0, 114);
-  border-radius: 5px;
-  width: 300px;
-  height: 180px;
-  bottom: 350px;
-  position: fixed;
-  box-shadow: 8px 8px 20px 2px rgb(0, 0, 0);
+#join_form {
+  width: 200px;
+  height: 300px;
 }
 
-#check_email {
-  width: 50px;
-  text-align: left;
+#footer {
+  background-image: url('../res/img/footer_img.png');
+  width: 1278px;
+  height: 50px;
+  position: relative;
+  float: none;
+  /*border: 1px solid rgb(255, 255, 255);*/
+  clear: both;
+  margin: 1px;
+  padding: 1px;
 }

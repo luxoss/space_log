@@ -2,61 +2,32 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- 지정된 doctype에 상관없이, ie8 버전에서 항상 최신 표준 모드로 렌더링 적용하기 위함. 마이크로소프트 권장 사항 -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-<!--<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
-    <link rel="stylesheet" href="./css/index_page_design.css" media="screen" charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="./css/index_page_design.css" media="screen"/>
     <script type="text/javascript" src="./js/index_page_control.js"></script>
-    <title>The Space Log - RTS web game</title>
+    <!--<script tpye="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script> -->
+    <title>Welcome to the space log web game</title>
   </head>
   <body>
-    <div class="mid_container">
-      <div id="header"></div>
-      <div class="user_input">
+    <div id="main_container"> <!-- Main container -->
+      <div id="header"></div>  <!-- Header division -->
+      <div id="inner_container"></div> <!-- Inner container division -->
+      <div id="user_info"> <!-- User information division -->
         <div id="login">
-          <table>
-            <tr>
-              <td><strong>Username:<strong></td>
-              <td><input type="text" id="username" name="username" value="" pattern="" maxlength="9"/></td>
-            </tr>
-            <tr>
-              <td><strong>Password:</strong></td>
-              <td><input type="password" id="password" name="password" value="" pattern="" maxlength="12"/></td>
-            </tr>
-            <tr>
-              <td colspan="2">
-                <input type="button" class="submit_btn" name="play_btn" value="LOGIN" onclick="connect_main_display()"></input> <!-- connect_main_display() is connected by socket.io -->
-              </td>
-            </tr>
-          </table>
+            <img src="" alt="" /><input type="text" name="id" value=""><br/>
+            <img src="" alt="" /><input type="password" name="password" value="">
         </div>
-        <div id="sign_up">
-          <form action="http://localhost:8080/" method="post">
-            <table>
-             <tr>
-               <td><strong>Username:</strong></td>
-               <td><input type="text" id="username" name="username" value="" placeholder="SPACE VOYAGER ID"/></td> <!-- Not yet pattern, maxlength property -->
-             </tr>
-             <tr>
-               <td><strong>Password:</strong></td>
-               <td><input type="password" id="password" name="password" value=""/></td>  <!-- Not yet pattern, maxlength property -->
-             </tr>
-             <tr>
-               <td><strong>Email:</strong></td>
-               <td><input type="email" id="email" name="email" value="" placeholder="GUEST@DOMAIN.COM"/></td>
-             </tr>
-             <tr>
-               <td colspan="2"><strong>이메일 수신여부를 체크해주세요</strong><input type="checkbox" id="check_email" name="check_email"></input></td> <!-- 체크 시 'on' 이라는 데이터가 서버로 전송됨 -->
-             </tr>
-             <tr>
-               <td colspan="2"><input type="submit" class="submit_btn" onclick="check_user_info()" value="JOIN"/></td> <!-- 서버로 전송 시 자바스크립트 객체 형태(key['name']: value, ...)로 전송됨 -->
-             </tr>
-           </table>
-          </form>
-        </div>
+        <form id="join_form" action="http://" method="post">
+          <fieldset>
+            <legend>JOIN</legend>
+                <img src="" alt="" /><input type="text" name="username" placeholder="username" value=""><br/>
+                <img src="" alt="" /><input type="password" name="password" placeholder="password" value=""><br/>
+                <img src="" alt="" /><input type="email" name="email" placeholder="domain@guest.com" value=""><br/>
+                <img src="" alt="" /><input type="submit" name="join" value="JOIN">
+          </fieldset>
+        </form>
       </div>
-      <div id="footer">
-        <br/>THIS IS STRATEGY WEB GAME. TRAVEL IN THE UNIVERSE WITH US.
-      </div>
+      <div id="footer"></div> <!-- footer division -->
     </div>
+  </body>
 </html>
