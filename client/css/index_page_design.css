@@ -6,7 +6,7 @@
 
 body {
   position: fixed;
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(255, 255, 255);
 }
 
 td, strong {
@@ -24,26 +24,28 @@ div table input {
 }
 
 .mid_container {
-    background-image: url("../res/img/space.jpg");
+    /*background-image: url("../res/img/space.jpg");*/
+    background-color: rgb(128, 32, 0);
     background-size: cover;
-    /*height: 670px;*/
-    position: fixed;
-    top: 30px;
-    bottom: 30px;
-    left: 10px;
-    right: 10px;
     border : 1px solid;
     border-color: rgb(255, 255, 255);
     border-radius: 5px;
+    position: fixed;
+    top: 0px;
+    bottom: 30px;
+    left: 300px;
+    right: 300px;
+    width: 1280px;
+    height: 100%;
 }
 
 .user_input {
-  background-color: rgba(0, 128, 128, .7); /* rgba : red, green, blue, alpha(That is opacity)*/
+  background-color: rgba(0, 128, 128, 0.7); /* rgba : red, green, blue, alpha(That is opacity)*/
   width: 300px;
   height: 400px;
   position: fixed;
   top: 250px;
-  right: 25px;
+  right: 300px;
   border : 1px solid;
   border-color: rgb(255, 255, 255);
   border-radius: 5px;
@@ -67,34 +69,37 @@ div table input {
 }
 
 #header {
-  color: rgb(255, 255, 255);
   font-size: 32pt;
   font-weight: bold;
-  background-color: rgba(0, 128, 128, .7);
+  /*background-color: rgba(0, 128, 128, .7);*/
+  background-image: url('../res/img/title_img.png');
+  opacity: 0.8;
   border : 1px solid;
   border-color: rgb(255, 255, 255);
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
   text-align: center;
   position: fixed;
-  top: 30px;
-  left: 10px;
-  right: 10px;
-  height: 100px;
+  top: 0px;
+  left: 300px;
+  right: 300px;
+  width: 1280px;
+  height: 200px;
 }
 
 #footer {
-  color: rgb(255, 255, 255);
-  background-color: rgba(0, 128, 128, .7);
+  color: rgba(255, 255, 255, 0.8);
+  background-color: rgba(0, 0, 0, 0.8);
   border : 1px solid;
   border-color: rgb(255, 255, 255);
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   text-align: center;
   position: fixed;
-  bottom: 30px;
-  left: 10px;
-  right: 10px;
+  bottom: 0px;
+  left: 300px;
+  right: 300px;
+  width: 1280px;
   height: 50px;
 }
 
