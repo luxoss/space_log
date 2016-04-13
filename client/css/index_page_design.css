@@ -12,6 +12,7 @@ input {
 
 .input_btn {
   color: rgb(255, 255, 0);
+  font-weight: bold;
   background-color: rgb(0, 64, 128);
 }
 
