@@ -8,16 +8,6 @@ function connect_main_display() {
 }
 */
 
-//Test dom obj in javascript
-var header = document.getElementById('header');
-
-if(typeof header !== 'undefined' && header !== null){
-  document.getElementById('header').style.color = "white";
-}
-
-
-
-
 // Check user infomation function
 function check_user_info()
 {
