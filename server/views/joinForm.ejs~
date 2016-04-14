@@ -30,7 +30,7 @@
 					$("#email").focus();
 					return ;
 				}
-				//$("#joinForm").submit();
+				$("#joinForm").submit();
 
 			}
 			);
