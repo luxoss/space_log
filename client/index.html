@@ -21,7 +21,7 @@
           &nbsp;<input type="password" name="password" placeholder="password" value=""><br/><br/>
           &nbsp;<input type="button" class="input_btn" name="login" value="LOGIN" onclick="check_user_info();"> <!-- Check user list and login main.html page -->
         </div>
-        <form id="join_form" action="http://52.79.132.7:3001/join/" method="post"> <!-- Join form -->
+        <form id="join_form" action="http://52.79.132.7:8888/join" method="post"> <!-- Join form -->
           <br/>
           &nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/>
           &nbsp;<input type="text" name="username" placeholder="username" value=""><br/>
@@ -29,7 +29,7 @@
           &nbsp;<input type="password" name="password" placeholder="password" value=""><br/>
           &nbsp;<img src="./res/img/email_img.png" alt="email_img.png" /><br/>
           &nbsp;<input type="email" name="email" placeholder="domain@guest.com" value=""><br/><br/>
-          &nbsp;<input type="submit" class="input_btn" name="join" value="JOIN" onclick="push_user_info();">
+          &nbsp;<input type="submit" class="input_btn" onclick="push_user_info();">
         </form>
       </div>
       <div id="footer"></div> <!-- footer division -->
