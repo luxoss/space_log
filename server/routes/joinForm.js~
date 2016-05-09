@@ -30,8 +30,6 @@ MongoClient.connect("mongodb://localhost/admin", function(err,db){
         console.log("Before Add Database List: ");
         console.log(databases);
 	console.log("ID : " + memObj.username);
-	console.log("PW : " + memObj.password);
-	console.log("EM : " + memObj.email);
     });
 });
 
