@@ -5,25 +5,6 @@ var memObj;//Object that receive member information from client.
 
 var username, password, email;
 
-var mongodb = require('mongodb');
-var MClient = mongodb.MongoClient;
-var url = 'mongodb://localhost:27017/space_log';
-
-// Use connect method to connect to the Server
-MClient.connect(url, function (err, db) {
-  if (err) {
-    console.log('Unable to connect to the mongoDB server. Error:', err);
-  } else {
-    //HURRAY!! We are connected. :)
-    console.log('Connection established to', url);
-
-    // do some work here with the database.
-
-    //Close connection
-    db.close();
-  }
-});
-
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	res.render('joinForm',{title: 'joinForm~~~~'});
@@ -37,14 +18,32 @@ router.post('/', function(req,res,next){
 	password = memObj.password;
 	email = memObj.email;
 
-//	console.log(memObj.username);
-//	console.log(memObj.password);
-//	console.log(memObj.email);
-	console.log(username);
-	console.log(password);
-	console.log(email);
+	console.log("Variable : " + username);
+	console.log("Variable : " + password);
+	console.log("Variable : " + email);
 	res.json(memObj);
+////////////////////////	
+
+	var MongoClient = require('mongodb').MongoClient;
+	MongoClient.connect("mongodb://localhost/space_log", function(err,db){
+	var adminDB = db.admin();
+	adminDB.listDatabases(function(err, databases){
+        	console.log("Before Add Database List: ");
+	        console.log(databases);
+		console.log("ID : " + username);
+		console.log("PW : " + password);
+		console.log("EM : " + email);
+    	        });
 	
+	db.collection("MEMBER").insert({"username" : username, "password" : password, "email" : email}, function (e){
+		console.log(e);
+		db.close();
+	});
+
+	});
+
+//////////////////////////
+
 });
 
 
