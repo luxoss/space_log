@@ -14,7 +14,7 @@ router.post('/', function(req,res,next){
 	console.log('req.body : ' + req.body);
 	memObj = req.body;
 
-	username = memObj.username;
+	username = memObj.username;//Undefined name 
 	password = memObj.password;
 
 	console.log("Variable : " + username);
