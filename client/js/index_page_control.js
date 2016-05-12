@@ -1,26 +1,32 @@
 /* Check some user information and enter the 'main page'*/
 function connect_main_display()
 {
-  var socket = io();
+  var socket = new io.Socket(); // Create socket
+  var username = document.getElementById('username');
+  var password = document.getElementById('password');
+  var user_info = new Object();
 
-  socket.on('emmit msg', function(data){
-    addMessage(data.mssage);
+  // Create user_info property that 'username and password'
+  user_info.username = username.value;
+  user_info.password = password.value;
 
-    socket.emit('client', {data: 'grouping', id: data.id, password: data.password});
+  // Connect socket 'http://52.79.132.7:8888'
+  socket.connect('http://52.79.132.7:8888');
+
+  // Send to msg 'user_info'
+  socket.on('connect', function(){
+    socket.emit('message', user_info);
   });
 
-  socket.on('time', function(data){
-    addMessage(data.time);
+  // If dissconn this page, u can see the msg 'dissconnected'
+  socket.on('disconnect', function(){
+    alert('Dissconnected!');
   });
-
-  socket.on('error', console.error.bind(console));
-  socket.on('message', console.log.bind(console));
-
 
   return ;
 }
 
-
+// If u click 'join' button, use this function that 'push_user_info'
 function push_user_info()
 {
 
