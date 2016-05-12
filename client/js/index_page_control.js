@@ -6,7 +6,7 @@ function connect_main_display()
   var password = document.getElementById('password');
   var user_info = new Object();
 
-  // Create user_info property that 'username and password'
+  // Create user_info obj and property that 'username and password'
   user_info.username = username.value;
   user_info.password = password.value;
 
@@ -25,10 +25,11 @@ function connect_main_display()
     alert('Dissconnected!');
   });
 
+  // Error handling
   socket.on('connect_error', function(err){
     alert('connect error!!!', err);
   });
-  
+
   return ;
 }
 
