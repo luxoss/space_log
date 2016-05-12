@@ -20,6 +20,10 @@ router.post('/', function(req,res,next){
 	password = memObj.password;
 	email = memObj.email;
 
+	IP = memObj.ip;
+	PORT = memObj.port;
+
+
 	console.log("Variable : " + username);
 	console.log("Variable : " + password);
 	console.log("Variable : " + email);
