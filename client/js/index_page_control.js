@@ -11,7 +11,9 @@ function connect_main_display()
   user_info.password = password.value;
 
   // Connect socket 'http://52.79.132.7:8888'
-  socket.connect('http://52.79.132.7:8888');
+  socket.connect('http://52.79.132.7:8888', {
+    timeout: 3000
+  });
 
   // Send to msg 'user_info'
   socket.on('connect', function(){
@@ -23,6 +25,10 @@ function connect_main_display()
     alert('Dissconnected!');
   });
 
+  socket.on('connect_error', function(err){
+    alert('connect error!!!', err);
+  });
+  
   return ;
 }
 
