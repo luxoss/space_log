@@ -18,6 +18,7 @@ function connect_main_display()
   // Send to msg 'user_info'
   socket.on('connect', function(){
     socket.emit('message', user_info);
+    location.href('../client/main.html');
   });
 
   // If dissconn this page, u can see the msg 'dissconnected'
@@ -36,5 +37,7 @@ function connect_main_display()
 // If u click 'join' button, use this function that 'push_user_info'
 function push_user_info()
 {
+  location.reload();
 
+  return ;
 }
