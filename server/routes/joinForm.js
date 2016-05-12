@@ -20,8 +20,8 @@ router.post('/', function(req,res,next){
 	password = memObj.password;
 	email = memObj.email;
 
-	IP = memObj.ip;
-	PORT = memObj.port;
+//	IP = memObj.ip;
+//	PORT = memObj.port;
 
 
 	console.log("Variable : " + username);
@@ -40,14 +40,25 @@ router.post('/', function(req,res,next){
 		console.log("PW : " + password);
 		console.log("EM : " + email);
     	        });
-	var dbsuccess;
-	dbsuccess = db.collection("MEMBER").insert({"username" : username, "password" : password, "email" : email}, function (e){
-		console.log(e);
+
+
+//	var dbsuccess;
+
+	var document = {"username" : username, "password" : password, "email" : email};
+	db.collection("MEMBER").insert(document, function (err, records){
+		if(err){
+			//Send response value to Client(I need Client's IP address and Port number). This case response value is false
+			throw err;
+		}
+		else{
+			//response = true
+		}
+		//console.log(err);
 		db.close();
 	});
 
 	});
-	console.log("DB Success ? " + dbsuccess);
+//	console.log("DB Success ? " + dbsuccess);
 //////////////////////////
 
 });
