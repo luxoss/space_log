@@ -4,6 +4,8 @@ var router = express.Router();
 var memObj;//Object that receive member information from client.
 
 var username, password, email;
+var IP, PORT;
+
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
@@ -17,6 +19,10 @@ router.post('/', function(req,res,next){
 	username = memObj.username;
 	password = memObj.password;
 	email = memObj.email;
+
+//	IP = memObj.ip;
+//	PORT = memObj.port;
+
 
 	console.log("Variable : " + username);
 	console.log("Variable : " + password);
@@ -34,14 +40,25 @@ router.post('/', function(req,res,next){
 		console.log("PW : " + password);
 		console.log("EM : " + email);
     	        });
-	
-	db.collection("MEMBER").insert({"username" : username, "password" : password, "email" : email}, function (e){
-		console.log(e);
+
+
+//	var dbsuccess;
+
+	var document = {"username" : username, "password" : password, "email" : email};
+	db.collection("MEMBER").insert(document, function (err, records){
+		if(err){
+			//Send response value to Client(I need Client's IP address and Port number). This case response value is false
+			throw err;
+		}
+		else{
+			//response = true
+		}
+		//console.log(err);
 		db.close();
 	});
 
 	});
-
+//	console.log("DB Success ? " + dbsuccess);
 //////////////////////////
 
 });
