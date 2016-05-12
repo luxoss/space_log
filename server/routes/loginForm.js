@@ -4,6 +4,7 @@ var router = express.Router();
 var memObj;//Object that receive member information from client.
 
 var username, password;
+var IP, PORT;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
