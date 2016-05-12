@@ -1,25 +1,21 @@
 /* Check some user information and enter the 'main page'*/
-var socket = new io.Socket('', {
-  port: 8000
-});
-
-var user_info = {
-    'name':
-    this.x;
-    this.y;
-};
-
 function connect_main_display()
 {
-  socket.connect();
+  var socket = io();
 
-  socket.on('connect', function(){
-    alert(user_info['name'] + is connect to server);
+  socket.on('emmit msg', function(data){
+    addMessage(data.mssage);
+
+    socket.emit('client', {data: 'grouping', id: data.id, password: data.password});
   });
 
-  socket.on('disconnect', function(){
-
+  socket.on('time', function(data){
+    addMessage(data.time);
   });
+
+  socket.on('error', console.error.bind(console));
+  socket.on('message', console.log.bind(console));
+
 
   return ;
 }
