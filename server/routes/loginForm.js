@@ -6,11 +6,24 @@ var memObj;//Object that receive member information from client.
 var username, password;
 var IP, PORT;
 
+var io;
+
+
 /* GET users listing. */
 router.get('/', function(req, res, next) {
 	res.render('loginForm',{title: 'loginForm~~~~'});
 });
 
+io=require('socket.io');
+
+io.sockets.on('connection', function(socket){
+	socket.on('ip', function(data){
+		console.log(data);
+	});
+});
+
+
+/*
 router.post('/', function(req,res,next){
 	console.log('req.body : ' + req.body);
 	memObj = req.body;
@@ -54,7 +67,7 @@ router.post('/', function(req,res,next){
 
 });
 
-
+*/
 
 
 module.exports = router;
