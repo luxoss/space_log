@@ -48,10 +48,12 @@ router.post('/', function(req,res,next){
 	db.collection("MEMBER").insert(document, function (err, records){
 		if(err){
 			//Send response value to Client(I need Client's IP address and Port number). This case response value is false
+			console.log("Insert to Db ERR :" + err);
 			throw err;
 		}
 		else{
 			//response = true
+			console.log("Success!!!!!!!!!!!!!!!!!!!");
 		}
 		//console.log(err);
 		db.close();
