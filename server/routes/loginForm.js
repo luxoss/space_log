@@ -18,8 +18,17 @@ router.post('/', function(req,res,next){
 	username = memObj.username;//Undefined name 
 	password = memObj.password;
 
+	//
+	IP = memObj.ip;
+	PORT = memObj.port;
+	
+
 	console.log("Variable : " + username);
 	console.log("Variable : " + password);
+
+	console.log("Client's IP address" + IP);
+	console.log("client's PORT number" + PORT);
+	
 
 	res.json(memObj);
 ////////////////////////	
