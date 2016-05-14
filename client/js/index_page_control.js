@@ -10,10 +10,10 @@ function connect_main_display()
   user_info.username = username;
   user_info.password = password;
 
-  $('form').submit(function(){
+  $('login').submit(function(){
     socket.connect('http://52.79.132.7:8888/login', {
       timeout: 3000;
-      socket.emit('message', {'username' : user_info['username'], 'password' : user_info['password']});
+      socket.emit('login_msg', {'username' : user_info['username'], 'password' : user_info['password']});
       location.href('../client/main.html');
     });
     /*
