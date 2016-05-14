@@ -1,7 +1,8 @@
 /* Check some user information and enter the 'main page'*/
+var socket = io(); // Create global obj io() in socket.io
+
 function connect_main_display()
 {
-  var socket = io(); // Create socket
   var username = document.getElementById('username').value;
   var password = document.getElementById('password').value;
   var user_info = new Object();
