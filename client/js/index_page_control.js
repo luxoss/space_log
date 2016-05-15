@@ -1,5 +1,5 @@
 /* Check some user information and enter the 'main page'*/
-var socket = io(); // Create global obj io() in socket.io
+var socket = io.connect('http://52.79.132.7:8888/login'); // Create global obj io() in socket.io
 
 function connect_main_display()
 {
@@ -11,18 +11,13 @@ function connect_main_display()
   user_info.username = username;
   user_info.password = password;
 
-  $('login').submit(function(){
-    socket.connect('http://52.79.132.7:8888/login', {
-      timeout: 3000;
-      socket.emit('login_msg', {'username' : user_info['username'], 'password' : user_info['password']});
-      location.href('../client/main.html');
+  socket.on('connect', function(data){
+    $('login').submit(function(){
+        timeout: 3000;
+        socket.emit('login_msg', {'username' : user_info['username'], 'password' : user_info['password']});
+        location.href('../client/main.html');
     });
-    /*
-    socket.on('connect', function(){
-    });
-    */
   });
-
 
   // If dissconn this page, u can see the msg 'dissconnected'
   socket.on('disconnect', function(){
@@ -33,8 +28,6 @@ function connect_main_display()
   socket.on('connect_error', function(err){
     alert('connect error!!!', err);
   });
-
-  return ;
 }
 
 // If u click 'join' button, use this function that 'push_user_info'
