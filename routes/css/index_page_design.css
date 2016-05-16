@@ -1,0 +1,107 @@
+body{
+  background-color: rgb(0, 32, 64);
+}
+
+input {
+  width: 290px;
+  height: 30px;
+  margin: 0px;
+  padding: 0px;
+  border: 1px solid rgb(255, 255, 255);
+}
+/*
+.input_btn {
+  color: rgb(255, 255, 0);
+  font-weight: bold;
+  background-color: rgb(0, 64, 128);
+}
+*/
+
+#login_btn {
+  color: rgb(255, 255, 0);
+  font-weight: bold;
+  background-color: rgb(0, 64, 128);
+}
+
+#join_btn {
+  color: rgb(255, 255, 0);
+  font-weight: bold;
+  background-color: rgb(0, 64, 128);  
+}
+
+#main_container {
+  background-color: rgb(0, 0, 0);
+  width: 1280px;
+  margin: 0px auto;
+  padding: 1px;
+}
+
+#header {
+  background-image: url('../res/img/title_img.png');
+  width: 1278px;
+  height: 150px;
+  position: relative;
+  float: none;
+  margin: 1px;
+  padding: 0px;
+  border-bottom: 2px solid rgb(102, 97, 0);
+  /*border: 1px solid rgb(255, 255, 255);*/
+}
+
+#inner_container {
+  background-image: url('../res/img/main_img.png');
+  width: 58.59375%; /* 가변 그리드 공식 적용:  target(element width) ÷ context(parent element width) = result */
+  height: 720px;
+  float: left;
+  /*border-left: 1px solid rgb(255, 255, 255);*/
+  margin: 1px;
+  padding: 1px;
+  border: 0px;
+}
+
+#user_info {
+  background-color: rgb(0, 0, 0);
+  width: 40.77725%;
+  height: 720px;
+  float: right;
+  margin: 1px;
+  padding: 1px;
+  border: 0px;
+}
+
+#login {
+  float: right;
+  background-color: rgba(128, 128, 128, 0.5);
+  width: 300px;
+  height: 250px;
+  /*border: 1px solid rgb(255, 255, 255);*/
+  border-radius: 5px;
+  position: relative;
+  top: 100px;
+  right: 100px;
+}
+
+#join_form {
+  float: right;
+  background-color: rgba(128, 128, 128, 0.5);
+  width: 300px;
+  height: 300px;
+  /*border: 1px solid rgb(255, 255, 255);*/
+  border-radius: 5px;
+  position: relative;
+  top: 110px;
+  right: 100px;
+}
+
+#footer {
+  background-image: url('../res/img/footer_img.png');
+  width: 1276px;
+  height: 50px;
+  position: relative;
+  float: none;
+  /*border: 1px solid rgb(255, 255, 255);*/
+  clear: both;
+  margin: 1px;
+  padding: 1px;
+  border-top: 2px solid rgb(102, 97, 0);
+}
