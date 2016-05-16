@@ -14,7 +14,7 @@ function connect_main_display()
   socket.on('connect', function(data){
     $('login').click(function(){
         timeout: 3000;
-        socket.emit('login_msg', {'username' : user_info['username'], 'password' : user_info['password']});
+        socket.emit('login_msg', {username : "user_info['username']", password : "user_info['password']"});
         location.href('../client/main.html');
     });
   });
