@@ -5,7 +5,7 @@ var fs = require('fs');
 app.listen(3000);
 
 function handler (req, res) {
-  fs.readFile(__dirname + '../index.html',
+  fs.readFile('/home/ubuntu/nodejs/Github/space_log/server/client/index.html',
   function (err, data) {
     if (err) {
       res.writeHead(500);
