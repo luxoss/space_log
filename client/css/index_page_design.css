@@ -9,11 +9,24 @@ input {
   padding: 0px;
   border: 1px solid rgb(255, 255, 255);
 }
-
+/*
 .input_btn {
   color: rgb(255, 255, 0);
   font-weight: bold;
   background-color: rgb(0, 64, 128);
+}
+*/
+
+#login_btn {
+  color: rgb(255, 255, 0);
+  font-weight: bold;
+  background-color: rgb(0, 64, 128);
+}
+
+#join_btn {
+  color: rgb(255, 255, 0);
+  font-weight: bold;
+  background-color: rgb(0, 64, 128);  
 }
 
 #main_container {
