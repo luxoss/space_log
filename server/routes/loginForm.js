@@ -17,6 +17,7 @@ router.get('/', function(req, res, next) {
 io=require('socket.io');
 
 io.sockets.on('connection', function(socket){
+	console.log('Connect with client!!!')
 	socket.on('login_msg', function(data){
 		console.log(data);
 	});
