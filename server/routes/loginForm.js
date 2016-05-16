@@ -5,7 +5,7 @@ var fs = require('fs');
 app.listen(3000);
 
 function handler (req, res) {
-  fs.readFile('/home/ubuntu/nodejs/Github/space_log/server/client/index.html',
+  fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
   function (err, data) {
     if (err) {
       res.writeHead(500);
@@ -24,6 +24,7 @@ io.on('connection', function (socket) {
   });
 });
 
+console.log('Starting at http://52.79.132.7:3000');
 
 /*
 var express= require('express');
