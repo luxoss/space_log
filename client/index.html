@@ -4,9 +4,34 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
     <link rel="stylesheet" href="./css/index_page_design.css" media="screen"/>
-    <script type="text/javascript" src="./js/index_page_control.js"></script>
-    <script tpye="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+ <!--   <script type="text/javascript" src="./js/index_page_control.js"></script> -->
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
     <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script type="text/javascript">
+//	var username = document.getElementById('username').value;
+//	var password = document.getElementById('password').value;
+//	var user_info = new Object();
+
+	// Create user_info obj and property that 'username and password'
+//	user_info.username = username;
+//	user_info password = password;
+//	var username = $('#username').val();
+//	var password = $('#password').val();
+//	var user_info = new Object();
+	
+//	user_info.username = username;
+//	user_info.password = password; 
+
+	$(document).ready(function(){
+		$('#login_btn')
+			.on('click', function(){
+				var socket = io('http://localhost:3001'); // Create obj io() in socket.io
+				alert('click');
+				socket.emit('login_msg', {username: 'user_info.username', password: 'user_info.password'});
+				//location.href('../client/main.html');
+			});
+	});
+    </script>
     <title>Welcome to the space log web game</title>
   </head>
   <body>
@@ -14,13 +39,13 @@
       <div id="header"></div>  <!-- Header division -->
       <div id="inner_container"></div> <!--Inner container division -->
       <div id="user_info"> <!-- User information division -->
-        <form id="login" action=""  method="post"> <!-- login form -->
+        <form id="login" action=""  method=""> <!-- login form -->
           <br/>
           &nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/>
           &nbsp;<input type="text" name="username" placeholder="username" value=""/><br/>
           &nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
           &nbsp;<input type="password" name="password" placeholder="password" value="" /><br/><br/>
-          &nbsp;<input type="button" id="login_btn" name="login" value=""/> <!-- Check user list and login main.html page -->
+          &nbsp;<input type="button" id="login_btn" name="login" value="login"/> <!-- Check user list and login main.html page -->
         </form>
         <form id="join_form" action="http://52.79.132.7:8888/join" method="post"> <!-- Join form -->
           <br/>

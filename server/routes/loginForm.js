@@ -1,38 +1,77 @@
-var express = require('express');
+var app = require('http').createServer(handler)
+var io = require('socket.io')(app);
+var fs = require('fs');
+
+app.listen(3000);
+
+function handler (req, res) {
+  fs.readFile(__dirname + '../index.html',
+  function (err, data) {
+    if (err) {
+      res.writeHead(500);
+      return res.end('Error loading index.html  ' + err);
+    }
+
+    res.writeHead(200);
+    res.end(data);
+  });
+}
+
+io.on('connection', function (socket) {
+ // socket.emit('news', { hello: 'world' });
+  socket.on('login_msg', function (data) {
+    console.log(data);
+  });
+});
+
+
+/*
+var express= require('express');
+var io = require('socket.io')();
+
 var router = express.Router();
+
+
+
 
 var memObj;//Object that receive member information from client.
 
 var username, password;
 var IP, PORT;
 
-var io;
 
 
-/* GET users listing. */
+// GET users listing.
 
 router.get('/', function(req, res, next) {
 	res.render('loginForm',{title: 'loginForm~~~~'});
 });
 
 
+if(io.on('connection', function(socket){
+	socket.on('login_msg', function(data){
+		console.log(data);
+	});
 
-io=require('socket.io')();
-
-io.sockets.on('connection', function(socket){
-	console.log('Connect with client!!!')
+})){
+	console.log("connection!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+}
+*/
+/*
+io.on('connection', function(socket){
+	console.log('Connect with client!!!');
 	socket.on('login_msg', function(data){
 		console.log(data);
 	});
 });
+*/
 
-
-
+/*
 router.post('/', function(req,res,next){
 	console.log('req.body : ' + req.body);
 	memObj = req.body;
 
-	username = memObj.username;//Undefined name
+	username = memObj.username;//Undefined name;
 	password = memObj.password;
 
 	//
@@ -77,5 +116,5 @@ router.post('/', function(req,res,next){
 
 
 
-
-module.exports = router;
+*/
+//module.exports = router;
