@@ -20,7 +20,8 @@ router.post('/', function(req,res,next){
 io=require('socket.io')();
 
 io.sockets.on('connection', function(socket){
-	socket.on('ip', function(data){
+	console.log('Connect with client!!!')
+	socket.on('login_msg', function(data){
 		console.log(data);
 	});
 });
@@ -31,23 +32,23 @@ router.post('/', function(req,res,next){
 	console.log('req.body : ' + req.body);
 	memObj = req.body;
 
-	username = memObj.username;//Undefined name 
+	username = memObj.username;//Undefined name
 	password = memObj.password;
 
 	//
 	IP = memObj.ip;
 	PORT = memObj.port;
-	
+
 
 	console.log("Variable : " + username);
 	console.log("Variable : " + password);
 
 	console.log("Client's IP address" + IP);
 	console.log("client's PORT number" + PORT);
-	
+
 
 	res.json(memObj);
-////////////////////////	
+////////////////////////
 
 	var MongoClient = require('mongodb').MongoClient;
 	MongoClient.connect("mongodb://localhost/space_log", function(err,db){
@@ -58,7 +59,7 @@ router.post('/', function(req,res,next){
 		console.log("ID : " + username);
 		console.log("PW : " + password);
     	        });
-	
+
 	db.collection("MEMBER").findOne({"username" : username, "password" : password}, function (e){
 		console.log(e);
 		db.close();
