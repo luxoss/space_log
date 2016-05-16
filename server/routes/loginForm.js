@@ -10,13 +10,13 @@ var io;
 
 
 /* GET users listing. */
-/*
+
 router.get('/', function(req, res, next) {
 	res.render('loginForm',{title: 'loginForm~~~~'});
 });
 
 
-router.post('/', function(req,res,next){
+
 io=require('socket.io')();
 
 io.sockets.on('connection', function(socket){
@@ -25,8 +25,8 @@ io.sockets.on('connection', function(socket){
 		console.log(data);
 	});
 });
-});
-*/
+
+
 
 router.post('/', function(req,res,next){
 	console.log('req.body : ' + req.body);
@@ -43,12 +43,16 @@ router.post('/', function(req,res,next){
 	console.log("Variable : " + username);
 	console.log("Variable : " + password);
 
-	console.log("Client's IP address" + IP);
-	console.log("client's PORT number" + PORT);
+//	console.log("Client's IP address" + IP);
+//	console.log("client's PORT number" + PORT);
 
 
 	res.json(memObj);
-////////////////////////
+
+
+
+
+////////////////////////////////
 
 	var MongoClient = require('mongodb').MongoClient;
 	MongoClient.connect("mongodb://localhost/space_log", function(err,db){
