@@ -5,23 +5,29 @@ var fs = require('fs');
 app.listen(3000);
 
 function handler (req, res) {
-  fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
-  function (err, data) {
-    if (err) {
-      res.writeHead(500);
-      return res.end('Error loading index.html  ' + err);
-    }
+  	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
+  	function (err, data) {
+    	if (err) {
+      		res.writeHead(500);
+      		return res.end('Error loading index.html  ' + err);
+    	}
 
-    res.writeHead(200);
-    res.end(data);
-  });
+    	res.writeHead(200);
+   	 res.end(data);
+  	});
 }
 
 io.on('connection', function (socket) {
- // socket.emit('news', { hello: 'world' });
-  socket.on('login_msg', function (data) {
-    console.log(data);
-  });
+ 	// socket.emit('news', { hello: 'world' });
+  	socket.on('login_msg', function (data) {
+    		console.log(data);
+		
+  	});
+
+  	socket.on('join_msg', function (data){
+		console.log(data);
+	});
+
 });
 
 console.log('Starting at http://52.79.132.7:3000');
