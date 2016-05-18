@@ -1,4 +1,4 @@
-/* Check some user information and enter the 'main page'*/
+/*
 var username = document.getElementById('username').value;
 var password = document.getElementById('password').value;
 var user_info = new Object();
@@ -26,3 +26,4 @@ function push_user_info()
 
   return ;
 }
+*/
