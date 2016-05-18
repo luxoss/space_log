@@ -19,9 +19,9 @@
 //	var username = $('#username').val();
 //	var password = $('#password').val();
 //	var user_info = new Object();
-	
+
 //	user_info.username = username;
-//	user_info.password = password; 
+//	user_info.password = password;
 
 	$(document).ready(function(){
 		$('#login_btn')
@@ -29,7 +29,7 @@
 				var socket = io('http://52.79.132.7:3000'); // Create obj io() in socket.io
 				var username = $('#username').val(); // document.getElementById('username').value;
 				var password = $('#password').val(); // document.getElementById('password').value;
-				var main_page_url = "http://52.79.132.7:8000/client/main.html";				
+				var main_page_url = "http://52.79.132.7:8000/client/main.html";
 				var user_info = new Object(); // Create new Obj 'user_info'
 
 				user_info.username = username;
@@ -41,8 +41,10 @@
 				//$(location).attr('href', main_page_url);
 				socket.on('login_res', function(data){
 					var user_id = data.response;
-					alert(data);
-					if(data = 'ture'){
+
+          alert(data);
+
+					if(data = 'true'){
 						alert(user_id + '님 space_log 세계에 오신 것을 환영합니다.');
 						$(location).attr('href', main_page_url);
 					}
