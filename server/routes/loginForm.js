@@ -47,21 +47,15 @@ io.on('connection', function (socket) {
 					throw err;
 				}
 				else{
-					if(result){
-						console.log('result  ' + result.name);
-						
-					}					
-					else{
-
-						console.log("Finding is Success!!!!!!!!!!!!!!!!!!!!!!!");
-						socket.emit('login_res', {response : 'true'});
-					}
+					console.log("Finding is Success!!!!!!!!!!!!!!!!!!!!!!!");
+					socket.emit('login_res', {response : 'true'});
+					
 				}
 				db.close();
 			});*/
-			var q = db.collection("MEMBER").findOne(document);
+
 			if(db.collection("MEMBER").findOne(document)){ //start if
-				console.log("Success!!! Find data!   "+"q : " + q);
+				console.log("Success!!! Find data! ");
 				socket.emit('login_res', {response : 'true'});
 			}//end if
 			else{
