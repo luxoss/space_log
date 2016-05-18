@@ -35,19 +35,21 @@
 				user_info.username = username;
 				user_info.password = password;
 
-				alert('Send to server that login_msg...');
+				alert("Send to server that login_msg...");
 
 				socket.emit('login_msg', {username: user_info.username, password: user_info.password});
 				//$(location).attr('href', main_page_url);
 				socket.on('login_res', function(data){
-					var user_id = data.response;
-					alert(data);
-					if(data = 'ture'){
-						alert(user_id + '님 space_log 세계에 오신 것을 환영합니다.');
+					var user_id = user_info.username;
+					
+					alert(data['response']);
+
+					if(data['response'] == "true"){
+						alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
 						$(location).attr('href', main_page_url);
 					}
 					else{
-						alert('해당 아이디가 이미 있거나 틀린 비밀번호 입니다. 다시 시도해 주세요.');
+						alert("해당 아이디가 이미 있거나 틀린 비밀번호 입니다. 다시 시도해 주세요.");
 						$(location).reload(); // location.reload();
 					}
 				});

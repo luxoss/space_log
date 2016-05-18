@@ -37,25 +37,38 @@ io.on('connection', function (socket) {
 			});
 	
 			var document ={"username" : username, "password" : password};
-			db.collection("MEMBER").findOne(document, function(e){
-				if(e){
-					console.log("Finding data to DB is ERR : " + e);
+		//	var myDBquery = db.collection("MEMBER").findOne(document, function(e){});
+
+		//	console.log('My DB Query Value    ' + myDBquery);
+		/*	db.collection("MEMBER").find(document, function(err, result){
+				if(err){
+					console.log("Finding data to DB is ERR : " + eirr);
 					socket.emit('login_res', {response : 'false'});
 					throw err;
 				}
 				else{
-					console.log("Finding is Success!!!!!!!!!!!!!!!!!!!!!!!");
-					socket.emit('login_res', {response : 'true'});
+					if(result){
+						console.log('result  ' + result.name);
+						
+					}					
+					else{
+
+						console.log("Finding is Success!!!!!!!!!!!!!!!!!!!!!!!");
+						socket.emit('login_res', {response : 'true'});
+					}
 				}
 				db.close();
-			});
-		/*	if(db.collection("MEMBER").findOne(document, function (e){}) == true ){ //start if
-				console.log("Success!!! Find data!");
+			});*/
+			var q = db.collection("MEMBER").findOne(document);
+			if(db.collection("MEMBER").findOne(document)){ //start if
+				console.log("Success!!! Find data!   "+"q : " + q);
+				socket.emit('login_res', {response : 'true'});
 			}//end if
 			else{
 				console.log("Failed..........T-T");
 				console.log("USERNAME : " + username + ", PASSWORD : " + password);
-			} */
+				socket.emit('login_res', {response : 'false'});
+			} 
 		});		
   	});
 
