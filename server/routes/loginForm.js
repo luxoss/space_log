@@ -49,7 +49,7 @@ io.on('connection', function (socket) {
 				}
 				db.close();
 			});
-/*			if(db.collection("MEMBER").findOne(document, function (e){}) == true ){ //start if
+		/*	if(db.collection("MEMBER").findOne(document, function (e){}) == true ){ //start if
 				console.log("Success!!! Find data!");
 			}//end if
 			else{
