@@ -5,7 +5,7 @@ var fs = require('fs');
 var username, password, email;
 var MongoClient = require('mongodb').MongoClient;
 
-app.listen(3001);
+app.listen(3000);
 
 function handler (req, res) {
   	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
@@ -30,12 +30,12 @@ io.on('connection', function (socket) {
 		
 		MongoClient.connect("mongodb://localhost/space_log", function(err,db){
 			var adminDB = db.admin();
-	/*		adminDB.listDatabases(function(err, databases){
-				console.log("Before find data from db : ");
-				console.log("ID : " + username);
-				console.log("PW : " + password);
+			adminDB.listDatabases(function(err, databases){
+			//	console.log("Before find data from db : ");
+			//	console.log("ID : " + username);
+			//	console.log("PW : " + password);
 			});
-	*/
+	
 			var document ={"username" : username, "password" : password};
 			db.collection("MEMBER").findOne(document, function(e){
 				if(e){
@@ -49,11 +49,12 @@ io.on('connection', function (socket) {
 				}
 				db.close();
 			});
-			/*if(db.collection("MEMBER").findOne(document, function (e){	console.log(e);		db.close();	})){ //start if
+/*			if(db.collection("MEMBER").findOne(document, function (e){}) == true ){ //start if
 				console.log("Success!!! Find data!");
 			}//end if
 			else{
 				console.log("Failed..........T-T");
+				console.log("USERNAME : " + username + ", PASSWORD : " + password);
 			} */
 		});		
   	});
