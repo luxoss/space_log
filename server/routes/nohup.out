@@ -23,3 +23,28 @@ Error: listen EADDRINUSE
     at Module.load (module.js:356:32)
     at Function.Module._load (module.js:312:12)
     at Function.Module.runMain (module.js:497:10)
+[33m[nodemon] 1.9.1[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node loginForm.js`[39m
+
+stream.js:94
+      throw er; // Unhandled stream error in pipe.
+            ^
+Error: EBADF, read
+Starting at http://52.79.132.7:3000
+[33m[nodemon] 1.9.1[39m
+[33m[nodemon] to restart at any time, enter `rs`[39m
+[33m[nodemon] watching: *.*[39m
+[32m[nodemon] starting `node loginForm.js`[39m
+
+stream.js:94
+      throw er; // Unhandled stream error in pipe.
+            ^
+Error: EBADF, read
+{ username: 'jasonhan93', password: '12341234' }
+jasonhan93, 12341234
+Success!!! Find data! 
+{ username: 'jasonhan93', password: '111111111111' }
+jasonhan93, 111111111111
+Success!!! Find data! 
