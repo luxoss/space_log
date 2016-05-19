@@ -21,7 +21,7 @@ function handler (req, res) {
 }
 
 io.on('connection', function (socket) {
- 	// socket.emit('news', { hello: 'world' });
+ 	// Login Part start
   	socket.on('login_msg', function (data) {
     		console.log(data);
 		username = data.username;
@@ -30,42 +30,36 @@ io.on('connection', function (socket) {
 		
 		MongoClient.connect("mongodb://localhost/space_log", function(err,db){
 			var adminDB = db.admin();
-			adminDB.listDatabases(function(err, databases){
-			//	console.log("Before find data from db : ");
-			//	console.log("ID : " + username);
-			//	console.log("PW : " + password);
-			});
+			adminDB.listDatabases(function(err, databases){	});
 	
-			var document ={"username" : username, "password" : password};
-		//	var myDBquery = db.collection("MEMBER").findOne(document, function(e){});
 
-		//	console.log('My DB Query Value    ' + myDBquery);
-		/*	db.collection("MEMBER").find(document, function(err, result){
+			var document = {"username" : username};
+			var collection = db.collection("MEMBER");
+			collection.findOne(document, function(err, findres){
 				if(err){
-					console.log("Finding data to DB is ERR : " + eirr);
-					socket.emit('login_res', {response : 'false'});
-					throw err;
-				}
-				else{
-					console.log("Finding is Success!!!!!!!!!!!!!!!!!!!!!!!");
-					socket.emit('login_res', {response : 'true'});
+					console.log("ERROR!!!!!!!!!!!!");
+					console.log(err);
+				} else if(findres){
+					console.log("Find Success!!!!!!!!!!!!!!");
 					
+					if(findres.password == password){
+						console.log("Match the password!!!! findres.password : " + findres.password);
+						socket.emit('login_res', {response : 'true'});
+					} else{
+						console.log("No match the password T-T.... " + findres.password);
+						socket.emit('login_res', {response : 'false'});
+					}
 				}
-				db.close();
-			});*/
+			
+			});
 
-			if(db.collection("MEMBER").findOne(document)){ //start if
-				console.log("Success!!! Find data! ");
-				socket.emit('login_res', {response : 'true'});
-			}//end if
-			else{
-				console.log("Failed..........T-T");
-				console.log("USERNAME : " + username + ", PASSWORD : " + password);
-				socket.emit('login_res', {response : 'false'});
-			} 
+			
+
 		});		
-  	});
+  	});// Login part over
+	
 
+	//Join part start
   	socket.on('join_msg', function (data){
 		console.log(data);
 		username = data.username;

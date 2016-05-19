@@ -48,3 +48,15 @@ Success!!! Find data!
 { username: 'jasonhan93', password: '111111111111' }
 jasonhan93, 111111111111
 Success!!! Find data! 
+{ username: 'jasonhan93', password: '12341234' }
+jasonhan93, 12341234
+Success!!! Find data! 
+{ username: 'jasonhan93', password: '00000000' }
+jasonhan93, 00000000
+Success!!! Find data! 
+{ username: 'jasonhan93', password: '12341234' }
+jasonhan93, 12341234
+Success!!! Find data! 
+{ username: 'jasonhan93', password: '789456' }
+jasonhan93, 789456
+Success!!! Find data! 
