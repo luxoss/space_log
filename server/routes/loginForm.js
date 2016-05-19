@@ -33,12 +33,13 @@ io.on('connection', function (socket) {
 			adminDB.listDatabases(function(err, databases){	});
 	
 
-			var document = {"username" : username};
+			var findByUsrname = {"username" : username};
 			var collection = db.collection("MEMBER");
-			collection.findOne(document, function(err, findres){
+			collection.findOne(findByUsrname, function(err, findres){
 				if(err){
 					console.log("ERROR!!!!!!!!!!!!");
 					console.log(err);
+					socket.emit('login_res', {response : 'false'});
 				} else if(findres){
 					console.log("Find Success!!!!!!!!!!!!!!");
 					
@@ -51,10 +52,7 @@ io.on('connection', function (socket) {
 					}
 				}
 			
-			});
-
-			
-
+			});			
 		});		
   	});// Login part over
 	
@@ -65,6 +63,42 @@ io.on('connection', function (socket) {
 		username = data.username;
 		password = data.password;
 		email = data.email;
+		
+		console.log(username + ', ' + password + ', ' + email);
+
+		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+			var adminDB =db.admin();
+			adminDb.listDatabases(function(err, databases){ });
+
+			var chckByUsrname = {"username" : username};
+			var collection = db.collection("MEMBER");
+			collection.findOne(chckByUsrname, function(err, chckres){ // Is there exist that getting username?
+				if(err){
+					console.log("ERROR!!!!!!!!!!!!!! " + err);
+					socket.emit('join_res', {response : 'false'});
+				} else if(chckres){
+					if(chckres.username != null){
+						console.log('Username is exist already' + chckres.username);
+						socket.emit('join_res', {response : 'false'});
+					} else{
+						console.log('That username is OK. Save the data');
+						collection.insert({"username" : username, "password" : password, "email" : email},  function(err, insertres){
+							if(err){
+								console.log('fail');
+								socket.emit('join_res', {response : 'false'});
+							} else {
+								console.log('success');
+								socket.emit('join_res', {response : 'true'});	
+							}
+						});
+					}
+				}
+
+			});
+			
+			
+		});
+		
 	});
 
 });
