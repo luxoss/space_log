@@ -125,6 +125,8 @@ io.on('connection', function (socket) {
 });
 
 console.log('Starting at http://52.79.132.7:3000');
+//Finish The login join system
+
 
 /*
 var express= require('express');
