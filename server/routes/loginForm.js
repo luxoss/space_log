@@ -67,33 +67,54 @@ io.on('connection', function (socket) {
 		console.log(username + ', ' + password + ', ' + email);
 
 		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-			var adminDB = db.adminDb(); 
-			adminDb.listDatabases(function(err, databases){ });
+
+			//console.log(err);
+
+			var adminDB = db.admin(); 
+			adminDB.listDatabases(function(err, databases){ 
+				if(err){
+					console.log('Mongodb admin Error T0T......');
+				}
+				else{
+					console.log('admin is success');
+				}
+			});
+
+			//This is ok
 
 			var chckByUsrname = {"username" : username};
 			var collection = db.collection("MEMBER");
 			collection.findOne(chckByUsrname, function(err, chckres){ // Is there exist that getting username?
+
+				console.log("var collection : " + collection);
+				console.log("var chckByUsrname : " + chckByUsrname['username']);
+	
 				if(err){
-					console.log("ERROR!!!!!!!!!!!!!! " + err);
-					socket.emit('join_res', {response : 'false'});
-				} else if(chckres){
-					if(chckres.username != null){
-						console.log('Username is exist already' + chckres.username);
-						socket.emit('join_res', {response : 'false'});
-					} else{
-						console.log('That username is OK. Save the data');
-						collection.insert({"username" : username, "password" : password, "email" : email},  function(err, insertres){
+					console.log("findOne() is error");
+		
+				}
+				else{
+					console.log("findOne() is ok");
+					console.log("chckres value is : " + chckres);
+
+					if(chckres == null){
+						console.log('Ther is no data of matching username. Save the data');
+						collection.insert({"username" : username, "password" : password , "email" : email},  function(err, insertres){
 							if(err){
-								console.log('fail');
+								console.log('err : ' + err);
 								socket.emit('join_res', {response : 'false'});
-							} else {
-								console.log('success');
-								socket.emit('join_res', {response : 'true'});	
+							}
+							else{
+								socket.emit('join_res', {response : 'true'});
 							}
 						});
+						
+					} else{
+						console.log("The data is already exist");	
+						socket.emit('join_res', {response : 'false'});
 					}
 				}
-				db.close();			
+				console.log("no return");		
 			});
 			
 			
