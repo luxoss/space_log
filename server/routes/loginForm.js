@@ -67,7 +67,7 @@ io.on('connection', function (socket) {
 		console.log(username + ', ' + password + ', ' + email);
 
 		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-			var adminDB = db.admin(); 
+			var adminDB = db.adminDb(); 
 			adminDb.listDatabases(function(err, databases){ });
 
 			var chckByUsrname = {"username" : username};
