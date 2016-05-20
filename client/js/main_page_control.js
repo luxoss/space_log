@@ -1,8 +1,10 @@
 /* Javascript file :: main_page_control */
 
-var socket = io.connect();
-
-$document.ready(){
+$document.ready(function(){
+	var socket = io.connect();
+	
+	socket.on('planet_infor', function(){
+	});
 }
 
 function open_popup_view(){
