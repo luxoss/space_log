@@ -23,28 +23,32 @@
 	// user_info.username = username;
 	// user_info.password = password;
 	$(document).ready(function(){
+//		var socket = io('http://52.79.132.7:3000');
+
+		var socket = io.connect('http://52.79.132.7:3000');
 		$('#join_btn')
 			.on('click', function(){
-				var socket = io('http://52.79.132.7:3000'); // Create socket obj in socket.io
+			//	var socket = io('http://52.79.132.7:8000'); // Create socket obj in socket.io
 				var username = $('#username0').val(); // get id 'username0'
 				var password = $('#password0').val(); // get id 'password0'
 				var email = $('#email').val(); // get id 'email'
 				
 				var user_info0 = new Object();
 				
-				user_info0.username = username0;
-				user_info0.password = password0;
+				user_info0.username = username;
+				user_info0.password = password;
 				user_info0.email = email;
-
+			
 				alert("Send to server that 'join_msg'...");
-				
-				socket.emit('join_msg', {
-					username : user_info0.username,
-					password : user_info0.password,
-					email : user_info0.email
-				});
+			
+				socket.emit('join_msg', {username: user_info0.username, password: user_info0.password, email: user_info0.email});
+		
+				alert(user_info0.username + ', ' + user_info0.password + ', ' + user_info0.email);
 				
 				socket.on('join_res', function(data){
+					
+					alert(data.response);
+
 					if(data['response'] == 'true'){
 						alert("회원가입이 완료되었습니다.");
 						$(location).reload();
@@ -54,9 +58,10 @@
 					}
 				});
 			}); 
+
 		$('#login_btn')
 			.on('click', function(){
-            			var socket = io('http://52.79.132.7:3000'); // Create socket obj in socket.io
+            		//	var socket = io('http://52.79.132.7:3000'); // Create socket obj in socket.io
             			var username = $('#username').val(); // document.getElementById('username').value;
             			var password = $('#password').val(); // document.getElementById('password').value;
             			var main_page_url = "./main.html";

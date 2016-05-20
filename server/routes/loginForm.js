@@ -1,4 +1,4 @@
-var app = require('http').createServer(handler)
+var app = require('http').createServer(handler);
 var io = require('socket.io')(app);
 var fs = require('fs');
 
@@ -55,7 +55,7 @@ io.on('connection', function (socket) {
 			});			
 		});		
   	});// Login part over
-	
+
 
 	//Join part start
   	socket.on('join_msg', function (data){
@@ -67,7 +67,7 @@ io.on('connection', function (socket) {
 		console.log(username + ', ' + password + ', ' + email);
 
 		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-			var adminDB =db.admin();
+			var adminDB = db.admin(); 
 			adminDb.listDatabases(function(err, databases){ });
 
 			var chckByUsrname = {"username" : username};
@@ -93,7 +93,7 @@ io.on('connection', function (socket) {
 						});
 					}
 				}
-
+				db.close();			
 			});
 			
 			
