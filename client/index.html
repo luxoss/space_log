@@ -22,6 +22,9 @@
 
 	// user_info.username = username;
 	// user_info.password = password;
+	function click(){
+	}
+
 	$(document).ready(function(){
 //		var socket = io('http://52.79.132.7:3000');
 
@@ -101,7 +104,7 @@
         <form id="login" action=""  method=""> <!-- login form -->
           <br/>
           &nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/>
-          &nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="black" /><br/>
+          &nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onclick="click();" onfocus=this.style.background="silver"; onblur=this.style.background="black" /><br/>
           &nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
           &nbsp;<input type="password" id="password" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="black" /><br/><br/>
           &nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; /> <!-- Check user list and login main.html page -->
