@@ -9,25 +9,44 @@
 			<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 			<script src="./js/main_page_control.js"></script>
 			<script type="text/javascript">
-				$("#logout_btn")
-					.on('click', function(){
-						alert('click logout button');
+				$(document).ready(function(){
+				/*
+					var socket = io.connect();
+					
+					socket.on('', function(){
 					});
-				$("planet_btn")
-					.on('click', function(){
-						alert('click planet button');
-					});
-				$("battle_ship_btn")
-					.on('click', function(){
-						alert('click battle ship button');
-					});
-				$("rank_btn")
-					.on('click', function(){
-						alert('click rank button');
-					});
-			
-				function user_control(username, planet, battle_ship)
-				{
+				*/
+					$("#logout_btn")
+						.on('click', function(){
+							alert('click logout button');
+							window.open('index.html');
+						});
+
+					$("#planet_btn")
+						.on('click', function(){
+							alert('click planet button');
+							open_popup_view();
+						});
+
+					$("#battle_ship_btn")
+						.on('click', function(){
+							alert('click battle ship button');
+							open_popup_view();
+						});
+
+					$("#rank_btn")
+						.on('click', function(){
+							alert('click rank button');
+							open_popup_view();
+						});
+				});
+
+				function open_popup_view(){
+					window.open('index.html', 'pop_ip', 'width=840, height=480, toolbar=no, location=no, status=np, menubar=no, scrollbars=yes, resizable=no, left=300, top=300');
+					return ;
+				}
+
+				function user_control(username, planet, battle_ship){
 					return ;
 				}
 			</script>
@@ -36,10 +55,10 @@
 	<body onkeydown='on_key_down()'>
 		<div id="main_layer">
 			<div class="ui_menu_layer"> <!-- If u click this menu button, u see that is infomation in menu button -->
-				&nbsp;<input id="logout_btn" type="button" value="" onClick="window.open('index.html');"/>
-				<input id="planet_btn" type="button" value="" onClick="open_popup_view();" />
-				<input id="battle_ship_btn" type="button" value="" onClick="open_popup_view();" />
-				<input id="rank_btn" type="button" value="" onclick="open_popup_view();" />
+				&nbsp;<input id="logout_btn" type="button" value="" />
+				<input id="planet_btn" type="button" value="" />
+				<input id="battle_ship_btn" type="button" value="" />
+				<input id="rank_btn" type="button" value="" />
 			</div>
 			<div class="ui_user_info_layer"> <!-- This is user information layer -->
 				<img id="user_ui" src="./res/img/user_ui.png" alt="user_ui.png"/>
