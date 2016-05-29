@@ -9,4 +9,4 @@ function create_p(){
 	
 }
 
-setInterval(creat_p, 1000);//1초단위로 create_p 함수를 실행
+setInterval(create_p, 1000);//1초단위로 create_p 함수를 실행
