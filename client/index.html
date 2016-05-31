@@ -1,108 +1,104 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1"/>
-    <link rel="stylesheet" href="http://52.79.132.7:8000/css/index.css" media="all"/>
-<!--   <script type="text/javascript" src="http://52.79.132.7:8000/js/index.js"></script> -->
-    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
-    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-    <script type="text/javascript">
-	$(document).ready(function(){
-		var socket = io.connect('http://52.79.132.7:3000');
-		$('#join_btn').on('click', function(){
-				var username = $('#username0').val(); // get id 'username0'
-				var password = $('#password0').val(); // get id 'password0'
-				var email = $('#email').val(); // get id 'email'
+	<head>    
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+		<link rel="stylesheet" href="http://52.79.132.7:8000/css/index.css" media="all"/>
+		<script type="text/javascript" src="http://52.79.132.7:8000/js/index.js"></script>
+		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+<!--
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var socket = io.connect('http://52.79.132.7:3000');
+				$('#join_btn').on('click', function(){
+					var username = $('#username0').val(); // get id 'username0'
+					var password = $('#password0').val(); // get id 'password0'
+					var email = $('#email').val(); // get id 'email'
 				
-				var user_info0 = new Object();
+					var user_info0 = new Object();
 				
-				user_info0.username = username;
-				user_info0.password = password;
-				user_info0.email = email;
+					user_info0.username = username;
+					user_info0.password = password;
+					user_info0.email = email;
 			
-				alert("Send to server that 'join_msg'...");
+					alert("Send to server that 'join_msg'...");
 			
-				socket.emit('join_msg', {username: user_info0.username, password: user_info0.password, email: user_info0.email});
+					socket.emit('join_msg', {username: user_info0.username, password: user_info0.password, email: user_info0.email});
 		
-				alert(user_info0.username + ', ' + user_info0.password + ', ' + user_info0.email);
+					alert(user_info0.username + ', ' + user_info0.password + ', ' + user_info0.email);
 				
-				socket.on('join_res', function(data){
+					socket.on('join_res', function(data){
 					
-					alert(data.response);
+						alert(data.response);
 
-					if(data['response'] == 'true'){
-						alert("회원가입이 완료되었습니다.");
-						$(location).reload();
-					}else{
-						alert("해당 아이디가 이미 있습니다.");
-						$(location).reload();
-					}
-				});
-			
-				if($('#username0').focus() || $('#password0').focus() || $('#email').focus()){
-						alert('focus!!!');
-				}
-		*/
-		}); 
+						if(data['response'] == 'true'){
+							alert("회원가입이 완료되었습니다.");
+							$(location).reload();
+						}else{
+							alert("해당 아이디가 이미 있습니다.");
+							$(location).reload();
+						}	
+					});
+				}); 
 
-		$('#login_btn').on('click', function(){
-            			var username = $('#username').val(); // document.getElementById('username').value;
-            			var password = $('#password').val(); // document.getElementById('password').value;
-            			var main_page_url = "./main.html";
-            			var user_info = new Object(); // Create new Obj 'user_info'
+				$('#login_btn').on('click', function(){
+       		     			var username = $('#username').val(); // document.getElementById('username').value;
+       		     			var password = $('#password').val(); // document.getElementById('password').value;
+        	    			var main_page_url = "./main.html";
+        	    			var user_info = new Object(); // Create new Obj 'user_info'
 
-            			user_info.username = username;
-  				user_info.password = password;
+            				user_info.username = username;
+  					user_info.password = password;
 
-  				alert('Send to server that login_msg...');
+  					alert('Send to server that login_msg...');
 
-  				socket.emit('login_msg', {username: user_info.username, password: user_info.password});
-  				//$(location).attr('href', main_page_url);
-  				socket.on('login_res', function(data){
-					var user_id = user_info.username;
+  					socket.emit('login_msg', {username: user_info.username, password: user_info.password});
+  					socket.on('login_res', function(data){
+						var user_id = user_info.username;
 					
-					alert(data['response']);
+						alert(data['response']);
 
-					if(data['response'] == "true"){
-						alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
-						$(location).attr('href', main_page_url);
-					}
-					else{
-						alert("해당 아이디가 이미 있거나 틀린 비밀번호 입니다. 다시 시도해 주세요.");
-						$(location).reload(); // location.reload();
-					}
+						if(data['response'] == "true"){
+							alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
+							$(location).attr('href', main_page_url);
+						}
+						else{
+							alert("해당 아이디가 이미 있거나 틀린 비밀번호 입니다. 다시 시도해 주세요.");
+							$(location).reload(); // location.reload();
+						}
+					});
 				});
-		});
-	});	
-    </script>
-    <title>Welcome to the space log web game</title>
-  </head>
-  <body>
-    <div id="main_container"> <!-- Main container -->
-      <div id="header"></div>  <!-- Header division -->
-      <div id="inner_container"></div> <!--Inner container division -->
-      <div id="user_info"> <!-- User information division -->
-        <form id="login" action=""  method=""> <!-- login form -->
-          <br/>
-          &nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/> <!-- ./res/img/username_img.png -->
-          &nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-          &nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
-          &nbsp;<input type="password" id="password" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-          &nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=none /> <!-- Check user list and login main.html page -->
-        </form>
-        <form id="join_form" action="" method=""> <!-- Join form -->
-          <br/>
-          &nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/>
-          &nbsp;<input type="text" id="username0" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-          &nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
-          &nbsp;<input type="password" id="password0" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-          &nbsp;<img src="./res/img/email_img.png" alt="email_img.png" /><br/>
-          &nbsp;<input type="email" id="email" name="email" placeholder="domain@guest.com" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-          &nbsp;<input type="submit" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; />
-        </form>
-      </div>
-      <div id="footer"></div> <!-- footer division -->
-    </div>
-  </body>
+			});	
+		</script>
+-->
+		<title>Welcome to the space log web game</title>
+	</head>
+	<body>
+		<div id="main_container"> <!-- Main container -->
+		<div id="header"></div>  <!-- Header division -->
+		<div id="inner_container"></div> <!--Inner container division -->
+			<div id="user_info"> <!-- User information division -->
+				<form id="login" action=""  method=""> <!-- login form -->
+					<br/>
+					&nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/> <!-- ./res/img/username_img.png -->
+					&nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
+					&nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
+					&nbsp;<input type="password" id="password" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
+					&nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=none /> <!-- Check user list and login main.html page -->
+				</form>
+        			<form id="join_form" action="" method=""> <!-- Join form -->
+        				<br/>
+          				&nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/>
+          				&nbsp;<input type="text" id="username0" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
+          				&nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
+          				&nbsp;<input type="password" id="password0" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
+          				&nbsp;<img src="./res/img/email_img.png" alt="email_img.png" /><br/>
+          				&nbsp;<input type="email" id="email" name="email" placeholder="domain@guest.com" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
+          				&nbsp;<input type="submit" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; />
+        			</form>
+      			</div>
+      			<div id="footer"></div> <!-- footer division -->
+    		</div>
+  	</body>
 </html>
