@@ -1,3 +1,26 @@
+/* 
+	index.js 
+	>>> control index page
+*/
+
+/*
+url = "http://code.jquery.com/jquery-2.1.0.min.js";
+
+function load_script(url, callback){
+	var script = document.createElement('script');
+	script.src = url;
+	script.onload = callback;
+	document.getElementByTagName('head')[0].appendChild(script);
+}
+
+(function(){
+	var script = document.createElement('script');
+	script.type = "text/javascript";
+	script.charset = "utf-8";
+	script.src = "http://code.jquery.com/jquery-2-1.0.min.js";
+	document.getElementByTagName("head")[0].appendChild(script);
+});
+*/
 $(document).ready(function(){
 	var socket = io.connect('http://52.79.132.7:3000');
 
@@ -27,6 +50,7 @@ $(document).ready(function(){
 					$(location).reload();
 				}
 			});
+		});
 
 		$('lgin_btn')
 			.on('click', function(){
@@ -41,7 +65,7 @@ $(document).ready(function(){
 
 				alert('loading...');
 
-				socket.emit('login_msg', username: user_info.username, password: user_info.password});
+				socket.emit('login_msg', {username: user_info.username, password: user_info.password});
 				
 				socket.on('login_res', function(data){
 					
