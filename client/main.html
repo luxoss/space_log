@@ -7,55 +7,10 @@
 			<link rel="stylesheet" href="./css/main_page_design.css" media="screen" charset="utf-8">
 			<script src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
 			<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-			<script src="./js/main_page_control.js"></script>
-			<script type="text/javascript">
-				$(document).ready(function(){
-				/*
-					var socket = io.connect();
-					
-					socket.on('', function(){
-					});
-				*/
-					$("#logout_btn")
-						.on('click', function(){
-							alert('click logout button');
-							window.open('index.html');
-							// and below disconnect user code line 
-						});
-
-					$("#planet_btn")
-						.on('click', function(){
-							alert('click planet button');
-							
-							//open_popup_view();
-							
-						});
-
-					$("#battle_ship_btn")
-						.on('click', function(){
-							alert('click battle ship button');
-							open_popup_view();
-						});
-
-					$("#rank_btn")
-						.on('click', function(){
-							alert('click rank button');
-							open_popup_view();
-						});
-				});
-
-				function open_popup_view(){
-					window.open('index.html', 'pop_ip', 'width=840, height=480, toolbar=no, location=no, status=np, menubar=no, scrollbars=yes, resizable=no, left=300, top=300');
-					return ;
-				}
-
-				function user_control(username, planet, battle_ship){
-					return ;
-				}
-			</script>
+			<script type="text/javscript" src="../client/js/main_page_control.js"></script>
 			<title>Welcome to the space log world!!!</title>
 	</head>
-	<body onkeydown='on_key_down()'>
+	<body>
 		<div id="main_layer">
 			<div class="ui_menu_layer"> <!-- If u click this menu button, u see that is infomation in menu button -->
 				&nbsp;<input id="logout_btn" type="button" value="" />
