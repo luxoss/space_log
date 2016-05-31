@@ -7,24 +7,13 @@ $(document).ready(function(){
 	socket.on('planet_infor', function(){
 	});
 */
-	function key_code_set(){
-		var key_code = event.keyCode;
-		alert(key_code);
-	};
-
-	function open_popup_view(){
-		window.open('index.html', 'pop_ip', 
-			    'width=840, height=480, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=300, top=300'
-		);
-	});
-
 	$('#logout_btn')
 		.on('click', function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
 		});	
 	
-	$('planet_btn')
+	$('#planet_btn')
 		.on('click', function(){
 			alert('Click planet button.');
 			open_popup_view();
@@ -43,7 +32,41 @@ $(document).ready(function(){
 		});
 });
 
+$(document).keydown(function(e){
+	//alert(e.keyCode);
+	var key_event = e.keyCode;
+	
+	switch(key_event){
+		case 38:
+			alert('up');
+			break;
+		case 40: 
+			alert('down');
+			break;
+		case 37:
+			alert('left');
+			break;
+		case 39:
+			alert('right');
+			break;
+		case 83:
+			alert('shot button');
+			break;
+		case 66:
+			alert('battle ship button');
+			break;
+		case 82:
+			alert('rank button');
+			break;
+		case 80:
+			alert('planet button');
+			break;
+	};
+});
 
-
-
+function open_popup_view(){
+		window.open('index.html', 'pop_ip', 
+			    'width=840, height=480, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=300, top=300'
+		);
+};
 
