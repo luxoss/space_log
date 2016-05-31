@@ -4,13 +4,14 @@
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1"/>
 		<link rel="stylesheet" href="http://52.79.132.7:8000/css/index.css" media="all"/>
-		<script type="text/javascript" src="http://52.79.132.7:8000/js/index.js"></script>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script> 
 		<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script type="text/javascript" src="http://52.79.132.7:8000/js/index.js"></script> 
 <!--
 		<script type="text/javascript">
 			$(document).ready(function(){
 				var socket = io.connect('http://52.79.132.7:3000');
+
 				$('#join_btn').on('click', function(){
 					var username = $('#username0').val(); // get id 'username0'
 					var password = $('#password0').val(); // get id 'password0'
@@ -85,7 +86,7 @@
 					&nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
 					&nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
 					&nbsp;<input type="password" id="password" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-					&nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=none /> <!-- Check user list and login main.html page -->
+					&nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /> <!-- Check user list and login main.html page -->
 				</form>
         			<form id="join_form" action="" method=""> <!-- Join form -->
         				<br/>

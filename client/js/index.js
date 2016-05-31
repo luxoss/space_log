@@ -21,11 +21,14 @@ function load_script(url, callback){
 	document.getElementByTagName("head")[0].appendChild(script);
 });
 */
+
 $(document).ready(function(){
 	var socket = io.connect('http://52.79.132.7:3000');
 
 	$('#join_btn')
 		.on('click', function(){
+			alert('loading...');
+
 			var username = $('#username0').val(); 
 			var password = $('#password0').val();
 			var email = $('#email').val();
@@ -52,33 +55,32 @@ $(document).ready(function(){
 			});
 		});
 
-		$('lgin_btn')
-			.on('click', function(){
-				var username = $('#username').val();
-				var password = $('#password').val();
-				var main_page_url = "./main.html";
-				
-				var user_info = new Object();
+	$('#login_btn').on('click', function(){
+			var username = $('#username').val();
+			var password = $('#password').val();
+			var main_page_url = "./main.html";
 			
-				user_info.username = username;
-				user_info.password = password;
+			var user_info = new Object();
+		
+			user_info.username = username;
+			user_info.password = password;
+			
+			alert('loading...');
 
-				alert('loading...');
-
-				socket.emit('login_msg', {username: user_info.username, password: user_info.password});
+			socket.emit('login_msg', {username: user_info.username, password: user_info.password});
 				
-				socket.on('login_res', function(data){
+			socket.on('login_res', function(data){
 					
-					var user_id = user_info.username;
+				var user_id = user_info.username;
 
-					if(data['response'] == "true"){
-						alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
-						$(location).attr('href', main_page_url);
-					}else{
-						alert("해당 아이디가 이미 있습니다. 다시 시도해 주세요.");
-						$(location).reload();
-					}
-				});
+				if(data['response'] == "true"){
+					alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
+					$(location).attr('href', main_page_url);
+				}else{
+					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+					$(location).reload();
+				}
 			});
+		});
 });
 			
