@@ -48,8 +48,9 @@ io.on('connection', function (socket) {
 				} else if(findres){
 					console.log("Find Success!!!!!!!!!!!!!!");
 					
-					if(findres.password == password){
+					if(findres.password == password && findres.accessing == "false"){
 						console.log("Match the password!!!! findres.password : " + findres.password);
+						collection.update({"username" : username},{$set : {"accessing" : "true"}});
 						socket.emit('login_res', {response : 'true'});
 					} else{
 						console.log("No match the password T-T.... " + findres.password);
@@ -104,7 +105,7 @@ io.on('connection', function (socket) {
 
 					if(chckres == null){
 						console.log('Ther is no data of matching username. Save the data');
-						collection.insert({"username" : username, "password" : password , "email" : email},  function(err, insertres){
+						collection.insert({"username" : username, "password" : password , "email" : email, "accessing" : "false"},  function(err, insertres){
 							if(err){
 								console.log('err : ' + err);
 								socket.emit('join_res', {response : 'false'});
