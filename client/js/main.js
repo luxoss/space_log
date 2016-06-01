@@ -1,12 +1,13 @@
 /* Javascript file :: main_page_control */
 
 $(document).ready(function(){
-/*
-	var socket = io.connect();
-	
+
+	var socket = io.connect('http://52.79.132.7:3000');
+	var planet_info = {};
+
 	socket.on('planet_infor', function(){
 	});
-*/
+
 	$('#logout_btn')
 		.on('click', function(){
 			alert('Click logout button.');
