@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<meta charset="utf-8">
-			<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
-			<meta name="viewport" content="width=device-width, initial-scale=1">
-			<link rel="stylesheet" href="./css/main.css" media="screen" charset="utf-8">
-			<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
-			<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-			<script type="text/javascript" src="http://52.79.132.7:8000/js/main.js"></script>
-			<title>Welcome to the space log world!!!</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="stylesheet" href="./css/main.css" media="screen" charset="utf-8">
+		<script type="text/javascript" src="http://code.jquery.com/jquery-2.1.0.min.js"></script>
+		<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script type="text/javascript" src="http://52.79.132.7:8000/js/main.js"></script>
+		<title>Welcome to the space log world!!!</title>
 	</head>
 	<body>
 		<div id="main_layer">
@@ -19,7 +19,12 @@
 				<input id="rank_btn" type="button" value="" />
 			</div>
 			<div class="ui_user_info_layer"> <!-- This is user information layer -->
-				<img id="user_ui" src="./res/img/user_ui.png" alt="user_ui.png"/>
+				<!--<canvas id="user_ui" width="400" height="100">-->
+					<div id="user_avatar"></div>
+					<div id="hp_progress_bar"></div>
+					<div id="sp_progress_bar"></div>
+					<div id="level_stats"></div>	
+				<!--</canvas>-->
 			</div>
 			<div class="ui_minimap_layer"> <!-- This is minimap layer -->
 				<canvas id="minimap_canvas" width="150px" height="150px"></canvas><!-- iframe -->

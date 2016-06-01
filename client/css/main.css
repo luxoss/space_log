@@ -1,91 +1,105 @@
 /* main css design */
 
 .ui_user_info_layer {
-  /*background-color: rgba(102, 153, 255, 0.7);*/
-  border: 1px solid;
-  border-color: rgba(102, 153, 255, 1);
-  width: 400px;
-  height: 100px;
-  position: fixed;
-  top: 20px;
-  left: 30px;
+  	background-color: rgba(102, 153, 255, 0.7);*/
+  	border: 1px solid;
+	border-color: rgba(102, 153, 255, 1);
+  	width: 400px;
+  	height: 100px;
+  	position: fixed;
+  	top: 20px;
+  	left: 30px;
 }
 
 .ui_minimap_layer {
-  background-color: rgba(102, 153, 255, 0.7);
-  border: 1px solid;
-  border-color: rgba(102, 153, 255, 1);
-  width: 250px;
-  height: 250px;
-  position: fixed;
-  bottom: 20px;
-  right: 30px;
+  	background-color: rgba(102, 153, 255, 0.7);
+  	border: 1px solid;
+  	border-color: rgba(102, 153, 255, 1);
+  	width: 250px;
+  	height: 250px;
+  	position: fixed;
+  	bottom: 20px;
+  	right: 30px;
 }
 
 .ui_menu_layer {
-  background-color: rgba(102, 153, 255, 0.7);
-  border: 2px solid;
-  border-color: rgba(102, 153, 255, 1);
-  cursor:pointer;
-  width: 230px;
-  height: 50px;
-  position: fixed;
-  bottom: 20px;
-  left: 30px;
-}
-/*
-.menu_btn {
-  background-color: rgba(255, 128, 0, 1);
-  text-align: center;
-  font-weight: bold;
-  color: rgb(255, 255, 255);
-  border: 0;
-}
+/*  	
+	background-color: rgba(102, 153, 255, 0.7);
+  	border: 2px solid;
+  	border-color: rgba(102, 153, 255, 1);
 */
+  	cursor:pointer;
+  	width: 230px;
+  	height: 50px;
+  	position: fixed;
+  	bottom: 20px;
+  	left: 30px;
+}
+
 #main_layer {
-  background-image: url('../res/img/space0.jpg');
-  background-size: cover;
-  width: 100%;
-  height: 1024px;
+  	background-image: url('../res/img/space0.jpg');
+  	background-size: cover;
+  	width: 100%;
+  	height: 1024px;
 }
-/*
-#minimap_canvas {
-  position: relative;
-  background-color : rgba(102, 153, 102, .5);
-  border: solid 1px;
-  border-color: rgba(102, 153, 255, 1);
-}
-*/
+
 #user_ui {
-  width: 400px;
-  height: 100px;
+  	width: 400px;
+  	height: 100px;
 }
 
 #logout_btn {
-  background-image: url('../res/img/button_design0.png');
-  width: 50px;
-  height: 50px;
-  border: none;
+  	background-image: url('../res/img/button_design0.png');
+  	width: 50px;
+  	height: 50px;
+  	border: none;
 }
 
 #planet_btn {
-  background-image: url('../res/img/button_design1.png');
-  width: 50px;
-  height: 50px;
-  border: none;
+  	background-image: url('../res/img/button_design1.png');
+  	width: 50px;
+  	height: 50px;
+  	border: none;
 }
 
 #battle_ship_btn {
-  background-image: url('../res/img/button_design2.png');
-  /*opacity: 0.7;*/
-  width: 50px;
-  height: 50px;
-  border : none;
+  	background-image: url('../res/img/button_design2.png');
+  	/*opacity: 0.7;*/
+  	width: 50px;
+  	height: 50px;
+  	border : none;
 }
 
 #rank_btn {
-  background-image: url('../res/img/button_design3.png');
-  width: 50px;
-  height: 50px;
-  border: none;
+ 	background-image: url('../res/img/button_design3.png');
+  	width: 50px;
+	height: 50px;
+	border: none;
 }
+
+#user_avatar {
+	background-color: rgba(255, 255, 255, 0.7);
+	width: 100px;
+	height: 100px;
+	float: left;
+}
+
+#hp_progress_bar {
+	background-color: rgba(204, 51, 51, 1);
+	width: 300px;
+	height: 35px;
+	float:left;
+}
+
+#sp_progress_bar {
+	background-color: rgba(0, 0, 255, 0.7);
+	width: 300px;
+	height: 35px;
+	float: left;
+}
+
+#level_stats {
+	width: 300px;
+	height: 30px;
+}
+

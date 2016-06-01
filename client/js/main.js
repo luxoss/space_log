@@ -61,6 +61,8 @@ $(document).keydown(function(e){
 		case 80:
 			alert('planet button');
 			break;
+		default:
+			break;
 	};
 });
 
