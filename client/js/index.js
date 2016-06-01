@@ -27,8 +27,6 @@ $(document).ready(function(){
 
 	$('#join_btn')
 		.on('click', function(){
-			alert('loading...');
-
 			var username = $('#username0').val(); 
 			var password = $('#password0').val();
 			var email = $('#email').val();
