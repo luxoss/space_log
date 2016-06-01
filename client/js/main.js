@@ -1,13 +1,28 @@
 /* Javascript file :: main_page_control */
 
 $(document).ready(function(){
+/*
+	var socket = io.connect('');
+	var planet_info = {}; // Create planet information object 
+	var battle_ship_info = {};
 
-	var socket = io.connect('http://52.79.132.7:3000');
-	var planet_info = {};
+	// Create Each name space in planet information object 
+	planet_info.mineral = function(){return ;}; 
+	planet_info.gas = function(){return ;};
+	planet_info. = function(){return ;};
 
+	// Create Each name space in battle ship object
+	battle_ship_info.pos = function(x, y, state){
+		var pos_x = x;
+		var pos_y = y;
+		var pos_state = state;
+	};
+
+	battle_ship_info = function(){};
+		
 	socket.on('planet_infor', function(){
 	});
-
+*/
 	$('#logout_btn')
 		.on('click', function(){
 			alert('Click logout button.');
