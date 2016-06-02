@@ -2,14 +2,14 @@
 
 $(document).ready(function(){
 /*
-	var socket = io.connect('');
+	var socket = io.connect('http://52.79.132.7:3000');
 	var planet_info = {}; // Create planet information object 
 	var battle_ship_info = {};
 
 	// Create Each name space in planet information object 
 	planet_info.mineral = function(){return ;}; 
 	planet_info.gas = function(){return ;};
-	planet_info. = function(){return ;};
+	planet_info.unknown = function(){return ;};
 
 	// Create Each name space in battle ship object
 	battle_ship_info.pos = function(x, y, state){
@@ -27,6 +27,9 @@ $(document).ready(function(){
 		.on('click', function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
+			var username = [];
+			socket.emit('logout_msg', {username: }); // username 을 어떻게 받을까?
+			socket.disconnect();	
 		});	
 	
 	$('#planet_btn')
