@@ -14,8 +14,17 @@ function create_p(){
 		var x = 10*last_p_num + save_p_num;
 		var y = 15*save_p_num - last_p_num;
 		if(save_p_num<10){
-			collection.insert({planet_id : save_p_num, mineral : 1000, gas : 1000, unknown : 1000, location_x : x, location_y : y});
+			collection.insert({planet_id : save_p_num, mineral : 1000, gas : 1000, unknown : 1000, location_x : x, location_y : y, create_spd : 1});
+		} else if(save_p_num>=10 && save_p_num<100){
+			
+		} else if(save_p_num>=100 && save_p_num<1000){
+			
+		} else if (save_p_num>=1000 && save_p_num>10000){
+			
+		} else{
+			
 		}
+		
 	}); 		
 	
 }
