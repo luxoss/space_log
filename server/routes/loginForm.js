@@ -126,8 +126,14 @@ io.on('connection', function (socket) {
 		
 	});//socekt.on('join_msg', function(){}); end
 
-	socket.on('logout_msg', function(){
+	socket.on('logout_msg', function(data){
+		username = data.username;
+		console.log('logout user : ' + username);
 		
+		MongoClient.connect("mongodb:// localhost/space_log", function(err, db){
+			
+			
+		});
 		
 	});
 
