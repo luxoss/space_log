@@ -58,7 +58,7 @@ io.on('connection', function (socket) {
 			
 			});			
 		});		
-  	});// Login part over
+  	});// socket.on('login_msg', function(){}); end
 
 
 	//Join part start
@@ -124,7 +124,14 @@ io.on('connection', function (socket) {
 			
 		});
 		
+	});//socekt.on('join_msg', function(){}); end
+
+	socket.on('logout_msg', function(){
+		
+		
 	});
+
+
 
 });
 
