@@ -1,7 +1,7 @@
-var app = require('http').createServer(handler);
+
+var app = require('../app');
 var io = require('socket.io')(app);
-//var app = require('http');
-//var io = require('socket.io')(app);
+
 var fs = require('fs');
 
 var express = require('express');
@@ -9,8 +9,6 @@ var router = express.Router();
 
 var username, password, email;
 var MongoClient = require('mongodb').MongoClient;
-
-app.listen(3000);
 
 function handler (req, res) {
   	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
@@ -131,7 +129,7 @@ io.on('connection', function (socket) {
 });
 
 
-console.log('Starting at http://52.79.132.7:3000');
+console.log('Starting at http://52.79.132.7:8888');
 
 module.exports = router;
 //Finish The login join system

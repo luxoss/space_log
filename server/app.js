@@ -10,6 +10,9 @@ var users = require('./routes/users');
 //var join = require('./routes/joinForm');//New add(Join)
 var login = require('./routes/loginForm');//New add(Login)
 
+//new add
+var createPlanet = require('./public/javascripts/createPlanet');
+
 var app = express();
 
 // view engine setup
