@@ -52,6 +52,7 @@ io.on('connection', function (socket) {
 
 			var findByUsrname = {"username" : username};
 			var collection = db.collection("MEMBER");
+			
 			collection.findOne(findByUsrname, function(err, findres){
 				if(err){
 					console.log("ERROR!!!!!!!!!!!!");
