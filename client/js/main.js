@@ -45,7 +45,7 @@ $(document).ready(function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
 			var user_id = get_parameter('index');			
-			socket.emit('logout_msg', {username: user_info.username}); 
+			socket.emit('logout_msg', {username: user_id}); 
 			socket.disconnect();	
 			$(location).attr('href', url);
 		});	
