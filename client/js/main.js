@@ -2,6 +2,7 @@
 
 $(document).ready(function(){
 	var socket = io.connect('http://52.79.132.7:3000');
+	var url = "http://52.79.132.7:8000"
 /*
 	var planet_info = {}; // Create planet information object 
 	var battle_ship_info = {};
@@ -30,6 +31,7 @@ $(document).ready(function(){
 			
 			socket.emit('logout_msg', {username: user_info.username}); 
 			socket.disconnect();	
+			$(location).attr('href', url);
 		});	
 	
 	$('#planet_btn')

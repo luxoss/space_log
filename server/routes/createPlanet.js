@@ -9,8 +9,8 @@ function create_p(){
 		adminDB.listDatabases(function(err, databases){});
 
 		var collection = db.collection("PLANET");
-		
-		for(var i=0; ;i++){
+	/*	
+		for(var i=0;i<100 ;i++){
 			collection.findOne({planet_id : i}, function(err, chck_p_n){
 				if(err){
 					concole.log('err. find planet_id is error...TT');
@@ -44,7 +44,7 @@ function create_p(){
 				}	
 			});	
 		}
-	
+	*/
 	}); 		
 	
 }
