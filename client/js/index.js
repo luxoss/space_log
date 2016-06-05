@@ -21,14 +21,6 @@ function load_script(url, callback){
 	document.getElementByTagName("head")[0].appendChild(script);
 });
 */
-
-var get_parameter = function(user_value){
-	var return_user_value;
-	var url = location.href;
-	var parameters = (url.slice(url.indexOf('?') + 1, url.legnth)).split('&');
-
-	for(var i=0; i< parameters.length; i++){
-		var 
 $(document).ready(function(){
 	var socket = io.connect('http://52.79.132.7:3000');
 
