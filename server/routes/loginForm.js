@@ -145,8 +145,10 @@ io.on('connection', function (socket) {
 			collection.update(chckByUsrname , {$set : {"accessing" : "false"}}, function(err, chckres){
 				if(err){
 					console.log("logout err. Maybe there are no username");
+					socket.emit('logout_res', {response : 'false'});
 				} else{
 					console.log("logout success!!!!!!!!!!");
+					socket.emit('logout_res', {response : 'true'});
 				}
 			});
 		});
