@@ -17,7 +17,7 @@ function create_p(){
 		console.log('collection.cout() result is...');
 		console.log(last_p_num);
 	
-		/*
+		
 		if(save_p_num<10){
 
 			collection.insert({planet_id : save_p_num, mineral : 1000, gas : 1000, unknown : 1000, location_x : x, location_y : y, create_spd : 1});
@@ -40,9 +40,9 @@ function create_p(){
 			collection.insert({planet_id : save_p_num, mineral : 600, gas : 600, unknown : 600, location_x : x, location_y : y , create_spd : 5}); 
 			
 		}
-		*/
+		
 	}); 		
 	
 }
 
-//setInterval(create_p, 10000);//1초단위로 create_p 함수를 실행
+//setInterval(create_p, 6000);//1초단위로 create_p 함수를 실행
