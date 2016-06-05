@@ -142,10 +142,16 @@ io.on('connection', function (socket) {
 			});
 			var chckByUsrname = {"username" : username};
 			var collection = db.collection("MEMBER");
-			collection.update(chckByUsrname , {$set : {"accessing" : "false"}});
+			collection.update(chckByUsrname , {$set : {"accessing" : "false"}}, function(err, chckres){
+				if(err){
+					console.log("logout err. Maybe there are no username");
+				} else{
+					console.log("logout success!!!!!!!!!!");
+				}
+			});
 		});
 		
-	});
+	});//lsocket.on('logout_msg', function(){}); end
 
 
 
