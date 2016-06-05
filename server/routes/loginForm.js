@@ -126,13 +126,23 @@ io.on('connection', function (socket) {
 		
 	});//socekt.on('join_msg', function(){}); end
 
+	//logout part start
 	socket.on('logout_msg', function(data){
 		username = data.username;
 		console.log('logout user : ' + username);
 		
 		MongoClient.connect("mongodb:// localhost/space_log", function(err, db){
-			
-			
+			var adminDB = db.admin();
+			adminDB.listDatabases(function(err, databases){
+				if(err){
+					console.log('Mongodb admin Error T0T..........);
+				} else{
+					console.log('admin is success');
+				}
+			});
+			var chckByUsrname = {"username" : username};
+			var collection = db.collection("MEMBER");
+			collection.update(chckByUsrname , {$set : {"accessing" : "false"}});
 		});
 		
 	});
