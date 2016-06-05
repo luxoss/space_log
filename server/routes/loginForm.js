@@ -1,14 +1,28 @@
+//var app = require('../app');
+//var app = require('../bin/www');
 
-var app = require('../app');
-var io = require('socket.io')(app);
+//var io = require('socket.io')(app);
+
 
 var fs = require('fs');
 
 var express = require('express');
+var app = express();
 var router = express.Router();
+
+//var io = require('socket.io')(app);
 
 var username, password, email;
 var MongoClient = require('mongodb').MongoClient;
+
+var io = require('socket.io').listen(3000);
+
+/* GET home page. */
+router.get('/', function(req, res, next){
+//	res.render('login', {title : 'login'});
+	res.send('respond with a resource');
+
+});
 
 function handler (req, res) {
   	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
