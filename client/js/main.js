@@ -1,8 +1,8 @@
 /* Javascript file :: main_page_control */
 
 $(document).ready(function(){
-/*
 	var socket = io.connect('http://52.79.132.7:3000');
+/*
 	var planet_info = {}; // Create planet information object 
 	var battle_ship_info = {};
 
@@ -27,8 +27,8 @@ $(document).ready(function(){
 		.on('click', function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
-			var username = [];
-			socket.emit('logout_msg', {username: }); // username 을 어떻게 받을까?
+			
+			socket.emit('logout_msg', {username: user_info.username}); 
 			socket.disconnect();	
 		});	
 	

@@ -135,7 +135,7 @@ io.on('connection', function (socket) {
 			var adminDB = db.admin();
 			adminDB.listDatabases(function(err, databases){
 				if(err){
-					console.log('Mongodb admin Error T0T..........);
+					console.log('Mongodb admin Error T0T..........');
 				} else{
 					console.log('admin is success');
 				}
@@ -160,7 +160,7 @@ io.on('connection', function (socket) {
 });
 
 
-console.log('Starting at http://52.79.132.7:8888');
+console.log('Starting at http://52.79.132.7:3000');
 
 module.exports = router;
 //Finish The login join system
