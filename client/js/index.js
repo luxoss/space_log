@@ -72,7 +72,7 @@ $(document).ready(function(){
 
 				if(data['response'] == "true"){
 					alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
-					tranlate_username_value(user_id);
+					trans_username_value(user_id);
 					$(location).attr('href', main_page_url);
 				}else{
 					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
@@ -82,7 +82,7 @@ $(document).ready(function(){
 		});
 });
 
-function translate_username_value(index_page_user_id){
+function trans_username_value(index_page_user_id){
 	window.location.href = "main.html?username=" + index_page_user_id;
 }
 
