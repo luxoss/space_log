@@ -48,10 +48,18 @@ $(document).ready(function(){
 		.on('click', function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
-			alert('val: ' + user_id);
+			alert('connection user id: ' + user_id);
 			socket.emit('logout_msg', {username: user_id}); 
-			socket.disconnect();	
-			$(location).attr('href', url);
+			socket.on('logout_msg', function(data){
+				if(data.response == 'true'){
+					alert(user_id + 'is logout.');
+					socket.disconnect();
+					$(location).attr('href', url);
+				}else if(data.response == 'false'){
+					alert('Logout error.');
+				};
+			});
+			//$(location).attr('href', url);
 		});	
 	
 	$('#planet_btn')
