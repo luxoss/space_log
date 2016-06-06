@@ -23,7 +23,7 @@ $(document).ready(function(){
 	var url = "http://52.79.132.7:8000";
 	var user_id = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
 /*
-	var planet_info = {}; // Create planet information object 
+	var planet_info = function(){}; // Create planet information object 
 	var battle_ship_info = {};
 
 	// Create Each name space in planet information object 
@@ -40,7 +40,8 @@ $(document).ready(function(){
 
 	battle_ship_info = function(){};
 		
-	socket.on('planet_infor', function(){
+	socket.on('planet', function(){
+		setInterval(planet_info(), 2000); // Update planet obj list on 2sec 
 	});
 */
 	$('#logout_btn')
