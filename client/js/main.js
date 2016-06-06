@@ -50,7 +50,7 @@ $(document).ready(function(){
 			// Below to disconnect user code line
 			alert('connection user id: ' + user_id);
 			socket.emit('logout_msg', {username: user_id}); 
-			socket.on('logout_msg', function(data){
+			socket.on('logout_res', function(data){
 				if(data.response == 'true'){
 					alert(user_id + 'is logout.');
 					socket.disconnect();
