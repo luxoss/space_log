@@ -18,7 +18,6 @@ var get_parameter = function(param){
 };
 */
 
-
 $(document).ready(function(){
 	var socket = io.connect('http://52.79.132.7:3000');
 	var url = "http://52.79.132.7:8000";
@@ -115,9 +114,64 @@ $(document).keydown(function(e){
 	};
 });
 
+// Create open other window in Ifram set
 function open_popup_view(){
 		window.open('index.html', 'pop_ip', 
 			    'width=840, height=480, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=300, top=300'
 		);
 };
+/*
+var player_set = function(start_pos_x, start_pos_y, _username, _HP, _SP, _damage){
+	// Declare player state value	
+	var x = start_pos_x;
+	var y = start_pos_y;
+	var username = _username;
+	var damage = _damage;
+	var hp = _HP;
+	var sp = _SP;
+	var sound = new Audio('http://52.79.132.7:8000/res/sound/InterStellare.mp3');
+	var shot_cnt = 0; // counting shot
 
+	// Create get player state method
+	var get_pos_x = function(){
+		return x;
+	};
+
+	var get_pos_y = function(){
+		return y;
+	};
+
+	var get_username = function(){
+		return username;
+	};
+
+	var get_HP = function(){
+		return hp;
+	};
+
+	var get_SP = function(){
+		return sp;
+	};
+
+	var get_damage = function(){
+		return damage;
+	};
+
+	// Create set player state method
+	var set_pos_x = function(new_pos_x){
+		x = new_pos_x;
+	};
+
+	var set_pos_y = function(new_pos_y){
+		y = new_pos_y;
+	};
+
+	// Create update player position
+	var update_pos = function(keys){
+		
+		var prev_x = x;
+		var prev_y = y;
+
+	);
+*/		
+		
