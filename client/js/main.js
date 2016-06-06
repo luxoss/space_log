@@ -1,9 +1,28 @@
 /* Javascript file :: main_page_control */
 
+/*
 // Create get_parameter method
+var get_parameter = function(param){
+	var return_value;
+	var url = winodw.location.href;
+	var parameters = (url.slice(url.indexOf('?') + 1, url, length)).split('&');
+	
+	for(var i=0; i<parameters.length; i++){
+		var user_name = parameters[i].split('=')[0];
+		
+		if(user_name.toUpperCase() == param.toUpperCase()){
+			return_value = parameters[i].split('=')[1];
+			return decodeURIComponent(return_value);
+		}
+	}
+};
+*/
+
 
 $(document).ready(function(){
+	var socket = io.connect('http://52.79.132.7:3000');
 	var url = "http://52.79.132.7:8000"
+	var val = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
 /*
 	var planet_info = {}; // Create planet information object 
 	var battle_ship_info = {};
@@ -29,6 +48,7 @@ $(document).ready(function(){
 		.on('click', function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
+			alert('val: ' + val);
 			socket.emit('logout_msg', {username: user_id}); 
 			socket.disconnect();	
 			$(location).attr('href', url);
