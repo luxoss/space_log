@@ -21,8 +21,8 @@ var get_parameter = function(param){
 
 $(document).ready(function(){
 	var socket = io.connect('http://52.79.132.7:3000');
-	var url = "http://52.79.132.7:8000"
-	var val = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
+	var url = "http://52.79.132.7:8000";
+	var user_id = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
 /*
 	var planet_info = {}; // Create planet information object 
 	var battle_ship_info = {};
@@ -48,7 +48,7 @@ $(document).ready(function(){
 		.on('click', function(){
 			alert('Click logout button.');
 			// Below to disconnect user code line
-			alert('val: ' + val);
+			alert('val: ' + user_id);
 			socket.emit('logout_msg', {username: user_id}); 
 			socket.disconnect();	
 			$(location).attr('href', url);
