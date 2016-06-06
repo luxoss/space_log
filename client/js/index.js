@@ -87,7 +87,7 @@ $(document).ready(function(){
 
 function trans_username_value(user_value)
 {
-	alert(user_value + "connection");
+	//alert(user_value + " connection");
 	document.location.href = "./main.html?username=" + user_value;
 }
 			
