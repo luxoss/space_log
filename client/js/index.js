@@ -52,7 +52,8 @@ $(document).ready(function(){
 			});
 		});
 
-	$('#login_btn').on('click', function(){
+	$('#login_btn')
+		.on('click', function(){
 			var username = $('#username').val();
 			var password = $('#password').val();
 			var main_page_url = "./main.html";
@@ -72,7 +73,9 @@ $(document).ready(function(){
 
 				if(data['response'] == "true"){
 					alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
-					trans_username_value(user_id);
+					user_value = user_id;
+				//	var user_value = trans_username_value(user_id);
+					alert(user_value);
 					$(location).attr('href', main_page_url);
 				}else{
 					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
@@ -80,10 +83,15 @@ $(document).ready(function(){
 				}
 			});
 		});
+
+	function trans_username_value(user_value){
+		window.location.href = "./main.html?username=" + user_value;
+		var user_value = window.location.href;
+		return user_value;
+	}
+	
 });
 
-function trans_username_value(index_page_user_id){
-	window.location.href = "main.html?username=" + index_page_user_id;
-}
+
 
 			
