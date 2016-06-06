@@ -1,15 +1,58 @@
 var MongoClient = require('mongodb').MongoClient;
 
-var last_p_num;
-var save_p_num;
+//var last_p_num;
+//var save_p_num;
+var new_p_n;
+var level_p=5;
+
+var source_q, x, y, spd;
+
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 	//	var adminDB = db.admin();
 //		adminDB.listDatabases(function(err, databases){});
 
+		
+
 		var collection = db.collection("PLANET");
-		collection.insert({planet_id : 0, mineral : 1000, gas : 1000, unknown : 1000, location_x : 100, location_y : 100, create_spd : 1});
+
+		collection.count(function(err, count){
+			if(err){
+
+			} else{
+				console.log('count : ' + count);
+			//	new_p_n = count+1;
+				var i=0;
+				while(i<=count){
+					collection.findOne({planet_id : i}, function(err, fnd_p){
+						if(err){
+									
+						} else{
+							if(fnd_p != null){
+									
+							} else{
+								new_p_n = i+1;
+								console.log('new_p_n' + new_p_n);
+								source_q = (100+i)*(i%5);
+								x = (i+5)*(i%5)+i;
+								y = (i+11)%((i%5)+6)*i;
+								spd = i%level_p;								
+								
+							}
+						}
+					});	
+					i++;
+					
+				}
+
+				collection.insert({planet_id : new_p_n, mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){
+									
+									
+								});
+//				collection.insert({planet_id : new_p_n, mineral : 1000, gas : 1000, unknown : 1000, location_x : 100, location_y : 100, create_spd : 1});
+			}
+		});
 		
 		/*
 		var cnt = collection.find({planet_id : {$exists : true}}, function(err, fnd_res){
@@ -85,4 +128,4 @@ function create_p(){
 	
 }
 
-setInterval(create_p, 5000);//30초단위로 create_p 함수를 실행
+setInterval(create_p, 10000);//10초단위로 create_p 함수를 실행
