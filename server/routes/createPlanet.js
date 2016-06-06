@@ -23,9 +23,20 @@ function create_p(){
 		*/
 		/*	
 		var i=0;
+		var cnt =0;
 		while(i<10){
 			collection.findOne({planet_id : i}, function(err, chck_p_n){
+				if(err){
+
+				} else{
+					if(chck_p_n != null){
+						cnt = i;
+						console.log(chck_p_n.planet_id);
+					} else{
+						
 					
+					}
+				}
 			});				
 			
 			
@@ -72,4 +83,4 @@ function create_p(){
 	
 }
 
-setInterval(create_p, 30000);//30초단위로 create_p 함수를 실행
+//setInterval(create_p, 30000);//30초단위로 create_p 함수를 실행
