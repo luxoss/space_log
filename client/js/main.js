@@ -51,7 +51,7 @@ $(document).ready(function(){
 			socket.emit('logout_msg', {username: user_id}); 
 			socket.on('logout_res', function(data){
 				if(data.response == 'true'){
-					alert(user_id + 'is logout.');
+					alert(user_id + ' is logout.');
 					socket.disconnect();
 					$(location).attr('href', url);
 				}else if(data.response == 'false'){
