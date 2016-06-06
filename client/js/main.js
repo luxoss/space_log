@@ -17,8 +17,21 @@ var get_parameter = function(param){
 	}
 };
 */
-
+/*
+function set_background(){
+	var canvas = document.getElementById('main_layer');
+	var context = canvas.getContext('2d');
+	var image = new Image();
+//	$(#main_layer).css('z-index', 1);
+	image.onload = function(){
+		context.drawImage(image, 0, 0, canvas.width, canvas.height);
+	}
+	image.src = "http://52.79.132.7:8000/res/img/space0.jpg"
+}
+*/
 $(document).ready(function(){
+//	set_background();
+
 	var socket = io.connect('http://52.79.132.7:3000');
 	var url = "http://52.79.132.7:8000";
 	var user_id = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
