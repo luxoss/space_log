@@ -24,7 +24,7 @@ function create_p(){
 				console.log('count : ' + count);
 			//	new_p_n = count+1;
 				var i=0;
-				while(i<=count){
+				while(i<count){
 					collection.findOne({planet_id : i}, function(err, fnd_p){
 						if(err){
 									
@@ -33,7 +33,7 @@ function create_p(){
 									
 							} else{
 								new_p_n = i+1;
-								console.log('new_p_n' + new_p_n);
+								console.log('new_p_n   ' + new_p_n);
 								source_q = (100+i)*(i%5);
 								x = (i+5)*(i%5)+i;
 								y = (i+11)%((i%5)+6)*i;
