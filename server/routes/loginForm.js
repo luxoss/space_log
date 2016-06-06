@@ -146,7 +146,7 @@ io.on('connection', function (socket) {
 		username = data.username;
 		console.log('logout user : ' + username);
 		
-		MongoClient.connect("mongodb:// localhost/space_log", function(err, db){
+		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 			var adminDB = db.admin();
 			adminDB.listDatabases(function(err, databases){
 				if(err){
