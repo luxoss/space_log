@@ -5,10 +5,12 @@ var save_p_num;
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-		var adminDB = db.admin();
-		adminDB.listDatabases(function(err, databases){});
+	//	var adminDB = db.admin();
+//		adminDB.listDatabases(function(err, databases){});
 
 		var collection = db.collection("PLANET");
+		collection.insert({planet_id : 0, mineral : 1000, gas : 1000, unknown : 1000, location_x : 100, location_y : 100, create_spd : 1});
+		
 		/*
 		var cnt = collection.find({planet_id : {$exists : true}}, function(err, fnd_res){
 			if(err){
@@ -83,4 +85,4 @@ function create_p(){
 	
 }
 
-//setInterval(create_p, 30000);//30초단위로 create_p 함수를 실행
+setInterval(create_p, 5000);//30초단위로 create_p 함수를 실행
