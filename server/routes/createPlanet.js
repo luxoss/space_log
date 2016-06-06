@@ -9,7 +9,30 @@ function create_p(){
 		adminDB.listDatabases(function(err, databases){});
 
 		var collection = db.collection("PLANET");
-	/*	
+		/*
+		var cnt = collection.find({planet_id : {$exists : true}}, function(err, fnd_res){
+			if(err){
+
+			} else if (fnd_res){
+				console.log('find result is : ');	
+				console.log(fnd_res);
+			}			
+			
+		});
+		console.log(cnt);
+		*/
+		/*	
+		var i=0;
+		while(i<10){
+			collection.findOne({planet_id : i}, function(err, chck_p_n){
+					
+			});				
+			
+			
+		}
+		*/
+
+		/*
 		for(var i=0;i<100 ;i++){
 			collection.findOne({planet_id : i}, function(err, chck_p_n){
 				if(err){
@@ -49,4 +72,4 @@ function create_p(){
 	
 }
 
-//setInterval(create_p, 10000);//1초단위로 create_p 함수를 실행
+setInterval(create_p, 30000);//30초단위로 create_p 함수를 실행
