@@ -82,8 +82,7 @@ $(document).ready(function(){
 
 $(document).keydown(function(e){
 	//alert(e.keyCode);
-	var key_event = e.keyCode;
-	
+	var key_event = e.keyCode;	
 	switch(key_event){
 		case 38:
 			alert('up');
