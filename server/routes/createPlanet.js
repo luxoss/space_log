@@ -46,7 +46,7 @@ function create_p(){
 					
 				}
 
-				collection.insert({planet_id : new_p_n, mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){
+				collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){
 									
 									
 				});
@@ -57,4 +57,5 @@ function create_p(){
 	
 }
 
-setInterval(create_p, 10000);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
+setInterval(create_p, 100000);
