@@ -1,5 +1,5 @@
 var MongoClient = require('mongodb').MongoClient;
-
+var io =require('socket.io').listen(5000);
 //var last_p_num;
 //var save_p_num;
 var new_p_n;
@@ -13,8 +13,6 @@ function create_p(){
 	//	var adminDB = db.admin();
 //		adminDB.listDatabases(function(err, databases){});
 
-		
-
 		var collection = db.collection("PLANET");
 
 		collection.count(function(err, count){
@@ -23,8 +21,18 @@ function create_p(){
 			} else{
 				console.log('count : ' + count);
 			//	new_p_n = count+1;
+				var i =0;
+				i=count+1;
+				source_q = (100+i)*(i%level_p);
+				x = (i+level_p)*(i%level_p)+i;
+				y = (i+11)%((i%level_p)+6)*i;
+				spd = i%level_p;
+
+					
+				/*
 				var i=0;
 				while(i<count){
+									
 					collection.findOne({planet_id : i}, function(err, fnd_p){
 						if(err){
 									
@@ -44,12 +52,9 @@ function create_p(){
 					});	
 					i++;
 					
-				}
+				}*/
 
-				collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){
-									
-									
-				});
+				collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){});
 
 			}
 		});
