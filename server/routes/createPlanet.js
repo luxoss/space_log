@@ -32,23 +32,23 @@ function create_p(){
 				spd = t%level_p;
 				collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){});
 
-
-			//	new_p_n = count+1;
-			//	var i =0;
-			//	i=count+1;
-			//	source_q = (100+i)*(i%level_p);
-			//	x = (i+level_p)*(i%level_p)+i;
-			//	y = (i+11)%((i%level_p)+6)*i;
-			//	spd = i%level_p;
-				/*
 				io.on('connection', function(socket){
-					var planet = collection.find();
-					console.log('PLANET');
-					console.log(planet);
+					socket.on('planet_req', function(data){//when client request the all of planet data.
+						var planet = collection.find(function(err, planet){
+							if(err){
+							
+							} else{
+								//socket.emit('planet_req', planet);
+							}	
+						});
+					});
 
-					socket.emit('planet_req', planet);
+				//	console.log('PLANET');
+				//	console.log(planet);
+
+//					socket.emit('planet_req', planet);
 					
-				});*/
+				});
 				//console.log(planet);
 
 			
