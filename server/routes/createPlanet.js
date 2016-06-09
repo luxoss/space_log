@@ -27,8 +27,23 @@ function create_p(){
 				x = (i+level_p)*(i%level_p)+i;
 				y = (i+11)%((i%level_p)+6)*i;
 				spd = i%level_p;
-
+				
+				io.on('connection', function(socket){
+					socket.on('planet_req', function(data){
+						collection.find(function(err, planet){
+							if(err){
+							
+							} else {
+							
+							}
+						});
+					});
 					
+				});
+				var j=0;
+				while(j<count){
+				
+				}
 				/*
 				var i=0;
 				while(i<count){
