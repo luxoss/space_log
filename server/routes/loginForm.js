@@ -25,7 +25,7 @@ router.get('/', function(req, res, next){
 });
 
 function handler (req, res) {
-  	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
+//  	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
   	function (err, data) {
     	if (err) {
       		res.writeHead(500);
