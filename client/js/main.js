@@ -121,6 +121,7 @@ $(document).keydown(function(e){
 			break;
 		case 80:
 			alert('planet button');
+			pop_up_window(this, 'name', '100', '100', 'yes'); 
 			break;
 		default:
 			break;
@@ -128,11 +129,17 @@ $(document).keydown(function(e){
 });
 
 // Create open other window in Ifram set
-function open_popup_view(){
-		window.open('index.html', 'pop_ip', 
-			    'width=840, height=480, toolbar=no, location=no, status=no, menubar=no, scrollbars=yes, resizable=no, left=300, top=300'
-		);
-};
+var win = null;
+
+function pop_up_window(mypage, myname, w, h, scroll){
+	left_pos = (screen.width) ? (screen.width-w)/2 : 0;
+	top_pos = (screen.height) ? (screen.height-h)/2 : 0;
+	
+	settings = 'height=' + h + ',width=' + w + ',top=' + top_pos + ',left=' + left_pos + ',scrollbars=' + scroll + ',resizable';
+	win = window.open(mypage, myname, settings);
+	
+	return false; 
+}
 /*
 var player_set = function(start_pos_x, start_pos_y, _username, _HP, _SP, _damage){
 	// Declare player state value	
