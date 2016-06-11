@@ -1,7 +1,3 @@
-//var app = require('../app');
-//var app = require('../bin/www');
-
-//var io = require('socket.io')(app);
 
 
 var fs = require('fs');
@@ -15,7 +11,7 @@ var router = express.Router();
 var username, password, email;
 var MongoClient = require('mongodb').MongoClient;
 
-var io = require('socket.io').listen(3000);
+var io = require('socket.io').listen(5001);
 
 /* GET home page. */
 router.get('/', function(req, res, next){
@@ -23,7 +19,7 @@ router.get('/', function(req, res, next){
 	res.send('respond with a resource');
 
 });
-
+/*
 function handler (req, res) {
   	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
   	function (err, data) {
@@ -35,7 +31,7 @@ function handler (req, res) {
     	res.writeHead(200);
    	 res.end(data);
   	});
-}
+}*/
 
 io.on('connection', function (socket) {
  	// Login Part start

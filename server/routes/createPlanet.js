@@ -1,7 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
-var io =require('socket.io').listen(5000);
-//var last_p_num;
-//var save_p_num;
+var io =require('socket.io').listen(5002);
+
 var new_p_n;
 var level_p=5;
 var source_q, x, y, spd;
@@ -38,50 +37,19 @@ function create_p(){
 							if(err){
 							
 							} else{
+								console.log('planet');
+								console.log(planet);
 								//socket.emit('planet_req', planet);
 							}	
 						});
 					});
 
-				//	console.log('PLANET');
-				//	console.log(planet);
 
-//					socket.emit('planet_req', planet);
-					
 				});
-				//console.log(planet);
-
-			
-				/*
-				var i=0;
-				while(i<count){
-									
-					collection.findOne({planet_id : i}, function(err, fnd_p){
-						if(err){
-									
-						} else{
-							if(fnd_p != null){
-									
-							} else{
-								new_p_n = i+1;
-								console.log('new_p_n   ' + new_p_n);
-								source_q = (100+i)*(i%5);
-								x = (i+5)*(i%5)+i;
-								y = (i+11)%((i%5)+6)*i;
-								spd = i%level_p;								
-								
-							}
-						}
-					});	
-					i++;
-					
-				}*/
-
-				
 			}
 		});
 	}); 		
 	
 }
 
-setInterval(create_p, 100000);//10초단위로 create_p 함수를 실행
+setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
