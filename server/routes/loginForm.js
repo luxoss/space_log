@@ -166,12 +166,9 @@ io.on('connection', function (socket) {
 		
 	});//lsocket.on('logout_msg', function(){}); end
 
-
-
 });
 
-
-console.log('Starting at http://52.79.132.7:3000');
+console.log('loginForm.js : http://203.237.179.21:50001');
 
 module.exports = router;
 //Finish The login join system
