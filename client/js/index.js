@@ -22,7 +22,7 @@ function load_script(url, callback){
 });
 */
 $(document).ready(function(){
-	var socket = io.connect('http://52.79.132.7:3000');
+	var socket = io.connect('http://203.237.179.21:5001');
 
 	$('#join_btn')
 		.on('click', function(){

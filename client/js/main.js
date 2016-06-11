@@ -32,8 +32,8 @@ function set_background(){
 $(document).ready(function(){
 //	set_background();
 
-	var socket = io.connect('http://52.79.132.7:3000');
-	var url = "http://52.79.132.7:8000";
+	var socket = io.connect('http://203.237.179.21:5001');
+	var url = "http://203.237.179.21:80";
 	var user_id = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
 /*
 	var planet_info = function(){}; // Create planet information object 
