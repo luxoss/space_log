@@ -168,7 +168,7 @@ io.on('connection', function (socket) {
 
 });
 
-console.log('loginForm.js : http://203.237.179.21:50001');
+console.log('loginForm.js : http://203.237.179.21:5001');
 
 module.exports = router;
 //Finish The login join system

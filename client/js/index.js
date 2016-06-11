@@ -61,7 +61,7 @@ $(document).ready(function(){
 			var user_info = new Object();
 		
 			user_info.username = username;
-			user_info.password = password;
+i			user_info.password = password;
 			
 			alert('loading...');
 
