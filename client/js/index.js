@@ -88,6 +88,7 @@ i			user_info.password = password;
 function trans_username_value(user_value)
 {
 	//alert(user_value + " connection");
-	document.location.href = "./main.html?username=" + user_value;
+	localStorage.setItem('username', user_value);
+//	document.location.href = "./main.html?username=" + user_value;
 }
 			
