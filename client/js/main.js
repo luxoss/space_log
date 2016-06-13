@@ -34,7 +34,7 @@ $(document).ready(function(){
 
 	var socket = io.connect('http://203.237.179.21:5001');
 	var url = "http://203.237.179.21:80";
-	var user_id = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
+//	var user_id = document.location.href.substr(document.location.href.lastIndexOf('=') + 1);
 /*
 	var planet_info = function(){}; // Create planet information object 
 	var battle_ship_info = {};
@@ -62,6 +62,8 @@ $(document).ready(function(){
 			alert('Click logout button.');
 			/* Below to disconnect user code line */
 			//alert('connection user id: ' + user_id);
+			var user_id = localStorage.getItem('username');
+
 			socket.emit('logout_msg', {username: user_id}); 
 			socket.on('logout_res', function(data){
 				if(data.response == 'true'){
