@@ -61,19 +61,60 @@ $(document).ready(function(){ // Ready to the document
 		});
 });
 
-$(document).keydown(function(e, angle){
+$(document).keydown(function(e){
 /*
 	var battle_ship_pos = {};
 */
 	//alert(e.keyCode);
-	var key_event = e.keyCode;	
 
-	switch(key_event){
+	var key_down_event = e.keyCode;	
+
+	switch(key_down_event){
 		case 38:
-			$('#battle_ship_img').animate({top: "-=50"}, 1000);
+			$('#battle_ship_img').animate({top: "-=50"}, {queue: false});
 			break;
 		case 40: 
-			$('#battle_ship_img').animate({top: "+=50"}, 1000);
+			$('#battle_ship_img').animate({top: "+=50"}, {queue: false});
+			break;
+		case 37:
+	        //	$('#battle_ship_img').animate({left: "-=50"}, 1000);
+			break;
+		case 39:
+		//	$('#battle_ship_img').animate({left: "+=50"}, 1000);
+		//	battle_ship_angle_transform(angle);
+			break;
+		case 83:
+			alert('shot button');
+			break;
+		case 66:
+			battle_ship_view_layer(); // call function battle ship layer
+			break;
+		case 82:
+			rank_view_layer(); 	  // call function rank layer
+			break;
+		case 80:
+			planet_view_layer();	  // call function planet layer
+			break;
+		default:
+			break;
+	};
+
+});
+/*
+$(document).keyup(function(ev){
+
+	var battle_ship_pos = {};
+
+	//alert(e.keyCode);
+
+	var key_up_event = ev.keyCode;	
+
+	switch(key_up_event){
+		case 38:
+			$('#battle_ship_img').stop();
+			break;
+		case 40: 
+			$('#battle_ship_img').stop();
 			break;
 		case 37:
 	        //	$('#battle_ship_img').animate({left: "-=50"}, 1000);
@@ -99,6 +140,7 @@ $(document).keydown(function(e, angle){
 	};
 
 });
+*/
 
 function battle_ship_angle_transform(angle){
 	document.getElementById('battle_ship_img').style.transform = "rotate(" + angle + "deg)";
@@ -112,6 +154,12 @@ function user_state_init(){
 			left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
 			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
 		});
+
+		$('#planet').css({
+			left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
+			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
+		});
+	
 	}).resize();
 }
 
