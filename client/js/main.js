@@ -97,13 +97,22 @@ $(document).keydown(function(e){
 function planet_view_layer(){
 
 	var state = $('#planet_layer').css('display');
-
+	var planet_info = {};
+	
+	planet.gas = null;
+	planet.mineral = null;
+	planet.unknown = null;
+/*
+	socket.on('planet_req', function(){
+		
+	});
+*/ 
 	$(window).resize(function(){
 		$('#planet_layer').css({
 			left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
 			top: ($(window).height() - $('#planet_layer').outerHeight()) / 2
 		});
-	});
+	}).resize();
 		
 	if(state == 'none'){
 		$('#planet_layer').show();
@@ -121,7 +130,7 @@ function battle_ship_view_layer(){
 			left: ($(window).width() - $('#battle_ship_layer').outerWidth()) / 2,
 			top: ($(window).height() - $('#battle_ship_layer').outerHeight()) / 2
 		});
-	});
+	}).resize();
 
 	if(state == 'none'){
 		$('#battle_ship_layer').show();
@@ -139,7 +148,7 @@ function rank_view_layer(){
 			left: ($(window).width() - $('#rank_layer').outerWidth()) / 2,
 			top: ($(window).height() - $('#rank_layer').outerHeight()) / 2
 		});
-	});
+	}).resize();
 
 	if(state == 'none'){
 		$('#rank_layer').show();
