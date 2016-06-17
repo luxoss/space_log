@@ -68,6 +68,7 @@ $(document).keydown(function(e){
 	switch(key_event){
 		case 38:
 			alert('up');
+			battle_ship_move('battle_ship', 0, 0); 
 			break;
 		case 40: 
 			alert('down');
@@ -105,6 +106,17 @@ function user_state_init(){
 			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
 		});
 	}).resize();
+}
+
+function battle_ship_move(div_id, pos_x, pos_y){
+	// x, y positioning and return current position
+	if(pos_x || pos_y){
+		$('#'+div_id).css('left', pos);
+		$('#'+div_id).css('top', pos);
+	}else{
+		$(return parseInt($('#'+div_id).css('left'));
+		$(return parseInt($('#'+div_id).css('top'));
+	}
 }
 
 function planet_view_layer(){
