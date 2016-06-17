@@ -1,4 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
+var mclient = new MongoClient(new Server('localhost', 27017, {'native_parser': true}));
+var db = mongoclient.db('space_log');
+
 var io =require('socket.io').listen(5002);
 
 var new_p_n;
@@ -8,6 +11,11 @@ var data, get_time;
 
 io.on('connection', function(socket){
 	consol.log('create planet - start io.on(connect)');
+	socket.on('planet_req', function(data){
+		var planet = db.collection('PLANET');
+		planet.find();
+	});
+
 
 });
 
