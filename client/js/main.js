@@ -16,9 +16,9 @@ $(document).ready(function(){ // Ready to the document
 //	set_background();
 	var socket = io.connect('http://203.237.179.21:5001');
 	var url = "http://203.237.179.21:80";
+//	var battle_ship_pos = {};
 
-//	$(window).resize();
-	user_state_init();
+	user_state_init(); // Call user state initialize function
 
 	$('#logout_btn')
 		.on('click', function(){
@@ -63,21 +63,44 @@ $(document).ready(function(){ // Ready to the document
 });
 
 $(document).keydown(function(e){
+	var battle_ship_pos = { // Create battle ship position obj namespace
+	
+		'x' : function(div_id, pos_x){
+			if(pos_x){
+				$('#' + div_id).css('left', pos_x);
+			}else{
+				return parseInt($('#'+div_id).css('left'));
+			}
+		},
+
+		'y' : function(div_id, pos_y){
+			if(pos_y){
+				$('#' + div_id).css('top', pos_y);
+			}else{
+				return parseInt($('#' + div_id).css('top'));
+			}
+		}
+
+	};
+
 	//alert(e.keyCode);
 	var key_event = e.keyCode;	
 	switch(key_event){
 		case 38:
 			alert('up');
-			battle_ship_move('battle_ship', 0, 0); 
+			battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') - 5); 
 			break;
 		case 40: 
 			alert('down');
+			battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') + 5);
 			break;
 		case 37:
 			alert('left');
+			battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') - 5);
 			break;
 		case 39:
 			alert('right');
+			battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') + 5);
 			break;
 		case 83:
 			alert('shot button');
@@ -97,7 +120,6 @@ $(document).keydown(function(e){
 
 });
 
-
 function user_state_init(){
 
 	$(window).resize(function(){
@@ -106,17 +128,6 @@ function user_state_init(){
 			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
 		});
 	}).resize();
-}
-
-function battle_ship_move(div_id, pos_x, pos_y){
-	// x, y positioning and return current position
-	if(pos_x || pos_y){
-		$('#'+div_id).css('left', pos);
-		$('#'+div_id).css('top', pos);
-	}else{
-		$(return parseInt($('#'+div_id).css('left'));
-		$(return parseInt($('#'+div_id).css('top'));
-	}
 }
 
 function planet_view_layer(){
