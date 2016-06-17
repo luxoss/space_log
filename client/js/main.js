@@ -63,44 +63,50 @@ $(document).ready(function(){ // Ready to the document
 });
 
 $(document).keydown(function(e){
-	var battle_ship_pos = { // Create battle ship position obj namespace
+/*
+	var battle_ship_pos = {};
 	
-		'x' : function(div_id, pos_x){
+	battle_ship_pos.x = function(div_id, pos_x){
+			alert(div_id + ", " + pos_x);
 			if(pos_x){
 				$('#' + div_id).css('left', pos_x);
 			}else{
 				return parseInt($('#'+div_id).css('left'));
 			}
-		},
+	}
 
-		'y' : function(div_id, pos_y){
+	battle_ship_pos.y = function(div_id, pos_y){
+			alert(pos_y);
 			if(pos_y){
 				$('#' + div_id).css('top', pos_y);
 			}else{
 				return parseInt($('#' + div_id).css('top'));
 			}
-		}
+	}
+*/
 
-	};
-
+	var battle_ship = document.getElementById('battle_ship');
+	var pos_y = parseInt(battle_ship.style.top);
+	
 	//alert(e.keyCode);
 	var key_event = e.keyCode;	
 	switch(key_event){
 		case 38:
 			alert('up');
-			battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') - 5); 
+			pos_y -= 30;
+			battle_ship.style.top = pos_y + "px";
+		//	battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') - 5); 
 			break;
 		case 40: 
 			alert('down');
-			battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') + 5);
+		//	battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') + 5);
 			break;
 		case 37:
 			alert('left');
-			battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') - 5);
-			break;
+		//	battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') - 5);
 		case 39:
 			alert('right');
-			battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') + 5);
+		//	battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') + 5);
 			break;
 		case 83:
 			alert('shot button');
