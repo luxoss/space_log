@@ -18,6 +18,7 @@ $(document).ready(function(){ // Ready to the document
 	var url = "http://203.237.179.21:80";
 
 //	$(window).resize();
+	user_state_init();
 
 	$('#logout_btn')
 		.on('click', function(){
@@ -92,7 +93,19 @@ $(document).keydown(function(e){
 		default:
 			break;
 	};
+
 });
+
+
+function user_state_init(){
+
+	$(window).resize(function(){
+		$('#user_obj').css({
+			left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
+			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
+		});
+	}).resize();
+}
 
 function planet_view_layer(){
 
