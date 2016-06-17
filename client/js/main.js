@@ -17,7 +17,11 @@ $(document).ready(function(){ // Ready to the document
 	var unknown_planet_socket = io.connect('http://203.237.137.21:5002');
 	var url = "http://203.237.179.21:80";
 	var angle = 0;
+	var user_id = localStorage.getItem('username');
+	
 	user_state_init(); // Call user state initialize function
+	
+	$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
 
 	$('#logout_btn')
 		.on('click', function(){
@@ -150,16 +154,23 @@ function battle_ship_angle_transform(angle){
 function user_state_init(){
 
 	$(window).resize(function(){
-		$('#battle_ship_img').css({
+				
+		$('#user_obj').css({
 			left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
 			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
 		});
 
-		$('#planet').css({
-			left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
-			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
+
+		$('#battle_ship_img').css({
+			left: ($(window).width() - $('#battle_ship_img').outerWidth()) / 2,
+			top: ($(window).height() - $('#battle_ship_img').outerHeight()) / 2
 		});
-	
+/*
+		$('#planet').css({
+			left: ($(window).width() - $('#planet').outerWidth()) / 2,
+			top: ($(window).height() - $('#planet').outerHeight()) / 2
+		});
+*/	
 	}).resize();
 }
 
