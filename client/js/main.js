@@ -13,13 +13,14 @@ function set_background(){
 }
 */
 $(document).ready(function(){ // Ready to the document 
-//	set_background();
 	var socket = io.connect('http://203.237.179.21:5001');
 	var url = "http://203.237.179.21:80";
-//	var battle_ship_pos = {};
 
-	user_state_init(); // Call user state initialize function
+//	user_state_init(); // Call user state initialize function
 
+	// Add battle ship sprite
+	$('#main_layer').append("<div id='battle_ship' style='position: absolute'>"); 
+	
 	$('#logout_btn')
 		.on('click', function(){
 			/* Below to disconnect user code line */
@@ -65,37 +66,16 @@ $(document).ready(function(){ // Ready to the document
 $(document).keydown(function(e){
 /*
 	var battle_ship_pos = {};
-	
-	battle_ship_pos.x = function(div_id, pos_x){
-			alert(div_id + ", " + pos_x);
-			if(pos_x){
-				$('#' + div_id).css('left', pos_x);
-			}else{
-				return parseInt($('#'+div_id).css('left'));
-			}
-	}
-
-	battle_ship_pos.y = function(div_id, pos_y){
-			alert(pos_y);
-			if(pos_y){
-				$('#' + div_id).css('top', pos_y);
-			}else{
-				return parseInt($('#' + div_id).css('top'));
-			}
-	}
 */
-
-	var battle_ship = document.getElementById('battle_ship');
-	var pos_y = parseInt(battle_ship.style.top);
-	
 	//alert(e.keyCode);
 	var key_event = e.keyCode;	
+	var battle_ship_obj = $('#battle_ship').offset();
 	switch(key_event){
 		case 38:
 			alert('up');
-			pos_y -= 30;
-			battle_ship.style.top = pos_y + "px";
-		//	battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') - 5); 
+			alert('left: ' + battle_ship_obj.left + 'px, top: ' + battle_ship_obj.top + 'px');
+		//	$('#battle_ship').css('top', (battle_ship_obj.top - 5));
+			asset.y('battle_ship', asset.y('battle_ship') - 5); 
 			break;
 		case 40: 
 			alert('down');
@@ -104,6 +84,7 @@ $(document).keydown(function(e){
 		case 37:
 			alert('left');
 		//	battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') - 5);
+			break;
 		case 39:
 			alert('right');
 		//	battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') + 5);
@@ -125,6 +106,7 @@ $(document).keydown(function(e){
 	};
 
 });
+
 
 function user_state_init(){
 
