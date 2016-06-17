@@ -28,7 +28,6 @@
   	border: 2px solid;
   	border-color: rgba(102, 153, 255, 1);
 */
-  	cursor:pointer;
   	width: 230px;
   	height: 50px;
   	position: fixed;
@@ -37,11 +36,11 @@
 }
 
 #main_layer {
-	background-image: url('../res/img/space0.jpg');
+	background-image: url('../res/img/space1.jpg');
   	background-size: cover;
   	width: 100%;
-  	height: 1024px;
-/*	text-align: center;*/
+  	height: 768px;
+	position: relative;
 }
 
 #user_ui {
@@ -131,4 +130,25 @@
 	display: none;
 }
 
+#user_obj {
+	position: fixed;
+	width: 100px;
+	height: 200px;
+}
+
+#battle_ship {
+	width: 100px;
+	height: 100px;
+}
+
+#battle_ship_img {
+	position: fixed;
+	width: 100px;
+	height: 100px;
+	background-image: url('http://203.237.179.21:8000/res/img/battle_ship1.png');
+}
+#planet {
+	width: 100px;
+	height: 100px;
+}
 

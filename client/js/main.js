@@ -14,13 +14,11 @@ function set_background(){
 */
 $(document).ready(function(){ // Ready to the document 
 	var socket = io.connect('http://203.237.179.21:5001');
+	var unknown_planet_socket = io.connect('http://203.237.137.21:5002');
 	var url = "http://203.237.179.21:80";
+	var angle = 0;
+	user_state_init(); // Call user state initialize function
 
-//	user_state_init(); // Call user state initialize function
-
-	// Add battle ship sprite
-	$('#main_layer').append("<div id='battle_ship' style='position: absolute'>"); 
-	
 	$('#logout_btn')
 		.on('click', function(){
 			/* Below to disconnect user code line */
@@ -63,31 +61,26 @@ $(document).ready(function(){ // Ready to the document
 		});
 });
 
-$(document).keydown(function(e){
+$(document).keydown(function(e, angle){
 /*
 	var battle_ship_pos = {};
 */
 	//alert(e.keyCode);
 	var key_event = e.keyCode;	
-	var battle_ship_obj = $('#battle_ship').offset();
+
 	switch(key_event){
 		case 38:
-			alert('up');
-			alert('left: ' + battle_ship_obj.left + 'px, top: ' + battle_ship_obj.top + 'px');
-		//	$('#battle_ship').css('top', (battle_ship_obj.top - 5));
-			asset.y('battle_ship', asset.y('battle_ship') - 5); 
+			$('#battle_ship_img').animate({top: "-=50"}, 1000);
 			break;
 		case 40: 
-			alert('down');
-		//	battle_ship_pos.y('battle_ship', battle_ship_pos.y('battle_ship') + 5);
+			$('#battle_ship_img').animate({top: "+=50"}, 1000);
 			break;
 		case 37:
-			alert('left');
-		//	battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') - 5);
+	        //	$('#battle_ship_img').animate({left: "-=50"}, 1000);
 			break;
 		case 39:
-			alert('right');
-		//	battle_ship_pos.x('battle_ship', battle_ship_pos.x('battle_ship') + 5);
+		//	$('#battle_ship_img').animate({left: "+=50"}, 1000);
+			battle_ship_angle_transform(angle);
 			break;
 		case 83:
 			alert('shot button');
@@ -107,11 +100,15 @@ $(document).keydown(function(e){
 
 });
 
-
+function battle_ship_angle_transform(angle){
+	document.getElementById('battle_ship_img').style.transform = "rotate(" + angle + "deg)";
+	angle += 30;	
+}
+	
 function user_state_init(){
 
 	$(window).resize(function(){
-		$('#user_obj').css({
+		$('#battle_ship_img').css({
 			left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
 			top: ($(window).height() - $('#user_obj').outerHeight()) / 2
 		});
@@ -121,13 +118,24 @@ function user_state_init(){
 function planet_view_layer(){
 
 	var state = $('#planet_layer').css('display');
-	var planet_info = {};
+	var unknown_planet_info = {};
 	
-	planet.gas = null;
-	planet.mineral = null;
-	planet.unknown = null;
+	unknown_planet.x = null;
+	unknown_planet.y = null;
+	unknown_planet.gas = null;
+	unknown_planet.mineral = null;
+	unknown_planet.unknown = null;
 /*
-	socket.on('planet_req', function(){
+	//response unknown plnaet database 
+
+	unknown_planet_socket.on('planet_req', function(data){
+		alert(data);
+
+		unknown_planet_info.x = data.location_x;
+		unknown_planet_info.y = data.location_y;
+		unknown_planet_info.gas = data.gas;
+		unknown_planet_info.mineral = data.mineral;
+		unknown_plnaet_info.unknown = data.unknown;
 		
 	});
 */ 
@@ -181,86 +189,4 @@ function rank_view_layer(){
 	}
 }
 
-/*
-// Create open other window in Ifram set
-var win = null;
-
-function pop_up_window(mypage, myname, w, h, scroll){
-	left_pos = (screen.width) ? (screen.width-w)/2 : 0;
-	top_pos = (screen.height) ? (screen.height-h)/2 : 0;
-	
-	settings = 'height=' + h + ',width=' + w + ',top=' + top_pos + ',left=' + left_pos + ',scrollbars=' + scroll + ',resizable';
-	win = window.open(mypage, myname, settings);
-	
-	socket.on('planet_info', function(){
-		setInterval(planet_info(x_pos, y_pos, grade, gas, mineral, unknown), 5000); // Call function interval 2sec
-	});
-	return false; 
-}
-*/
-
-/*
-function planet_info(x_pos, y_pos, grade, gas, mineral, unknown){
-	var planet_status = {};
-
-	planet_status.x_pos = x_pos;
-	planet_stauts.y_pos = y_pos;
-	planet_status.grade = grade;
-	planet_status.resources = function(){};
-}
-
-
-var player_set = function(start_pos_x, start_pos_y, _username, _HP, _SP, _damage){
-	// Declare player state value	
-	var x = start_pos_x;
-	var y = start_pos_y;
-	var username = _username;
-	var damage = _damage;
-	var hp = _HP;
-	var sp = _SP;
-	var sound = new Audio('http://52.79.132.7:8000/res/sound/InterStellare.mp3');
-	var shot_cnt = 0; // counting shot
-
-	// Create get player state method
-	var get_pos_x = function(){
-		return x;
-	};
-
-	var get_pos_y = function(){
-		return y;
-	};
-
-	var get_username = function(){
-		return username;
-	};
-
-	var get_HP = function(){
-		return hp;
-	};
-
-	var get_SP = function(){
-		return sp;
-	};
-
-	var get_damage = function(){
-		return damage;
-	};
-
-	// Create set player state method
-	var set_pos_x = function(new_pos_x){
-		x = new_pos_x;
-	};
-
-	var set_pos_y = function(new_pos_y){
-		y = new_pos_y;
-	};
-
-	// Create update player position
-	var update_pos = function(keys){
-		
-		var prev_x = x;
-		var prev_y = y;
-
-	);
-*/		
 		
