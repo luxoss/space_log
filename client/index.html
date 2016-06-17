@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="http://203.237.179.21:80/css/index.css" media="all"/>
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script> 
 		<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		<script type="text/javascript" src="http://203.237.179.80/js/index.js"></script> 
+		<script type="text/javascript" src="http://203.237.179.21:80/js/index.js"></script> 
 		<title>Welcome to the space log web game</title>
 	</head>
 	<body>
@@ -21,7 +21,7 @@
 					&nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
 					&nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
 					&nbsp;<input type="password" id="password" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-					&nbsp;<input type="button" id="login_btn" name="login" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /> <!-- Check user list and login main.html page -->
+					&nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /> <!-- Check user list and login main.html page -->
 				</form>
         			<form id="join_form" action="" method=""> <!-- Join form -->
         				<br/>
@@ -31,7 +31,7 @@
           				&nbsp;<input type="password" id="password0" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
           				&nbsp;<img src="./res/img/email_img.png" alt="email_img.png" /><br/>
           				&nbsp;<input type="email" id="email" name="email" placeholder="domain@guest.com" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-          				&nbsp;<input type="submit" id="join_btn" name="join" onfocus=this.style.background="red"; />
+          				&nbsp;<input type="button" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; />
         			</form>
       			</div>
       			<div id="footer"></div> <!-- footer division -->

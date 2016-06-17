@@ -2,25 +2,11 @@
 	index.js 
 	>>> control index page
 */
+// Create dynamic loading
+// ...
 
-/*
-url = "http://code.jquery.com/jquery-2.1.0.min.js";
 
-function load_script(url, callback){
-	var script = document.createElement('script');
-	script.src = url;
-	script.onload = callback;
-	document.getElementByTagName('head')[0].appendChild(script);
-}
-
-(function(){
-	var script = document.createElement('script');
-	script.type = "text/javascript";
-	script.charset = "utf-8";
-	script.src = "http://code.jquery.com/jquery-2-1.0.min.js";
-	document.getElementByTagName("head")[0].appendChild(script);
-});
-*/
+// Jquery ready to document
 $(document).ready(function(){
 	var socket = io.connect('http://203.237.179.21:5001');
 
@@ -44,10 +30,11 @@ $(document).ready(function(){
 				
 				if(data['response'] == 'true'){
 					alert('회원가입이 완료 되었습니다.');
-					$(location).reload();
+					window.location.reload();
 				}else{
 					alert('해당 아이디가 이미 있습니다.');
-					$(location).reload();
+					//$(location).reload();
+					window.location.reload();
 				}
 			});
 		});
@@ -61,7 +48,7 @@ $(document).ready(function(){
 			var user_info = new Object();
 		
 			user_info.username = username;
-i			user_info.password = password;
+			user_info.password = password;
 			
 			alert('loading...');
 
@@ -74,7 +61,7 @@ i			user_info.password = password;
 				if(data['response'] == "true"){
 					alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
 					trans_username_value(user_id);
-					//$(location).attr('href', main_page_url);
+					$(location).attr('href', main_page_url);
 				}else{
 					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
 					$(location).reload();
@@ -88,6 +75,9 @@ i			user_info.password = password;
 function trans_username_value(user_value)
 {
 	//alert(user_value + " connection");
+	if(!localStorage){
+		alert("This browser isn't support localStorage.");
+	}
 	localStorage.setItem('username', user_value);
 //	document.location.href = "./main.html?username=" + user_value;
 }
