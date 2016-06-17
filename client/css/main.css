@@ -43,8 +43,8 @@ body {
 #main_layer {
 	background-image: url('../res/img/space1.jpg');
   	background-size: cover;
-  	width: 100%;
-  	height: 800px;
+  	width: 2048px;
+  	height: 750px;
 	position: relative;
 }
 
@@ -154,8 +154,8 @@ body {
 }
 
 #planet {
-	position: fixed;
 	width: 100px;
 	height: 100px;
+	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
 }
 
