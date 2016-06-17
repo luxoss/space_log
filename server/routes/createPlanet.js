@@ -6,6 +6,13 @@ var level_p=5;
 var source_q, x, y, spd;
 var data, get_time;
 
+io.on('connection', function(socket){
+	consol.log('create planet - start io.on(connect)');
+
+});
+
+
+
 
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
@@ -31,6 +38,8 @@ function create_p(){
 				spd = t%level_p;
 				collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){});
 
+				/*
+
 				io.on('connection', function(socket){
 					socket.on('planet_req', function(data){//when client request the all of planet data.
 						var planet = collection.find(function(err, planet){
@@ -46,6 +55,8 @@ function create_p(){
 
 
 				});
+
+				*/
 			}
 		});
 	}); 		
@@ -54,3 +65,4 @@ function create_p(){
 
 setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 console.log('createPlanet.js : http://203.237.179.21:5002');
+

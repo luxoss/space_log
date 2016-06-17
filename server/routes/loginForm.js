@@ -19,9 +19,9 @@ router.get('/', function(req, res, next){
 	res.send('respond with a resource');
 
 });
-/*
+
 function handler (req, res) {
-//  	fs.readFile('/home/ubuntu/nodejs/Github/space_log/client/index.html',
+  	fs.readFile('/home/jaesun/Git/space_log/client/index.html',
   	function (err, data) {
     	if (err) {
       		res.writeHead(500);
@@ -31,9 +31,12 @@ function handler (req, res) {
     	res.writeHead(200);
    	 res.end(data);
   	});
-}*/
+}
 
 io.on('connection', function (socket) {
+
+	console.log('login form - start io.on(connect)');
+
  	// Login Part start
   	socket.on('login_msg', function (data) {
     		console.log(data);
