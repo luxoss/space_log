@@ -1,8 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
-//var mclient = new MongoClient(new Server('localhost', 27017, {'native_parser': true}));
-//var db = mongoclient.db('space_log');
 
-var io =require('socket.io').listen(5002);
+//var io =require('socket.io').listen(5002);
 
 var new_p_n;
 var level_p=5;
