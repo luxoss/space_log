@@ -12,7 +12,7 @@ io.on('connect' , function(err, data){
 	} err{
 		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 			var collection = db.collection("PLANET");
-			collection.find(function(err, planet){
+			collection.findOne(function(err, planet){
 				if(err){
 					console.log("Finding all planet information is ERROR");
 					console.log(err);
