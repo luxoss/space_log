@@ -1,33 +1,30 @@
 var io = require('sockete.io').listen(5002);
 var MongoClient = require('mongodb').MongoClient;
 
-io.on('connect' , function(err, data){
-	consile.log('sendPlanet.js');
-	console.log(data);
+
+MongoClient.connect("mongod://localhost/space_log", function(err, db){
+	var collectino = db.collection("PLANET");
 	
-	socket.on('p_info' , function(err){
-	if(err){
-		console.log('socket on is err');
-		console.log(err);
-	} err{
-		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-			var collection = db.collection("PLANET");
-			collection.findOne(function(err, planet){
+
+	io.on('connection', function(socket){
+		socekt.on('plnt_req', function(data){
+			collection.find().toArray(function(err, Pdocs){
 				if(err){
-					console.log("Finding all planet information is ERROR");
+					console.log('Finding to array documents is error');
 					console.log(err);
-					socket.emit('planet_info', {response : 'false'});
 				} else{
-					console.log("Planet information is...");
-					console.log(planet);
+					console.log('Planet doucment is.....');
+					for(var i=0; i< Pdocs.length; i++){
+						console.log(Pdocs[i]._id);
+						socekt.emit('plnt_res', Pdocs[i]);
+					}
 				}
-			});
+
+			});		
 		});
-
-		
-	}
-
-	
-	
 	});
+
+
 });
+
+

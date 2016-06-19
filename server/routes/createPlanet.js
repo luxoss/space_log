@@ -1,6 +1,6 @@
 var MongoClient = require('mongodb').MongoClient;
 
-//var io =require('socket.io').listen(5002);
+var io =require('socket.io').listen(5002);
 
 var new_p_n;
 var level_p=5;
@@ -44,28 +44,26 @@ function create_p(){
 				spd = t%level_p;
 				collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){});
 
-				collection.find().toArray(function(err, Pdocs){
-					if (err){
-						console.log('find toArray is error');
-					} else{
-						console.log('planet Documents is .....');
-						for(i=0; i<Pdocs.length; i++){
-							console.log(Pdocs[i]._id);
-						}
-					}
-				});
-				/*
-				collection.find(function(err, planet){
-					if(err){
-						console.log('error message');
-						console.log(err);
-					} else {
-						console.log('planet information is.....');
-						console.log(planet);
-						//console.log('palent.mineral is : ' + planet.mineral);
-					}
-				});*/
 
+				io.on('conection', function(socket){
+					socket.on('planet_req',  function(data){
+						collection.find().toArray(function(err, Pdocs){
+							if (err){
+								console.log('find toArray is error');
+							} else{
+								console.log('planet Documents is .....');
+								for(i=0; i<Pdocs.length; i++){
+									console.log(Pdocs[i]._id);
+								
+								}
+							}
+						});
+
+					});
+				
+				});
+
+			
 				/*
 
 				io.on('connection', function(socket){
@@ -91,9 +89,9 @@ function create_p(){
 	
 }
 
-setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-//setInterval(create_p, 3000);//10초단위로 create_p 함수를 실행
+setInterval(create_p, 3000);//10초단위로 create_p 함수를 실행
 
 
 //onsole.log('createPlanet.js : http://203.237.179.21:5002');
