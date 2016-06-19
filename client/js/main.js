@@ -16,7 +16,6 @@ $(document).ready(function(){ // Ready to the document
 	var socket = io.connect('http://203.237.179.21:5001');
 	var unknown_planet_socket = io.connect('http://203.237.137.21:5002');
 	var url = "http://203.237.179.21:80";
-	var angle = 0;
 	var user_id = localStorage.getItem('username');
 	
 	user_state_init(); // Call user state initialize function
@@ -110,7 +109,7 @@ $(document).keydown(function(e){
 	};
 
 });
-/*
+
 $(document).keyup(function(ev){
 
 	var battle_ship_pos = {};
@@ -118,7 +117,7 @@ $(document).keyup(function(ev){
 	//alert(e.keyCode);
 
 	var key_up_event = ev.keyCode;	
-
+	alert(key_up_event);
 	switch(key_up_event){
 		case 38:
 			$('#battle_ship_img').stop();
@@ -127,11 +126,11 @@ $(document).keyup(function(ev){
 			$('#battle_ship_img').stop();
 			break;
 		case 37:
-	        //	$('#battle_ship_img').animate({left: "-=50"}, 1000);
+			$('#battle_ship_img').stop();
 			break;
 		case 39:
-		//	$('#battle_ship_img').animate({left: "+=50"}, 1000);
-			battle_ship_angle_transform(angle);
+			$('#battle_ship_img').stop();			
+		//	battle_ship_angle_transform(angle);
 			break;
 		case 83:
 			alert('shot button');
@@ -150,13 +149,13 @@ $(document).keyup(function(ev){
 	};
 
 });
-*/
 
+/*
 function battle_ship_angle_transform(angle){
 	document.getElementById('battle_ship_img').style.transform = "rotate(" + angle + "deg)";
 	angle += 30;	
 }
-	
+*/	
 function user_state_init(){
 
 	$(window).resize(function(){
