@@ -65,12 +65,12 @@ $(document).ready(function(){ // Ready to the document
 		});
 });
 
+var angle = 0;
 $(document).keydown(function(e){
 /*
 	var battle_ship_pos = {};
 */
 	//alert(e.keyCode);
-
 	var key_down_event = e.keyCode;	
 
 	switch(key_down_event){
@@ -81,11 +81,17 @@ $(document).keydown(function(e){
 			$('#battle_ship_img').animate({top: "+=50"}, {queue: false});
 			break;
 		case 37:
-	        //	$('#battle_ship_img').animate({left: "-=50"}, 1000);
+	        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
+			angle -= 30;
+		/*
+			if(angle == 360){
+				angle = 0;
+			}
+		*/
 			break;
 		case 39:
-		//	$('#battle_ship_img').animate({left: "+=50"}, 1000);
-		//	battle_ship_angle_transform(angle);
+			$('#battle_ship_img').css('transition', 'transform 2s').css('transform',  'rotate(' + angle + 'deg)');
+			angle += 30;
 			break;
 		case 83:
 			alert('shot button');
