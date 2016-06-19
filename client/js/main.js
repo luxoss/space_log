@@ -74,13 +74,13 @@ $(document).keydown(function(e){
 	var key_down_event = e.keyCode;	
 
 	switch(key_down_event){
-		case 38:
+		case 38: // up key press down
 			$('#battle_ship_img').animate({top: "-=50"}, {queue: false});
 			break;
-		case 40: 
+		case 40: // down key press down
 			$('#battle_ship_img').animate({top: "+=50"}, {queue: false});
 			break;
-		case 37:
+		case 37: // left key press down
 	        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
 			angle -= 30;
 		/*
@@ -89,7 +89,7 @@ $(document).keydown(function(e){
 			}
 		*/
 			break;
-		case 39:
+		case 39: // right key press down
 			$('#battle_ship_img').css('transition', 'transform 2s').css('transform',  'rotate(' + angle + 'deg)');
 			angle += 30;
 			break;
