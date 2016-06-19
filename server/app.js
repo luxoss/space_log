@@ -9,8 +9,11 @@ var routes = require('./routes/index');
 var users = require('./routes/users');
 //var join = require('./routes/joinForm');//New add(Join)
 var login = require('./routes/loginForm');//New add(Login)
-//new add Planet
+//new create Planet
 var createPlanet = require('./routes/createPlanet');
+//new send Planet
+var sendPlanet = require('./routes/sendPlanet');
+
 
 var app = express();
 

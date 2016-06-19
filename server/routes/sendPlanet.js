@@ -1,13 +1,12 @@
-var io = require('sockete.io').listen(5002);
+var io = require('socket.io').listen(5002);
 var MongoClient = require('mongodb').MongoClient;
 
-
-MongoClient.connect("mongod://localhost/space_log", function(err, db){
-	var collectino = db.collection("PLANET");
-	
-
-	io.on('connection', function(socket){
-		socekt.on('plnt_req', function(data){
+io.on('connection', function(socket){
+			
+	socket.on('planet_req', function(data){
+		console.log("I get a planet request.");
+		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+			var collection = db.collection("PLANET");
 			collection.find().toArray(function(err, Pdocs){
 				if(err){
 					console.log('Finding to array documents is error');
@@ -16,7 +15,7 @@ MongoClient.connect("mongod://localhost/space_log", function(err, db){
 					console.log('Planet doucment is.....');
 					for(var i=0; i< Pdocs.length; i++){
 						console.log(Pdocs[i]._id);
-						socekt.emit('plnt_res', Pdocs[i]);
+						socekt.emit('planet_res', Pdocs[i]);
 					}
 				}
 
