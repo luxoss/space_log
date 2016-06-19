@@ -65,16 +65,31 @@ $(document).ready(function(){ // Ready to the document
 });
 
 var angle = 0;
+//var bg_width = 2048;
+var bg_height = 1024;
 $(document).keydown(function(e){
 /*
 	var battle_ship_pos = {};
 */
 	//alert(e.keyCode);
 	var key_down_event = e.keyCode;	
-
+	var battle_ship_pos_top = document.getElementById('battle_ship_img');
+//	var bg_width = document.getElementById('main_layer');	
+	
 	switch(key_down_event){
 		case 38: // up key press down
 			$('#battle_ship_img').animate({top: "-=50"}, {queue: false});
+		
+			if(battle_ship_pos_top.style.top <= '0px'){
+			/*
+				battle_ship_pos_top.style.top = '0px';
+				bg_width += 100;
+				bg_height += 100;
+				$('#main_layer').css('width', bg_width).css('height', bg_height);
+			*/
+				console.log('if statement is ok');
+			}
+
 			break;
 		case 40: // down key press down
 			$('#battle_ship_img').animate({top: "+=50"}, {queue: false});
@@ -89,7 +104,7 @@ $(document).keydown(function(e){
 		*/
 			break;
 		case 39: // right key press down
-			$('#battle_ship_img').css('transition', 'transform 2s').css('transform',  'rotate(' + angle + 'deg)');
+			$('#battle_ship_img')/*.css('transition', 'transform 2s')*/.css('transform',  'rotate(' + angle + 'deg)');
 			angle += 30;
 			break;
 		case 83:
