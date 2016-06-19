@@ -113,11 +113,8 @@ $(document).keydown(function(e){
 $(document).keyup(function(ev){
 
 	var battle_ship_pos = {};
-
-	//alert(e.keyCode);
-
 	var key_up_event = ev.keyCode;	
-	alert(key_up_event);
+//	alert(key_up_event);
 	switch(key_up_event){
 		case 38:
 			$('#battle_ship_img').stop();
@@ -189,10 +186,10 @@ function planet_view_layer(){
 	unknown_planet.gas = null;
 	unknown_planet.mineral = null;
 	unknown_planet.unknown = null;
-/*
-	//response unknown plnaet database 
 
-	unknown_planet_socket.on('planet_req', function(data){
+	//response unknown plnaet database 
+	unknown_planet_socket.emit('planet_req');
+	unknown_planet_socket.on('planet_res', function(data){
 		alert(data);
 
 		unknown_planet_info.x = data.location_x;
@@ -202,7 +199,7 @@ function planet_view_layer(){
 		unknown_plnaet_info.unknown = data.unknown;
 		
 	});
-*/ 
+ 
 	$(window).resize(function(){
 		$('#planet_layer').css({
 			left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
