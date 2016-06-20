@@ -305,9 +305,11 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 */
 		var test_img_url = "../res/img/planet/planet_1.png";
 		var undiscovered_planet_img = "<div style='position: fixed; width: 100px; height: 100px; background-image: url('../res/img/planet/planet_1.png');'></div>"
-
-		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
 		
+		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");	
+/*
+		$('#planet_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
+*/		
 
 	});
  
