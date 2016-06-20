@@ -1,7 +1,7 @@
 /* Javascript file :: main_page_control */
 
 
-function set_background(data){
+function set_background(){
 	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 	undiscovered_planet_socket.on('planet_res', function(data){
 		console.log(data);
@@ -14,6 +14,7 @@ function set_background(data){
 		undiscovered_planet_info.unknown = data.unknown;
 		undiscovered_planet_info.grade = data.create_spd;
 */
+		// Create group of the planet grage image obj
 		var planet0_img = new Image();
 		var planet1_img = new Image();
 		var planet2_img = new Image();
@@ -26,23 +27,47 @@ function set_background(data){
 		planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
 
 		var canvas = document.getElementById('background');
-		var context = canvas.getContext('2d');
-		var image = new Image();
+		//var context = canvas.getContext('2d');
+//		var image = new Image();
 		var test_planet_img = new Image();
-		var pos_x = data.location_x;
-		var pos_y = data.location_y;
-		
+		var pos_x = parseInt(data.location_x);
+		var pos_y = parseInt(data.location_y);
+			
+		if(canvas.getContext){
+			context = canvas.getContext('2d');
+			context.fillStyle = 'Black';
+			context.rect(0, 0, 2048, 1024);
+			context.fill();
+			
+			draw_stars();
+		}
 //		console.log(pos_x + ', ' + pos_y);
 //		$(#main_layer).css('z-index', 1);
-		image.onload = function(){
-			context.drawImage(image, 0, 0, canvas.width, canvas.height);
+		test_planet_img.onload = function(){
+		//	context.drawImage(image, 0, 0, canvas.width, canvas.height);
+	
 			context.drawImage(test_planet_img, pos_x, pos_y, 100, 100);
 			console.log(pos_x, pos_y);
 		}
-		image.src = "http://203.237.179.21:8000/res/img/space_tile.png";
-		test_planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_0.png";
+		//image.src = "http://203.237.179.21:8000/res/img/space_tile.png";
+		test_planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
 	});
 	return ;
+}
+
+function draw_stars(){
+	for(var i=0; i<=100; i++){
+		var x = Math.floor(Math.random() * 2047);
+		var y = Math.floor(Math.random() * 1023);
+		
+		context.fillStyle = "rgb(255, 255, 0)";
+		
+		context.beginPath();
+		context.arc(x, y, 3, 0, Math.PI * 2, true);
+		context.closePath();
+		context.fill();
+	}
+	return ; 
 }
 
 /* Create socket in global valuable. becuz socket access all document type */
