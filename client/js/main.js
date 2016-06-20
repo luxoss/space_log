@@ -1,17 +1,49 @@
 /* Javascript file :: main_page_control */
 
+
+function set_background(data){
+	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
+	undiscovered_planet_socket.on('planet_res', function(data){
+		console.log(data);
 /*
-function set_background(){
-	var canvas = document.getElementById('main_layer');
-	var context = canvas.getContext('2d');
-	var image = new Image();
-//	$(#main_layer).css('z-index', 1);
-	image.onload = function(){
-		context.drawImage(image, 0, 0, canvas.width, canvas.height);
-	}
-	image.src = "http://52.79.132.7:8000/res/img/space0.jpg"
-}
+		undiscovered_planet_info.id = data._id;
+		undiscovered_planet_info.x = data.location_x;
+		undiscovered_planet_info.y = data.location_y;
+		undiscovered_planet_info.gas = data.gas;
+		undiscovered_planet_info.mineral = data.mineral;
+		undiscovered_planet_info.unknown = data.unknown;
+		undiscovered_planet_info.grade = data.create_spd;
 */
+		var planet0_img = new Image();
+		var planet1_img = new Image();
+		var planet2_img = new Image();
+		var planet3_img = new Image();
+		var planet4_img = new Image();
+
+		planet0_img.src = 'http://203.237.179.21:8000/res/img/planet/planet_9.png';
+		planet1_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
+		planet2_img.src = "http://203.237.179.21:8000/res/img/planet/planet_12.png";
+		planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
+
+		var canvas = document.getElementById('background');
+		var context = canvas.getContext('2d');
+		var image = new Image();
+		var test_planet_img = new Image();
+		var pos_x = data.location_x;
+		var pos_y = data.location_y;
+		
+//		console.log(pos_x + ', ' + pos_y);
+//		$(#main_layer).css('z-index', 1);
+		image.onload = function(){
+			context.drawImage(image, 0, 0, canvas.width, canvas.height);
+			context.drawImage(test_planet_img, pos_x, pos_y, 100, 100);
+			console.log(pos_x, pos_y);
+		}
+		image.src = "http://203.237.179.21:8000/res/img/space_tile.png";
+		test_planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_0.png";
+	});
+	return ;
+}
 
 /* Create socket in global valuable. becuz socket access all document type */
 var socket = io.connect('http://203.237.179.21:5001');
@@ -21,8 +53,10 @@ $(document).ready(function(){ // Ready to the document
 	var url = "http://203.237.179.21:80";
 	var user_id = localStorage.getItem('username');
 	
+
+	//undiscovered_planet_draw_init();
+	set_background();
 	user_state_init(); // Call user state initialize function
-	undiscovered_planet_draw_init();
 
 	$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
 
@@ -200,7 +234,6 @@ function user_state_init(){
 }
 
 function undiscovered_planet_draw_init(){ // Create undiscovered planet draw function
-
 	var undiscovered_planet_info = {}; // Create undiscovered planet information object
 	
 	/* Set initialize 'null'*/
@@ -230,9 +263,26 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 		}
 */
 		//console.log(undiscovered_planet_info.id);
-		$('#main_layer').append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "; left:" + data.location_y + ";'>" + data._id + "</div>");
-		//$('#main_layer').append("<div id='" + data._id + "' style='postion:fixed; color:white; top:" + data.location_x + "; left:" + data.location_y + ";>" + data._id + "</div>");
 
+		var planet0_img = new Image();
+		var planet1_img = new Image();
+		var planet2_img = new Image();
+		var planet3_img = new Image();
+		var planet4_img = new Image();
+
+		planet0_img.src = 'http://203.237.179.21:8000/res/img/planet/planet_9.png';
+		planet1_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
+		planet2_img.src = "http://203.237.179.21:8000/res/img/planet/planet_12.png";
+		planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
+
+/*		var slash = '/';
+		var double_slash = '//';
+*/
+		var test_img_url = "../res/img/planet/planet_1.png";
+		var undiscovered_planet_img = "<div style='position: fixed; width: 100px; height: 100px; background-image: url('../res/img/planet/planet_1.png');'></div>"
+
+		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
+		
 
 	});
  
