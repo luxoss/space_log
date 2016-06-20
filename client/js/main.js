@@ -258,10 +258,11 @@ function user_state_init(){
 	return ;
 }
 
+/*
 function undiscovered_planet_draw_init(){ // Create undiscovered planet draw function
 	var undiscovered_planet_info = {}; // Create undiscovered planet information object
 	
-	/* Set initialize 'null'*/
+	// Set initialize 'null'
 	undiscovered_planet_info.id = null;
 	undiscovered_planet_info.x = null;
 	undiscovered_planet_info.y = null;
@@ -269,11 +270,11 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 	undiscovered_planet_info.mineral = null;
 	undiscovered_planet_info.undiscovered = null;
 
-	/* Response undiscovered plnaet database */
+	// Response undiscovered plnaet database 
 	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 	undiscovered_planet_socket.on('planet_res', function(data){
 		console.log(data);
-/*
+
 		undiscovered_planet_info.id = data._id;
 		undiscovered_planet_info.x = data.location_x;
 		undiscovered_planet_info.y = data.location_y;
@@ -281,12 +282,12 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 		undiscovered_planet_info.mineral = data.mineral;
 		undiscovered_planet_info.unknown = data.unknown;
 		undiscovered_planet_info.grade = data.create_spd;
-*/
-/*
+
+
 		for(var planet in undiscovered_planet_info){
 			console.log(planet);
 		}
-*/
+
 		//console.log(undiscovered_planet_info.id);
 
 		var planet0_img = new Image();
@@ -300,16 +301,16 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 		planet2_img.src = "http://203.237.179.21:8000/res/img/planet/planet_12.png";
 		planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
 
-/*		var slash = '/';
-		var double_slash = '//';
-*/
+		//var slash = '/';
+		//var double_slash = '//';
+
 		var test_img_url = "../res/img/planet/planet_1.png";
 		var undiscovered_planet_img = "<div style='position: fixed; width: 100px; height: 100px; background-image: url('../res/img/planet/planet_1.png');'></div>"
 		
 		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");	
-/*
+
 		$('#planet_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
-*/		
+		
 
 	});
  
@@ -318,7 +319,7 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 	
 	return ;
 }
-
+*/
 
 function planet_view_layer(){ // Create plnaet menu function 
 
@@ -343,11 +344,16 @@ function planet_view_layer(){ // Create plnaet menu function
 		undiscovered_planet_info.mineral = data.mineral;
 		undiscovered_planet_info.unknown = data.unknown;
 		undiscovered_planet_info.grade = data.create_spd;
+		
+		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");	
+
+		$('#planet_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
+	
 	});
- 
+/* 
 	console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
 	console.log('gas: ' + undiscovered_planet_info.gas + ', ' + 'mineral: ' + undiscovered_planet_info.mineral + 'undiscovered: ' + undiscovered_planet_info.undiscovered); 
-
+*/
 	$(window).resize(function(){
 		$('#planet_layer').css({
 			left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
