@@ -62,6 +62,17 @@ io.on('connection', function (socket) {
 						console.log("Match the password!!!! findres.password : " + findres.password);
 						collection.update({"username" : username},{$set : {"accessing" : "true"}});
 						socket.emit('login_res', {response : 'true'});
+
+						//Find user's information to MEM_INFO
+						db.collection("MEM_INFO").findOne({"username" : username}, function(err, doc){
+							if(err){
+							
+							} else if (doc != null){
+								// Send the user's information to client
+								socekt.emit('myinfo', doc);
+							}
+						
+						});
 					} else{
 						console.log("No match the password T-T.... " + findres.password);
 						socket.emit('login_res', {response : 'false'});
@@ -123,7 +134,8 @@ io.on('connection', function (socket) {
 							else{
 								socket.emit('join_res', {response : 'true'});
 
-								db.collection("MEM_INFO").insert({"username" : username});
+								
+								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : 150, "location_y" : 150});
 							}
 						});
 						
