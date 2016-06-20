@@ -75,7 +75,7 @@ var socket = io.connect('http://203.237.179.21:5001');
 var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
 
 $(document).ready(function(){ // Ready to the document 
-	var url = "http://203.237.179.21:80";
+	var url = "http://203.237.179.21:8000";
 	var user_id = localStorage.getItem('username');
 	
 
