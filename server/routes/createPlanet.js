@@ -39,10 +39,28 @@ function create_p(){
 						collection.insert({mineral : source_q, gas :source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd}, function(err, ins_res){});
 					} else{ 
 						console.log('there are already data');
+						var n_dat = new Date();
+						var n_get_time = date.getTime();
+						var n_ran = parseInt(Math.random() %10) +1;
+						var n_t = n_get_time%10 +1;
+						source_q = source_q + (n_t*n_ran);
+						x = x + (n_t*n_ran);
+						y = y + (n_t*n_ran);
+						spd = n_t%level_p;
+						
+						collection.findOne({location_x : x, location_y : y},  function(err, rdoc){
+							if(err){
+							
+							}else if(rdoc == null){
+								collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd});
+		
+							}
+						});
+
+
 					}
 				});
 
-				//collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y , create_spd : spd}, function(err, ins_res){});
 			}
 		});
 	}); 		
@@ -51,7 +69,7 @@ function create_p(){
 
 //setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-setInterval(create_p, 300);//10초단위로 create_p 함수를 실행
+setInterval(create_p, 100);//10초단위로 create_p 함수를 실행
 
 //onsole.log('createPlanet.js : http://203.237.179.21:5002');
 

@@ -122,6 +122,8 @@ io.on('connection', function (socket) {
 							}
 							else{
 								socket.emit('join_res', {response : 'true'});
+
+								db.collection("MEM_INFO").insert({"username" : username});
 							}
 						});
 						
