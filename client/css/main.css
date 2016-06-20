@@ -32,16 +32,16 @@ body {
   	border: 2px solid;
   	border-color: rgba(102, 153, 255, 1);
 */
+	position: fixed;
   	width: 230px;
   	height: 50px;
-  	position: fixed;
   	bottom: 20px;
   	left: 30px;
 }
 
 #main_layer {
-	background-image: url('../res/img/space_tile.png');
-  	background-size: cover;
+/*	background-image: url('../res/img/space_tile.png');
+  	background-size: cover; */
   	width: 2048px;
   	height: 1024px;
 	position: relative;
