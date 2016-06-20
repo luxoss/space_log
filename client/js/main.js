@@ -204,6 +204,7 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 	var undiscovered_planet_info = {}; // Create undiscovered planet information object
 	
 	/* Set initialize 'null'*/
+	undiscovered_planet_info.id = null;
 	undiscovered_planet_info.x = null;
 	undiscovered_planet_info.y = null;
 	undiscovered_planet_info.gas = null;
@@ -214,7 +215,7 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 	undiscovered_planet_socket.on('planet_res', function(data){
 		console.log(data);
-
+/*
 		undiscovered_planet_info.id = data._id;
 		undiscovered_planet_info.x = data.location_x;
 		undiscovered_planet_info.y = data.location_y;
@@ -222,10 +223,21 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 		undiscovered_planet_info.mineral = data.mineral;
 		undiscovered_planet_info.unknown = data.unknown;
 		undiscovered_planet_info.grade = data.create_spd;
+*/
+/*
+		for(var planet in undiscovered_planet_info){
+			console.log(planet);
+		}
+*/
+		//console.log(undiscovered_planet_info.id);
+		$('#main_layer').append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "; left:" + data.location_y + ";'>" + data._id + "</div>");
+		//$('#main_layer').append("<div id='" + data._id + "' style='postion:fixed; color:white; top:" + data.location_x + "; left:" + data.location_y + ";>" + data._id + "</div>");
+
+
 	});
  
-	console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
-	console.log('gas: ' + undiscovered_planet_info.gas + ', ' + 'mineral: ' + undiscovered_planet_info.mineral + 'undiscovered: ' + undiscovered_planet_info.undiscovered); 
+	//console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
+	//console.log('gas: ' + undiscovered_planet_info.gas + ', ' + 'mineral: ' + undiscovered_planet_info.mineral + ', ' + 'undiscovered: ' + undiscovered_planet_info.undiscovered); 
 	
 	return ;
 }
