@@ -22,7 +22,8 @@ $(document).ready(function(){ // Ready to the document
 	var user_id = localStorage.getItem('username');
 	
 	user_state_init(); // Call user state initialize function
-	
+	undiscovered_planet_draw_init();
+
 	$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
 
 	$('#logout_btn')
@@ -71,11 +72,20 @@ var angle = 0;
 //var bg_width = 2048;
 var bg_height = 1024;
 
-$(document).keydown(function(e){
-/*
-	var battle_ship_pos = {};
-*/
-	//alert(e.keyCode);
+$(document).keydown(function(e){ // Create key press down event 
+	/*
+		38 : up
+		40 : down 
+		37 : left
+		39 : right
+		83 : S key is 'Shot'
+		66 : B key is 'battle ship button'
+		82 : R key is 'Rank button'
+		80 : P key is 'Planet information button'
+
+	*/
+	//var battle_ship_pos = {};
+
 	var key_down_event = e.keyCode;	
 	var battle_ship_pos_top = document.getElementById('battle_ship_img');
 //	var bg_width = document.getElementById('main_layer');	
@@ -127,13 +137,14 @@ $(document).keydown(function(e){
 			break;
 	};
 
+	return ; 
 });
 
-$(document).keyup(function(ev){
+$(document).keyup(function(ev){ // Key press up event 
 
-	var battle_ship_pos = {};
+	var battle_ship_pos = {}; // Create battle ship position set object and send to server
 	var key_up_event = ev.keyCode;	
-//	alert(key_up_event);
+
 	switch(key_up_event){
 		case 38:
 			$('#battle_ship_img').stop();
@@ -184,9 +195,43 @@ function user_state_init(){
 		});
 */	
 	}).resize();
+
+	return ;
 }
 
-function planet_view_layer(){
+function undiscovered_planet_draw_init(){ // Create undiscovered planet draw function
+
+	var undiscovered_planet_info = {}; // Create undiscovered planet information object
+	
+	/* Set initialize 'null'*/
+	undiscovered_planet_info.x = null;
+	undiscovered_planet_info.y = null;
+	undiscovered_planet_info.gas = null;
+	undiscovered_planet_info.mineral = null;
+	undiscovered_planet_info.undiscovered = null;
+
+	/* Response undiscovered plnaet database */
+	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
+	undiscovered_planet_socket.on('planet_res', function(data){
+		console.log(data);
+
+		undiscovered_planet_info.id = data._id;
+		undiscovered_planet_info.x = data.location_x;
+		undiscovered_planet_info.y = data.location_y;
+		undiscovered_planet_info.gas = data.gas;
+		undiscovered_planet_info.mineral = data.mineral;
+		undiscovered_planet_info.unknown = data.unknown;
+		undiscovered_planet_info.grade = data.create_spd;
+	});
+ 
+	console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
+	console.log('gas: ' + undiscovered_planet_info.gas + ', ' + 'mineral: ' + undiscovered_planet_info.mineral + 'undiscovered: ' + undiscovered_planet_info.undiscovered); 
+	
+	return ;
+}
+
+
+function planet_view_layer(){ // Create plnaet menu function 
 
 	var state = $('#planet_layer').css('display');
 	var undiscovered_planet_info = {};
@@ -202,12 +247,13 @@ function planet_view_layer(){
 	undiscovered_planet_socket.on('planet_res', function(data){
 		console.log(data);
 
-		undiscovered_planet_info_info.x = data.location_x;
-		undiscovered_planet_info_info.y = data.location_y;
+		undiscovered_planet_info.id = data._id;
+		undiscovered_planet_info.x = data.location_x;
+		undiscovered_planet_info.y = data.location_y;
 		undiscovered_planet_info.gas = data.gas;
 		undiscovered_planet_info.mineral = data.mineral;
-		undiscovered_plnaet_info.unknown = data.unknown;
-		
+		undiscovered_planet_info.unknown = data.unknown;
+		undiscovered_planet_info.grade = data.create_spd;
 	});
  
 	console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
@@ -225,6 +271,8 @@ function planet_view_layer(){
 	}else{
 		$('#planet_layer').hide();
 	}
+
+	return ; 		
 }
 
 function battle_ship_view_layer(){
@@ -243,6 +291,8 @@ function battle_ship_view_layer(){
 	}else{
 		$('#battle_ship_layer').hide();
 	}
+	
+	return ;
 }
 
 function rank_view_layer(){
@@ -261,6 +311,8 @@ function rank_view_layer(){
 	}else{
 		$('#rank_layer').hide();
 	}
+
+	return ; 
 }
 
 		
