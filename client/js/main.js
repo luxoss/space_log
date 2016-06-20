@@ -12,9 +12,12 @@ function set_background(){
 	image.src = "http://52.79.132.7:8000/res/img/space0.jpg"
 }
 */
+
+/* Create socket in global valuable. becuz socket access all document type */
+var socket = io.connect('http://203.237.179.21:5001');
+var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
+
 $(document).ready(function(){ // Ready to the document 
-	var socket = io.connect('http://203.237.179.21:5001');
-	var unknown_planet_socket = io.connect('http://203.237.137.21:5002');
 	var url = "http://203.237.179.21:80";
 	var user_id = localStorage.getItem('username');
 	
@@ -67,6 +70,7 @@ $(document).ready(function(){ // Ready to the document
 var angle = 0;
 //var bg_width = 2048;
 var bg_height = 1024;
+
 $(document).keydown(function(e){
 /*
 	var battle_ship_pos = {};
@@ -185,29 +189,30 @@ function user_state_init(){
 function planet_view_layer(){
 
 	var state = $('#planet_layer').css('display');
-	var unknown_planet_info = {};
+	var undiscovered_planet_info = {};
 	
-	unknown_planet.x = null;
-	unknown_planet.y = null;
-	unknown_planet.gas = null;
-	unknown_planet.mineral = null;
-	unknown_planet.unknown = null;
-/*
-	//response unknown plnaet database 
-	unknown_planet_socket.emit('planet_req');
-	unknown_planet_socket.on('planet_res', function(data){
-		alert(data);
+	undiscovered_planet_info.x = null;
+	undiscovered_planet_info.y = null;
+	undiscovered_planet_info.gas = null;
+	undiscovered_planet_info.mineral = null;
+	undiscovered_planet_info.undiscovered = null;
 
-		unknown_planet_info.x = data.location_x;
-		unknown_planet_info.y = data.location_y;
-		unknown_planet_info.gas = data.gas;
-		unknown_planet_info.mineral = data.mineral;
-		unknown_plnaet_info.unknown = data.unknown;
+	//response undiscovered plnaet database 
+	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
+	undiscovered_planet_socket.on('planet_res', function(data){
+		console.log(data);
+
+		undiscovered_planet_info_info.x = data.location_x;
+		undiscovered_planet_info_info.y = data.location_y;
+		undiscovered_planet_info.gas = data.gas;
+		undiscovered_planet_info.mineral = data.mineral;
+		undiscovered_plnaet_info.unknown = data.unknown;
 		
 	});
- */
-	conosle.log('x: ' + unknown_planet_info.x + ', ' + 'y: ' + unknown_plnaet_info.y);
-	console.log('gas: ' + unknown_plnaet_info.gas + ', ' + 'mineral: ' + unknown_plnaet_info.mineral + 'unknown: ' + unknown_plnaet_info.unknown); 
+ 
+	console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
+	console.log('gas: ' + undiscovered_planet_info.gas + ', ' + 'mineral: ' + undiscovered_planet_info.mineral + 'undiscovered: ' + undiscovered_planet_info.undiscovered); 
+
 	$(window).resize(function(){
 		$('#planet_layer').css({
 			left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
