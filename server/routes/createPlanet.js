@@ -8,8 +8,6 @@ var data, get_time;
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-	//	var adminDB = db.admin();
-//		adminDB.listDatabases(function(err, databases){});
 
 		var collection = db.collection("PLANET");
 
@@ -17,8 +15,6 @@ function create_p(){
 			if(err){
 
 			} else{
-			//	console.log('count : ' + count);
-
 				date = new Date();
 				get_time = date.getTime();	
 				console.log('get Time : ' + get_time);
@@ -29,7 +25,6 @@ function create_p(){
 				x = (t+level_p*100)*(t%level_p +1)+(t+ran);
 				y = (t+level_p)*(100-t)-(level_p-ran);
 				spd = t%level_p;
-
 				
 				collection.findOne({location_x : x, location_y : y},  function(err, doc){
 					if(err){
@@ -53,23 +48,16 @@ function create_p(){
 							
 							}else if(rdoc == null){
 								collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd});
-		
 							}
 						});
-
-
 					}
 				});
-
 			}
 		});
 	}); 		
-	
 }
 
 //setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-setInterval(create_p, 100);//10초단위로 create_p 함수를 실행
-
-//onsole.log('createPlanet.js : http://203.237.179.21:5002');
+setInterval(create_p, 600000);//10초단위로 create_p 함수를 실행
 

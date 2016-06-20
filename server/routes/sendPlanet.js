@@ -15,7 +15,7 @@ io.on('connection', function(socket){
 					console.log('Planet doucment is.....');
 					for(var i=0; i< Pdocs.length; i++){
 						console.log(Pdocs[i]._id);
-						socekt.emit('planet_res', Pdocs[i]);
+						socket.emit('planet_res', Pdocs[i]);
 					}
 				}
 

@@ -4,8 +4,6 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 
-//var io = require('socket.io')(app);
-
 var username, password, email;
 var MongoClient = require('mongodb').MongoClient;
 
@@ -15,7 +13,6 @@ var io = require('socket.io').listen(5001);
 router.get('/', function(req, res, next){
 //	res.render('login', {title : 'login'});
 	res.send('respond with a resource');
-
 });
 
 function handler (req, res) {
@@ -83,7 +80,6 @@ io.on('connection', function (socket) {
 		});		
   	});// socket.on('login_msg', function(){}); end
 
-
 	//Join part start
   	socket.on('join_msg', function (data){
 		console.log(data);
@@ -106,8 +102,6 @@ io.on('connection', function (socket) {
 					console.log('admin is success');
 				}
 			});
-
-			//This is ok
 
 			var chckByUsrname = {"username" : username};
 			var collection = db.collection("MEMBER");
@@ -187,5 +181,3 @@ console.log('loginForm.js : http://203.237.179.21:5001');
 
 module.exports = router;
 //Finish The login join system
-
-
