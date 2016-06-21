@@ -57,7 +57,7 @@ function create_p(){
 	}); 		
 }
 
-//setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
+setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-setInterval(create_p, 600000);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 1000);//10초단위로 create_p 함수를 실행
 
