@@ -93,10 +93,12 @@ $(document).keydown(function(e){ // Create key press down event
 			break;
 		case 37: // left key press down
 	        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
+			clockwise_rotate_transform(x, y, angle);
 			angle -= 30;
 			break;
 		case 39: // right key press down
-			$('#battle_ship_img')/*.css('transition', 'transform 2s')*/.css('transform',  'rotate(' + angle + 'deg)');
+			$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
+			counter_clockwise_rotate_transform(x, y, angle);
 			angle += 30;
 			break;
 		case 83:
@@ -145,14 +147,8 @@ $(document).keyup(function(ev){ // Key press up event
 	};
 
 });
-
-/*
-function battle_ship_angle_transform(angle){
-	document.getElementById('battle_ship_img').style.transform = "rotate(" + angle + "deg)";
-	angle += 30;	
-}
-*/
 	
+// Create draw background image in canvas 
 function set_background(){
 	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 	undiscovered_planet_socket.on('planet_res', function(data){
@@ -230,6 +226,7 @@ function draw_stars(){
 	return ; 
 }
 
+// Create user state function in main display
 function user_state_init(){
 
 	$(window).resize(function(){
@@ -318,7 +315,8 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 }
 */
 
-function planet_view_layer(){ // Create plnaet menu function 
+// Create planet menu controller function
+function planet_view_layer(){  
 
 	var state = $('#planet_layer').css('display');
 	var undiscovered_planet_info = {};
@@ -367,6 +365,7 @@ function planet_view_layer(){ // Create plnaet menu function
 	return ; 		
 }
 
+// Create battle ship menu controller function
 function battle_ship_view_layer(){
 	
 	var state = $('#battle_ship_layer').css('display');
@@ -387,6 +386,7 @@ function battle_ship_view_layer(){
 	return ;
 }
 
+// Create rank menu controller function
 function rank_view_layer(){
 	
 	var state = $('#rank_layer').css('display');
@@ -407,4 +407,30 @@ function rank_view_layer(){
 	return ; 
 }
 
-		
+//Create transformation matrix function
+function clockwise_rotate_transform(x, y, angle){
+	var pos_x, pos_y;
+	var angle = 0;
+
+	pos_x = ((x * Math.cos(angle)) + (y * Math.sin(angle)));
+	pos_y = ((x * Math.sin(-angle)) + (y * Math.sin(angle)));
+
+	angle += 30;
+
+	return [pos_x, pos_y];
+}
+
+
+function counter_clockwise_rotate_transform(x, y, angle){
+	var pos_x, pos_y;
+	var angle = 0;
+
+	pos_x = ((x * Math.cos(angle)) + (y * Math.sin(-angle)));
+	pos_y = ((x * Math.sin(angle)) + (y + Math.cos(angle)));
+
+	angle += 30;
+
+	return [pos_x, pos_y];	
+}
+
+
