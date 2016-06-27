@@ -68,6 +68,23 @@ $(document).ready(function(){
 				}
 			});
 		});
+		/*
+			socket.on('myinfo', function(data){
+				data.username;
+				user_info.exp = data.exp;
+				user_info.mineral = data.mineral;
+				user_info.gas = data.gas;
+				user_info.unknown = data.unknown;
+				user_info.pos_x = data.location_x;
+				user_info.pos_y = data.location_y;
+				console.log('exp: ' + user_info.exp + '\n');
+				console.log('mineral: ' + user_info.mineral + '\n');
+				console.log('gas: ' + user_info.gas + '\n');
+				console.log('unknown: ' + user_info.unknown + '\n');
+				console.log('x: ' + user_info.pos_x + '\n');
+				console.log('y: ' + user_info.pos_y + '\n');
+			});
+		*/
 	
 });
 

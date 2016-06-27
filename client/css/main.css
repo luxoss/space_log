@@ -126,6 +126,7 @@ body {
 	position: fixed;
 /*	margin: 0 auto;*/
 	display: none;
+	overflow-y: scroll;
 }
 
 #rank_layer { 
