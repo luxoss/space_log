@@ -407,13 +407,17 @@ function rank_view_layer(){
 	return ; 
 }
 
+			
 //Create transformation matrix function
 function clockwise_rotate_transform(x, y, angle){
+	var ratio = {
+		x : Math.cos(angle),
+		y : Math.cos(angle)
+	};
 	var pos_x, pos_y;
-	var angle = 0;
 
-	pos_x = ((x * Math.cos(angle)) + (y * Math.sin(angle)));
-	pos_y = ((x * Math.sin(-angle)) + (y * Math.sin(angle)));
+	pos_x = ((x * ratio.x) + (y * (-ratio.y));
+	pos_y = ((x * ratio.y) + (y * (ratio.y));
 
 	angle += 30;
 
@@ -423,10 +427,13 @@ function clockwise_rotate_transform(x, y, angle){
 
 function counter_clockwise_rotate_transform(x, y, angle){
 	var pos_x, pos_y;
-	var angle = 0;
+	var ratio = {
+		x : Math.cos(angle),
+		y : Math.cos(angle)
+	};
 
-	pos_x = ((x * Math.cos(angle)) + (y * Math.sin(-angle)));
-	pos_y = ((x * Math.sin(angle)) + (y + Math.cos(angle)));
+	pos_x = ((x * ratio.x) + (y * (ratio.y));
+	pos_y = ((x * -ratio.y) + (y * (ratio.y));
 
 	angle += 30;
 
