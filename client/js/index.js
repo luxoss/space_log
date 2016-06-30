@@ -2,16 +2,12 @@
 	index.js 
 	>>> control index page
 */
-// Create dynamic loading
-// ...
-
 
 // Jquery ready to document
 $(document).ready(function(){
 	var socket = io.connect('http://203.237.179.21:5001');
 
-	$('#join_btn')
-		.on('click', function(){
+	$('#join_btn').on('click', function(){
 			var username = $('#username0').val(); 
 			var password = $('#password0').val();
 			var email = $('#email').val();
@@ -37,10 +33,9 @@ $(document).ready(function(){
 					window.location.reload();
 				}
 			});
-		});
+	});
 
-	$('#login_btn')
-		.on('click', function(){
+	$('#login_btn').on('click', function(){
 			var username = $('#username').val();
 			var password = $('#password').val();
 			var main_page_url = "./main.html";
@@ -58,33 +53,37 @@ $(document).ready(function(){
 					
 				var user_id = user_info.username;
 
-				if(data['response'] == "true"){
+				if(data['response'] == "true")
+				{
 					alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
 					trans_username_value(user_id);
 					$(location).attr('href', main_page_url);
-				}else{
+				}
+				else
+				{
 					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
 					$(location).reload();
 				}
 			});
+	});
+	
+	/*
+		socket.on('myinfo', function(data){
+			data.username;
+			user_info.exp = data.exp;
+			user_info.mineral = data.mineral;
+			user_info.gas = data.gas;
+			user_info.unknown = data.unknown;
+			user_info.pos_x = data.location_x;
+			user_info.pos_y = data.location_y;
+			console.log('exp: ' + user_info.exp + '\n');
+			console.log('mineral: ' + user_info.mineral + '\n');
+			console.log('gas: ' + user_info.gas + '\n');
+			console.log('unknown: ' + user_info.unknown + '\n');
+			console.log('x: ' + user_info.pos_x + '\n');
+			console.log('y: ' + user_info.pos_y + '\n');
 		});
-		/*
-			socket.on('myinfo', function(data){
-				data.username;
-				user_info.exp = data.exp;
-				user_info.mineral = data.mineral;
-				user_info.gas = data.gas;
-				user_info.unknown = data.unknown;
-				user_info.pos_x = data.location_x;
-				user_info.pos_y = data.location_y;
-				console.log('exp: ' + user_info.exp + '\n');
-				console.log('mineral: ' + user_info.mineral + '\n');
-				console.log('gas: ' + user_info.gas + '\n');
-				console.log('unknown: ' + user_info.unknown + '\n');
-				console.log('x: ' + user_info.pos_x + '\n');
-				console.log('y: ' + user_info.pos_y + '\n');
-			});
-		*/
+	*/
 	
 });
 
@@ -92,10 +91,15 @@ $(document).ready(function(){
 function trans_username_value(user_value)
 {
 	//alert(user_value + " connection");
-	if(!localStorage){
-		alert("This browser isn't support localStorage.");
+	try
+	{
+		localStorage.setItem('username', user_value);
 	}
-	localStorage.setItem('username', user_value);
-//	document.location.href = "./main.html?username=" + user_value;
+	catch(!localStorage)
+	{
+		alert("This browser isn'y support localStorage.");
+	}
+	
+	return ; 
 }
 			
