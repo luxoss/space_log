@@ -17,22 +17,31 @@ $(document).ready(function(){
 			user_info0.username = username;
 			user_info0.password = password;
 			user_info0.email = email;
-
+			
 			alert("Loading...");
 
-			socket.emit('join_msg', {username: user_info0.username, password: user_info0.password, email: user_info0.email});
-
-			socket.on('join_res', function(data){
+			if((user_info0.username == " " ) && (user_info0.password == " ") && (user_info0.email == " "))
+			{
+				alert("아이디와 비밀번호를 입력해주세요.");
+				window.location.reload();
+			}
+			else
+			{
+				socket.emit('join_msg', {username: user_info0.username, password: user_info0.password, email: user_info0.email}); // Send to server
+				socket.on('join_res', function(data){ // Receive to server
 				
-				if(data['response'] == 'true'){
-					alert('회원가입이 완료 되었습니다.');
-					window.location.reload();
-				}else{
-					alert('해당 아이디가 이미 있습니다.');
-					//$(location).reload();
-					window.location.reload();
-				}
-			});
+					if(data['response'] == 'true')
+					{
+						alert('회원가입이 완료 되었습니다.');
+						window.location.reload();
+					}
+					else
+					{
+						alert('해당 아이디가 이미 있습니다.');
+						window.location.reload();
+					}
+				});
+			}
 	});
 
 	$('#login_btn').on('click', function(){
