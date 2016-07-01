@@ -1,5 +1,7 @@
 /* 
-	Javascript file :: main_page_control 
+	Javascript file === 'main_page_control.js'
+	function naming is 'CamelCase';
+	valuable and object naming is 'under_bar case'
 */
 
 /* Create socket in global valuable. becuz socket access all document type */
@@ -15,8 +17,8 @@ $(document).ready(function(){ // Ready to the document
 	
 
 	//undiscovered_planet_draw_init();
-	set_background();
-	user_state_init(); // Call user state initialize function
+	setBackground();
+	userStateInit(); // Call user state initialize function
 
 	$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
 
@@ -70,17 +72,17 @@ $(document).ready(function(){ // Ready to the document
 			}
 */	
 	$('#planet_btn').on('click', function(){
-		planet_view_layer();
+		planetViewLayer();
 	});
 
 	$('#battle_ship_btn').on('click', function(){
 		alert('Click battle ship button.');
-		battle_ship_view_layer();
+		battleShipViewLayer();
 	});
 
 	$('#rank_btn').on('click', function(){
 		alert('Click rank button.');
-		rank_view_layer();
+		rankViewLayer();
 	});
 });
 
@@ -112,13 +114,13 @@ $(document).keydown(function(e){ // Create key press down event
 			break;
 		case 37: // left key press down
 	        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-			player_pos = clockwise_rotate_transform(x, y, angle);
+			player_pos = clockwiseRotateTransform(x, y, angle);
 			player_pos[2] -= 30;
 //			angle -= 30;
 			break;
 		case 39: // right key press down
 			$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-			counter_clockwise_rotate_transform(x, y, angle);
+			counterClockwiseRotateTransform(x, y, angle);
 			player_pos[2] += 30;
 //			angle += 30;
 			break;
@@ -126,13 +128,13 @@ $(document).keydown(function(e){ // Create key press down event
 			alert('shot button');
 			break;
 		case 66:
-			battle_ship_view_layer(); // call function battle ship layer
+			battleShipViewLayer(); // call function battle ship layer
 			break;
 		case 82:
-			rank_view_layer(); 	  // call function rank layer
+			rankViewLayer(); 	  // call function rank layer
 			break;
 		case 80:
-			planet_view_layer();	  // call function planet layer
+			planetViewLayer();	  // call function planet layer
 			break;
 		default:
 			break;
@@ -169,11 +171,11 @@ $(document).keyup(function(ev){ // Key press up event
 });
 	
 // Create draw background image in canvas 
-function set_background()
+function setBackground()
 {
 	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 	undiscovered_planet_socket.on('planet_res', function(data){
-		console.log(data);
+	console.log(data);
 /*
 		undiscovered_planet_info.id = data._id;
 		undiscovered_planet_info.x = data.location_x;
@@ -206,7 +208,7 @@ function set_background()
 			context.rect(0, 0, 2048, 1024);
 			context.fill();
 			
-			draw_stars();
+			drawStars();
 		}
 
 		test_planet_img.onload = function()
@@ -219,7 +221,7 @@ function set_background()
 	return ;
 }
 
-function draw_stars()
+function drawStars()
 {
 	for(var i=0; i<=100; i++)
 	{
@@ -237,7 +239,7 @@ function draw_stars()
 }
 
 // Create user state function in main display
-function user_state_init()
+function userStateInit()
 {
 	$(window).resize(function(){
 				
@@ -257,7 +259,7 @@ function user_state_init()
 }
 
 // Create planet menu controller function
-function planet_view_layer()
+function planetViewLayer()
 {  
 
 	var state = $('#planet_layer').css('display');
@@ -308,7 +310,7 @@ function planet_view_layer()
 }
 
 // Create battle ship menu controller function
-function battle_ship_view_layer(){
+function battleShipViewLayer(){
 	
 	var state = $('#battle_ship_layer').css('display');
 	
@@ -332,7 +334,7 @@ function battle_ship_view_layer(){
 }
 
 // Create rank menu controller function
-function rank_view_layer()
+function rankViewLayer()
 {	
 	var state = $('#rank_layer').css('display');
 		
@@ -356,7 +358,7 @@ function rank_view_layer()
 
 			
 // Create clockwise rotate transformation matrix function
-function clockwise_rotate_transform(x, y, angle)
+function clockwiseRotateTransform(x, y, angle)
 {
 	var ratio = {
 		x : Math.cos(angle),
@@ -373,7 +375,7 @@ function clockwise_rotate_transform(x, y, angle)
 }
 
 // Create counter clockwise rotate tranformation matrix function
-function counter_clockwise_rotate_transform(x, y, angle)
+function counterClockwiseRotateTransform(x, y, angle)
 {
 	var pos_x, pos_y;
 	var ratio = {

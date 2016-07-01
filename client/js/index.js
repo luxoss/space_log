@@ -56,7 +56,7 @@ $(document).ready(function(){
 				if(data['response'] == "true")
 				{
 					alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
-					trans_username_value(user_id);
+					usernameValue(user_id);
 					$(location).attr('href', main_page_url);
 				}
 				else
@@ -88,7 +88,7 @@ $(document).ready(function(){
 });
 
 
-function trans_username_value(user_value)
+function usernameValue(user_value)
 {
 	//alert(user_value + " connection");
 	try
