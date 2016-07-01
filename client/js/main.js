@@ -5,7 +5,7 @@
 /* Create socket in global valuable. becuz socket access all document type */
 var socket = io.connect('http://203.237.179.21:5001');
 var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
-var angle = 0;
+//var angle = 0;
 //var bg_width = 2048;
 //var bg_height = 1024;
 
@@ -98,6 +98,7 @@ $(document).keydown(function(e){ // Create key press down event
 	*/
 	var key_down_event = e.keyCode;	
 	var battle_ship_pos_top = document.getElementById('battle_ship_img');
+	var player_pos = new Array(3);
 	
 	switch(key_down_event)
 	{
@@ -111,13 +112,15 @@ $(document).keydown(function(e){ // Create key press down event
 			break;
 		case 37: // left key press down
 	        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-			clockwise_rotate_transform(x, y, angle);
-			angle -= 30;
+			player_pos = clockwise_rotate_transform(x, y, angle);
+			player_pos[2] -= 30;
+//			angle -= 30;
 			break;
 		case 39: // right key press down
 			$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
 			counter_clockwise_rotate_transform(x, y, angle);
-			angle += 30;
+			player_pos[2] += 30;
+//			angle += 30;
 			break;
 		case 83:
 			alert('shot button');
