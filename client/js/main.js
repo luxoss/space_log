@@ -15,7 +15,7 @@ $(document).ready(function(){ // Ready to the document
 	var url = "http://203.237.179.21:8000";
 	var user_id = localStorage.getItem('username');
 	
-
+	//isNaN(_PARAMETER) ? true : false 
 	//undiscovered_planet_draw_init();
 	setBackground();
 	userStateInit(); // Call user state initialize function
