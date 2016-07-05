@@ -1,6 +1,7 @@
-/* 
-	index.js 
-	>>> control index page
+/**
+	*File-name: index.js
+	*Writer: luxoss 
+	*Date: 07/06/2016  
 */
 
 // Jquery ready to document

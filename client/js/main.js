@@ -1,10 +1,10 @@
-/* 
-	Javascript file === 'main_page_control.js'
-	function naming is 'CamelCase';
-	valuable and object naming is 'under_bar case'
+/**
+	*File-name: main.js
+	*Writer: luxoss
+	*Date: 07/06/2016 
 */
 
-/* Create socket in global valuable. becuz socket access all document type */
+//Create socket in global valuable. becuz socket access all document type
 var socket = io.connect('http://203.237.179.21:5001');
 var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
 //var angle = 0;
