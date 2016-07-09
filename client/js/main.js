@@ -26,7 +26,13 @@ $(document).ready(function(){ // Ready to the document
 		// Below to disconnect user code line 
 		var user_id = localStorage.getItem('username');
 		
-		try
+		if(user_id === null)
+		{
+			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+			socket.disconnect();
+			$(location).attr('href', url);	
+		}
+		else
 		{
 			socket.emit('logout_msg', {username: user_id}); 
 			socket.on('logout_res', function(data){
@@ -44,33 +50,8 @@ $(document).ready(function(){ // Ready to the document
 				};
 			});
 		}
-		catch(user_id === null)
-		{
-			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-			socket.disconnect();
-			$(location).attr('href', url);
-		}
 	});	
-/*	
-		if(user_id === null)
-		{
-				alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-				socket.disconnect();
-				$(location).attr('href', url);
-			}else{
-				socket.emit('logout_msg', {username: user_id}); 
-				socket.on('logout_res', function(data){
-					if(data.response == 'true'){
-						alert(user_id + ' is logout.');
-						localStorage.removeItem('username');
-						socket.disconnect();
-						$(location).attr('href', url);
-					}else if(data.response == 'false'){
-						alert('Logout error.');
-					};
-				});
-			}
-*/	
+
 	$('#planet_btn').on('click', function(){
 		planetViewLayer();
 	});
