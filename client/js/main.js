@@ -1,9 +1,13 @@
-/* Javascript file :: main_page_control */
+/**
+	*File-name: main.js
+	*Writer: luxoss
+	*Date: 07/06/2016 
+*/
 
-/* Create socket in global valuable. becuz socket access all document type */
+//Create socket in global valuable. becuz socket access all document type
 var socket = io.connect('http://203.237.179.21:5001');
 var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
-var angle = 0;
+//var angle = 0;
 //var bg_width = 2048;
 //var bg_height = 1024;
 
@@ -11,19 +15,45 @@ $(document).ready(function(){ // Ready to the document
 	var url = "http://203.237.179.21:8000";
 	var user_id = localStorage.getItem('username');
 	
-
+	//isNaN(_PARAMETER) ? true : false 
 	//undiscovered_planet_draw_init();
-	set_background();
-	user_state_init(); // Call user state initialize function
+	setBackground();
+	userStateInit(); // Call user state initialize function
 
 	$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
 
-	$('#logout_btn')
-		.on('click', function(){
-			/* Below to disconnect user code line */
-			//alert('connection user id: ' + user_id);
-			var user_id = localStorage.getItem('username');
-			if(user_id === null){
+	$('#logout_btn').on('click', function(){
+		// Below to disconnect user code line 
+		var user_id = localStorage.getItem('username');
+		
+		try
+		{
+			socket.emit('logout_msg', {username: user_id}); 
+			socket.on('logout_res', function(data){
+				
+				if(data.response == 'true')
+				{
+					alert(user_id + ' is logout.');
+					localStorage.removeItem('username');
+					socket.disconnect();
+					$(location).attr('href', url);
+				}
+				else if(data.response == 'false')
+				{
+					alert('Logout error.');
+				};
+			});
+		}
+		catch(user_id === null)
+		{
+			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+			socket.disconnect();
+			$(location).attr('href', url);
+		}
+	});	
+/*	
+		if(user_id === null)
+		{
 				alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
 				socket.disconnect();
 				$(location).attr('href', url);
@@ -40,29 +70,21 @@ $(document).ready(function(){ // Ready to the document
 					};
 				});
 			}
-		});	
-	
-	$('#planet_btn')
-		.on('click', function(){
-			planet_view_layer();
-		});
+*/	
+	$('#planet_btn').on('click', function(){
+		planetViewLayer();
+	});
 
-	$('#battle_ship_btn')
-		.on('click', function(){
-			alert('Click battle ship button.');
-			battle_ship_view_layer();
-		});
+	$('#battle_ship_btn').on('click', function(){
+		alert('Click battle ship button.');
+		battleShipViewLayer();
+	});
 
-	$('#rank_btn')
-		.on('click', function(){
-			alert('Click rank button.');
-			rank_view_layer();
-		});
+	$('#rank_btn').on('click', function(){
+		alert('Click rank button.');
+		rankViewLayer();
+	});
 });
-
-var angle = 0;
-//var bg_width = 2048;
-var bg_height = 1024;
 
 $(document).keydown(function(e){ // Create key press down event 
 	/*
@@ -76,13 +98,12 @@ $(document).keydown(function(e){ // Create key press down event
 		80 : P key is 'Planet information button'
 
 	*/
-	//var battle_ship_pos = {};
-
 	var key_down_event = e.keyCode;	
 	var battle_ship_pos_top = document.getElementById('battle_ship_img');
-//	var bg_width = document.getElementById('main_layer');	
+	var player_pos = new Array(3);
 	
-	switch(key_down_event){
+	switch(key_down_event)
+	{
 		case 38: // up key press down
 			$('#battle_ship_img').animate({top: "-=50"}, {queue: false});
 			// rotate_translation(top, left) top, left is 'coordinate x, y';
@@ -93,30 +114,31 @@ $(document).keydown(function(e){ // Create key press down event
 			break;
 		case 37: // left key press down
 	        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-			clockwise_rotate_transform(x, y, angle);
-			angle -= 30;
+			player_pos = clockwiseRotateTransform(x, y, angle);
+			player_pos[2] -= 30;
+//			angle -= 30;
 			break;
 		case 39: // right key press down
 			$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-			counter_clockwise_rotate_transform(x, y, angle);
-			angle += 30;
+			counterClockwiseRotateTransform(x, y, angle);
+			player_pos[2] += 30;
+//			angle += 30;
 			break;
 		case 83:
 			alert('shot button');
 			break;
 		case 66:
-			battle_ship_view_layer(); // call function battle ship layer
+			battleShipViewLayer(); // call function battle ship layer
 			break;
 		case 82:
-			rank_view_layer(); 	  // call function rank layer
+			rankViewLayer(); 	  // call function rank layer
 			break;
 		case 80:
-			planet_view_layer();	  // call function planet layer
+			planetViewLayer();	  // call function planet layer
 			break;
 		default:
 			break;
 	};
-
 	return ; 
 });
 
@@ -125,7 +147,8 @@ $(document).keyup(function(ev){ // Key press up event
 	var battle_ship_pos = {}; // Create battle ship position set object and send to server
 	var key_up_event = ev.keyCode;	
 
-	switch(key_up_event){
+	switch(key_up_event)
+	{
 		case 38:
 			$('#battle_ship_img').stop();
 			break;
@@ -137,7 +160,6 @@ $(document).keyup(function(ev){ // Key press up event
 			break;
 		case 39:
 			$('#battle_ship_img').stop();			
-		//	battle_ship_angle_transform(angle);
 			break;
 		case 83:
 			alert('shot button');
@@ -149,10 +171,11 @@ $(document).keyup(function(ev){ // Key press up event
 });
 	
 // Create draw background image in canvas 
-function set_background(){
+function setBackground()
+{
 	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 	undiscovered_planet_socket.on('planet_res', function(data){
-		console.log(data);
+	console.log(data);
 /*
 		undiscovered_planet_info.id = data._id;
 		undiscovered_planet_info.x = data.location_x;
@@ -163,7 +186,6 @@ function set_background(){
 		undiscovered_planet_info.grade = data.create_spd;
 */
 		// Create group of the planet grage image obj
-		var planet0_img = new Image();
 		var planet1_img = new Image();
 		var planet2_img = new Image();
 		var planet3_img = new Image();
@@ -175,44 +197,34 @@ function set_background(){
 		planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
 
 		var canvas = document.getElementById('background');
-		//var context = canvas.getContext('2d');
-//		var image = new Image();
-		var test_planet_img = new Image();
+		var planet_img = new Image();
 		var pos_x = parseInt(data.location_x);
 		var pos_y = parseInt(data.location_y);
-		/* 
-			Think coordinate x, y, width, height
-			--> 
-			--> 
-			left = x;
-			top = y;
-			right = x + width -1;
-			bottom = y + height -1;
-		*/	
-		if(canvas.getContext){
+
+		if(canvas.getContext)
+		{
 			context = canvas.getContext('2d');
 			context.fillStyle = 'Black';
 			context.rect(0, 0, 2048, 1024);
 			context.fill();
 			
-			draw_stars();
+			drawStars();
 		}
-//		console.log(pos_x + ', ' + pos_y);
-//		$(#main_layer).css('z-index', 1);
-		test_planet_img.onload = function(){
-		//	context.drawImage(image, 0, 0, canvas.width, canvas.height);
-	
+
+		test_planet_img.onload = function()
+		{
 			context.drawImage(test_planet_img, pos_x, pos_y, 100, 100);
 			console.log(pos_x, pos_y);
 		}
-		//image.src = "http://203.237.179.21:8000/res/img/space_tile.png";
-		test_planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
+		planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
 	});
 	return ;
 }
 
-function draw_stars(){
-	for(var i=0; i<=100; i++){
+function drawStars()
+{
+	for(var i=0; i<=100; i++)
+	{
 		var x = Math.floor(Math.random() * 2047);
 		var y = Math.floor(Math.random() * 1023);
 		
@@ -227,8 +239,8 @@ function draw_stars(){
 }
 
 // Create user state function in main display
-function user_state_init(){
-
+function userStateInit()
+{
 	$(window).resize(function(){
 				
 		$('#user_obj').css({
@@ -241,16 +253,144 @@ function user_state_init(){
 			left: ($(window).width() - $('#battle_ship_img').outerWidth()) / 2,
 			top: ($(window).height() - $('#battle_ship_img').outerHeight()) / 2
 		});
-/*
-		$('#planet').css({
-			left: ($(window).width() - $('#planet').outerWidth()) / 2,
-			top: ($(window).height() - $('#planet').outerHeight()) / 2
-		});
-*/	
 	}).resize();
 
 	return ;
 }
+
+// Create planet menu controller function
+function planetViewLayer()
+{  
+
+	var state = $('#planet_layer').css('display');
+	var undiscovered_planet_info = {};
+	
+	undiscovered_planet_info.x = null;
+	undiscovered_planet_info.y = null;
+	undiscovered_planet_info.gas = null;
+	undiscovered_planet_info.mineral = null;
+	undiscovered_planet_info.undiscovered = null;
+
+	//response undiscovered plnaet database 
+	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
+	undiscovered_planet_socket.on('planet_res', function(data){
+		console.log(data);
+
+		undiscovered_planet_info.id = data._id;
+		undiscovered_planet_info.x = data.location_x;
+		undiscovered_planet_info.y = data.location_y;
+		undiscovered_planet_info.gas = data.gas;
+		undiscovered_planet_info.mineral = data.mineral;
+		undiscovered_planet_info.unknown = data.unknown;
+		undiscovered_planet_info.grade = data.create_spd;
+		
+		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");	
+
+		$('#planet_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
+	
+	});
+
+	$(window).resize(function(){
+		$('#planet_layer').css({
+			left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
+			top: ($(window).height() - $('#planet_layer').outerHeight()) / 2
+		});
+	}).resize();
+		
+	if(state == 'none')
+	{
+		$('#planet_layer').show();
+	}
+	else
+	{
+		$('#planet_layer').hide();
+	}
+
+	return ; 		
+}
+
+// Create battle ship menu controller function
+function battleShipViewLayer(){
+	
+	var state = $('#battle_ship_layer').css('display');
+	
+	$(window).resize(function(){
+		$('#battle_ship_layer').css({
+			left: ($(window).width() - $('#battle_ship_layer').outerWidth()) / 2,
+			top: ($(window).height() - $('#battle_ship_layer').outerHeight()) / 2
+		});
+	}).resize();
+
+	if(state == 'none')
+	{
+		$('#battle_ship_layer').show();
+	}
+	else
+	{
+		$('#battle_ship_layer').hide();
+	}
+	
+	return ;
+}
+
+// Create rank menu controller function
+function rankViewLayer()
+{	
+	var state = $('#rank_layer').css('display');
+		
+	$(window).resize(function(){
+		$('#rank_layer').css({
+			left: ($(window).width() - $('#rank_layer').outerWidth()) / 2,
+			top: ($(window).height() - $('#rank_layer').outerHeight()) / 2
+		});
+	}).resize();
+
+	if(state == 'none')
+	{
+		$('#rank_layer').show();
+	}
+	else
+	{
+		$('#rank_layer').hide();
+	}
+	return ; 
+}
+
+			
+// Create clockwise rotate transformation matrix function
+function clockwiseRotateTransform(x, y, angle)
+{
+	var ratio = {
+		x : Math.cos(angle),
+		y : Math.cos(angle)
+	};
+	var pos_x, pos_y;
+
+	pos_x = ((x * ratio.x) + (y * (-ratio.y));
+	pos_y = ((x * ratio.y) + (y * (ratio.y));
+
+	angle += 30;
+
+	return [pos_x, pos_y];
+}
+
+// Create counter clockwise rotate tranformation matrix function
+function counterClockwiseRotateTransform(x, y, angle)
+{
+	var pos_x, pos_y;
+	var ratio = {
+		x : Math.cos(angle),
+		y : Math.cos(angle)
+	};
+
+	pos_x = ((x * ratio.x) + (y * (ratio.y));
+	pos_y = ((x * -ratio.y) + (y * (ratio.y));
+
+	angle += 30;
+
+	return [pos_x, pos_y];	
+}
+
 
 /*
 function undiscovered_planet_draw_init(){ // Create undiscovered planet draw function
@@ -315,129 +455,6 @@ function undiscovered_planet_draw_init(){ // Create undiscovered planet draw fun
 }
 */
 
-// Create planet menu controller function
-function planet_view_layer(){  
 
-	var state = $('#planet_layer').css('display');
-	var undiscovered_planet_info = {};
-	
-	undiscovered_planet_info.x = null;
-	undiscovered_planet_info.y = null;
-	undiscovered_planet_info.gas = null;
-	undiscovered_planet_info.mineral = null;
-	undiscovered_planet_info.undiscovered = null;
-
-	//response undiscovered plnaet database 
-	undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
-	undiscovered_planet_socket.on('planet_res', function(data){
-		console.log(data);
-
-		undiscovered_planet_info.id = data._id;
-		undiscovered_planet_info.x = data.location_x;
-		undiscovered_planet_info.y = data.location_y;
-		undiscovered_planet_info.gas = data.gas;
-		undiscovered_planet_info.mineral = data.mineral;
-		undiscovered_planet_info.unknown = data.unknown;
-		undiscovered_planet_info.grade = data.create_spd;
-		
-		$('#main_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");	
-
-		$('#planet_layer').append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
-	
-	});
-/* 
-	console.log('x: ' + undiscovered_planet_info.x + ', ' + 'y: ' + undiscovered_planet_info.y);
-	console.log('gas: ' + undiscovered_planet_info.gas + ', ' + 'mineral: ' + undiscovered_planet_info.mineral + 'undiscovered: ' + undiscovered_planet_info.undiscovered); 
-*/
-	$(window).resize(function(){
-		$('#planet_layer').css({
-			left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
-			top: ($(window).height() - $('#planet_layer').outerHeight()) / 2
-		});
-	}).resize();
-		
-	if(state == 'none'){
-		$('#planet_layer').show();
-	}else{
-		$('#planet_layer').hide();
-	}
-
-	return ; 		
-}
-
-// Create battle ship menu controller function
-function battle_ship_view_layer(){
-	
-	var state = $('#battle_ship_layer').css('display');
-	
-	$(window).resize(function(){
-		$('#battle_ship_layer').css({
-			left: ($(window).width() - $('#battle_ship_layer').outerWidth()) / 2,
-			top: ($(window).height() - $('#battle_ship_layer').outerHeight()) / 2
-		});
-	}).resize();
-
-	if(state == 'none'){
-		$('#battle_ship_layer').show();
-	}else{
-		$('#battle_ship_layer').hide();
-	}
-	
-	return ;
-}
-
-// Create rank menu controller function
-function rank_view_layer(){
-	
-	var state = $('#rank_layer').css('display');
-		
-	$(window).resize(function(){
-		$('#rank_layer').css({
-			left: ($(window).width() - $('#rank_layer').outerWidth()) / 2,
-			top: ($(window).height() - $('#rank_layer').outerHeight()) / 2
-		});
-	}).resize();
-
-	if(state == 'none'){
-		$('#rank_layer').show();
-	}else{
-		$('#rank_layer').hide();
-	}
-
-	return ; 
-}
-
-			
-//Create transformation matrix function
-function clockwise_rotate_transform(x, y, angle){
-	var ratio = {
-		x : Math.cos(angle),
-		y : Math.cos(angle)
-	};
-	var pos_x, pos_y;
-
-	pos_x = ((x * ratio.x) + (y * (-ratio.y));
-	pos_y = ((x * ratio.y) + (y * (ratio.y));
-
-	angle += 30;
-
-	return [pos_x, pos_y];
-}
-
-
-function counter_clockwise_rotate_transform(x, y, angle){
-	var pos_x, pos_y;
-	var ratio = {
-		x : Math.cos(angle),
-		y : Math.cos(angle)
-	};
-
-	pos_x = ((x * ratio.x) + (y * (ratio.y));
-	pos_y = ((x * -ratio.y) + (y * (ratio.y));
-
-	angle += 30;
-
-	return [pos_x, pos_y];	
-}
 
 
