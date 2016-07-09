@@ -100,14 +100,13 @@ $(document).ready(function(){
 
 function usernameValue(user_value)
 {
-	//alert(user_value + " connection");
-	try
-	{
-		localStorage.setItem('username', user_value);
-	}
-	catch(!localStorage)
+	if(!localStorage)
 	{
 		alert("This browser isn'y support localStorage.");
+	}
+	else
+	{	
+		localStorage.setItem('username', user_value);
 	}
 	
 	return ; 
