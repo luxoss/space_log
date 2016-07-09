@@ -66,7 +66,7 @@ io.on('connection', function (socket) {
 							
 							} else if (doc != null){
 								// Send the user's information to client
-								socekt.emit('myinfo', doc);
+								socket.emit('myinfo', doc);
 							}
 						
 						});
