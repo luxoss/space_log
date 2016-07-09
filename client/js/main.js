@@ -7,9 +7,6 @@
 //Create socket in global valuable. becuz socket access all document type
 var socket = io.connect('http://203.237.179.21:5001');
 var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
-//var angle = 0;
-//var bg_width = 2048;
-//var bg_height = 1024;
 
 $(document).ready(function(){ // Ready to the document 
 	var url = "http://203.237.179.21:8000";
