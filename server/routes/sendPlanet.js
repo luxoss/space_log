@@ -15,7 +15,9 @@ io.on('connection', function(socket){
 					console.log('Planet doucment is.....');
 					for(var i=0; i< Pdocs.length; i++){
 						console.log(Pdocs[i]._id);
-						socket.emit('planet_res', {_id : Pdocs[i]._id, mineral : Pdocs[i].mineral, gas : Pdocs[i].gas , unknown : Pdocs[i].unknown, location_x : Pdocs[i].location_x, location_y : Pdocs[i].location_y, create_spd : Pdocs[i].create_spd});
+
+						socket.emit('planet_res', Pdocs[i]);
+						//socket.emit('planet_res', {_id : Pdocs[i]._id, mineral : Pdocs[i].mineral, gas : Pdocs[i].gas , unknown : Pdocs[i].unknown, location_x : Pdocs[i].location_x, location_y : Pdocs[i].location_y, create_spd : Pdocs[i].create_spd});
 					}
 				}
 
@@ -26,4 +28,4 @@ io.on('connection', function(socket){
 
 });
 
-
+console.log('sendPlanet.js : ttp://203.237.179.21:5002');
