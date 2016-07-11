@@ -336,8 +336,8 @@
 		};
 		var pos_x, pos_y;
 
-		pos_x = ((x * ratio.x) + (y * (-ratio.y));
-		pos_y = ((x * ratio.y) + (y * (ratio.y));
+		pos_x = ((x * ratio.x) + (y * (-ratio.y)));
+		pos_y = ((x * ratio.y) + (y * (ratio.y)));
 
 		angle += 30;
 
@@ -353,8 +353,8 @@
 			y : Math.cos(angle)
 		};
 
-		pos_x = ((x * ratio.x) + (y * (ratio.y));
-		pos_y = ((x * -ratio.y) + (y * (ratio.y));
+		pos_x = ((x * ratio.x) + (y * (ratio.y)));
+		pos_y = ((x * -ratio.y) + (y * (ratio.y)));
 
 		angle += 30;
 
