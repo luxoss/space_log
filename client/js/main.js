@@ -76,8 +76,6 @@
 			80 : P key is 'Planet information button'
 		*/
 		var key_down_event = e.keyCode;	
-		var battle_ship_pos_top = document.getElementById('battle_ship_img');
-		var player_pos = new Array(3);
 		
 		switch(key_down_event)
 		{
