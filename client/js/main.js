@@ -89,15 +89,15 @@
 				break;
 			case 37: // left key press down
 		        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-				player_pos = clockwiseRotateTransform(x, y, angle);
-				player_pos[2] -= 30;
-//				angle -= 30;
+//				player_pos = clockwiseRotateTransform(x, y, angle);
+//				player_pos[2] -= 30;
+				angle -= 30;
 				break;
 			case 39: // right key press down
 				$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
-				counterClockwiseRotateTransform(x, y, angle);
-				player_pos[2] += 30;
-//				angle += 30;
+//				counterClockwiseRotateTransform(x, y, angle);
+//				player_pos[2] += 30;
+				angle += 30;
 				break;
 			case 83:
 				alert('shot button');
