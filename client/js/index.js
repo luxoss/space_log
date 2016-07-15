@@ -6,6 +6,8 @@
 (function(){ // Create Immediately-invoked function expression
 	$(document).ready(function(){ // Jquery ready to document
 		var socket = io.connect('http://203.237.179.21:5001');
+	
+		mainDisplayResize();
 
 		$('#join_btn').on('click', function(){
 				var username = $('#username').val(); 
@@ -92,6 +94,17 @@
 	
 	});
 
+	function mainDisplayResize()
+	{
+		$(window).resize(function(){
+			$('#main_container').css({position:'absolute'}).css({
+				left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
+				top: ($(window).height() - $('#main_container').outerHeight()) / 2
+			});
+		}).resize();
+		
+		return ;
+	}
 
 	function usernameValue(user_value)
 	{
