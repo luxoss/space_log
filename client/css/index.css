@@ -17,6 +17,7 @@ input {
 
 .input_btn {
   color: rgb(255, 255, 0);
+  position: relative;
   font-weight: bold;
   background-color: rgb(0, 64, 128);
 }
@@ -47,7 +48,7 @@ input {
 /*  background-image: url('../res/img/main_img.png');*/
   background-color: rgb(0, 0, 0);
   width: 58.59375%; /* 가변 그리드 공식 적용:  target(element width) ÷ context(parent element width) = result */
-  float: left;
+  position: relative;
   margin: 0px auto;
   padding: 1px;
   border: 0px;
