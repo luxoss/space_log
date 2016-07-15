@@ -3,7 +3,7 @@
 	*Writer: luxoss
 	*Date: 07/06/2016
 */	
-body{
+body {
   background-color: rgb(0, 32, 64);
 }
 
@@ -14,13 +14,6 @@ input {
   padding: 0px;
   border: 1px solid rgb(255, 255, 255);
 }
-/*
-.input_btn {
-  color: rgb(255, 255, 0);
-  font-weight: bold;
-  background-color: rgb(0, 64, 128);
-}
-*/
 
 #login_btn {
   color: rgb(255, 255, 0);
@@ -58,7 +51,6 @@ input {
   width: 58.59375%; /* 가변 그리드 공식 적용:  target(element width) ÷ context(parent element width) = result */
   height: 720px;
   float: left;
-  /*border-left: 1px solid rgb(255, 255, 255);*/
   margin: 1px;
   padding: 1px;
   border: 0px;
@@ -91,7 +83,6 @@ input {
   background-color: rgba(128, 128, 128, 0.5);
   width: 300px;
   height: 300px;
-  /*border: 1px solid rgb(255, 255, 255);*/
   border-radius: 5px;
   position: relative;
   top: 110px;
@@ -104,7 +95,6 @@ input {
   height: 50px;
   position: relative;
   float: none;
-  /*border: 1px solid rgb(255, 255, 255);*/
   clear: both;
   margin: 1px;
   padding: 1px;
