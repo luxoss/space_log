@@ -38,7 +38,7 @@
 					{
 						alert(user_id + ' is logout.');
 						localStorage.removeItem('username');
-						socket.emit('lpos_req', {'x': pos_x, 'y': pos_y}); 
+						//socket.emit('lpos_req', {'x': pos_x, 'y': pos_y}); 
 						socket.disconnect();
 						$(location).attr('href', url);
 					}

@@ -8,15 +8,12 @@
 		var socket = io.connect('http://203.237.179.21:5001');
 
 		$('#join_btn').on('click', function(){
-				var username = $('#username0').val(); 
-				var password = $('#password0').val();
-				var email = $('#email').val();
-	
-				var user_info0 = new Object();
+				var username = $('#username').val(); 
+				var password = $('#password').val();
+				var user_info0 = {};
 
 				user_info0.username = username;
 				user_info0.password = password;
-				user_info0.email = email;
 			
 				alert("Loading...");
 
@@ -27,7 +24,7 @@
 				}
 				else
 				{
-					socket.emit('join_msg', {username: user_info0.username, password: user_info0.password, email: user_info0.email}); // Send to server
+					socket.emit('join_msg', {username: user_info0.username, password: user_info0.password }); // Send to server
 					socket.on('join_res', function(data){ // Receive to server
 				
 						if(data['response'] == 'true')
@@ -48,8 +45,7 @@
 				var username = $('#username').val();
 				var password = $('#password').val();
 				var main_page_url = "./main.html";
-			
-				var user_info = new Object();
+				var user_info = {}; // Create user information obj		
 		
 				user_info.username = username;
 				user_info.password = password;

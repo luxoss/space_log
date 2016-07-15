@@ -15,28 +15,17 @@
 		<title>Welcome to the space log web game</title>
 	</head>
 	<body>
-		<audio bgsound src="./res/sound/InterStellare.mp3" loop=infinite autoplay></audio>
+<!--		<audio bgsound src="./res/sound/InterStellare.mp3" loop=infinite autoplay></audio>-->
 		<div id="main_container"> <!-- Main container -->
 		<div id="header"></div>  <!-- Header division -->
 		<div id="inner_container"></div> <!--Inner container division -->
 			<div id="user_info"> <!-- User information division -->
-				<form id="login" action=""  method=""> <!-- login form -->
-					<br/>
 					&nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/> <!-- ./res/img/username_img.png -->
 					&nbsp;<input type="text" id="username" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
 					&nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
 					&nbsp;<input type="password" id="password" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-					&nbsp;<input type="button" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /> <!-- Check user list and login main.html page -->
-				</form>
-        			<form id="join_form" action="" method=""> <!-- Join form -->
-        				<br/>
-          				&nbsp;<img src="./res/img/username_img.png" alt="username_img.png" /><br/>
-          				&nbsp;<input type="text" id="username0" name="username" placeholder="username" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-          				&nbsp;<img src="./res/img/password_img.png" alt="password_img.png" /><br/>
-          				&nbsp;<input type="password" id="password0" name="password" placeholder="password" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-          				&nbsp;<img src="./res/img/email_img.png" alt="email_img.png" /><br/>
-          				&nbsp;<input type="email" id="email" name="email" placeholder="domain@guest.com" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/><br/>
-          				&nbsp;<input type="button" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; />
+					&nbsp;<input type="button" class="input_btn" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /> <!-- Check user list and login main.html page -->
+          				&nbsp;<input type="button" class="input_btn" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; />
         			</form>
       			</div>
       			<div id="footer"></div> <!-- footer division -->
