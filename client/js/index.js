@@ -1,7 +1,7 @@
 /**
 	*File-name: index.js
 	*Writer: luxoss 
-	*Date: 07/06/2016  
+	*Modified date: 07/16/2016  
 */
 (function(){ // Create Immediately-invoked function expression
 	$(document).ready(function(){ // Jquery ready to document
