@@ -9,7 +9,11 @@
 	
 		mainDisplayResize();
 
-		$('#join_btn').on('click', function(){
+
+//		$(".input_text").focus().css('background', "rgb('255, 255, 255')");
+//		$(".input_text").blur().css('background', "rgb('23, 25, 25')");
+
+		$("#join_btn").on('click', function(){
 				var username = $('#username').val(); 
 				var password = $('#password').val();
 				var user_info0 = {};
@@ -43,7 +47,7 @@
 				}
 		});
 
-		$('#login_btn').on('click', function(){
+		$("#login_btn").on('click', function(){
 				var username = $('#username').val();
 				var password = $('#password').val();
 				var main_page_url = "./main.html";

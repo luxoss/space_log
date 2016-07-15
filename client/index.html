@@ -19,15 +19,16 @@
 <!--		<audio bgsound src="./res/sound/InterStellare.mp3" loop=infinite autoplay></audio>-->
 		<div id="main_container"> <!-- Main container -->
 			<div id="header"><h1><center>SPACE LOG</center></h1></div>  <!-- Header division -->
-			<div id="inner_container"></div> <!--Inner container division -->
-				<div id="user_info"> <!-- User information division -->
-					&nbsp;<input type="text" id="username" name="username" placeholder="USERNAME" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-					&nbsp;<input type="password" id="password" name="password" placeholder="PASSWORD" value="" onfocus=this.style.background="silver"; onblur=this.style.background="white" /><br/>
-					&nbsp;<input type="button" class="input_btn" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /> <!-- Check user list and login main.html page -->
-          				&nbsp;<input type="button" class="input_btn" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; onblur=this.style.background="#004080" />
-      				</div><br/>
-				<div id="footer"><h2><center>Created by 'SPACE LOG TEAM'</center></h2></div> <!-- footer division -->
-			</div>
+			<div id="user_info"> <!-- User information division -->
+				<br/><br/>
+				<center>
+					<input type="text" class="input_text" id="username" name="username" placeholder=" >>USERNAME" value="" /><br/><br/>
+					<input type="password" class="input_text" id="password" name="password" placeholder=" >>PASSWORD" value="" /><br/><br/>
+					<input type="button" class="input_btn" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/> <!-- Login button -->
+          				<input type="button" class="input_btn" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/> <!-- Join button -->
+      				</center>
+			</div><br/>
+			<div id="footer"><center>Created by 'SPACE LOG TEAM'</center></div> <!-- footer division -->
       	    	</div>
   	</body>
 </html>
