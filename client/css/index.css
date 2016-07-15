@@ -16,19 +16,9 @@ input {
 }
 
 .input_btn {
-	
-}
-
-#login_btn {
   color: rgb(255, 255, 0);
   font-weight: bold;
   background-color: rgb(0, 64, 128);
-}
-
-#join_btn {
-  color: rgb(255, 255, 0);
-  font-weight: bold;
-  background-color: rgb(0, 64, 128);  
 }
 
 #main_container {
@@ -36,6 +26,7 @@ input {
   width: 450px;
   margin: 0px auto;
   padding: 1px;
+  border-radius: 5px;
 }
 
 #header {
@@ -50,9 +41,6 @@ input {
   margin: 1px;
   padding: 0px;
   border-bottom: 2px solid rgb(102, 97, 0);
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  /*border: 1px solid rgb(255, 255, 255);*/
 }
 
 #inner_container {
@@ -86,6 +74,4 @@ input {
   margin: 1px;
   padding: 1px;
   border-top: 2px solid rgb(102, 97, 0);
-  border-bottom-left-radius: 5px;
-  border-bottom-right-radius: 5px;
 }
