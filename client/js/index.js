@@ -9,10 +9,6 @@
 	
 		mainDisplayResize();
 
-
-//		$(".input_text").focus().css('background', "rgb('255, 255, 255')");
-//		$(".input_text").blur().css('background', "rgb('23, 25, 25')");
-
 		$("#join_btn").on('click', function(){
 				var username = $('#username').val(); 
 				var password = $('#password').val();
@@ -82,7 +78,7 @@
 			}
 		});
 
-		$("#login_btn").on('click', function(){
+		$("#login_btn").on('click', function(){ 
 				var username = $('#username').val();
 				var password = $('#password').val();
 				var main_page_url = "./main.html";
@@ -114,6 +110,7 @@
 		});
 	
 		/*
+			// 유저의 정보(자원상태, 초기위치, 레벨 정보 등)을 받기 위해 미리 작성 
 			socket.on('myinfo', function(data){
 				data.username;
 				user_info.exp = data.exp;
@@ -158,7 +155,8 @@
 		return ; 
 	}
 /*	
-	function pwdCheck() // 회원가입 폼 따로 나뉘어야 할 때 그 페이지에서 쓸 함수 미리 작성 
+	// 회원가입 폼 따로 나뉘어야 할 때 그 페이지에서 쓸 함수 미리 작성 
+	function pwdCheck() 	
 	{
 		var pwd = $('#password').val();
 		var check_pwd = $('#check_password').val();
