@@ -8,6 +8,7 @@
 	//Create socket in global valuable. becuz socket access all document type
 	var socket = io.connect('http://203.237.179.21:5001');
 	var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
+	var angle = 0;
 
 	$(document).ready(function(){ // Ready to the document 
 		var url = "http://203.237.179.21:8000";
@@ -77,7 +78,6 @@
 			80 : P key is 'Planet information button'
 		*/
 		var key_down_event = e.keyCode;	
-		var angle = 0;	
 
 		switch(key_down_event)
 		{
