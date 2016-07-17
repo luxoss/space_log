@@ -77,7 +77,8 @@
 			80 : P key is 'Planet information button'
 		*/
 		var key_down_event = e.keyCode;	
-		
+		var angle = 0;	
+
 		switch(key_down_event)
 		{
 			case 38: // up key press down
@@ -111,6 +112,9 @@
 				break;
 			case 80:
 				planetViewLayer();	  // call function planet layer
+				break;
+			case 81:
+				logout();
 				break;
 			default:
 				break;
@@ -166,10 +170,10 @@
 			var planet3_img = new Image();
 			var planet4_img = new Image();
 
-			planet0_img.src = 'http://203.237.179.21:8000/res/img/planet/planet_9.png';
-			planet1_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
-			planet2_img.src = "http://203.237.179.21:8000/res/img/planet/planet_12.png";
-			planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
+			planet1_img.src = 'http://203.237.179.21:8000/res/img/planet/planet_9.png';
+			planet2_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
+			planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_12.png";
+			planet4_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
 
 			var canvas = document.getElementById('background');
 			var planet_img = new Image();
@@ -186,9 +190,9 @@
 				drawStars();
 			}
 
-			test_planet_img.onload = function()
+			planet_img.onload = function()
 			{
-				context.drawImage(test_planet_img, pos_x, pos_y, 100, 100);
+				context.drawImage(planet_img, pos_x, pos_y, 100, 100);
 				console.log(pos_x, pos_y);
 			}
 			planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
@@ -362,7 +366,32 @@
 		return ;	
 	}
 
+	function logout()
+	{
+		var logout_user_id = localStorage.getItem('username');
+		var logout_msg = confirm('로그아웃 하시겠습니까?');
+		var main_url = "http://203.237.179.21:8000";
 
+		if(logout_msg == true)
+		{
+			socket.emit('logout_msg', {username: logout_user_id}); 
+			socket.on('logout_res', function(data){
+				if(data.response == 'true')
+				{
+					alert(logout_user_id + ' is logout.');
+					localStorage.removeItem('username');
+					//socket.emit('lpos_req', {'x': pos_x, 'y': pos_y}); 
+					socket.disconnect();
+					$(location).attr('href', main_url);
+				}
+				else if(data.response == 'false')
+				{
+					alert('Logout error.');
+				};
+			});
+		}
+		return ;
+	}
 	/*
 	function undiscovered_planet_draw_init(){ // Create undiscovered planet draw function
 		var undiscovered_planet_info = {}; // Create undiscovered planet information object

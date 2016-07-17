@@ -47,6 +47,41 @@
 				}
 		});
 
+		$(document).keydown(function(ev){
+			var key_code = ev.keyCode;
+			
+			if(key_code == 13){
+				var username = $('#username').val();
+				var password = $('#password').val();
+				var main_page_url = "./main.html";
+				var user_info = {}; // Create user information obj		
+		
+				user_info.username = username;
+				user_info.password = password;
+			
+				alert('loading...');
+
+				socket.emit('login_msg', {username: user_info.username, password: user_info.password});
+				
+				socket.on('login_res', function(data){
+					
+					var user_id = user_info.username;
+
+					if(data['response'] == "true")
+					{
+						alert(user_id + "님 space_log 세계에 오신 것을 환영합니다.");
+						usernameValue(user_id);
+						$(location).attr('href', main_page_url);
+					}
+					else
+					{
+						alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+						$(location).reload();
+					}
+				});
+			}
+		});
+
 		$("#login_btn").on('click', function(){
 				var username = $('#username').val();
 				var password = $('#password').val();
@@ -122,4 +157,21 @@
 		}	
 		return ; 
 	}
+/*	
+	function pwdCheck() // 회원가입 폼 따로 나뉘어야 할 때 그 페이지에서 쓸 함수 미리 작성 
+	{
+		var pwd = $('#password').val();
+		var check_pwd = $('#check_password').val();
+
+		if(pwd == check_pwd)
+		{
+			alert("회원가입이 완료되었습니다.");
+		}
+		else
+		{
+			alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+		}
+		return ;
+	}
+*/
 })();			
