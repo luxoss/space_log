@@ -6,12 +6,13 @@
 
 (function(){ // Create imediately-invoked function expression
 	//Create socket in global valuable. becuz socket access all document type
-	var socket = io.connect('http://203.237.179.21:5001');
-	var undiscovered_planet_socket = io.connect('http://203.237.179.21:5002');
+	var server_url =  "http://203.237.179.21"
+	var socket = io.connect(server_url + ":5001");
+	var undiscovered_planet_socket = io.connect(server_url + ":5002");
 	var angle = 0;
 
 	$(document).ready(function(){ // Ready to the document 
-		var url = "http://203.237.179.21:8000";
+		var url = server_url + ":8000";
 		var user_id = localStorage.getItem('username');
 	
 		//isNaN(_PARAMETER) ? true : false 
@@ -169,10 +170,10 @@
 			var planet3_img = new Image();
 			var planet4_img = new Image();
 
-			planet1_img.src = 'http://203.237.179.21:8000/res/img/planet/planet_9.png';
-			planet2_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
-			planet3_img.src = "http://203.237.179.21:8000/res/img/planet/planet_12.png";
-			planet4_img.src = "http://203.237.179.21:8000/res/img/planet/planet_13.png";
+			planet1_img.src = server_url + ":8000/res/img/planet/planet_9.png";
+			planet2_img.src = server_url + ":8000/res/img/planet/planet_11.png";
+			planet3_img.src = server_url + ":8000/res/img/planet/planet_12.png";
+			planet4_img.src = server_url + ":8000/res/img/planet/planet_13.png";
 
 			var canvas = document.getElementById('background');
 			var planet_img = new Image();
@@ -194,7 +195,7 @@
 				context.drawImage(planet_img, pos_x, pos_y, 100, 100);
 				console.log(pos_x, pos_y);
 			}
-			planet_img.src = "http://203.237.179.21:8000/res/img/planet/planet_11.png";
+			planet_img.src = server_url + ":8000/res/img/planet/planet_11.png";
 		});
 		return ;
 	}
@@ -369,7 +370,7 @@
 	{
 		var logout_user_id = localStorage.getItem('username');
 		var logout_msg = confirm('로그아웃 하시겠습니까?');
-		var main_url = "http://203.237.179.21:8000";
+		var main_url = server_url + ":8000";
 
 		if(logout_msg == true)
 		{
