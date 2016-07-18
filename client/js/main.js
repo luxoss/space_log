@@ -15,8 +15,7 @@
 		var user_id = localStorage.getItem('username');
 	
 		//isNaN(_PARAMETER) ? true : false 
-		//undiscovered_planet_draw_init();
-		setBackground();
+		drawAllAssets();
 		userStateInit(); // Call user state initialize function
 
 		$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
@@ -150,7 +149,7 @@
 	});	
 	
 	// Create draw background image in canvas 
-	function setBackground()
+	function drawAllAssets()
 	{
 		undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 		undiscovered_planet_socket.on('planet_res', function(data){
