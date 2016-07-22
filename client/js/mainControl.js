@@ -1,11 +1,11 @@
 /**
-	*File-name: main.js
+	*File name: main.js
 	*Writer: luxoss
-	*Date: 07/06/2016 
+	*Modified date: 07/23/2016 
 */
 
 (function(){ // Create imediately-invoked function expression
-	//Create socket in global valuable. becuz socket access all document type
+	//Create socket global scope. becuz socket access all document type
 	var server_url =  "http://203.237.179.21"
 	var socket = io.connect(server_url + ":5001");
 	var undiscovered_planet_socket = io.connect(server_url + ":5002");
@@ -39,7 +39,7 @@
 					{
 						alert(user_id + ' is logout.');
 						localStorage.removeItem('username');
-						//socket.emit('lpos_req', {'x': pos_x, 'y': pos_y}); 
+						//TODO: socket.emit('lpos_req', {'x': pos_x, 'y': pos_y}); 
 						socket.disconnect();
 						$(location).attr('href', url);
 					}
@@ -82,23 +82,19 @@
 		switch(key_down_event)
 		{
 			case 38: // up key press down
-				$('#battle_ship_img').animate({top: "-=50"}, {queue: false});
-				// rotate_translation(top, left) top, left is 'coordinate x, y';
-				// [x', y'] =  [x, y][{sin(angle), cos(angle)}, {cos(angle), sin(angle)}] is right rotate translation
+				$('#battle_ship_img').animate({top: "-=50"});
 				break;
 			case 40: // down key press down
-				$('#battle_ship_img').animate({top: "+=50"}, {queue: false});
+				$('#battle_ship_img').animate({top: "+=50"});
 				break;
 			case 37: // left key press down
 		        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
 //				player_pos = clockwiseRotateTransform(x, y, angle);
-//				player_pos[2] -= 30;
 				angle -= 30;
 				break;
 			case 39: // right key press down
 				$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
 //				counterClockwiseRotateTransform(x, y, angle);
-//				player_pos[2] += 30;
 				angle += 30;
 				break;
 			case 83:
