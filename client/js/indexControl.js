@@ -110,7 +110,7 @@
 		});
 	
 		/*
-			// 유저의 정보(자원상태, 초기위치, 레벨 정보 등)을 받기 위해 미리 작성 
+			// TODO: Received 'USER'S INFORMATION(Resource, Initialize postion, Level, and so on)' to SERVER
 			socket.on('myinfo', function(data){
 				data.username;
 				user_info.exp = data.exp;
@@ -155,7 +155,7 @@
 		return ; 
 	}
 /*	
-	// 회원가입 폼 따로 나뉘어야 할 때 그 페이지에서 쓸 함수 미리 작성 
+	//TODO: Check 'join form '
 	function pwdCheck() 	
 	{
 		var pwd = $('#password').val();
