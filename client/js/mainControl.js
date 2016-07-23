@@ -152,6 +152,7 @@
 		undiscovered_planet_socket.on('planet_res', function(data){
 			console.log(data);
 /*
+			//TODO: Received 'Undiscovered planet information' to server
 			undiscovered_planet_info.id = data._id;
 			undiscovered_planet_info.x = data.location_x;
 			undiscovered_planet_info.y = data.location_y;
