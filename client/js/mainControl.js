@@ -150,7 +150,6 @@
 	{
 		undiscovered_planet_socket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 		undiscovered_planet_socket.on('planet_res', function(data){
-			console.log(data);
 /*
 			//TODO: Received 'Undiscovered planet information' to server
 			undiscovered_planet_info.id = data._id;
