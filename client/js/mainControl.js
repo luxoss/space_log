@@ -17,7 +17,7 @@
 	
 		//isNaN(_PARAMETER) ? true : false 
 		drawAllAssets();
-	//	userStateInit(); // Call user state initialize function
+		userStateInit(); // Call user state initialize function
 
 		$('#battle_ship_img').append("<div id='" + user_id + "'style='postion:fixed; color: white;'>" + user_id + "</div>");
 
@@ -125,16 +125,16 @@
 		switch(key_up_event)
 		{
 			case 38:
-				$('#battle_ship_img').stop();
+				$('#battle_ship_img').animate({queue: false});
 				break;
 			case 40: 
-				$('#battle_ship_img').stop();
+				$('#battle_ship_img').animate({queue: false});
 				break;
 			case 37:
-				$('#battle_ship_img').stop();
+				$('#battle_ship_img').animate({queue: false});
 				break;
 			case 39:
-				$('#battle_ship_img').stop();			
+				$('#battle_ship_img').animate({queue: false});			
 				break;
 			case 83:
 				alert('shot button');
@@ -161,13 +161,11 @@
 			undiscovered_planet_info.grade = data.create_spd;
 */	
 			// Create group of the planet grage image obj
-			var battle_ship = new Image();
 			var planet1_img = new Image();
 			var planet2_img = new Image();
 			var planet3_img = new Image();
 			var planet4_img = new Image();
 
-			battle_ship.src = server_url + ":8000/res/img/battle_ship1.png";
 			planet1_img.src = server_url + ":8000/res/img/planet/planet_9.png";
 			planet2_img.src = server_url + ":8000/res/img/planet/planet_11.png";
 			planet3_img.src = server_url + ":8000/res/img/planet/planet_12.png";
@@ -191,10 +189,8 @@
 			planet_img.onload = function()
 			{
 				context.drawImage(planet_img, pos_x, pos_y, 100, 100);
-				context.drawImage(battle_ship, (window.width / 2), (window.height / 2), 100, 100);
 			}
 			planet_img.src = server_url + ":8000/res/img/planet/planet_11.png";
-			battle_ship.src = server_url + ":8000/res/img/battle_ship1.png";
 		});
 		return ;
 	}
@@ -215,7 +211,7 @@
 		}
 		return ; 
 	}
-/*
+
 	// Create user state function in main display
 	function userStateInit()
 	{
@@ -233,7 +229,7 @@
 
 		return ;
 	}
-*/
+
 	// Create planet menu controller function
 	function planetViewLayer()
 	{  
