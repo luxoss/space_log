@@ -216,15 +216,12 @@
 	function userStateInit()
 	{
 		$(window).resize(function(){		
-			$('#user_obj').css({
-				left: ($(window).width() - $('#user_obj').outerWidth()) / 2,
-				top: ($(window).height() - $('#user_obj').outerHeight()) / 2
-			});
 
 			$('#battle_ship_img').css({
 				left: ($(window).width() - $('#battle_ship_img').outerWidth()) / 2,
 				top: ($(window).height() - $('#battle_ship_img').outerHeight()) / 2
 			});
+
 		}).resize();
 
 		return ;
