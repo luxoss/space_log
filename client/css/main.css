@@ -157,11 +157,6 @@ body {
 }
 
 #battle_ship {
-	width: 100px;
-	height: 100px;
-}
-
-#battle_ship_img {
 	position: fixed;
 	width: 100px;
 	height: 100px;
