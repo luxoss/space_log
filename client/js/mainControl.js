@@ -82,10 +82,10 @@
 		switch(key_down_event)
 		{
 			case 38: // up key press down
-				$('#battle_ship_img').animate({top: "-=50"});
+				$('#battle_ship_img').animate({top: "-=50"}, {queue: false});
 				break;
 			case 40: // down key press down
-				$('#battle_ship_img').animate({top: "+=50"});
+				$('#battle_ship_img').animate({top: "+=50"}, {queue: false});
 				break;
 			case 37: // left key press down
 		        	$('#battle_ship_img').css('transform',  'rotate(' + angle + 'deg)');
