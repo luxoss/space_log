@@ -109,7 +109,7 @@
 				break;
 			default:
 				break;
-		};
+		}
 	});
 
 	$(document).keyup(function(ev){ // Key press up event 
