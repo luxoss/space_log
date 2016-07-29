@@ -1,7 +1,7 @@
 /**
 	*File name: main.js
 	*Writer: luxoss
-	*Modified date: 07/29/2016 
+	*Modified date: 07/30/2016 
 	
 	**Variable naming: camelCase 
 	**Function naming: camelCase

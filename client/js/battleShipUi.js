@@ -1,10 +1,10 @@
 /**
 	**File name: battleShipUi.js
 	**Writer: luxoss
-	**Modified date: 07/29/2016
+	**Modified date: 07/30/2016
 */
 
-	// Create battle ship menu controller function
+// Create battle ship menu controller function
 var battleShipViewLayer = function()
 {
 	var state = $('#battle_ship_layer').css('display');

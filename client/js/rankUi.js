@@ -1,7 +1,7 @@
 /**
 	**File name: rankUi.js
 	**Writer: luxoss
-	**Modified date: 07/29/2016
+	**Modified date: 07/30/2016
 */
 var rankViewLayer = function(){
 	

@@ -1,7 +1,7 @@
 /**
 	**File name: planetUi.js
 	**Writer: luxoss
-	**Modiifed date: 07/29/2016
+	**Modiifed date: 07/30/2016
 */
 var planetViewLayer = function(){
 	
