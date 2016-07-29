@@ -17,7 +17,6 @@
 	//var positionX = battleShipObj.left;
 	//var positionY = battleShipObj.top;
 	var userId = localStorage.getItem("username");
-	var angle = 0;
 
 	$(document).ready(function(){ // Ready to the document 
 
@@ -60,84 +59,6 @@
 			rankViewLayer();
 		});
 	});
-
-	$(document).keydown(function(e){ // Create key press down event 
-		/*
-			38 : up
-			40 : down 
-			37 : left
-			39 : right
-			83 : S key is 'Shot'
-			66 : B key is 'battle ship button'
-			82 : R key is 'Rank button'
-			80 : P key is 'Planet information button'
-		*/
-		var keyDownEvent = e.keyCode;	
-
-		switch(keyDownEvent)
-		{
-			case 38: // up key press down
-				$('#battle_ship').animate({top: "-=50"}, {queue: false});
-				break;
-			case 40: // down key press down
-				$('#battle_ship').animate({top: "+=50"}, {queue: false});
-				break;
-			case 37: // left key press down
-		        	$('#battle_ship').css('transform',  'rotate(' + angle + 'deg)');
-				//clockwiseRotateTransform(x, y, angle);
-				angle -= 30;
-				break;
-			case 39: // right key press down
-				$('#battle_ship').css('transform',  'rotate(' + angle + 'deg)');
-//				counterClockwiseRotateTransform(x, y, angle);
-				angle += 30;
-				break;
-			case 83:
-				alert('shot button');
-				break;
-			case 66:
-				battleShipViewLayer(); // call function battle ship layer
-				break;
-			case 82:
-				rankViewLayer(); 	  // call function rank layer
-				break;
-			case 80:
-				planetViewLayer();	  // call function planet layer
-				break;
-			case 81:
-				logout(userId);
-				break;
-			default:
-				break;
-		}
-	});
-
-	$(document).keyup(function(ev){ // Key press up event 
-
-		var keyUpEvent = ev.keyCode;	
-	
-		switch(keyUpEvent)
-		{
-			case 38:
-				$('#battle_ship').animate({queue: false});
-				break;
-			case 40: 
-				$('#battle_ship').animate({queue: false});
-				break;
-			case 37:
-				$('#battle_ship').animate({queue: false});
-				break;
-			case 39:
-				$('#battle_ship').animate({queue: false});			
-				break;
-			case 83:
-				alert('shot button');
-				break;
-			default:
-				break;
-		};
-		
-	});	
 	
 	// Create draw background image in canvas 
 	function drawAllAssets()
@@ -212,96 +133,6 @@
 
 		return ;
 	}
-
-	// Create planet menu controller function
-	function planetViewLayer()
-	{  
-		var state = $('#planet_layer').css('display');
-
-		if(state == 'none')
-		{
-			$('#planet_layer').show();
-		}
-		else
-		{
-			$('#planet_layer').hide();
-		}
-	
-		//response undiscovered plnaet database 
-		undiscoveredPlanetSocket.emit('planet_req', {'ready' : 'ready to connect planet db'});
-		undiscoveredPlanetSocket.on('planet_res', function(data){
-		
-			$('#main_layer')
-				.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");	
-
-			$('#planet_layer')
-				.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'>" + undiscovered_planet_img + "</div>");
-	
-		});
-
-		$(window).resize(function(){
-
-			$('#planet_layer').css({
-				left: ($(window).width() - $('#planet_layer').outerWidth()) / 2,
-				top: ($(window).height() - $('#planet_layer').outerHeight()) / 2
-			});
-
-		}).resize();
-		
-		return ; 		
-	}
-
-	// Create battle ship menu controller function
-	function battleShipViewLayer()
-	{	
-		var state = $('#battle_ship_layer').css('display');
-
-		if(state == 'none')
-		{
-			$('#battle_ship_layer').show();
-		}
-		else
-		{
-			$('#battle_ship_layer').hide();
-		}
-	
-		$(window).resize(function(){
-
-			$('#battle_ship_layer').css({
-				left: ($(window).width() - $('#battle_ship_layer').outerWidth()) / 2,
-				top: ($(window).height() - $('#battle_ship_layer').outerHeight()) / 2
-			});
-
-		}).resize();
-
-
-		return ;
-	}
-
-	// Create rank menu controller function
-	function rankViewLayer()
-	{	
-		var state = $('#rank_layer').css('display');
-
-		if(state == 'none')
-		{
-			$('#rank_layer').show();
-		}
-		else
-		{
-			$('#rank_layer').hide();
-		}
-		
-		$(window).resize(function(){
-			$('#rank_layer').css({
-				left: ($(window).width() - $('#rank_layer').outerWidth()) / 2,
-				top: ($(window).height() - $('#rank_layer').outerHeight()) / 2
-			});
-		}).resize();
-
-		return ; 
-	}
-
 			
 	// Create clockwise rotate transformation matrix function
 	function clockwiseRotateTransform(posX, posY, angle)
