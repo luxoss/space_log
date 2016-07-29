@@ -133,41 +133,6 @@
 
 		return ;
 	}
-			
-	// Create clockwise rotate transformation matrix function
-	function clockwiseRotateTransform(posX, posY, angle)
-	{
-
-		var ratio = {
-			x : Math.cos(angle),
-			y : Math.sin(angle)
-		};
-
-		posX = ((x * ratio.x) + (y * (-ratio.y)));
-		posY = ((x * ratio.y) + (y * (ratio.x)));
-
-		console.log(posX, posY);
-
-		angle += 30;
-			
-		return ;
-	}
-
-	// Create counter clockwise rotate tranformation matrix function
-	function counterClockwiseRotateTransform(posX, posY, angle)
-	{
-		var ratio = {
-			x : Math.cos(angle),
-			y : Math.sin(angle)
-		};
-
-		posX = ((x * ratio.x) + (y * (ratio.y)));
-		posY = ((x * -ratio.y) + (y * (ratio.x)));
-
-		angle += 30;
-
-		return ;	
-	}
 
 	function logout(logoutUserId)
 	{
