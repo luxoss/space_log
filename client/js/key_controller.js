@@ -40,13 +40,13 @@ $(document).keydown(function(e){ // Create key press down event
 			alert('shot button');
 			break;
 		case 66:
-			battleShipViewLayer(); // call function battle ship layer
+			battleShipViewLayer(); 		 // call method battle ship layer
 			break;
 		case 82:
-			rankViewLayer(); 	  // call function rank layer
+			rankViewLayer(); 	  	 // call method rank layer
 			break;
 		case 80:
-			planetViewLayer();	  // call function planet layer
+			planetViewLayer();	 // call method planet layer
 			break;
 		case 81:
 			logout(userId);
