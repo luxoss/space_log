@@ -1,7 +1,7 @@
 /**
 	**File name: rankUi.js
 	**Writer: luxoss
-	**Modified date: 07/30/2016
+	**File-explanation: Control rank user interface with javascript 
 */
 var rankViewLayer = function(){
 	

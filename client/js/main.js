@@ -1,8 +1,8 @@
 /**
-	*File name: main.js
-	*Writer: luxoss
-	*Modified date: 07/30/2016 
-	
+	**File name: main.js
+	**Writer: luxoss
+	**File-explanation: Control main html page with javascript	
+
 	**Variable naming: camelCase 
 	**Function naming: camelCase
 	**jquery selector naming: under_bar

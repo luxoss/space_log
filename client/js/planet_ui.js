@@ -1,7 +1,7 @@
 /**
 	**File name: planetUi.js
 	**Writer: luxoss
-	**Modiifed date: 07/30/2016
+	**File-explanation: Control planet user interface with javascript
 */
 var planetViewLayer = function()
 {

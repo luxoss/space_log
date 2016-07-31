@@ -1,7 +1,7 @@
 /**
-	*File-name: index.js
-	*Writer: luxoss 
-	*Modified date: 07/16/2016  
+	**File-name: index.js
+	**Writer: luxoss 
+	**File-explanation: Contorl index html page with javascript
 */
 (function(){ // Create Immediately-invoked function expression
 	$(document).ready(function(){ // Jquery ready to document

@@ -1,7 +1,7 @@
 /**
 	**File name: battleShipUi.js
 	**Writer: luxoss
-	**Modified date: 07/30/2016
+	**File-explanation: Control battle ship user interface with javascript
 */
 
 // Create battle ship menu controller function
