@@ -64,6 +64,9 @@ function drawAllAssets()
 	planetSocket.on('planet_res', function(data){
 
 		var canvas = document.getElementById("background");
+		var mainLayer = $("#main_layer");
+		var planetId = $("#" + data._id);
+		var planetImgUrl = "url('http://203.237.179.21:8000/res/img/planet/planet_13.png');"
 /*
 		//TODO: After testing...
 		var posX = parseInt(data.location_x);
@@ -75,13 +78,13 @@ function drawAllAssets()
 		{
 			context = canvas.getContext('2d');
 			context.fillStyle = 'Black';
-			context.rect(0, 0, 2048, 1024);
+			context.rect(0, 0, 4095, 2047);
 			context.fill();
 			
 			for(var i = 0; i <= 100; i++)
 			{
-				var starX = Math.floor(Math.random() * 2047);
-				var starY = Math.floor(Math.random() * 1023);
+				var starX = Math.floor(Math.random() * 4095);
+				var starY = Math.floor(Math.random() * 2047);
 		
 				context.fillStyle = "rgb(255, 255, 0)";
 				
@@ -92,9 +95,9 @@ function drawAllAssets()
 			}
 				
 		}
-	
-		$("#background")
-			.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "; left:" + data.location_y + "; width: 100px; height: 100px;'></div>");	
+
+			
+		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
 
 /*			
 		//TODO: After testing...			

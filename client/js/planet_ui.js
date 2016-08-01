@@ -6,14 +6,15 @@
 var planetViewLayer = function()
 {
 	var state = $('#planet_ui').css('display');
+	var planetName = $("#planet_name");
 	
 	if(state == 'none')
 	{
 		$('#planet_ui').show();
 
 		//response undiscovered plnaet database 
-		planetSocket.on("planet_res", function(data){				
-			$("#planet_name").append("<div id='" + data._id + "' style='position: relative'/></div>");	
+		planetSocket.on("planet_res", function(data){
+				planetName.append("<div id='" + data._id + "' style='position: relative'/></div>");		
 		});
 	}
 	else

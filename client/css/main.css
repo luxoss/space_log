@@ -50,8 +50,8 @@ body {
 #main_layer {
 /*	background-image: url('../res/img/space_tile.png');
   	background-size: cover; */
-  	width: 2048px;
-  	height: 1028px;
+  	width: 4096px;
+  	height: 2048px;
 	position: relative;
 }
 
