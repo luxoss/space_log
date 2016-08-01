@@ -65,10 +65,32 @@ function drawAllAssets()
 
 		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
-		var cnt = 0;
-		var planetNum = "plnaet" + cnt;	
-		var planetId = $("#" + planetNum);
-		var planetImgUrl = "url('http://203.237.179.21:8000/res/img/planet/planet_13.png');"
+		var backgroundLayer = $("#background");
+		//var planetNum = "plnaet", cnt = 0;
+		//planetNum += cnt;
+		//cnt++;	
+		//var planetId = $("#" + planetNum);
+
+		var planetImgNum = {
+			 0 :  "url('http://203.237.179.21:8000/res/img/planet/planet_0.png')",
+			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.png')",
+			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.png')",
+			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_3.png')",
+			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
+			 5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+			 6 :  "url('http://203.237.179.21:8000/res/img/planet/planet_6.png')",
+			 7 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+			 8 :  "url('http://203.237.179.21:8000/res/img/planet/planet_8.png')",
+			 9 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
+			10 :  "url('http://203.237.179.21:8000/res/img/planet/planet_10.png')",
+			11 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+			12 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')",
+			13 :  "url('http://203.237.179.21:8000/res/img/planet/planet_13.png')"
+		};
+
+		var cnt = 5;
+		var planetImgUrl = planetImgNum[cnt];
+		
 /*
 		//TODO: After testing...
 		var posX = parseInt(data.location_x);
@@ -98,14 +120,11 @@ function drawAllAssets()
 				
 		}
 
-//		data._id 
-		cnt += cnt;
-
-		mainLayer.append("<div class='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
+		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
 //		planetId.css("background-image", "\"" + planetImgUrl + "\"");
 		
-		setPlanetImg(data._id);
-		console.log(isNumber(cnt));
+		drawPlanetImg(data._id, planetImgUrl);
+		//console.log(isNumber(cnt));
 /*			
 		//TODO: After testing...			
 		planetImg.onload = function()
@@ -129,11 +148,18 @@ function isNumber(str)
   	return true;
 }
 
-function setPlanetImg(planetNumData, planetImgUrl)
+function drawPlanetImg(planetNumData, planetImgUrl)
 {
-	$("#" + planetNumData)
-		.css("background-image", "\"" + planetImgUrl + "\"");
+/*
+	var planetNum = $("#" + planetNumData); 
+
+	planetNum.css("background-image", "\"" + planetImgUrl + "\"");
+*/
+	var planetNum = document.getElementById(planetNumData);	
 	
+	planetNum.style.backgroundImage = planetImgUrl; 
+	//"url('http://203.237.179.21:8000/res/img/planet/planet_13.png')";
+
 	return ;
 }
 // Create user state function in main display

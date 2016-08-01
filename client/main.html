@@ -7,8 +7,8 @@
 <html>
 	<head>
 		<meta charset="utf-8"/>
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="./css/main.css" media="screen" charset="utf-8">
+		<meta name = "viewport" content = "width=device-width, initial-scale=1">
+		<link rel = "stylesheet" href= "./css/main.css" media = "screen" charset = "utf-8">
 		<!-- Contain libs -->
 		<script type = "text/javascript" src = "http://code.jquery.com/jquery-2.1.0.min.js"></script>
 		<script type = "text/javascript" src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
@@ -21,36 +21,43 @@
 		<title>THE SPACE LOG - SOME SPACE VOYAGERS</title>
 	</head>
 	<body>
-		<div id="main_layer">
+		<!-- Main display -->
+		<div id = "main_layer">
+			<!-- Draw background image with canvas -->
 			<canvas id="background" width="2048px" height="1024">
 			</canvas>	
-			<div class="ui_menu_layer"> <!-- If u click this menu button, u see that is infomation in menu button -->
-				&nbsp;<input id="logout_btn" type="button" value="" />
-				<input id="planet_btn" type="button" value="" />
-				<input id="battle_ship_btn" type="button" value="" />
-				<input id="rank_btn" type="button" value="" />
-			</div>
-			<div class="ui_user_info_layer"> <!-- This is user information layer -->
-					<div id="user_avatar"></div>
-					<div id="hp_progress_bar"></div>
-					<div id="sp_progress_bar"></div>
-					<div id="level_stats"></div>	
-			</div>
 			<!-- TODO: Later...
-				<div class="ui_minimap_layer">
-					<canvas id="minimap_canvas" width="150px" height="150px"></canvas>
-				</div>
+			<div class="ui_minimap_layer">
+				<canvas id="minimap_canvas" width="150px" height="150px"></canvas>
+			</div>
 			-->
-			<div id="battle_ship"></div>
-			<div id="planet_ui">
+			<div id = "assets">
+				<div id = "battle_ship"></div>
+			</div>
+			<div id = "planet_ui">
 				<div id = "planet_img"></div>
 				<div id = "planet_name">PLANET NUMBER:</div>
 				<div id = "planet_resource">RESOURCE:</div>
 				<div id = "plnaet_grade">GRADE:</div>
 			</div>
-			<div id="battle_ship_layer"></div>
-			<div id="rank_layer"></div>
+			<div id = "battle_ship_layer"></div>
+			<div id = "rank_layer"></div>
 		</div>
-	
+
+		<!-- Menu icon layer -->
+		<div class = "ui_menu_layer">		  
+			&nbsp;<input id ="logout_btn" type = "button"/>
+			<input id = "planet_btn" type = "button" />
+			<input id = "battle_ship_btn" type = "button" />
+			<input id = "rank_btn" type = "button" />
+		</div>
+		
+		<!-- User information layer -->
+		<div class = "ui_user_info_layer">			
+			<div id = "user_avatar"></div>
+			<div id = "hp_progress_bar"></div>
+			<div id = "sp_progress_bar"></div>
+			<div id = "level_stats"></div>	
+		</div>
 	</body>
 </html>
