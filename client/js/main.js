@@ -65,7 +65,9 @@ function drawAllAssets()
 
 		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
-		var planetId = $("#" + data._id);
+		var cnt = 0;
+		var planetNum = "plnaet" + cnt;	
+		var planetId = $("#" + planetNum);
 		var planetImgUrl = "url('http://203.237.179.21:8000/res/img/planet/planet_13.png');"
 /*
 		//TODO: After testing...
@@ -96,9 +98,14 @@ function drawAllAssets()
 				
 		}
 
-			
-		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
+//		data._id 
+		cnt += cnt;
 
+		mainLayer.append("<div class='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
+//		planetId.css("background-image", "\"" + planetImgUrl + "\"");
+		
+		setPlanetImg(data._id);
+		console.log(isNumber(cnt));
 /*			
 		//TODO: After testing...			
 		planetImg.onload = function()
@@ -111,6 +118,24 @@ function drawAllAssets()
 	return ;
 }
 
+// Create function that confirm number type 
+function isNumber(str)
+{
+  	str += ''; // Change to string type 
+  	str = str.replace(/^\s*|\s*$/g, ''); // Delete left and right blank 
+
+  	if (str == '' || isNaN(str)) {return false };
+
+  	return true;
+}
+
+function setPlanetImg(planetNumData, planetImgUrl)
+{
+	$("#" + planetNumData)
+		.css("background-image", "\"" + planetImgUrl + "\"");
+	
+	return ;
+}
 // Create user state function in main display
 function userStateInit()
 {
