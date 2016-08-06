@@ -6,7 +6,7 @@
 (function(){ // Create Immediately-invoked function expression
 	$(document).ready(function(){ 						// Jquery ready to document
 		var socket = io.connect('http://203.237.179.21:5001'); 		// Create join and login socket
-		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information socket
+//		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information socket
 //		mainAudioControl();
 		mainDisplayResize();
 

@@ -12,7 +12,7 @@ var tempAngle = 0; 				// Declare temporary angle variable
 var misile = new Image();			// Declare misile image object
 var misileSpeed = 10;				// Declare misile speed(10) variable
 var misilePosArray = []; 			// Declare misile x, y position array
- 
+
 $(document).keydown(function(e){ // Create key press down event 
 	/*
 		38 : up
@@ -24,46 +24,43 @@ $(document).keydown(function(e){ // Create key press down event
 		82 : R key is 'Rank button'
 		80 : P key is 'Planet information button'
 	*/
+
 	var keyDownEvent = e.keyCode;	
 	
-	curX = parseInt($("#battle_ship").offset().left); // posX("battle_ship", curY);
-	curY = parseInt($("#battle_ship").offset().top);  // posY("battle_ship", curY); 
+//	curX = parseInt($("#battle_ship").offset().left); 
+//	curY = parseInt($("#battle_ship").offset().top);   
 
-//	misile.src = ""; 				  // Misile image source url
+//	misile.src = ""; 				  
 
 	switch(keyDownEvent)
 	{
 		case 38: // up key press down
-		//	$('#battle_ship').animate({top: "-=50"}, {queue: false});
 			posY("battle_ship", posY("battle_ship") - 10);
 			break;
 		case 40: // down key press down
 			posY("battle_ship", posY("battle_ship") + 10);
-		//	$('#battle_ship').animate({top: "+=50"}, {queue: false});
 			break;
 		case 37: // left key press down
 			posX("battle_ship", posX("battle_ship") - 10);
 	        	//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
 			//tempAngle -= 30;
-			//clockwiseRotateTransform(posX("battle_ship", curX), posY("battle_ship", curY), radAngle);
 			break;
 		case 39: // right key press down
 			posX("battle_ship", posX("battle_ship") + 10);
 			//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
 			//tempAngle += 30;
-			//counterClockwiseRotateTransform(posX("battle_ship", curX), posY("battle_ship", curY), radAngle);
 			break;
 		case 83:
 			alert('shot button');
 			break;
 		case 66:
-			battleShipViewLayer(); 		 // call method battle ship layer
+			battleShipViewLayer(); 	  // call method battle ship layer
 			break;
 		case 82:
-			rankViewLayer(); 	  	 // call method rank layer
+			rankViewLayer(); 	  // call method rank layer
 			break;
 		case 80:
-			planetViewLayer();	 // call method planet layer
+			planetViewLayer();	  // call method planet layer
 			break;
 		case 81:
 			logout(userId);
@@ -98,9 +95,10 @@ $(document).keyup(function(ev){ // Key press up event
 		}
 		
 });	
-
-// Create getCoordinatePosition function	
-function getCoordinatePosition(divId, position, curX, curY, ,preX, preY, postX, postY, radAngle)
+/*
+// TODO: Change to code line :: <prototype> chaining
+// Create getPosition function	
+function getPosition(divId, position, curX, curY, preX, preY, postX, postY, radAngle)
 {
 	this.divId = divId;
 	this.position = position;
@@ -111,53 +109,59 @@ function getCoordinatePosition(divId, position, curX, curY, ,preX, preY, postX, 
 	this.postX = postX;
 	this.postY = postY;
 	this.radAngle = radAngle;
+
+	console.log(
+		this.divId + ", " +  this.position + ", " + this.curX + ", " + this.curY   
+		+ this.preX + ", " + this.preY + ", " + this.postX + ", " + this.postY + ", " 
+		+ this.radAngle
+	);   
 }
 
-// Create posX method with getCoordinatePosition function's prototype
-getCoordinatePosition.prototype.posX = function(){
+// Create posX method with getPosition function's prototype
+getPosition.prototype.x = function(){
 	
 	if(this.position)
 	{
-		return parseInt($("#" + this.divId).css("left", this.position);
+		return parseInt($("#" + this.divId).css("left", this.position));
 	}
 	else
 	{
-		return parseInt($("#" + this.divId).css("left");
+		return parseInt($("#" + this.divId).css("left"));
 	}
 };
 
-// Create posY method with getCoordinatePosition function's prototype
-getCoordinatePosition.prototype.posY = function(){
+// Create posY method with getPosition function's prototype
+getPosition.prototype.y = function(){
 		
 	if(this.position)
 	{
-		return parseInt($("#" + this.divId).css("top", this.position);
+		return parseInt($("#" + this.divId).css("top", this.position));
 	}
 	else
 	{
-		return parseInt($("#" + this.divId).css("top");
+		return parseInt($("#" + this.divId).css("top"));
 	}
 };
 
-// Create clockwise rotate transform method with getCoordinatePosition function's prototype
-getCoordinatePosition.prototype.clockwiseTransform = function(){
+// Create clockwise rotate transform method with getPosition function's prototype
+getPosition.prototype.clockwiseTransform = function(){
 
-	this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (-Math.sin(this.radAngle)));
+	this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (-Math.sin(this.radAngle))));
 	this.postY = ((this.preX * Math.sin(this.radAngle)) + (this.preY * (Math.cos(this.radAngle))));
 		
 	console.log("postX: " + postX + ", postY: " + postY);
 };
 
-// Create counter clockwise rotate  transform method with getCoordinatePosition function's prototype
-getCoordinatePosition.prototype.counterClockwiseTransform = function(){
+// Create counter clockwise rotate  transform method with getPosition function's prototype
+getPosition.prototype.counterClockwiseTransform = function(){
 
 	this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (Math.sin(this.radAngle))));
 	this.postY = ((this.preX * Math.sin(this.radAngle)) + (this.preY * (Math.cos(this.radAngle))));
 
 	onsole.log("postX: " + postX + ", postY: " + postY);
 };	
-		
-/*			
+*/		
+			
 // Set battle ship set position and return current y position 
 var posX = function(divId, position){
 
@@ -218,6 +222,6 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 
 	return [postX, postY];	
 }
-*/
+
 
 	

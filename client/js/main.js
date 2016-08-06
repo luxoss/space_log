@@ -12,16 +12,13 @@
 var serverUrl =  "http://203.237.179.21"
 var socket = io.connect(serverUrl + ":5001");
 var planetSocket = io.connect(serverUrl + ":5002");
-//var battleShipObj = $("#battle_ship").offset(); 
-//var positionX = battleShipObj.left;	
-//var positionY = battleShipObj.top;
+var userInfoSocket = io.connect(serverUrl + ":5003");
 var userId = localStorage.getItem("username");
 
 $(document).ready(function(){ // Ready to the document 
 
 	var indexPageUrl = serverUrl + ":8000";
 	
-	//isNaN(_PARAMETER) ? true : false 
 	drawAllAssets();
 	userStateInit(); // Call user state initialize function
 
