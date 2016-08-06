@@ -3,16 +3,18 @@
 	**Writer: luxoss
 	**File-explanation: Control key value with javascript
 */
-var battleShip = $("#battle_ship").offset();	// Current battleship obj offset(left, top)
-var curX = 0, curY = 0;				// Current x, y position
-var postX = 0, postY = 0;			// Post postion X, Y
-var angle = 30; 				// Declare degree variable 
-var radAngle =  angle * (Math.PI / 180); 	// Declare radian angle variable 
-var tempAngle = 0; 				// Declare temporary angle variable
-var misile = new Image();			// Declare misile image object
-var misileSpeed = 10;				// Declare misile speed(10) variable
-var misilePosArray = []; 			// Declare misile x, y position array
-
+var battleShip = $("#battle_ship").offset();	 	  // Current battleship obj offset(left, top)
+var curX = 0, curY = 0;			 		  // Current x, y position
+var postX = 0, postY = 0;				  // Post postion X, Y
+var angle = 30; 					  // Declare degree variable 
+var radAngle =  parseInt(angle * (Math.PI / 180)); 	  // Declare radian angle variable 
+var tempAngle = 0; 					  // Declare temporary angle variable
+var misile = new Image();				  // Declare misile image object
+var misileSpeed = 10;					  // Declare misile speed(10) variable
+var misilePosArray = []; 			 	  // Declare misile x, y position array
+var clockwise = clockwiseRotateTransform(); 	 	  // Declare clockwise method
+var counterClockwise = counterClockwiseRotateTransform(); // Declare counterclockwise method
+	
 $(document).keydown(function(e){ // Create key press down event 
 	/*
 		38 : up
@@ -26,12 +28,15 @@ $(document).keydown(function(e){ // Create key press down event
 	*/
 
 	var keyDownEvent = e.keyCode;	
-	
+
+	console.log(typeof clockwise);
+	console.log(typeof counterClockwise);
+
 	curX = posX("battle_ship");//parseInt($("#battle_ship").offset().left); 
 	curY = posY("battle_ship");//parseInt($("#battle_ship").offset().top);   
-
+	
 //	misile.src = ""; 				  
-
+	
 	switch(keyDownEvent)
 	{
 		case 38: // up key press down
@@ -41,12 +46,15 @@ $(document).keydown(function(e){ // Create key press down event
 			posY("battle_ship", posY("battle_ship") + 10);
 			break;
 		case 37: // left key press down
-			clockwiseRotateTransform("battle_ship", curX, curY, radAngle);
+			posX("battle_ship", clockwise[0]);
+			posY("battle_ship", clockwise[1]);
 			//posX("battle_ship", posX("battle_ship") - 10);
 	        	//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
 			//tempAngle -= 30;
 			break;
 		case 39: // right key press down
+			posX("battle_ship", counterClockwise[0]);
+			posY("battle_ship", counterClockwise[1]);
 			//posX("battle_ship", posX("battle_ship") + 10);
 			//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
 			//tempAngle += 30;
@@ -199,12 +207,15 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 	preX = curX; // pre postion x, posX is 'current position X'
 	preY = curY; // pre postion y, posY is 'current postiion Y'
 
-	postX = ((preX * cos) + (preY * (-sin)));
-	postY = ((preX * sin) + (preY * (cos)));
+	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
+	// That is, x' = xcos(rad) - ysin(rad)
+	// That is, y' = xsin(rad) + ycos(rad)
+	postX = (preX * cos) - (preY * sin);
+	postY = (preX * sin) + (preY *cos);
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	//return [postX, postY];
+	return [postX, postY];
 }
 
 // Create counter clockwise rotate tranformation matrix function
@@ -216,12 +227,12 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 	preX = curX;
 	preY = curY;
 
-	postX = ((preX * cos) + (preY * (sin)));
-	postY = ((preX * sin) + (preY * (cos)));
+	postX = (preX * cos) + (preY * sin);
+	postY = (preY * cos) - (preX * sin);
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	//return [postX, postY];	
+	return [postX, postY];	
 }
 
 
