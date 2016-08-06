@@ -167,7 +167,7 @@ function drawPlanetImg(planetNumData, planetImgUrl)
 function userStateInit()
 {
 /*
-	var user_init_info = {
+	var userInitInfo = {
 		'curX'     : localStorage.getItem('posX');
 		'curY'     : localStorage.getItem('posY');
 		'level'    : localStorage.getItem('level');
@@ -176,7 +176,14 @@ function userStateInit()
 		'gas'      : localStorage.getItem('gas');
 		'unknown'  : localStorage.getItem('unknown');
 	}
-*/
+
+	$('#mineral').val() = userInitInfo.mineral;
+	$('#gas').val() = userInitInfo.gas;     
+	$('#unknown').val() = userInitInfo.unknown;
+
+	posX("battle_ship", userInitInfo.curX);
+	posY("battle_ship", userInitInfo.curY);
+*/	
 	$('#battle_ship')
 		.append("<div id='" + userId + "'style='postion:fixed; color: white;'>" + userId + "</div>");
 

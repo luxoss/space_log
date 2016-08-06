@@ -97,8 +97,8 @@ $(document).keyup(function(ev){ // Key press up event
 				break;
 		}
 		
-});		
-
+});	
+			
 // Set battle ship set position and return current y position 
 var posX = function(divId, position){
 
@@ -125,6 +125,7 @@ var posY = function(divId, position){
 	}
 };
 
+		
 // Create clockwise rotate transformation matrix function
 function clockwiseRotateTransform(divId, curX, curY, radAngle)
 {
@@ -140,8 +141,6 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	//radAngle += 30;
-			
 	return [postX, postY];
 }
 
@@ -159,9 +158,77 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	//radAngle += 30;
-
 	return [postX, postY];	
 }
 
+	
+/*
+function getPosition(divId, position)
+{
+	var coordinatePos = {
 
+		divId : divId,
+		position: position,
+		
+		posX = function(){
+
+			if(this.position)
+			{
+				return parseInt($("#" + this.divId).css("left", this.position));
+			}
+			else
+			{
+				return parseInt($("#" + divId).css("left"));
+			}
+		},
+
+		posY = function(){
+
+			if(this.position)
+			{
+				return parseInt($("#" + this.divId).css("top", this.position));
+			}
+			else
+			{
+				return parseInt($("#" + this.divId).css("top"));
+			}
+		}
+	};
+
+	return coordinatePos;
+}
+
+function rotateTransMatrix(divId, curX, curY, ,preX, preY, postX, postY, radAngle) // Return below to obj
+{
+	var rotatePos = {
+
+		divId : divId,
+		curX : curX,
+		curY : curY,
+		radAngle : radAngle,
+		preX : preX,
+		preY : preY,
+		postX : postX,
+		postY : postY,
+
+		clockwise : function() {        // Create clockwise method
+	
+			this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (-Math.sin(this.radAngle)));
+			this.postY = ((this.preX * Math.sin(this.radAngle)) + (this.preY * (Math.cos(this.radAngle))));
+		
+			console.log("postX: " + postX + ", postY: " + postY);
+		},
+	
+		counterClockwise : function() { // Create counter clockwise method
+
+			this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (Math.sin(this.radAngle))));
+			this.postY = ((this.preX * Math.sin(this.radAngle)) + (this.preY * (Math.cos(this.radAngle))));
+
+			console.log("postX: " + postX + ", postY: " + postY);
+		}
+	};
+
+	return rotatePos;
+}
+*/			
+	
