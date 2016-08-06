@@ -12,8 +12,6 @@ var tempAngle = 0; 					  // Declare temporary angle variable
 var misile = new Image();				  // Declare misile image object
 var misileSpeed = 10;					  // Declare misile speed(10) variable
 var misilePosArray = []; 			 	  // Declare misile x, y position array
-var clockwise = clockwiseRotateTransform(); 	 	  // Declare clockwise method
-var counterClockwise = counterClockwiseRotateTransform(); // Declare counterclockwise method
 	
 $(document).keydown(function(e){ // Create key press down event 
 	/*
@@ -25,42 +23,43 @@ $(document).keydown(function(e){ // Create key press down event
 		66 : B key is 'battle ship button'
 		82 : R key is 'Rank button'
 		80 : P key is 'Planet information button'
+		
+		four direction : up -> right <set smooth animation 0 to 90 degree>
+				 right -> down <set smooth animation 90 to 180 degree>
+				 down -> left <set smooth animation 180 to 270 degree>
+				 left -> up <set smooth animation 270 to 360 degree>
 	*/
 
 	var keyDownEvent = e.keyCode;	
 
-	console.log(typeof clockwise);
-	console.log(typeof counterClockwise);
-
-	curX = posX("battle_ship");//parseInt($("#battle_ship").offset().left); 
-	curY = posY("battle_ship");//parseInt($("#battle_ship").offset().top);   
+	curX = posX("battle_ship"); //parseInt($("#battle_ship").offset().left); 
+	curY = posY("battle_ship"); //parseInt($("#battle_ship").offset().top);   
 	
 //	misile.src = ""; 				  
 	
 	switch(keyDownEvent)
 	{
 		case 38: // up key press down
+	        	$('#battle_ship').css('transform',  'rotate(0deg)');
 			posY("battle_ship", posY("battle_ship") - 10);
 			break;
 		case 40: // down key press down
+	        	$('#battle_ship').css('transform',  'rotate(180deg)');
 			posY("battle_ship", posY("battle_ship") + 10);
 			break;
 		case 37: // left key press down
-			posX("battle_ship", clockwise[0]);
-			posY("battle_ship", clockwise[1]);
-			//posX("battle_ship", posX("battle_ship") - 10);
-	        	//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
-			//tempAngle -= 30;
+			posX("battle_ship", posX("battle_ship") - 10);
+	        	$('#battle_ship').css('transform',  'rotate(-90deg)');
 			break;
 		case 39: // right key press down
-			posX("battle_ship", counterClockwise[0]);
-			posY("battle_ship", counterClockwise[1]);
-			//posX("battle_ship", posX("battle_ship") + 10);
-			//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
-			//tempAngle += 30;
+			posX("battle_ship", posX("battle_ship") + 10);
+			$('#battle_ship').css('transform',  'rotate(90deg)');
 			break;
 		case 83:
-			alert('shot button');
+			console.log('Shot button');
+			break;
+		case 32:
+			console.log('Space button');
 			break;
 		case 66:
 			battleShipViewLayer(); 	  // call method battle ship layer
@@ -210,12 +209,11 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
 	// That is, x' = xcos(rad) - ysin(rad)
 	// That is, y' = xsin(rad) + ycos(rad)
-	postX = (preX * cos) - (preY * sin);
-	postY = (preX * sin) + (preY *cos);
+	postX = parseInt((preX * cos) - (preY * sin));
+	postY = parseInt((preX * sin) + (preY *cos));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	return [postX, postY];
 }
 
 // Create counter clockwise rotate tranformation matrix function
@@ -227,12 +225,11 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 	preX = curX;
 	preY = curY;
 
-	postX = (preX * cos) + (preY * sin);
-	postY = (preY * cos) - (preX * sin);
+	postX = parseInt((preX * cos) + (preY * sin));
+	postY = parseInt((preY * cos) - (preX * sin));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	return [postX, postY];	
 }
 
 
