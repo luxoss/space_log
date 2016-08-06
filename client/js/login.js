@@ -4,9 +4,9 @@
 	**File-explanation: Contorl index html page with javascript
 */
 (function(){ // Create Immediately-invoked function expression
-	$(document).ready(function(){ // Jquery ready to document
-		var socket = io.connect('http://203.237.179.21:5001');
-	
+	$(document).ready(function(){ 						// Jquery ready to document
+		var socket = io.connect('http://203.237.179.21:5001'); 		// Create join and login socket
+		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information socket
 //		mainAudioControl();
 		mainDisplayResize();
 
@@ -140,7 +140,7 @@
 /*	
 			// TODO: { Code line explanation } User information received to server
 			// (Resource, Initialize postion, Level, and so on)' to server
-			socket.on('myinfo', function(data){
+			userInfoSocket.on('myinfo', function(data){
 
 				var userInitInfo = {};
 
@@ -151,7 +151,7 @@
 				userInitInfo.unknown = data.unknown;
 				userInitInfo.pos_x = data.location_x;
 				userInitInfo.pos_y = data.location_y;
-
+			
 				console.log('level: ' + userInitInfo.level);
 				console.log('exp: ' + userInitInfo.exp);
 				console.log('mineral: ' + userInitInfo.mineral);
