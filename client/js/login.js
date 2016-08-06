@@ -7,6 +7,7 @@
 	$(document).ready(function(){ // Jquery ready to document
 		var socket = io.connect('http://203.237.179.21:5001');
 	
+//		mainAudioControl();
 		mainDisplayResize();
 
 		$("#join_btn").on('click', function(){
@@ -81,54 +82,38 @@
 		});
 
 		$("#login_btn").on('click', function(){ 
-				var username = $('#username').val();
-				var password = $('#password').val();
-				var mainPageUrl = "./main.html";
-				var userInfo = {}; // Create user information obj		
+
+			var username = $('#username').val();
+			var password = $('#password').val();
+			var mainPageUrl = "./main.html";
+			var userInfo = {}; // Create user information obj		
 		
-				userInfo.username = username;
-				userInfo.password = password;
+			userInfo.username = username;
+			userInfo.password = password;
 			
-				alert('loading...');
+			alert('loading...');
 
-				socket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+			socket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
 				
-				socket.on('login_res', function(data){
+			socket.on('login_res', function(data){
 					
-					var userId = userInfo.username;
+				var userId = userInfo.username;
 
-					if(data['response'] == "true")
-					{
-						alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-						usernameValue(userId);
-						$(location).attr('href', mainPageUrl);
-					}
-					else
-					{
-						alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-						$(location).reload();
-					}
-				});
-		});
-	
-		/*
-			// TODO: Received 'USER'S INFORMATION(Resource, Initialize postion, Level, and so on)' to SERVER
-			socket.on('myinfo', function(data){
-				data.username;
-				user_info.exp = data.exp;
-				user_info.mineral = data.mineral;
-				user_info.gas = data.gas;
-				user_info.unknown = data.unknown;
-				user_info.pos_x = data.location_x;
-				user_info.pos_y = data.location_y;
-				console.log('exp: ' + user_info.exp + '\n');
-				console.log('mineral: ' + user_info.mineral + '\n');
-				console.log('gas: ' + user_info.gas + '\n');
-				console.log('unknown: ' + user_info.unknown + '\n');
-				console.log('x: ' + user_info.pos_x + '\n');
-				console.log('y: ' + user_info.pos_y + '\n');
+				if(data['response'] == "true")
+				{
+					alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
+
+					usernameValue(userId);
+
+					$(location).attr('href', mainPageUrl);
+				}
+				else
+				{
+					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+					$(location).reload();
+				}
 			});
-		*/
+		});
 	
 	});
 
@@ -152,9 +137,43 @@
 		}
 		else
 		{	
+/*	
+			// TODO: { Code line explanation } User information received to server
+			// (Resource, Initialize postion, Level, and so on)' to server
+			socket.on('myinfo', function(data){
+
+				var userInitInfo = {};
+
+				userInitInfo.level = data.level;
+				userInitInfo.exp = data.exp;
+				userInitInfo.mineral = data.mineral;
+				userInitInfo.gas = data.gas;
+				userInitInfo.unknown = data.unknown;
+				userInitInfo.pos_x = data.location_x;
+				userInitInfo.pos_y = data.location_y;
+
+				console.log('level: ' + userInitInfo.level);
+				console.log('exp: ' + userInitInfo.exp);
+				console.log('mineral: ' + userInitInfo.mineral);
+				console.log('gas: ' + userInitInfo.gas);
+				console.log('unknown: ' + userInitInfo.unknown);
+				console.log('x: ' + userInitInfo.posX);
+				console.log('y: ' + userInitInfo.posY);
+
+			});
+*/			
 			localStorage.setItem('username', userValue);
+/*			
+			// TODO: { Code line explanation } Some user initialize information saved by localstorage
+			localStorage.setItem('level', userInitInfo.level);
+			localStorage.setItem('exp', userInitInfo.exp);
+			localStorage.setItem('mineral', userInitInfo.mineral);
+			localStorage.setItem('gas', userInitInfo.gas);
+			localStorage.setItem('unknown', userInitInfo.unknown);
+ 			localStorage.setItem('posX', userInitInfo.posX);
+			localStorage.setItem('posY', userInitInfo.posY);
+*/
 		}	
-		return ; 
 	}
 /*	
 	//TODO: Check 'join form '

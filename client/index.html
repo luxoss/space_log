@@ -15,24 +15,38 @@
 		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script> 
 		<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 		<script type="text/javascript" src="http://203.237.179.21:8000/js/login.js"></script> 
+<!--		<script type="text/javascript" src="http://203.237.179.21:8000/js/audio_controller.js"></script>-->
 		<title>Welcome to the space log web game</title>
 	</head>
 	<body>
-		<!-- TODO: Later...
-			<audio bgsound src="./res/sound/InterStellare.mp3" loop=infinite autoplay></audio> 
-		-->
-		<div id="main_container"> <!-- Main container -->
-			<div id="header"><h1>SPACE LOG</h1></div>  <!-- Header division -->
-			<div id="user_info"> <!-- User information division -->
+	<!--
+		<audio class = "main_audio" controls preload = "none">
+			<source src = "./res/sound/InterStellare.mp3" type = "audio/mpeg">
+		</audio>	
+	-->
+		<!-- Main container -->
+		<div id="main_container"> 			
+			<!-- Header division -->
+			<div id="header">
+				<h1>SPACE LOG</h1>
+			</div>
+			<!-- User information division -->
+			<div id="user_info"> 
 				<br/><br/>
 				<center>
 					<input type="text" class="input_text" id="username" name="username" placeholder=" >>USERNAME" value="" /><br/><br/>
 					<input type="password" class="input_text" id="password" name="password" placeholder=" >>PASSWORD" value="" /><br/><br/>
-					<input type="button" class="input_btn" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/> <!-- Login button -->
-          				<input type="button" class="input_btn" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/> <!-- Join button -->
+					<!-- Login button -->
+					<input type="button" class="input_btn" id="login_btn" name="login" value="로그인" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/>
+					<!-- Join button -->
+          				<input type="button" class="input_btn" id="join_btn" name="join" value="회원가입" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/> 
+
       				</center>
 			</div><br/>
-			<div id="footer"><h3>Created by 'SPACE LOG TEAM'</h3></div> <!-- footer division -->
+			<!-- footer division -->
+			<div id="footer">
+				<h3>Created by 'SPACE LOG TEAM'</h3>
+			</div> 
       	    	</div>
   	</body>
 </html>

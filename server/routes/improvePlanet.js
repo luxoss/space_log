@@ -45,4 +45,4 @@ function improve_p(){
 	});	
 }
 
-setInterval(improve_p, 100000);
+setInterval(improve_p, 10000);

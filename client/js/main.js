@@ -27,17 +27,18 @@ $(document).ready(function(){ // Ready to the document
 
 	$('#logout_btn').on('click', function(){
 			
-		if(userId === null)
+		if(userId != null)
+		{
+			logout(userId);
+		}
+		else
 		{
 			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
 
 			socket.disconnect();
 
 			$(location).attr('href', indexPageUrl);	
-		}
-		else
-		{
-			logout(userId);
+		
 		}
 	});	
 
@@ -165,9 +166,17 @@ function drawPlanetImg(planetNumData, planetImgUrl)
 // Create user state function in main display
 function userStateInit()
 {
-	var canvas = document.getElementById('background');
-	var battleShipImg = new Image();
-
+/*
+	var user_init_info = {
+		'curX'     : localStorage.getItem('posX');
+		'curY'     : localStorage.getItem('posY');
+		'level'    : localStorage.getItem('level');
+		'exp'      : localStorage.getItem('exp');
+		'mineral'  : localStorage.getItem('mineral');
+		'gas'      : localStorage.getItem('gas');
+		'unknown'  : localStorage.getItem('unknown');
+	}
+*/
 	$('#battle_ship')
 		.append("<div id='" + userId + "'style='postion:fixed; color: white;'>" + userId + "</div>");
 
@@ -212,8 +221,14 @@ function logout(logoutUserId)
 
 		});
 	}
+	else 
+	{
+		if(logoutUserId == null)
+		{
+			return false;
+		}
+	}
 
-	return ;
 }
 
 

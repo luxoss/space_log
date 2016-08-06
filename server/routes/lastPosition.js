@@ -12,7 +12,15 @@ io.on('connection', function(socket){
 			x = data.x;
 			y = data.y;
 
-			collection.update({username : username}, {$set : {location_x : x, location_y : y}});
+			collection.update({username : username}, {$set : {location_x : x, location_y : y}}, function(err, Pdocs){
+				if(err){
+					console.log(err);				
+				} else if(Pdocs != null){
+					
+				}
+			
+			
+			});
 			
 		});
 	

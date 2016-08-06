@@ -6,21 +6,21 @@
 var rankViewLayer = function(){
 	
 	// Create rank menu controller function
-	var state = $('#rank_layer').css('display');
+	var state = $('.rank_ui').css('display');
 
 	if(state == 'none')
 	{
-		$('#rank_layer').show();
+		$('.rank_ui').show();
 	}
 	else
 	{
-		$('#rank_layer').hide();
+		$('.rank_ui').hide();
 	}
 	
 	$(window).resize(function(){
-		$('#rank_layer').css({
-			left: ($(window).width() - $('#rank_layer').outerWidth()) / 2,
-			top: ($(window).height() - $('#rank_layer').outerHeight()) / 2
+		$('.rank_ui').css({
+			left: ($(window).width() - $('.rank_ui').outerWidth()) / 2,
+			top: ($(window).height() - $('.rank_ui').outerHeight()) / 2
 		});
 	}).resize();
 

@@ -7,14 +7,19 @@ var bodyParser = require('body-parser');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
-//var join = require('./routes/joinForm');//New add(Join)
+//var : join = require('./routes/joinForm');//New add(Join)
 var login = require('./routes/loginForm');//New add(Login)
-//new create Planet
+//new : create Planet
 var createPlanet = require('./routes/createPlanet');
-//new send Planet
+//new : send Planet
 var sendPlanet = require('./routes/sendPlanet');
-//new improve Planet
+//new : improve Planet
 var improvePlanet = require('./routes/improvePlanet');
+//new : users' last position
+var lastPosition = require('./routes/lastPosition');
+//new : changing the users' information
+var changeUserInform.js = require('./routes/changeUserInform');
+
 
 
 
