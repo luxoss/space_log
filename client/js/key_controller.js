@@ -6,9 +6,9 @@
 var battleShip = $("#battle_ship").offset();	// Current battleship obj offset(left, top)
 var curX = 0, curY = 0;				// Current x, y position
 var postX = 0, postY = 0;			// Post postion X, Y
-var degree = 0; 				// Declare degree variable 
-var radAngle = (Math.PI * degree) / 180; 	// Declare radian angle variable 
-var angle = 0; 					// Declare temporary angle variable
+var angle = 30; 				// Declare degree variable 
+var radAngle =  angle * (Math.PI / 180); 	// Declare radian angle variable 
+var tempAngle = 0; 				// Declare temporary angle variable
 var misile = new Image();			// Declare misile image object
 var misileSpeed = 10;				// Declare misile speed(10) variable
 var misilePosArray = []; 			// Declare misile x, y position array
@@ -43,14 +43,14 @@ $(document).keydown(function(e){ // Create key press down event
 			break;
 		case 37: // left key press down
 			posX("battle_ship", posX("battle_ship") - 10);
-	        	//$('#battle_ship').css('transform',  'rotate(' + angle + 'deg)');
-			//angle -= 30;
+	        	//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
+			//tempAngle -= 30;
 			//clockwiseRotateTransform(posX("battle_ship", curX), posY("battle_ship", curY), radAngle);
 			break;
 		case 39: // right key press down
 			posX("battle_ship", posX("battle_ship") + 10);
-			//$('#battle_ship').css('transform',  'rotate(' + angle + 'deg)');
-			//angle += 30;
+			//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
+			//tempAngle += 30;
 			//counterClockwiseRotateTransform(posX("battle_ship", curX), posY("battle_ship", curY), radAngle);
 			break;
 		case 83:
@@ -131,16 +131,12 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
-	var ratio = {
-		cos : Math.cos(radAngle),
-		sin : Math.sin(radAngle)
-	};
 
 	preX = posX("battle_ship", curX); // pre postion x, posX is 'current position X'
 	preY = posY("battle_ship", curY); // pre postion y, posY is 'current postiion Y'
 
-	postX = ((preX * ratio.cos) + (preY * (-ratio.sin)));
-	postY = ((preX * ratio.sin) + (preY * (ratio.cos)));
+	postX = ((preX * cos) + (preY * (-sin)));
+	postY = ((preX * sin) + (preY * (cos)));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
@@ -154,16 +150,12 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 {	
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
-	var ratio = {
-		cos : Math.cos(radAngle),  
-		sin : Math.sin(radAngle) 
-	};
 
 	preX = posX("battle_ship", curX);
 	preY = posY("battle_ship", curY);
 
-	postX = ((preX * ratio.cos) + (preY * (ratio.sin)));
-	postY = ((preX * -ratio.sin) + (preY * (ratio.cos)));
+	postX = ((preX * cos) + (preY * (sin)));
+	postY = ((preX * sin) + (preY * (cos)));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
