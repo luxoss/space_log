@@ -15,6 +15,12 @@ var planetSocket = io.connect(serverUrl + ":5002");
 var userInfoSocket = io.connect(serverUrl + ":5003");
 var userId = localStorage.getItem("username");
 
+/*
+// Confirm mousemove x, y position
+$(document).mousemove(function(e){
+	console.log(e.pageX + ',' + e.pageY);
+});
+*/
 $(document).ready(function(){ // Ready to the document 
 
 	var indexPageUrl = serverUrl + ":8000";

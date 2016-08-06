@@ -27,8 +27,8 @@ $(document).keydown(function(e){ // Create key press down event
 
 	var keyDownEvent = e.keyCode;	
 	
-//	curX = parseInt($("#battle_ship").offset().left); 
-//	curY = parseInt($("#battle_ship").offset().top);   
+	curX = posX("battle_ship");//parseInt($("#battle_ship").offset().left); 
+	curY = posY("battle_ship");//parseInt($("#battle_ship").offset().top);   
 
 //	misile.src = ""; 				  
 
@@ -41,12 +41,13 @@ $(document).keydown(function(e){ // Create key press down event
 			posY("battle_ship", posY("battle_ship") + 10);
 			break;
 		case 37: // left key press down
-			posX("battle_ship", posX("battle_ship") - 10);
+			clockwiseRotateTransform("battle_ship", curX, curY, radAngle);
+			//posX("battle_ship", posX("battle_ship") - 10);
 	        	//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
 			//tempAngle -= 30;
 			break;
 		case 39: // right key press down
-			posX("battle_ship", posX("battle_ship") + 10);
+			//posX("battle_ship", posX("battle_ship") + 10);
 			//$('#battle_ship').css('transform',  'rotate(' + tempAngle + 'deg)');
 			//tempAngle += 30;
 			break;
@@ -195,15 +196,15 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
 
-	preX = posX("battle_ship", curX); // pre postion x, posX is 'current position X'
-	preY = posY("battle_ship", curY); // pre postion y, posY is 'current postiion Y'
+	preX = curX; // pre postion x, posX is 'current position X'
+	preY = curY; // pre postion y, posY is 'current postiion Y'
 
 	postX = ((preX * cos) + (preY * (-sin)));
 	postY = ((preX * sin) + (preY * (cos)));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	return [postX, postY];
+	//return [postX, postY];
 }
 
 // Create counter clockwise rotate tranformation matrix function
@@ -212,15 +213,15 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
 
-	preX = posX("battle_ship", curX);
-	preY = posY("battle_ship", curY);
+	preX = curX;
+	preY = curY;
 
 	postX = ((preX * cos) + (preY * (sin)));
 	postY = ((preX * sin) + (preY * (cos)));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
-	return [postX, postY];	
+	//return [postX, postY];	
 }
 
 
