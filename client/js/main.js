@@ -219,7 +219,7 @@ function logout(logoutUserId)
 
 				localStorage.removeItem('username');
 
-				//socket.emit('lpos_req', {'x': posX, 'y': posY}); 
+				//socket.emit('lpos_req', {'x': postX, 'y': postY}); 
 				socket.disconnect();
 
 				$(location).attr('href', indexPageUrl);

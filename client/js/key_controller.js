@@ -3,15 +3,12 @@
 	**Writer: luxoss
 	**File-explanation: Control key value with javascript
 */
-var battleShip = $("#battle_ship").offset();	 	  // Current battleship obj offset(left, top)
-var curX = 0, curY = 0;			 		  // Current x, y position
-var postX = 0, postY = 0;				  // Post postion X, Y
-var angle = 30; 					  // Declare degree variable 
-var radAngle =  parseInt(angle * (Math.PI / 180)); 	  // Declare radian angle variable 
-var tempAngle = 0; 					  // Declare temporary angle variable
-var misile = new Image();				  // Declare misile image object
-var misileSpeed = 10;					  // Declare misile speed(10) variable
-var misilePosArray = []; 			 	  // Declare misile x, y position array
+var battleShip = $("#battle_ship").offset();	 	     		  // Current battleship obj offset(left, top)
+var curX = 0, curY = 0, postX = 0, postY = 0, lastPosX = 0, lastPosY = 0; // Declare current(pre) position, next(post) position, last(if 'q' button || logout button click, send to the server) position
+var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // Declare 30 radian angle variable  <radian formula> : degree * (pi / 180);
+var misile = new Image();				  		  // Declare misile image object
+var misileSpeed = 10;					  		  // Declare misile speed(10) variable
+var misilePosArray = []; 			 	 		  // Declare misile x, y position array
 	
 $(document).keydown(function(e){ // Create key press down event 
 	/*
@@ -71,7 +68,9 @@ $(document).keydown(function(e){ // Create key press down event
 			planetViewLayer();	  // call method planet layer
 			break;
 		case 81:
-			logout(userId);
+			lastPosX = postX;
+			lastPosY = postY;
+			logout(userId/*, lastPosX, lastPosY*/);
 			break;
 		default:
 			break;
