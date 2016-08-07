@@ -56,7 +56,20 @@ io.on('connection', function(socket){
 		g_exp = data.exp;
 		
 		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-		
+			db.collection("MEM_INFO");		
+			var f_obj = {"username" : username};
+
+			collection.findOne(f_obj, function(err, user){
+				if(err){
+					console.log("changeUserInform.js file's error. There is no data that matching username");
+					console.log("========ERROR MESSAGE========");
+					console.lof(err);
+				} else if(user){
+					s_exp = user.exp + g_exp;
+					collection.update(f_obj, {$set:{exp:s_exp}});
+				}
+				
+			});
 		
 		});
 
@@ -87,9 +100,5 @@ io.on('connection', function(socket){
 	});
 
 });
-
-
-
-
 
 console.log('changeUserInform.js : https://203.237.179.21:5003');
