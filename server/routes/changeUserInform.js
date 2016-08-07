@@ -1,6 +1,6 @@
-var express = require('express');
-var app = express();
-var router = express.Router();
+//var express = require('express');
+//var app = express();
+//var router = express.Router();
 
 var username;
 var g_mineral, g_gas, g_unknown;
@@ -11,14 +11,14 @@ var s_exp;
 var MongoClient = require('mongodb').MongoClient;
 
 var io = require('socket.io').listen(5003);
-
+/*
 router.get('/', function(req, res, next){
 	res.send('respond with a resource');
 });
-
+*/
 io.on('connection', function(socket){
 	//user get resource -> change the user's informations
-	socket.on('get_rsrc', function(data){
+	socket.on('rsrc_req', function(data){
 		username = data.username;
 		//client must send to server the information of each resource that get quantity
 		g_mineral = data.mineral;
@@ -51,13 +51,39 @@ io.on('connection', function(socket){
 	});
 
 	//user get exp
-	socket.on('get_exp', function(data){
+	socket.on('exp_req', function(data){
 		username = data.username;
 		g_exp = data.exp;
+		
+		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+		
+		
+		});
 
 		// s_epx = mongoClinet.collection("PLANET").exp + g_exp
 		//s_exp = 
 	
+	});
+	
+	//user last position
+	socket.on('lpos_req', function(data){
+		console.log('I get a requrest saving user\'s last position');
+		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+			var collection = db.collection("MEM_INFO");
+			username = data.username;
+			x = data.x;
+			y = data.y;
+
+			var f_obj = {"username" : username};
+
+			collection.update(f_obj, {$set : {location_x:x, location_y:y}}, function(err, Pdocs){
+				if(err){
+					console.log(err);
+				} else if (Pdocs != null){
+				
+				}
+			});
+		});
 	});
 
 });

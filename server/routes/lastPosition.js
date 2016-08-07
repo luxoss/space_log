@@ -1,3 +1,5 @@
+/*
+
 var io = require('socket.io').listen(5003);
 var MongoClient = require('mongodb').MongoClient;
 var username, x , y;
@@ -28,3 +30,5 @@ io.on('connection', function(socket){
 });
 
 console.log('lastPosition.js : http://203.237.179.21:5003');
+
+*/

@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-var router = express.Route();
+var router = express.Router();
 
 var username;
 var p_id;
