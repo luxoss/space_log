@@ -54,3 +54,5 @@ function toggleMuteAudio(mainAudio)
 {
 	mainAudio.prop("muted",!mainAudio.prop("muted"));
 }
+
+

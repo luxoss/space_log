@@ -6,42 +6,42 @@
 (function(){ // Create Immediately-invoked function expression
 	$(document).ready(function(){ 						// Jquery ready to document
 		var socket = io.connect('http://203.237.179.21:5001'); 		// Create join and login socket
-//		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information socket
+		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information socket
 //		mainAudioControl();
 		mainDisplayResize();
 
 		$("#join_btn").on('click', function(){
-				var username = $('#username').val(); 
-				var password = $('#password').val();
-				var userInfo0 = {};
+			var username = $('#username').val(); 
+			var password = $('#password').val();
+			var userInfo0 = {};
 
-				userInfo0.username = username;
-				userInfo0.password = password;
+			userInfo0.username = username;
+			userInfo0.password = password;
 			
-				alert("Loading...");
+			alert("Loading...");
 
-				if((userInfo0.username == " " ) && (userInfo0.password == " "))
-				{
-					alert("아이디와 비밀번호를 입력해주세요.");
-					window.location.reload();
-				}
-				else
-				{
-					socket.emit('join_msg', {username: userInfo0.username, password: userInfo0.password }); // Send to server
-					socket.on('join_res', function(data){ // Receive to server
+			if((userInfo0.username == " " ) && (userInfo0.password == " "))
+			{
+				alert("아이디와 비밀번호를 입력해주세요.");
+				window.location.reload();
+			}
+			else
+			{
+				socket.emit('join_msg', {username: userInfo0.username, password: userInfo0.password }); // Send to server
+				socket.on('join_res', function(data){ // Receive to server
 				
-						if(data['response'] == 'true')
-						{
-							alert('회원가입이 완료 되었습니다.');
-							window.location.reload();
-						}
-						else
-						{
-							alert('해당 아이디가 이미 있습니다.');
-							window.location.reload();
-						}
-					});
-				}
+					if(data['response'] == 'true')
+					{
+						alert('회원가입이 완료 되었습니다.');
+						window.location.reload();
+					}
+					else
+					{
+						alert('해당 아이디가 이미 있습니다.');
+						window.location.reload();
+					}
+				});
+			}
 		});
 
 		$(document).keydown(function(ev){

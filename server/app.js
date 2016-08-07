@@ -19,7 +19,8 @@ var improvePlanet = require('./routes/improvePlanet');
 var lastPosition = require('./routes/lastPosition');
 //new : changing the users' information
 var changeUserInform.js = require('./routes/changeUserInform');
-
+//new : changing the users' planet informnation
+var changeUserInform.js = require('./routes/changeUserPlanet');
 
 
 
