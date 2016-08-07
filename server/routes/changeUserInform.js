@@ -1,21 +1,80 @@
-//var express = require('express');
-//var app = express();
-//var router = express.Router();
-
 var username;
 var g_mineral, g_gas, g_unknown;
 var g_exp;
 var s_mineral, s_gas, s_unknown;
 var s_exp;
 
+var l_x, l_y;
+
+
 var MongoClient = require('mongodb').MongoClient;
 
 var io = require('socket.io').listen(5003);
-/*
-router.get('/', function(req, res, next){
-	res.send('respond with a resource');
+
+io.on('connection', function(socket){
+	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+		var collection;
+		var f_obj;
+		//user get resource -> change the user's informations
+		socket.on('uinfo_req', function(data){
+			username = data.username;
+			g_mineral = data.mineral;
+			g_gas = data.gas;
+			g_unknown = data.unknown;
+			g_exp = data.exp
+			collection = db.collection("MEM_INFO");
+			
+			f_obj = {"username":username};
+			
+			collection.findOne(f_obj, function(err, user){
+				if(err){
+					console.log('changeUserInform.js file\'s error : collection.findOne is error - socket(rsrc_req) ');
+					console.log("================ERROR MESSAGE is===========");
+					console.log(err);
+
+				} else if(user != null){
+					s_mineral = user.mineral + g_mineral;
+					s_gas = user.gas + g_gas;
+					s_unknown = user.unknown + g_unknown;
+					s_exp = user.exp + g_exp;
+
+					collection.update(f_obj, {$set : {mineral:s_mineral, gas:s_gas, unknown:s_unknown, exp:s_exp}});
+				
+				} else if(user == null){
+					console.log("There is no user: No matching username data in DB");
+				}	
+			});
+
+		
+		});
+
+		socket.on('lpos_req', function(data){
+			username = data.username;
+			l_x = data.x;
+			l_y = data.y;
+			
+			f_obj ={"username":username};
+
+			collection.findOne(f_obj, function(err, user){
+				if(err){
+					console.log('changUserInform.js file\'s error: collection.findOne is error - socket(lpos_req');
+					console.log("==================ERROR MESSAGE is=====================");
+					console.log(err);
+				} else if(user != null){
+					collection.update(f_obj, {$set:{location_x:l_x, location_y:l_y}});
+				} else if(user == null){
+					console.log('There is no user: No matching username data in DB');
+				}
+			});
+
+		
+		});
+	
+	});
+
+
 });
-*/
+/*
 io.on('connection', function(socket){
 	//user get resource -> change the user's informations
 	socket.on('rsrc_req', function(data){
@@ -45,8 +104,6 @@ io.on('connection', function(socket){
 			});
 			
 		});
-
-
 		
 	});
 
@@ -72,10 +129,6 @@ io.on('connection', function(socket){
 			});
 		
 		});
-
-		// s_epx = mongoClinet.collection("PLANET").exp + g_exp
-		//s_exp = 
-	
 	});
 	
 	//user last position
@@ -100,5 +153,5 @@ io.on('connection', function(socket){
 	});
 
 });
-
+*/
 console.log('changeUserInform.js : https://203.237.179.21:5003');
