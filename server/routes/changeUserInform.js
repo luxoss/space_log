@@ -35,7 +35,11 @@ io.on('connection', function(socket){
 					console.log("=======ERROR MESSAGE======");
 					console.log(err);
 				} else if(user){
-				
+					s_mineral = user.mineral + g_mineral;
+					s_gas = user.gas + g_gas;
+					s_unknown = user.unknown + g_unknown;
+
+					collection.update(f_obj, {$set : {mineral:s_mineral, gas:s_gas, unknown:s_unknown}});
 				}
 
 			});
@@ -52,7 +56,7 @@ io.on('connection', function(socket){
 		g_exp = data.exp;
 
 		// s_epx = mongoClinet.collection("PLANET").exp + g_exp
-		s_exp = 
+		//s_exp = 
 	
 	});
 
