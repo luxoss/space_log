@@ -44,18 +44,69 @@ $(document).ready(function(){ // Ready to the document
 		
 		}
 	});	
+	
+	$('#logout_btn').rotate({
+		bind:
+		{
+			mouseover : function(){
+				$(this).rotate({animation:180});
+			},
 
+			mouseout : function(){
+				$(this).rotate({animation:0});
+			}
+		}
+	});
+	
+	$('#battle_ship_btn').rotate({
+		bind:
+		{
+			mouseover : function(){
+				$(this).rotate({animation:180});
+			},
+
+			mouseout : function(){
+				$(this).rotate({animation:0});
+			}
+		}
+	});
+
+	$('#planet_btn').rotate({
+		bind:
+		{
+			mouseover : function(){
+				$(this).rotate({animation:180});
+			},
+
+			mouseout : function(){
+				$(this).rotate({animation:0});
+			}
+		}
+	});
+
+	$('#rank_btn').rotate({
+		bind:
+		{
+			mouseover : function(){
+				$(this).rotate({animation:180});
+			},
+
+			mouseout : function(){
+				$(this).rotate({animation:0});
+			}
+		}
+	});
+	
+	
 	$('#planet_btn').on('click', function(){
 		planetViewLayer();
 	});
 
 	$('#battle_ship_btn').on('click', function(){
-		alert('Click battle ship button.');
 		battleShipViewLayer();
 	});
 
 	$('#rank_btn').on('click', function(){
-		alert('Click rank button.');
 		rankViewLayer();
 	});
 });

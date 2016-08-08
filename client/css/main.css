@@ -16,7 +16,46 @@ body {
   	position: fixed;
   	top: 20px;
   	left: 30px;
+	border-radius: 10px;
 }
+
+#user_avatar {
+	background-image: url('../res/img/battle_ship1.png');
+	background-color: rgba(255, 128, 255, 0.7);
+	width: 100px;
+	height: 100px;
+	float: left;
+	border: 1px solid yellow;
+	border-radius: 10px 0px 0px 10px;
+}
+
+#hp_progress_bar {
+	background-color: rgba(204, 51, 51, 1);
+	width: 295px;
+	height: 35px;
+	float:left;
+	border: 1px solid rgb(255, 128, 0);
+	border-radius: 0px 10px 10px 0px;
+}
+
+#sp_progress_bar {
+	background-color: rgba(0, 0, 255, 0.7);
+	width: 295px;
+	height: 35px;
+	float: left;
+	border: 1px solid rgb(0, 128, 255);;
+	border-radius: 0px 10px 10px 0px;
+}
+
+#exp_stats {
+	background-color: rgba(255, 255, 255, 0.7);
+	width: 295px;
+	height: 25px;
+	float: left;
+	border: 1px solid white;
+	border-radius: 0px 10px 10px 0px;
+}
+
 
 .minimap_ui {
   	background-color: rgba(102, 153, 255, 0.7);
@@ -27,6 +66,7 @@ body {
   	position: fixed;
   	bottom: 20px;
   	right: 30px;
+	border-radius: 50em;
 }
 
 .menu_buttons_ui {
@@ -46,14 +86,42 @@ body {
   	background-image: url('../res/img/button_design0.png');
   	width: 50px;
   	height: 50px;
-  	border: none;
+	border: none;
+  	border-radius: 50em;
+	-webkit-transition: all 0.3s ease-in-out;
+ 	-moz-transition: all 0.3s ease-in-out; 
+  	-o-transition: all 0.3s ease-in-out; 
+  	-ms-transition: all 0.3s ease-in-out; 
+  	transition: all 0.3s ease-in-out; 
+}
+
+#logout_btn:hover { 
+	-webkit-transform: rotate(360deg); 
+	-moz-transform: rotate(360deg); 
+	-o-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	transform: rotate(360deg);
 }
 
 #planet_btn {
   	background-image: url('../res/img/button_design1.png');
   	width: 50px;
   	height: 50px;
-  	border: none;
+	border: none;
+	border-radius: 50em;
+	-webkit-transition: all 0.3s ease-in-out;
+ 	-moz-transition: all 0.3s ease-in-out; 
+  	-o-transition: all 0.3s ease-in-out; 
+  	-ms-transition: all 0.3s ease-in-out; 
+  	transition: all 0.3s ease-in-out; 
+}
+
+#planet_btn:hover { 
+	-webkit-transform: rotate(360deg); 
+	-moz-transform: rotate(360deg); 
+	-o-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	transform: rotate(360deg);
 }
 
 #battle_ship_btn {
@@ -61,7 +129,21 @@ body {
   	/*opacity: 0.7;*/
   	width: 50px;
   	height: 50px;
-  	border : none;
+	border: none;
+	border-radius: 50em;
+	-webkit-transition: all 0.3s ease-in-out;
+ 	-moz-transition: all 0.3s ease-in-out; 
+  	-o-transition: all 0.3s ease-in-out; 
+  	-ms-transition: all 0.3s ease-in-out; 
+  	transition: all 0.3s ease-in-out; 
+}
+
+#battle_ship_btn:hover { 
+	-webkit-transform: rotate(360deg); 
+	-moz-transform: rotate(360deg); 
+	-o-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	transform: rotate(360deg);
 }
 
 #rank_btn {
@@ -69,7 +151,22 @@ body {
   	width: 50px;
 	height: 50px;
 	border: none;
+	border-radius: 50em;
+	-webkit-transition: all 0.3s ease-in-out;
+ 	-moz-transition: all 0.3s ease-in-out; 
+  	-o-transition: all 0.3s ease-in-out; 
+  	-ms-transition: all 0.3s ease-in-out; 
+  	transition: all 0.3s ease-in-out; 
 }
+
+#rank_btn:hover { 
+	-webkit-transform: rotate(360deg); 
+	-moz-transform: rotate(360deg); 
+	-o-transform: rotate(360deg);
+	-ms-transform: rotate(360deg);
+	transform: rotate(360deg);
+}
+
 
 .planet_ui {
 	background-color: rgba(255, 255, 255, 0.5);
@@ -237,40 +334,6 @@ body {
   	height: 2048px;
 	position: relative;
 }
-
-#user_avatar {
-	background-image: url('../res/img/battle_ship1.png');
-	background-color: rgba(255, 128, 255, 0.7);
-	width: 100px;
-	height: 100px;
-	float: left;
-	border: 1px solid yellow;
-}
-
-#hp_progress_bar {
-	background-color: rgba(204, 51, 51, 1);
-	width: 295px;
-	height: 35px;
-	float:left;
-	border: 1px solid rgb(255, 128, 0);
-}
-
-#sp_progress_bar {
-	background-color: rgba(0, 0, 255, 0.7);
-	width: 295px;
-	height: 35px;
-	float: left;
-	border: 1px solid rgb(0, 128, 255);;
-}
-
-#exp_stats {
-	background-color: rgba(255, 255, 255, 0.7);
-	width: 295px;
-	height: 25px;
-	float: left;
-	border: 1px solid white;
-}
-
 #user_obj {
 	position: fixed;
 	width: 100px;
