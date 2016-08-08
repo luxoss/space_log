@@ -123,7 +123,7 @@ function drawAllAssets()
 			}
 				
 		}
-
+		
 		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
 //		planetId.css("background-image", "\"" + planetImgUrl + "\"");
 		
