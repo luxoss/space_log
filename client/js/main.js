@@ -9,11 +9,12 @@
 */
 
 //Create socket global scope. becuz socket access all document type
-var serverUrl =  "http://203.237.179.21"
-var socket = io.connect(serverUrl + ":5001");
-var planetSocket = io.connect(serverUrl + ":5002");
-var userInfoSocket = io.connect(serverUrl + ":5003");
-var userId = localStorage.getItem("username");
+var serverUrl =  "http://203.237.179.21" 				// Declare variable that stored main server URL
+var socket = io.connect(serverUrl + ":5001");				// Declare variable that 5001 port socket
+var planetSocket = io.connect(serverUrl + ":5002");			// Declare variable that 5002 port socket
+var userInfoSocket = io.connect(serverUrl + ":5003");			// Declare variable that 5003 port socket
+var userId = localStorage.getItem("username");				// Declare userid that local storage
+var fps = 30;								// Declare 30 fps 
 
 /*
 // Confirm mousemove x, y position
@@ -21,10 +22,12 @@ $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
 });
 */
+
 $(document).ready(function(){ // Ready to the document 
 
 	var indexPageUrl = serverUrl + ":8000";
 	
+	setInterval(stateKeyboard(), 1000/fps);
 	drawAllAssets();
 	userStateInit(); // Call user state initialize function
 

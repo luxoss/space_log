@@ -3,15 +3,71 @@
 	**Writer: luxoss
 	**File-explanation: Control key value with javascript
 */
+
 var battleShip = $("#battle_ship").offset();	 	     		  // Current battleship obj offset(left, top)
 var curX = 0, curY = 0, postX = 0, postY = 0, lastPosX = 0, lastPosY = 0; // Declare current(pre) position, next(post) position, last(if 'q' button || logout button click, send to the server) position
+var speed = 10;								  // Declare variable that 10 speed 
 var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // Declare 30 radian angle variable  <radian formula> : degree * (pi / 180);
 var misile = new Image();				  		  // Declare misile image object
 var misileSpeed = 10;					  		  // Declare misile speed(10) variable
 var misilePosArray = []; 			 	 		  // Declare misile x, y position array
+
+var stateKeyboard = function(){  					  // Declare method that keyboard state 
 	
-$(document).keydown(function(e){ // Create key press down event 
-	/*
+	var KEY_NONE 		= 0;
+	var KEY_LEFT 		= 1;
+	var KEY_RIGHT 		= 2;
+	var KEY_UP 		= 3;
+	var KEY_DOWN 		= 4;
+	var KEY_SHOOT 		= 5;
+	var KEY_SPACE 		= 6;
+	var KEY_BATTLE_SHIP 	= 7;
+	var KEY_RANK 		= 8;
+	var KEY_PLANET 		= 9;
+	var KEY_LOGOUT 		= 10;
+
+	var getKey = function(i){
+		switch(i)
+		{
+		case 37:
+			return KEY_LEFT;
+			break;
+		case 39:
+			return KEY_RIGHT;
+			break;
+		case 38:
+			return KEY_UP;
+			break;
+		case 40:
+			return KEY_DOWN;
+			break;
+		case 83: 
+			return KEY_SHOOT;
+			break;
+		case 32:
+			return KEY_SPACE;
+			break;
+		case 66:
+			return KEY_BATTLE_SHIP;
+			break;
+		case 82:
+			return KEY_RANK;
+			break;
+		case 80:
+			return KEY_PLANET;
+			break;
+		case 81:
+			return KEY_LOGOUT;
+			break;
+		default:
+			break;
+		};
+		
+		return KEY_NONE;
+	};
+
+	$(document).keydown(function(e){ // Create key press down event 
+		/*
 		38 : up
 		40 : down 
 		37 : left
@@ -20,88 +76,86 @@ $(document).keydown(function(e){ // Create key press down event
 		66 : B key is 'battle ship button'
 		82 : R key is 'Rank button'
 		80 : P key is 'Planet information button'
-		
+
 		four direction : up -> right <set smooth animation 0 to 90 degree>
-				 right -> down <set smooth animation 90 to 180 degree>
-				 down -> left <set smooth animation 180 to 270 degree>
-				 left -> up <set smooth animation 270 to 360 degree>
-	*/
+		right -> down <set smooth animation 90 to 180 degree>
+		down -> left <set smooth animation 180 to 270 degree>
+		left -> up <set smooth animation 270 to 360 degree>
+			 */
 
-	var keyDownEvent = e.keyCode;	
+		var keyState = getKey(e.keyCode);	
 
-	curX = posX("battle_ship"); //parseInt($("#battle_ship").offset().left); 
-	curY = posY("battle_ship"); //parseInt($("#battle_ship").offset().top);   
-	
-//	misile.src = ""; 				  
-	
-	switch(keyDownEvent)
-	{
-		case 38: // up key press down
-	        	$('#battle_ship').css('transform',  'rotate(0deg)');
-			posY("battle_ship", posY("battle_ship") - 10);
-			break;
-		case 40: // down key press down
-	        	$('#battle_ship').css('transform',  'rotate(180deg)');
-			posY("battle_ship", posY("battle_ship") + 10);
-			break;
-		case 37: // left key press down
-			posX("battle_ship", posX("battle_ship") - 10);
-	        	$('#battle_ship').css('transform',  'rotate(-90deg)');
-			break;
-		case 39: // right key press down
-			posX("battle_ship", posX("battle_ship") + 10);
-			$('#battle_ship').css('transform',  'rotate(90deg)');
-			break;
-		case 83:
-			console.log('Shot button');
-			break;
-		case 32:
-			console.log('Space button');
-			break;
-		case 66:
-			battleShipViewLayer(); 	  // call method battle ship layer
-			break;
-		case 82:
-			rankViewLayer(); 	  // call method rank layer
-			break;
-		case 80:
-			planetViewLayer();	  // call method planet layer
-			break;
-		case 81:
-			lastPosX = postX;
-			lastPosY = postY;
-			logout(userId/*, lastPosX, lastPosY*/);
-			break;
-		default:
-			break;
-	}
-});
+		curX = posX("battle_ship"); //parseInt($("#battle_ship").offset().left); 
+		curY = posY("battle_ship"); //parseInt($("#battle_ship").offset().top);   
 
-$(document).keyup(function(ev){ // Key press up event 
-	
-	var keyUpEvent = ev.keyCode;	
-	
-		switch(keyUpEvent)
+		//	misile.src = ""; 				  
+
+		switch(keyState)
+		{
+			case KEY_UP: // up key press down
+				$('#battle_ship').css('transform',  'rotate(0deg)');
+				posY("battle_ship", posY("battle_ship") - speed);
+				break;
+			case KEY_DOWN: // down key press down
+				$('#battle_ship').css('transform',  'rotate(180deg)');
+				posY("battle_ship", posY("battle_ship") + speed);
+				break;
+			case KEY_LEFT: // left key press down
+				posX("battle_ship", posX("battle_ship") - speed);
+				$('#battle_ship').css('transform',  'rotate(-90deg)');
+				break;
+			case KEY_RIGHT: // right key press down
+				posX("battle_ship", posX("battle_ship") + speed);
+				$('#battle_ship').css('transform',  'rotate(90deg)');
+				break;
+			case KEY_SHOOT:
+				console.log('Shot button');
+				break;
+			case KEY_SPACE:
+				console.log('Space button');
+				break;
+			case KEY_BATTLE_SHIP:
+				battleShipViewLayer(); 	  // call method battle ship layer
+				break;
+			case KEY_RANK:
+				rankViewLayer(); 	  // call method rank layer
+				break;
+			case KEY_PLANET:
+				planetViewLayer();	  // call method planet layer
+				break;
+			case KEY_LOGOUT:
+				lastPosX = postX;
+				lastPosY = postY;
+				logout(userId/*, lastPosX, lastPosY*/);
+				break;
+			default:
+				break;
+		}
+	});
+
+	$(document).keyup(function(e){ // Key press up event 
+
+		var keyState = getKey(e.keyCode);
+
+		switch(keyState)
 		{
 			case 38:
-				//$('#battle_ship').animate({queue: false});
 				break;
 			case 40: 
-				//$('#battle_ship').animate({queue: false});
 				break;
 			case 37:
-				//$('#battle_ship').animate({queue: false});
 				break;
 			case 39:
-				//$('#battle_ship').animate({queue: false});			
 				break;
 			case 83:  	// Shot key
 				break;
 			default:
 				break;
 		}
-		
-});	
+
+	});	
+};
+	
 /*
 // TODO: Change to code line :: <prototype> chaining
 // Create getPosition function	
@@ -168,7 +222,7 @@ getPosition.prototype.counterClockwiseTransform = function(){
 	onsole.log("postX: " + postX + ", postY: " + postY);
 };	
 */		
-			
+		
 // Set battle ship set position and return current y position 
 var posX = function(divId, position){
 
