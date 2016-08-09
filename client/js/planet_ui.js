@@ -3,11 +3,18 @@
 	**Writer: luxoss
 	**File-explanation: Control planet user interface with javascript
 */
-var planetViewLayer = function()
+function planetViewLayer()
 {
 	var state = $('.planet_ui').css('display');
-	var planetName = $("#planet_name");
+	var planetImg = {};
 /*
+	var planetInfo = {
+		'name' : ,
+		'resource' : , 
+		'grade' : , 
+		contorlPlanet = function(){ // Create method contorl planet information to server
+		}					
+	};
 	//TODO: Write down got by user planet information code line
 	var serverUserPlanetDb = [];
 	var getUserPlanetInfo = [];
@@ -21,7 +28,7 @@ var planetViewLayer = function()
 		$('.planet_ui').show();
 
 		//response undiscovered plnaet database 
-		planetSocket.on("planet_res", function(data){
+		planetSocket.on("planet_req", function(data){
 				$("#planet_name").append("<div id='" + data._id + "'/></div>");		
 		});
 	}
