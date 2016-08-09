@@ -11,9 +11,9 @@ var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // Declare 30 radian angl
 var misile = new Image();				  		  // Declare misile image object
 var misileSpeed = 10;					  		  // Declare misile speed(10) variable
 var misilePosArray = []; 			 	 		  // Declare misile x, y position array
+var isKeyDown = [];							  // Declare array that key state
 
-var stateKeyboard = function(){  					  // Declare method that keyboard state 
-	
+var stateKeyboard = function(){		  				  // Declare method that keyboard state 
 	var KEY_NONE 		= 0;
 	var KEY_LEFT 		= 1;
 	var KEY_RIGHT 		= 2;
@@ -96,38 +96,48 @@ var stateKeyboard = function(){  					  // Declare method that keyboard state
 				$('#battle_ship').css('transform',  'rotate(0deg)');
 				posY("battle_ship", posY("battle_ship") - speed);
 				break;
+
 			case KEY_DOWN: // down key press down
 				$('#battle_ship').css('transform',  'rotate(180deg)');
 				posY("battle_ship", posY("battle_ship") + speed);
 				break;
+
 			case KEY_LEFT: // left key press down
 				posX("battle_ship", posX("battle_ship") - speed);
 				$('#battle_ship').css('transform',  'rotate(-90deg)');
 				break;
+
 			case KEY_RIGHT: // right key press down
 				posX("battle_ship", posX("battle_ship") + speed);
 				$('#battle_ship').css('transform',  'rotate(90deg)');
 				break;
+
 			case KEY_SHOOT:
 				console.log('Shot button');
 				break;
+
 			case KEY_SPACE:
 				console.log('Space button');
 				break;
+
 			case KEY_BATTLE_SHIP:
 				battleShipViewLayer(); 	  // call method battle ship layer
 				break;
+
 			case KEY_RANK:
 				rankViewLayer(); 	  // call method rank layer
 				break;
+
 			case KEY_PLANET:
 				planetViewLayer();	  // call method planet layer
 				break;
+
 			case KEY_LOGOUT:
 				lastPosX = postX;
 				lastPosY = postY;
 				logout(userId/*, lastPosX, lastPosY*/);
 				break;
+
 			default:
 				break;
 		}
@@ -139,16 +149,21 @@ var stateKeyboard = function(){  					  // Declare method that keyboard state
 
 		switch(keyState)
 		{
-			case 38:
+			case KEY_UP:
 				break;
-			case 40: 
+
+			case KEY_DOWN: 
 				break;
-			case 37:
+
+			case KEY_LEFT:
 				break;
-			case 39:
+
+			case KEY_RIGHT:
 				break;
-			case 83:  	// Shot key
+
+			case KEY_SHOOT:
 				break;
+
 			default:
 				break;
 		}
