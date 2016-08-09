@@ -7,7 +7,8 @@ function planetViewLayer()
 {
 	var state = $('.planet_ui').css('display');
 	var planetImg = {};
-/*
+
+	/*
 	var planetInfo = {
 		'name' : ,
 		'resource' : , 
