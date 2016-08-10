@@ -95,24 +95,29 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 			case KEY_UP: // up key press down
 				$('#battle_ship').css('transform',  'rotate(0deg)');
 				posY("battle_ship", posY("battle_ship") - speed);
+				isKeyDown[KEY_UP] = true;
 				break;
 
 			case KEY_DOWN: // down key press down
 				$('#battle_ship').css('transform',  'rotate(180deg)');
 				posY("battle_ship", posY("battle_ship") + speed);
+				isKeyDown[KEY_DOWN] = true;
 				break;
 
 			case KEY_LEFT: // left key press down
 				posX("battle_ship", posX("battle_ship") - speed);
 				$('#battle_ship').css('transform',  'rotate(-90deg)');
+				isKeyDown[KEY_LEFT] = true;
 				break;
 
 			case KEY_RIGHT: // right key press down
 				posX("battle_ship", posX("battle_ship") + speed);
 				$('#battle_ship').css('transform',  'rotate(90deg)');
+				isKeyDown[KEY_RIGHT] = true;
 				break;
 
 			case KEY_SHOOT:
+				isKeyDown[KEY_SHOOT] = true;
 				console.log('Shot button');
 				break;
 
@@ -150,18 +155,23 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 		switch(keyState)
 		{
 			case KEY_UP:
+				isKeyDown[KEY_UP] = false;
 				break;
 
 			case KEY_DOWN: 
+				isKeyDown[KEY_DOWN] = false;
 				break;
 
 			case KEY_LEFT:
+				isKeyDown[KEY_LEFT] = false;
 				break;
 
 			case KEY_RIGHT:
+				isKeyDown[KEY_RIGHT] = false;
 				break;
 
 			case KEY_SHOOT:
+				isKeyDown[KEY_SHOOT] = false;
 				break;
 
 			default:
