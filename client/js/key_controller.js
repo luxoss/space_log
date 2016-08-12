@@ -67,7 +67,7 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 	};
 
 	$(document).keydown(function(e){ // Create key press down event 
-		/*
+	/*
 		38 : up
 		40 : down 
 		37 : left
@@ -81,17 +81,20 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 		right -> down <set smooth animation 90 to 180 degree>
 		down -> left <set smooth animation 180 to 270 degree>
 		left -> up <set smooth animation 270 to 360 degree>
-			 */
+		//	misile.src = ""; 				  
+
+	 */
 
 		var keyState = getKey(e.keyCode);	
 
 		curX = posX("battle_ship"); //parseInt($("#battle_ship").offset().left); 
 		curY = posY("battle_ship"); //parseInt($("#battle_ship").offset().top);   
-
-		//	misile.src = ""; 				  
-
+		
+		isKeyDown[keyState] = true;
+		
 		switch(keyState)
 		{
+	/*
 			case KEY_UP: // up key press down
 				$('#battle_ship').css('transform',  'rotate(0deg)');
 				posY("battle_ship", posY("battle_ship") - speed);
@@ -115,7 +118,7 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 				$('#battle_ship').css('transform',  'rotate(90deg)');
 				isKeyDown[KEY_RIGHT] = true;
 				break;
-
+	*/
 			case KEY_SHOOT:
 				isKeyDown[KEY_SHOOT] = true;
 				console.log('Shot button');
@@ -140,46 +143,116 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 			case KEY_LOGOUT:
 				lastPosX = postX;
 				lastPosY = postY;
-				logout(userId/*, lastPosX, lastPosY*/);
+				logout(userId, lastPosX, lastPosY);
 				break;
 
 			default:
 				break;
+	
 		}
 	});
 
 	$(document).keyup(function(e){ // Key press up event 
 
 		var keyState = getKey(e.keyCode);
-
-		switch(keyState)
-		{
-			case KEY_UP:
-				isKeyDown[KEY_UP] = false;
-				break;
-
-			case KEY_DOWN: 
-				isKeyDown[KEY_DOWN] = false;
-				break;
-
-			case KEY_LEFT:
-				isKeyDown[KEY_LEFT] = false;
-				break;
-
-			case KEY_RIGHT:
-				isKeyDown[KEY_RIGHT] = false;
-				break;
-
-			case KEY_SHOOT:
-				isKeyDown[KEY_SHOOT] = false;
-				break;
-
-			default:
-				break;
-		}
-
+			
+		isKeyDown[keyState] = false;
 	});	
 };
+
+	
+// Set battle ship set position and return current y position 
+var posX = function(divId, position){
+
+	if(position)
+	{
+		return parseInt($("#" + divId).css("left", position));
+	}
+	else	
+	{
+		return parseInt($("#" + divId).css("left"));
+	}
+};
+
+// Set battle ship set y position and return current y position 
+var posY = function(divId, position){
+
+	if(position)
+	{
+		return parseInt($("#" + divId).css("top", position));
+	}
+	else
+	{
+		return parseInt($("#" + divId).css("top"));
+	}
+};
+
+// Create function to the polling the keyboard
+function keyPosLoop(keyState)
+{
+	if(isKeyDown[KEY_UP])
+	{
+		$('#battle_ship').css('transform',  'rotate(0deg)');
+		posY("battle_ship", posY("battle_ship") - speed);	
+	}
+	
+	if(isKeyDown[KEY_DOWN])
+	{
+		$('#battle_ship').css('transform',  'rotate(180deg)');
+		posY("battle_ship", posY("battle_ship") + speed);
+	
+	}
+	
+	if(isKeyDown[KEY_LEFT])
+	{
+		posX("battle_ship", posX("battle_ship") - speed);
+		$('#battle_ship').css('transform',  'rotate(-90deg)');
+	}
+	
+	if(isKeyDown[KEY_RIGHT])
+	{
+		posX("battle_ship", posX("battle_ship") + speed);
+		$('#battle_ship').css('transform',  'rotate(90deg)');
+	}
+
+	return isKeyDown[NONE];
+} 
+
+// Create clockwise rotate transformation matrix function
+function clockwiseRotateTransform(divId, curX, curY, radAngle)
+{
+
+	var sin = Math.cos(radAngle);
+	var cos = Math.sin(radAngle);
+
+	preX = curX; // pre postion x, posX is 'current position X'
+	preY = curY; // pre postion y, posY is 'current postiion Y'
+
+	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
+	// That is, x' = xcos(rad) - ysin(rad)
+	// That is, y' = xsin(rad) + ycos(rad)
+	postX = parseInt((preX * cos) - (preY * sin));
+	postY = parseInt((preX * sin) + (preY *cos));
+
+	console.log("postX: " + postX + ", postY: " + postY);
+
+}
+
+// Create counter clockwise rotate tranformation matrix function
+function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
+{	
+	var sin = Math.cos(radAngle);
+	var cos = Math.sin(radAngle);
+
+	preX = curX;
+	preY = curY;
+
+	postX = parseInt((preX * cos) + (preY * sin));
+	postY = parseInt((preY * cos) - (preX * sin));
+
+	console.log("postX: " + postX + ", postY: " + postY);
+
+}
 	
 /*
 // TODO: Change to code line :: <prototype> chaining
@@ -247,68 +320,4 @@ getPosition.prototype.counterClockwiseTransform = function(){
 	onsole.log("postX: " + postX + ", postY: " + postY);
 };	
 */		
-		
-// Set battle ship set position and return current y position 
-var posX = function(divId, position){
-
-	if(position)
-	{
-		return parseInt($("#" + divId).css("left", position));
-	}
-	else	
-	{
-		return parseInt($("#" + divId).css("left"));
-	}
-};
-
-// Set battle ship set y position and return current y position 
-var posY = function(divId, position){
-
-	if(position)
-	{
-		return parseInt($("#" + divId).css("top", position));
-	}
-	else
-	{
-		return parseInt($("#" + divId).css("top"));
-	}
-};
-
-// Create clockwise rotate transformation matrix function
-function clockwiseRotateTransform(divId, curX, curY, radAngle)
-{
-
-	var sin = Math.cos(radAngle);
-	var cos = Math.sin(radAngle);
-
-	preX = curX; // pre postion x, posX is 'current position X'
-	preY = curY; // pre postion y, posY is 'current postiion Y'
-
-	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
-	// That is, x' = xcos(rad) - ysin(rad)
-	// That is, y' = xsin(rad) + ycos(rad)
-	postX = parseInt((preX * cos) - (preY * sin));
-	postY = parseInt((preX * sin) + (preY *cos));
-
-	console.log("postX: " + postX + ", postY: " + postY);
-
-}
-
-// Create counter clockwise rotate tranformation matrix function
-function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
-{	
-	var sin = Math.cos(radAngle);
-	var cos = Math.sin(radAngle);
-
-	preX = curX;
-	preY = curY;
-
-	postX = parseInt((preX * cos) + (preY * sin));
-	postY = parseInt((preY * cos) - (preX * sin));
-
-	console.log("postX: " + postX + ", postY: " + postY);
-
-}
-
-
 	
