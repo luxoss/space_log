@@ -26,10 +26,10 @@ $(document).mousemove(function(e){
 $(document).ready(function(){ // Ready to the document 
 
 	var indexPageUrl = serverUrl + ":8000";
-	
-	setInterval(stateKeyboard(), 1000/fps);
-	drawAllAssets();
-	userStateInit(); // Call user state initialize function
+
+	setInterval(stateKeyboard(), 1000/fps);  
+	drawAllAssets(); 		
+	userStateInit(); 
 
 	$('#logout_btn').on('click', function(){
 			
