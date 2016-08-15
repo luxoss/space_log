@@ -66,61 +66,33 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 		return KEY_NONE;
 	};
 
-	$(document).keydown(function(e){ // Create key press down event 
-	/*
-		38 : up
-		40 : down 
-		37 : left
-		39 : right
-		83 : S key is 'Shot'
-		66 : B key is 'battle ship button'
-		82 : R key is 'Rank button'
-		80 : P key is 'Planet information button'
-
-		four direction : up -> right <set smooth animation 0 to 90 degree>
-		right -> down <set smooth animation 90 to 180 degree>
-		down -> left <set smooth animation 180 to 270 degree>
-		left -> up <set smooth animation 270 to 360 degree>
-		//	misile.src = ""; 				  
-
-	 */
+	$(document).keydown(function(e){  
 
 		var keyState = getKey(e.keyCode);	
-
-		curX = posX("battle_ship"); //parseInt($("#battle_ship").offset().left); 
-		curY = posY("battle_ship"); //parseInt($("#battle_ship").offset().top);   
-		
-		isKeyDown[keyState] = true;
-		
+	
 		switch(keyState)
 		{
-	/*
-			case KEY_UP: // up key press down
+			case KEY_UP: 
 				$('#battle_ship').css('transform',  'rotate(0deg)');
 				posY("battle_ship", posY("battle_ship") - speed);
-				isKeyDown[KEY_UP] = true;
 				break;
 
-			case KEY_DOWN: // down key press down
+			case KEY_DOWN: 
 				$('#battle_ship').css('transform',  'rotate(180deg)');
 				posY("battle_ship", posY("battle_ship") + speed);
-				isKeyDown[KEY_DOWN] = true;
 				break;
 
-			case KEY_LEFT: // left key press down
+			case KEY_LEFT: 
 				posX("battle_ship", posX("battle_ship") - speed);
 				$('#battle_ship').css('transform',  'rotate(-90deg)');
-				isKeyDown[KEY_LEFT] = true;
 				break;
 
-			case KEY_RIGHT: // right key press down
+			case KEY_RIGHT:
 				posX("battle_ship", posX("battle_ship") + speed);
 				$('#battle_ship').css('transform',  'rotate(90deg)');
-				isKeyDown[KEY_RIGHT] = true;
 				break;
-	*/
+
 			case KEY_SHOOT:
-				isKeyDown[KEY_SHOOT] = true;
 				console.log('Shot button');
 				break;
 
@@ -129,15 +101,15 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 				break;
 
 			case KEY_BATTLE_SHIP:
-				battleShipViewLayer(); 	  // call method battle ship layer
+				battleShipViewLayer(); 	  
 				break;
 
 			case KEY_RANK:
-				rankViewLayer(); 	  // call method rank layer
+				rankViewLayer(); 	  
 				break;
 
 			case KEY_PLANET:
-				planetViewLayer();	  // call method planet layer
+				planetViewLayer();	  //
 				break;
 
 			case KEY_LOGOUT:
@@ -151,13 +123,12 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 	
 		}
 	});
-
-	$(document).keyup(function(e){ // Key press up event 
-
-		var keyState = getKey(e.keyCode);
-			
-		isKeyDown[keyState] = false;
+/*
+	$(document).keyup(function(e){ 
+		
+		isKeyDown[e.keyCode] = false;
 	});	
+*/
 };
 
 	
@@ -186,37 +157,6 @@ var posY = function(divId, position){
 		return parseInt($("#" + divId).css("top"));
 	}
 };
-
-// Create function to the polling the keyboard
-function keyPosLoop(keyState)
-{
-	if(isKeyDown[KEY_UP])
-	{
-		$('#battle_ship').css('transform',  'rotate(0deg)');
-		posY("battle_ship", posY("battle_ship") - speed);	
-	}
-	
-	if(isKeyDown[KEY_DOWN])
-	{
-		$('#battle_ship').css('transform',  'rotate(180deg)');
-		posY("battle_ship", posY("battle_ship") + speed);
-	
-	}
-	
-	if(isKeyDown[KEY_LEFT])
-	{
-		posX("battle_ship", posX("battle_ship") - speed);
-		$('#battle_ship').css('transform',  'rotate(-90deg)');
-	}
-	
-	if(isKeyDown[KEY_RIGHT])
-	{
-		posX("battle_ship", posX("battle_ship") + speed);
-		$('#battle_ship').css('transform',  'rotate(90deg)');
-	}
-
-	return isKeyDown[NONE];
-} 
 
 // Create clockwise rotate transformation matrix function
 function clockwiseRotateTransform(divId, curX, curY, radAngle)
