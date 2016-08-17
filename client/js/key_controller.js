@@ -109,7 +109,7 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 				break;
 
 			case KEY_PLANET:
-				planetViewLayer();	  //
+				planetViewLayer();	  
 				break;
 
 			case KEY_LOGOUT:
@@ -131,7 +131,7 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 */
 };
 
-	
+
 // Set battle ship set position and return current y position 
 var posX = function(divId, position){
 
@@ -158,6 +158,16 @@ var posY = function(divId, position){
 	}
 };
 
+/*
+function keyControlState()
+{
+	if(){}
+	else if(){}
+	else if(){}
+	else if(){}
+	else{}
+}
+*/
 // Create clockwise rotate transformation matrix function
 function clockwiseRotateTransform(divId, curX, curY, radAngle)
 {
