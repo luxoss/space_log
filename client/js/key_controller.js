@@ -73,23 +73,15 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 		switch(keyState)
 		{
 			case KEY_UP: 
-				$('#battle_ship').css('transform',  'rotate(0deg)');
-				posY("battle_ship", posY("battle_ship") - speed);
 				break;
 
 			case KEY_DOWN: 
-				$('#battle_ship').css('transform',  'rotate(180deg)');
-				posY("battle_ship", posY("battle_ship") + speed);
 				break;
 
 			case KEY_LEFT: 
-				posX("battle_ship", posX("battle_ship") - speed);
-				$('#battle_ship').css('transform',  'rotate(-90deg)');
 				break;
 
 			case KEY_RIGHT:
-				posX("battle_ship", posX("battle_ship") + speed);
-				$('#battle_ship').css('transform',  'rotate(90deg)');
 				break;
 
 			case KEY_SHOOT:
@@ -131,6 +123,38 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 */
 };
 
+/*
+function checkByKey(keyState) // keyState is 'e.keyCode' ? true : false;
+{
+	if()
+	{
+		$('#battle_ship').css('transform',  'rotate(0deg)');
+		posY("battle_ship", posY("battle_ship") - speed);
+	
+	}	
+	else if()
+	{
+		$('#battle_ship').css('transform',  'rotate(180deg)');
+		posY("battle_ship", posY("battle_ship") + speed);
+	
+	}
+	else if()
+	{
+		posX("battle_ship", posX("battle_ship") - speed);
+		$('#battle_ship').css('transform',  'rotate(-90deg)');	
+	}
+	else if()
+	{
+		posX("battle_ship", posX("battle_ship") + speed);
+		$('#battle_ship').css('transform',  'rotate(90deg)');	
+	}
+	else if()
+	{
+		// TODO: Write down shoot logic
+	}
+	return ; // default 'undefined'
+}
+*/
 
 // Set battle ship set position and return current y position 
 var posX = function(divId, position){
