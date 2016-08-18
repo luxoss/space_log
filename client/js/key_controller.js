@@ -73,19 +73,24 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 		switch(keyState)
 		{
 			case KEY_UP: 
+				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_DOWN: 
+				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_LEFT: 
+				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_RIGHT:
+				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_SHOOT:
 				console.log('Shot button');
+				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_SPACE:
@@ -115,12 +120,38 @@ var stateKeyboard = function(){		  				  // Declare method that keyboard state
 	
 		}
 	});
-/*
+
 	$(document).keyup(function(e){ 
-		
-		isKeyDown[e.keyCode] = false;
+		var keyState = getKey(e.keyCode);	
+	
+		switch(keyState)
+		{
+			case KEY_UP: 
+				isKeyDown[keyState] = false;
+				break;
+
+			case KEY_DOWN: 
+				isKeyDown[keyState] = false;
+				break;
+
+			case KEY_LEFT: 
+				isKeyDown[keyState] = false;
+				break;
+
+			case KEY_RIGHT:
+				isKeyDown[keyState] = false;
+				break;
+
+			case KEY_SHOOT:
+				console.log('Shot button');
+				isKeyDown[keyState] = false;
+				break;
+
+			default:
+				break;
+		}
+	
 	});	
-*/
 };
 
 /*
