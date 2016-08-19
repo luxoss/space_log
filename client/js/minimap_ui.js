@@ -4,20 +4,19 @@
 	File explanation: Control minimap canvas
 */
 
-// Declare consist of variables
-var canvas = getElementByClass('minimap_canvas'); // blink ? think of the 'double buffering'
-var width = 0;  // parseInt(planetX(left) size  / 150px)
-var height = 0; // parseInt(planetY(top) size / 150px);
+var canvas = getElementByClass('minimap_canvas'); //  깜박임 현상을 제어하기 위한 더블 버퍼링을 생각
+var width = 0;  // width 값은 전체 가로 크기에서 미니맵 가로 크기로 나누어 parseInt 해볼 것 
+var height = 0; // 위와 같은 의미
 
-// Get lists with socket that 'planet position database'
+// 행성 위치에 관한 목록을 소캣으로 받는다.
 
-// Get lists with socket that 'user position database'
+// 유저 위치에 관한 목록을 소캣으로 받는다. 
 
-// Create function that onloading assets and planet element 
+// 각각의 유저 요소와 행성요소를 그려주기위한 함수  
 function drawMinimap()
 {
-	// if planet, draw circle shape 'red'
-	// if user battle ship, draw circle shape 'yellow or white' 
+	// 만약 행성이라면, 빨간색 원 모양으로 그리기
+	// 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
 }
 
 

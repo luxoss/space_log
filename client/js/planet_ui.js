@@ -3,6 +3,7 @@
 	**Writer: luxoss
 	**File-explanation: Control planet user interface with javascript
 */
+
 function planetViewLayer()
 {
 	var state = $('.planet_ui').css('display');
@@ -13,10 +14,10 @@ function planetViewLayer()
 		'name' : ,
 		'resource' : , 
 		'grade' : , 
-		contorlPlanet = function(){ // Create method contorl planet information to server
+		contorlPlanet = function(){ // 서버로 부터 받은 행성 정보를 제어하기 위한 매서드 
 		}					
 	};
-	//TODO: Write down got by user planet information code line
+	//TODO: 나중에 처리
 	var serverUserPlanetDb = [];
 	var getUserPlanetInfo = [];
 	for(var i = 0; i < serverUserPlanetDb.length; i++)
@@ -28,7 +29,7 @@ function planetViewLayer()
 	{
 		$('.planet_ui').show();
 
-		//response undiscovered plnaet database 
+		// 행성 DB를 plnaet socket으로 받기 위함. 
 		planetSocket.on("planet_req", function(data){
 				$("#planet_name").append("<div id='" + data._id + "'/></div>");		
 		});

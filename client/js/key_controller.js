@@ -4,16 +4,16 @@
 	**File-explanation: Control key value with javascript
 */
 
-var battleShip = $("#battle_ship").offset();	 	     		  // Current battleship obj offset(left, top)
-var curX = 0, curY = 0, postX = 0, postY = 0, lastPosX = 0, lastPosY = 0; // Declare current(pre) position, next(post) position, last(if 'q' button || logout button click, send to the server) position
-var speed = 10;								  // Declare variable that 10 speed 
-var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // Declare 30 radian angle variable  <radian formula> : degree * (pi / 180);
-var misile = new Image();				  		  // Declare misile image object
-var misileSpeed = 10;					  		  // Declare misile speed(10) variable
-var misilePosArray = []; 			 	 		  // Declare misile x, y position array
-var isKeyDown = [];							  // Declare array that key state
+var battleShip = $("#battle_ship").offset();	 	     		  // 현재 함선의 객체 offset(left, top)
+var curX = 0, curY = 0, postX = 0, postY = 0, lastPosX = 0, lastPosY = 0; // 현재 함선 위치, 그전 함선 위치, 마지막 함선위치를 담을 변수 선언
+var speed = 10;								  // 10의 speed로 이동하기 위한 변수 선언  
+var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // 30 라디안 각도를 주기 위한 변수 선언
+var misile = {};				  		 	  // 미사일 이미지를 담을 객체 선언
+var misileSpeed = 10;					  		  // 미사일 스피드(10)를 설정하기 위한 변수 선언 
+var misilePosArray = []; 			 	 		  // 미사일의 x, y 좌표를 담을 배열 선언 
+var isKeyDown = [];							  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 
-var stateKeyboard = function(){		  				  // Declare method that keyboard state 
+var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드 
 	var KEY_NONE 		= 0;
 	var KEY_LEFT 		= 1;
 	var KEY_RIGHT 		= 2;
@@ -181,13 +181,13 @@ function checkByKey(keyState) // keyState is 'e.keyCode' ? true : false;
 	}
 	else if()
 	{
-		// TODO: Write down shoot logic
+		// TODO: 미사일 발사 키를 눌렀을 시에 제어할 로직 
 	}
 	return ; // default 'undefined'
 }
 */
 
-// Set battle ship set position and return current y position 
+// x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
 var posX = function(divId, position){
 
 	if(position)
@@ -200,7 +200,6 @@ var posX = function(divId, position){
 	}
 };
 
-// Set battle ship set y position and return current y position 
 var posY = function(divId, position){
 
 	if(position)
@@ -213,25 +212,15 @@ var posY = function(divId, position){
 	}
 };
 
-/*
-function keyControlState()
-{
-	if(){}
-	else if(){}
-	else if(){}
-	else if(){}
-	else{}
-}
-*/
-// Create clockwise rotate transformation matrix function
+// 시계 방향으로 회전하기 위한 함수
 function clockwiseRotateTransform(divId, curX, curY, radAngle)
 {
 
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
 
-	preX = curX; // pre postion x, posX is 'current position X'
-	preY = curY; // pre postion y, posY is 'current postiion Y'
+	preX = curX; // 현재 x좌표를 이전 x좌표에 저장
+	preY = curY; // 현재 y좌표를 이전 y좌표에 저장
 
 	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
 	// That is, x' = xcos(rad) - ysin(rad)
@@ -243,7 +232,7 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 
 }
 
-// Create counter clockwise rotate tranformation matrix function
+// 반시계 방향으로 회전하기 위한 함수
 function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 {	
 	var sin = Math.cos(radAngle);
@@ -260,7 +249,7 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 }
 	
 /*
-// TODO: Change to code line :: <prototype> chaining
+// TODO: prototype chaining 형태로 다시 코드를 짜기 위함
 // Create getPosition function	
 function getPosition(divId, position, curX, curY, preX, preY, postX, postY, radAngle)
 {

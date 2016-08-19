@@ -8,22 +8,22 @@
 	**jquery selector naming: under_bar
 */
 
-//Create socket global scope. becuz socket access all document type
-var serverUrl =  "http://203.237.179.21" 				// Declare variable that stored main server URL
-var socket = io.connect(serverUrl + ":5001");				// Declare variable that 5001 port socket
-var planetSocket = io.connect(serverUrl + ":5002");			// Declare variable that 5002 port socket
-var userInfoSocket = io.connect(serverUrl + ":5003");			// Declare variable that 5003 port socket
-var userId = localStorage.getItem("username");				// Declare userid that local storage
-var fps = 30;								// Declare 30 fps 
+// 모든 코드 모듈에 접근하기 위한 전역 변수 선언.
+var serverUrl =  "http://203.237.179.21" 				// 메인 서버 URL 주소를 담은 변수 선언
+var socket = io.connect(serverUrl + ":5001");				// 메인 소캣 생성
+var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고 받기 위한 소캣 생성
+var userInfoSocket = io.connect(serverUrl + ":5003");			// 유저 정보를 주고 받기 위한 소캣 생성
+var userId = localStorage.getItem("username");				
+var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
 
 /*
-// Confirm mousemove x, y position
+// 마우스의 x, y 위치를 확인하기 위한 코드
 $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
 });
 */
 
-$(document).ready(function(){ // Ready to the document 
+$(document).ready(function(){  
 
 	var indexPageUrl = serverUrl + ":8000";
 
@@ -61,7 +61,7 @@ $(document).ready(function(){ // Ready to the document
 	});
 });
 	
-// Create draw background image in canvas 
+// 캔버스 및 서버로 부터 받은 행성 데이터를 division 테그로 겹쳐 그리기 위한 함수 
 function drawAllAssets()
 {
 	planetSocket.emit('planet_req', {'ready' : 'ready to connect planet db'});
@@ -97,7 +97,7 @@ function drawAllAssets()
 		
 		
 /*
-		//TODO: After testing...
+		//TODO: 나중에 테스트
 		var posX = parseInt(data.location_x);
 		var posY = parseInt(data.location_y);
 		var planetImg = new Image();	
@@ -131,7 +131,7 @@ function drawAllAssets()
 		drawPlanetImg(data._id, planetImgUrl);
 		//console.log(isNumber(cnt));
 /*			
-		//TODO: After testing...			
+		//TODO: 나중에 테스트			
 		planetImg.onload = function()
 		{
 			context.drawImage(planetImg, posX, posY, 100, 100);
@@ -142,7 +142,7 @@ function drawAllAssets()
 	return ;
 }
 
-// Create function that confirm number type 
+// 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
 function isNumber(str)
 {
   	str += ''; // Change to string type 
@@ -152,6 +152,7 @@ function isNumber(str)
 
   	return true;
 }
+
 
 function drawPlanetImg(planetNumData, planetImgUrl)
 {
@@ -167,7 +168,8 @@ function drawPlanetImg(planetNumData, planetImgUrl)
 
 	return ;
 }
-// Create user state function in main display
+
+// 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function userStateInit()
 {
 /*

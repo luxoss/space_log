@@ -3,9 +3,10 @@
 	**Writer: luxoss
 	**File-explanation: Control rank user interface with javascript 
 */
-var rankViewLayer = function(){
-	
-	// Create rank menu controller function
+
+// 랭크 메뉴 정보를 제어하기 위한 함수 
+function rankViewLayer()
+{	
 	var state = $('.rank_ui').css('display');
 
 	if(state == 'none')
@@ -25,5 +26,5 @@ var rankViewLayer = function(){
 	}).resize();
 
 	return ; 
-};
+}
 	

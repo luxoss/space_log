@@ -4,8 +4,8 @@
 	**File-explanation: Control battle ship user interface with javascript
 */
 
-// Create battle ship menu controller function
-var battleShipViewLayer = function()
+// 함선 매뉴를 제어하기 위한 함수 선언
+function battleShipViewLayer()
 {
 	var state = $('.battle_ship_ui').css('display');
 
