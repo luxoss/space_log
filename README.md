@@ -1,12 +1,11 @@
-The Space log
-=============
+WEB GAME - THE SPACE LOG
+=====================
 
-This is space real time strategy web browser game.
 
-The space log made by 'html5, css, and javascript'
+The space log is web game with HTML5, CSS, and JAVASCRIPT programming language.
 
-<html>
-<head></head>
-<body><h1>Space log</h1>
-</body>
-</html>
+> **NOTE:**
+
+> - **Development Environment:** Linux(Ubuntu)
+> - **Used programming language and lib package:** html5, css, and javascript(jquery, node.js)
+> - **Version control:** Git
