@@ -5,7 +5,7 @@
 */
 body {
 	overflow: hidden; 
-	background-color: rgb(0, 0, 0);
+	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
 }
 
 .user_info_ui {
@@ -330,26 +330,28 @@ body {
 #main_layer {
 /*	background-image: url('../res/img/space_tile.png');
   	background-size: cover; */
-  	width: 4096px;
-  	height: 2048px;
+  	width: 1024px; /* body-width / 4 */
+  	height: 512px; /* body-height / 4 */
+	border: 1px solid white;
 	position: relative;
 }
+
 #user_obj {
-	position: fixed;
 	width: 100px;
 	height: 200px;
+	position: fixed;
 }
 
 #battle_ship {
-	position: fixed;
+	background-image: url('http://203.237.179.21:8000/res/img/battle_ship1.png');
 	width: 100px;
 	height: 100px;
-	background-image: url('http://203.237.179.21:8000/res/img/battle_ship1.png');
+	position: fixed;
 }
 
 #planet {
+	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
 	width: 100px;
 	height: 100px;
-	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
 }
 
