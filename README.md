@@ -2,7 +2,7 @@ WEB GAME > THE SPACE LOG
 =====================
 
 
-The space log is web game with HTML5, CSS, and JAVASCRIPT programming language.
+The space log is web strategy game.
 
 > **NOTE:**
 
