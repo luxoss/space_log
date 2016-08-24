@@ -20,7 +20,7 @@ body {
 }
 
 #user_avatar {
-	background-image: url('../res/img/battle_ship1.png');
+	background-image: url('../res/img/astronaut.png');
 	background-color: rgba(255, 128, 255, 0.7);
 	width: 100px;
 	height: 100px;
