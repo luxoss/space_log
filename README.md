@@ -15,8 +15,8 @@ The space log is web strategy game.
 
 > - **Image source:** http://www.opengameart.org/
 > - **Library source:** https://www.nodejs.org/
-> -			https://www.jquery.com/
-> -		 	https://www.mongodb.com/
-> -			http://www.socket.io/
+			https://www.jquery.com/
+		 	https://www.mongodb.com/
+			http://www.socket.io/
 			
 
