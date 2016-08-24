@@ -95,6 +95,7 @@ var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드
 
 			case KEY_SPACE:
 				console.log('Space button');
+				//shoot();
 				break;
 
 			case KEY_BATTLE_SHIP:
@@ -188,7 +189,7 @@ function checkByKey(keyState) // keyState is 'e.keyCode' ? true : false;
 */
 
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
-var posX = function(divId, position){
+var posX = function(divId, position) {
 
 	if(position)
 	{
@@ -200,7 +201,7 @@ var posX = function(divId, position){
 	}
 };
 
-var posY = function(divId, position){
+var posY = function(divId, position) { 
 
 	if(position)
 	{
@@ -213,8 +214,7 @@ var posY = function(divId, position){
 };
 
 // 시계 방향으로 회전하기 위한 함수
-function clockwiseRotateTransform(divId, curX, curY, radAngle)
-{
+function clockwiseRotateTransform(divId, curX, curY, radAngle) {
 
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
@@ -233,8 +233,8 @@ function clockwiseRotateTransform(divId, curX, curY, radAngle)
 }
 
 // 반시계 방향으로 회전하기 위한 함수
-function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
-{	
+function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {	
+
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
 
@@ -247,6 +247,10 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle)
 	console.log("postX: " + postX + ", postY: " + postY);
 
 }
+
+var shoot = function() {
+
+};
 	
 /*
 // TODO: prototype chaining 형태로 다시 코드를 짜기 위함
