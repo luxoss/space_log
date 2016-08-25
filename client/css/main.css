@@ -4,8 +4,8 @@
 	**File-explanation: Decorate main html page with cascading style sheet
 */
 body {
+	background-color: rgb(0, 0, 0);
 	overflow: hidden; 
-	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
 }
 
 .user_info_ui {
@@ -325,15 +325,21 @@ body {
 #background {
 	width: 2048px;
 	height: 1024px;
+	border: 1px solid yellow;
 }
 
 #main_layer {
-/*	background-image: url('../res/img/space_tile.png');
-  	background-size: cover; */
-  	width: 1024px; /* body-width / 4 */
-  	height: 512px; /* body-height / 4 */
-	border: 1px solid white;
+	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
+  	width:  5000px; /* body-width / 4 */
+  	height: 5000px; /* body-height / 4 */
 	position: relative;
+}
+
+#user_layer {
+	width: 1000px;
+	height: 1000px;
+	position: relative;
+	border: 1px solid white;
 }
 
 #user_obj {

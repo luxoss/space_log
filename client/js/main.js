@@ -138,8 +138,6 @@ function drawAllAssets()
 		}
 */
 	});
-	
-	return ;
 }
 
 // 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
@@ -196,8 +194,8 @@ function userStateInit()
 	$(window).resize(function(){		
 
 		$('#battle_ship').css({
-			left: ($("#background").width() - $('#battle_ship').outerWidth()) / 2,
-			top: ($("#background").height() - $('#battle_ship').outerHeight()) / 2
+			left: ($("#user_layer").width() - $('#battle_ship').outerWidth()) / 2,
+			top: ($("#user_layer").height() - $('#battle_ship').outerHeight()) / 2
 		});
 
 	}).resize();
