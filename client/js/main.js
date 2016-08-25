@@ -30,9 +30,13 @@ $(document).ready(function(){
 	var indexPageUrl = serverUrl + ":8000";
 
 	setInterval(stateKeyboard(), 1000/fps);  
+	buttonSet();
 	drawAllAssets(); 		
 	userStateInit(); 
+});
 
+function buttonSet() {
+	
 	$('#logout_btn').on('click', function(){
 			
 		if(userId != null)
@@ -61,14 +65,15 @@ $(document).ready(function(){
 	$('#rank_btn').on('click', function(){
 		rankViewLayer();
 	});
-});
+}
+
 	
 // 캔버스 및 서버로 부터 받은 행성 데이터를 division 테그로 겹쳐 그리기 위한 함수 
-function drawAllAssets()
-{
+function drawAllAssets() {
+
 	planetSocket.emit('planet_req', {'ready' : 'ready to connect planet db'});
 
-	planetSocket.on('planet_res', function(data){
+	planetSocket.on('planet_res', function(data) {
 
 		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
@@ -137,8 +142,8 @@ function drawAllAssets()
 }
 
 // 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
-function isNumber(str)
-{
+function isNumber(str) {
+
   	str += ''; 			     // Change to string type 
   	str = str.replace(/^\s*|\s*$/g, ''); // Delete left and right blank 
 
@@ -148,8 +153,8 @@ function isNumber(str)
 }
 
 
-function drawPlanetImg(planetNumData, planetImgUrl)
-{
+function drawPlanetImg(planetNumData, planetImgUrl) {
+
 	var planetNum = document.getElementById(planetNumData);	
 	
 	planetNum.style.backgroundImage = planetImgUrl; 
@@ -157,8 +162,7 @@ function drawPlanetImg(planetNumData, planetImgUrl)
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function userStateInit()
-{
+function userStateInit() {
 /*
 	var userInitInfo = {
 		'curX'     : localStorage.getItem('posX');
@@ -192,8 +196,8 @@ function userStateInit()
 	}).resize();
 }
 
-function logout(logoutUserId)
-{
+function logout(logoutUserId) {
+
 	var logoutMsg = confirm('로그아웃 하시겠습니까?');
 	var indexPageUrl = serverUrl + ":8000";
 
