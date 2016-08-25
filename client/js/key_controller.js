@@ -13,7 +13,8 @@ var misileSpeed = 10;					  		  // 미사일 스피드(10)를 설정하기 위�
 var misilePosArray = []; 			 	 		  // 미사일의 x, y 좌표를 담을 배열 선언 
 var isKeyDown = [];							  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 
-var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드 
+var stateKeyboard = function() { // 키 상태에 관한 매서드 
+
 	var KEY_NONE 		= 0;
 	var KEY_LEFT 		= 1;
 	var KEY_RIGHT 		= 2;
@@ -26,7 +27,8 @@ var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드
 	var KEY_PLANET 		= 9;
 	var KEY_LOGOUT 		= 10;
 
-	var getKey = function(i){
+	var getKey = function(i) {
+
 		switch(i)
 		{
 		case 37:
@@ -66,25 +68,33 @@ var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드
 		return KEY_NONE;
 	};
 
-	$(document).keydown(function(e){  
+	$(document).keydown(function(e) {  
 
 		var keyState = getKey(e.keyCode);	
 	
 		switch(keyState)
 		{
 			case KEY_UP: 
+				$('#battle_ship').css('transform',  'rotate(0deg)');
+				posY("battle_ship", posY("battle_ship") - speed);
 				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_DOWN: 
+				$('#battle_ship').css('transform',  'rotate(180deg)');
+				posY("battle_ship", posY("battle_ship") + speed);
 				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_LEFT: 
+				posX("battle_ship", posX("battle_ship") - speed);
+				$('#battle_ship').css('transform',  'rotate(-90deg)');	
 				isKeyDown[keyState] = true;
 				break;
 
 			case KEY_RIGHT:
+				posX("battle_ship", posX("battle_ship") + speed);
+				$('#battle_ship').css('transform',  'rotate(90deg)');	
 				isKeyDown[keyState] = true;
 				break;
 
@@ -122,7 +132,8 @@ var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드
 		}
 	});
 
-	$(document).keyup(function(e){ 
+	$(document).keyup(function(e) { 
+
 		var keyState = getKey(e.keyCode);	
 	
 		switch(keyState)
@@ -156,19 +167,16 @@ var stateKeyboard = function(){		  				  // 키 상태에 관한 매서드
 };
 
 /*
-function checkByKey(keyState) // keyState is 'e.keyCode' ? true : false;
-{
+function checkByKey(keyState) { // keyState is 'e.keyCode' ? true : false; 
 	if()
 	{
 		$('#battle_ship').css('transform',  'rotate(0deg)');
-		posY("battle_ship", posY("battle_ship") - speed);
-	
+		posY("battle_ship", posY("battle_ship") - speed);	
 	}	
 	else if()
 	{
 		$('#battle_ship').css('transform',  'rotate(180deg)');
-		posY("battle_ship", posY("battle_ship") + speed);
-	
+		posY("battle_ship", posY("battle_ship") + speed);	
 	}
 	else if()
 	{
@@ -248,15 +256,14 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {
 
 }
 
+/*
 var shoot = function() {
 
 };
 	
-/*
 // TODO: prototype chaining 형태로 다시 코드를 짜기 위함
 // Create getPosition function	
-function getPosition(divId, position, curX, curY, preX, preY, postX, postY, radAngle)
-{
+function getPosition(divId, position, curX, curY, preX, preY, postX, postY, radAngle) {
 	this.divId = divId;
 	this.position = position;
 	this.curX = curX;
@@ -275,7 +282,7 @@ function getPosition(divId, position, curX, curY, preX, preY, postX, postY, radA
 }
 
 // Create posX method with getPosition function's prototype
-getPosition.prototype.x = function(){
+getPosition.prototype.x = function() {
 	
 	if(this.position)
 	{
@@ -301,7 +308,7 @@ getPosition.prototype.y = function(){
 };
 
 // Create clockwise rotate transform method with getPosition function's prototype
-getPosition.prototype.clockwiseTransform = function(){
+getPosition.prototype.clockwiseTransform = function() {
 
 	this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (-Math.sin(this.radAngle))));
 	this.postY = ((this.preX * Math.sin(this.radAngle)) + (this.preY * (Math.cos(this.radAngle))));
@@ -310,7 +317,7 @@ getPosition.prototype.clockwiseTransform = function(){
 };
 
 // Create counter clockwise rotate  transform method with getPosition function's prototype
-getPosition.prototype.counterClockwiseTransform = function(){
+getPosition.prototype.counterClockwiseTransform = function() {
 
 	this.postX = ((this.preX * Math.cos(this.radAngle)) + (this.preY * (Math.sin(this.radAngle))));
 	this.postY = ((this.preX * Math.sin(this.radAngle)) + (this.preY * (Math.cos(this.radAngle))));
