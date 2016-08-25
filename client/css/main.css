@@ -349,7 +349,7 @@ body {
 }
 
 #battle_ship {
-	background-image: url('http://203.237.179.21:8000/res/img/battle_ship1.png');
+	background-image: url('http://203.237.179.21:8000/res/img/space_ship.png');
 	width: 100px;
 	height: 100px;
 	position: fixed;
