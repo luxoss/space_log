@@ -24,6 +24,7 @@ $(document).mousemove(function(e){
 });
 */
 
+// Ready document that is game loop 
 $(document).ready(function(){  
 
 	var indexPageUrl = serverUrl + ":8000";
