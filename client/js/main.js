@@ -15,6 +15,7 @@ var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고
 var userInfoSocket = io.connect(serverUrl + ":5003");			// 유저 정보를 주고 받기 위한 소캣 생성
 var userId = localStorage.getItem("username");				
 var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
+var bgWidth = 5000, bgHeight = 5000;				
 
 /*
 // 마우스의 x, y 위치를 확인하기 위한 코드
@@ -71,10 +72,6 @@ function drawAllAssets()
 		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
 		var backgroundLayer = $("#background");
-		//var planetNum = "plnaet", cnt = 0;
-		//planetNum += cnt;
-		//cnt++;	
-		//var planetId = $("#" + planetNum);
 
 		var planetImgNum = {
 			 0 :  "url('http://203.237.179.21:8000/res/img/planet/planet_0.png')",
@@ -107,7 +104,7 @@ function drawAllAssets()
 		{
 			context = canvas.getContext('2d');
 			context.fillStyle = 'Black';
-			context.rect(0, 0, 4095, 2047);
+			context.rect(0, 0, bgWidth-1, bgHeight-1);
 			context.fill();
 			
 			for(var i = 0; i <= 100; i++)
@@ -126,10 +123,8 @@ function drawAllAssets()
 		}
 		
 		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
-//		planetId.css("background-image", "\"" + planetImgUrl + "\"");
 		
 		drawPlanetImg(data._id, planetImgUrl);
-		//console.log(isNumber(cnt));
 /*			
 		//TODO: 나중에 테스트			
 		planetImg.onload = function()
@@ -143,7 +138,7 @@ function drawAllAssets()
 // 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
 function isNumber(str)
 {
-  	str += ''; // Change to string type 
+  	str += ''; 			     // Change to string type 
   	str = str.replace(/^\s*|\s*$/g, ''); // Delete left and right blank 
 
   	if (str == '' || isNaN(str)) {return false };
@@ -154,17 +149,10 @@ function isNumber(str)
 
 function drawPlanetImg(planetNumData, planetImgUrl)
 {
-/*
-	var planetNum = $("#" + planetNumData); 
-
-	planetNum.css("background-image", "\"" + planetImgUrl + "\"");
-*/
 	var planetNum = document.getElementById(planetNumData);	
 	
 	planetNum.style.backgroundImage = planetImgUrl; 
-	//"url('http://203.237.179.21:8000/res/img/planet/planet_13.png')";
 
-	return ;
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
@@ -187,9 +175,11 @@ function userStateInit()
 
 	posX("battle_ship", userInitInfo.curX);
 	posY("battle_ship", userInitInfo.curY);
-*/	
-	$('#battle_ship')
-		.append("<div id='" + userId + "'style='postion:fixed; color: white;'>" + userId + "</div>");
+
+	$('#user_avartar')
+		.append("<div id='" + userId + "'style='position: absolute; bottom: 0px; color: white;'>" + userId + "</div>");
+*/
+	$("#user_name").text("" + userId + "");
 
 	$(window).resize(function(){		
 
@@ -199,8 +189,6 @@ function userStateInit()
 		});
 
 	}).resize();
-
-	return ;
 }
 
 function logout(logoutUserId)
