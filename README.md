@@ -2,7 +2,7 @@ WEB GAME > THE SPACE LOG
 =====================
 
 
-The space log is web strategy game.
+> The space log is web strategy game.
 
 > **NOTE:**
 
@@ -14,13 +14,13 @@ The space log is web strategy game.
 
 > **REFERENCE:**
 
-* **Image source** 
-	+ http://www.opengameart.org/
+> * **Image source** 
+>	+ http://www.opengameart.org/
 
-* **Library source** 
-	+ https://www.nodejs.org/  
-	+ https://www.jquery.com/  
-	+ https://www.mongodb.com/
-	+ http://www.socket.io/
+> * **Library source** 
+>	+ https://www.nodejs.org/  
+>	+ https://www.jquery.com/  
+>	+ https://www.mongodb.com/
+>	+ http://www.socket.io/
 			
 
