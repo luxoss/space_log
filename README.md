@@ -2,7 +2,7 @@ WEB GAME > THE SPACE LOG
 =====================
 
 
-> - The space log is web strategy game.
+**The space log is web strategy game.**
 
 > - **NOTE:**
 
