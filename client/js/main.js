@@ -31,7 +31,7 @@ $(document).ready(function(){
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
-	/*setInterval(keyHandler(), 1000/fps);  */
+	setInterval(userPosUpdate(), 1000/fps); 
 	keyHandler();
 	buttonSet();
 });
@@ -196,6 +196,13 @@ function drawShipInfo() {
 
 	}).resize();
 }
+
+/*
+function userPosUpdate(userid, curPosX, curPosY) 
+{
+	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
+}
+*/
 
 function logout(logoutUserId) {
 
