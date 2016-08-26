@@ -30,25 +30,42 @@ var shipMove = function() {
 
 	if(isKeyDown[37]) { // left
 		posX("battle_ship", posX("battle_ship") - speed);
-                $('#battle_ship').css('transform',  'rotate(-90deg)');  		
+                $('#battle_ship').css('transform', 'rotate(-90deg)');  		
 	}
 	
 	if(isKeyDown[39]) { // right
 		posX("battle_ship", posX("battle_ship") + speed);
-                $('#battle_ship').css('transform',  'rotate(90deg)');   
+                $('#battle_ship').css('transform', 'rotate(90deg)');   
 	
 	}
 
 	if(isKeyDown[38]) { // up
-	        $('#battle_ship').css('transform',  'rotate(0deg)');
+	        $('#battle_ship').css('transform', 'rotate(0deg)');
                 posY("battle_ship", posY("battle_ship") - speed);
 	
 	}
 
 	if(isKeyDown[40]) { // down
-		$('#battle_ship').css('transform',  'rotate(180deg)');
+		$('#battle_ship').css('transform', 'rotate(180deg)');
                 posY("battle_ship", posY("battle_ship") + speed);
 	}
+
+	// Move a diagonal line 
+	if(isKeyDown[38] && isKeyDown[37]) { 
+		$('#battle_ship').css('transform', 'rotate(-45deg)');
+	}
+
+	if(isKeyDown[38] && isKeyDown[39]) {
+		$('#battle_ship').css('transform', 'rotate(45deg)');
+	}
+
+	if(isKeyDown[40] && isKeyDown[37]) {
+		$('#battle_ship').css('transform', 'rotate(-135deg)');
+	}
+
+	if(isKeyDown[40] && isKeyDown[39]) {
+		$('#battle_ship').css('transform', 'rotate(135deg)');
+	}	
 }
 	
 var menuButton = function(ev) {
