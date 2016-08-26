@@ -7,8 +7,9 @@ The space log is web strategy game.
 > **NOTE:**
 
 > - **Development Environment:** Linux(Ubuntu)
-> - **Used programming language and lib package:** html5, css, and javascript(jquery, node.js, socket.io)
-> - **Used Database:** MongoDB 
+> - **Programming language:** html5, css, and javascript
+> - **Library and Framework:** jquery, node.js, express, and socket.io 
+> - **Database:** MongoDB 
 > - **Version control:** Git
 
 > **REFERENCE:**
