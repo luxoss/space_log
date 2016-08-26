@@ -29,10 +29,10 @@ $(document).ready(function(){
 
 	var indexPageUrl = serverUrl + ":8000";
 
+	drawAllAssets(); 		
+	drawShipInfo(); 
 	setInterval(stateKeyboard(), 1000/fps);  
 	buttonSet();
-	drawAllAssets(); 		
-	userStateInit(); 
 });
 
 function buttonSet() {
@@ -162,7 +162,7 @@ function drawPlanetImg(planetNumData, planetImgUrl) {
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function userStateInit() {
+function drawShipInfo() {
 /*
 	var userInitInfo = {
 		'curX'     : localStorage.getItem('posX');

@@ -260,3 +260,4 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {
 var shoot = function() {
 
 };
+*/
