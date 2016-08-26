@@ -2,9 +2,9 @@ WEB GAME > THE SPACE LOG
 =====================
 
 
-> The space log is web strategy game.
+> - The space log is web strategy game.
 
-> **NOTE:**
+> - **NOTE:**
 
 > - **Development Environment:** Linux(Ubuntu)
 > - **Programming language:** html5, css, and javascript
@@ -12,15 +12,15 @@ WEB GAME > THE SPACE LOG
 > - **Database:** MongoDB 
 > - **Version control:** Git
 
-> **REFERENCE:**
+**REFERENCE:**
 
-> * **Image source** 
->	+ http://www.opengameart.org/
+* **Image source** 
+	+ http://www.opengameart.org/
 
-> * **Library source** 
->	+ https://www.nodejs.org/  
->	+ https://www.jquery.com/  
->	+ https://www.mongodb.com/
->	+ http://www.socket.io/
+* **Library source** 
+	+ https://www.nodejs.org/  
+	+ https://www.jquery.com/  
+	+ https://www.mongodb.com/
+	+ http://www.socket.io/
 			
 
