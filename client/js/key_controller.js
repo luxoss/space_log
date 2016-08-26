@@ -182,6 +182,36 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {
 
 /*
 var shoot = function() {
+	var dx = 0.0;
+	var dy = 0.0;
+	var angle = 0.0, _angle = 0;
+	var launcharX = ship's x position;
+	var launcharY = ship's y position;
+ 
+	if(!isShoot) { return ; }
 
+	if(angle < 0) {
+		_angle = 100 + angle - 90;
+		dy = Math.sin(_angle * Math.PI / 180);
+		dx = -Math.cos(_angle * Math.PI / 180);
+	}
+	else {
+		_angle = angle - 90;
+		dy = -Math.sin(_angle * Math.PI / 180);
+		dx = Math.cos(_angle * Math.PI / 180);
+	}
+	
+	dx *= speed;
+	dy *= speed;
+
+	//translate css(bulletX += dx, bulletY -= dy);
+	//rotate(angle * Math.PI / 180);
+
+	if(bulletX && bulletY < 0) { isFire = false; }
+
+	bulletX = launcherX;
+	bulletY = launcherY;
+	
+	isFire = true;
 };
 */

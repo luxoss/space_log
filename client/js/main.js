@@ -31,7 +31,7 @@ $(document).ready(function(){
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
-	setInterval(userPosUpdate(), 1000/fps); 
+//	setInterval(userPosUpdate(), 1000/fps); 
 	keyHandler();
 	buttonSet();
 });
