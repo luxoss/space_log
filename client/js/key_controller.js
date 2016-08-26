@@ -13,188 +13,112 @@ var misileSpeed = 10;					  		  // 미사일 스피드(10)를 설정하기 위�
 var misilePosArray = []; 			 	 		  // 미사일의 x, y 좌표를 담을 배열 선언 
 var isKeyDown = [];							  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 
-var stateKeyboard = function() { // 키 상태에 관한 매서드 
+function keyHandler() {
+	
+	$(document).keydown(function(ev) {  
+		isKeyDown[ev.keyCode] = true;
+		shipMove();
+		menuButton(ev);
+	});
 
-	var KEY_NONE 		= 0;
-	var KEY_LEFT 		= 1;
-	var KEY_RIGHT 		= 2;
-	var KEY_UP 		= 3;
-	var KEY_DOWN 		= 4;
-	var KEY_SHOOT 		= 5;
-	var KEY_SPACE 		= 6;
-	var KEY_BATTLE_SHIP 	= 7;
-	var KEY_RANK 		= 8;
-	var KEY_PLANET 		= 9;
-	var KEY_LOGOUT 		= 10;
+	$(document).keyup(function(ev) {
+		isKeyDown[ev.keyCode] = false;
+	});
+}
+
+var shipMove = function() {
+
+	if(isKeyDown[37]) { // left
+		posX("battle_ship", posX("battle_ship") - speed);
+                $('#battle_ship').css('transform',  'rotate(-90deg)');  		
+	}
+	
+	if(isKeyDown[39]) { // right
+		posX("battle_ship", posX("battle_ship") + speed);
+                $('#battle_ship').css('transform',  'rotate(90deg)');   
+	
+	}
+
+	if(isKeyDown[38]) { // up
+	        $('#battle_ship').css('transform',  'rotate(0deg)');
+                posY("battle_ship", posY("battle_ship") - speed);
+	
+	}
+
+	if(isKeyDown[40]) { // down
+		$('#battle_ship').css('transform',  'rotate(180deg)');
+                posY("battle_ship", posY("battle_ship") + speed);
+	}
+}
+	
+var menuButton = function(ev) {
+
+	var KEY_SHOOT           = 1;
+        var KEY_SPACE           = 2;
+        var KEY_BATTLE_SHIP     = 3;
+        var KEY_RANK            = 4;
+        var KEY_PLANET          = 5;
+        var KEY_LOGOUT          = 6;
+	var KEY_NONE 		= null;
 
 	var getKey = function(i) {
 
 		switch(i)
 		{
-		case 37:
-			return KEY_LEFT;
-			break;
-		case 39:
-			return KEY_RIGHT;
-			break;
-		case 38:
-			return KEY_UP;
-			break;
-		case 40:
-			return KEY_DOWN;
-			break;
-		case 83: 
-			return KEY_SHOOT;
-			break;
-		case 32:
-			return KEY_SPACE;
-			break;
-		case 66:
-			return KEY_BATTLE_SHIP;
-			break;
-		case 82:
-			return KEY_RANK;
-			break;
-		case 80:
-			return KEY_PLANET;
-			break;
-		case 81:
-			return KEY_LOGOUT;
-			break;
-		default:
-			break;
-		};
-		
-		return KEY_NONE;
+			case 32:
+				return KEY_SPACE;
+				break;
+			case 66:
+				return KEY_BATTLE_SHIP;
+				break;
+			case 80:
+				return KEY_PLANET;
+				break;
+			case 81:
+				return KEY_LOGOUT;
+				break;
+			case 82:
+				return KEY_RANK;
+				break;
+			default:
+				return KEY_NONE;
+				break;
+		}
 	};
 
-	$(document).keydown(function(e) {  
+	var otherKeyState = getKey(ev.keyCode);
 
-		var keyState = getKey(e.keyCode);	
-	
-		switch(keyState)
-		{
-			case KEY_UP: 
-				$('#battle_ship').css('transform',  'rotate(0deg)');
-				posY("battle_ship", posY("battle_ship") - speed);
-				isKeyDown[keyState] = true;
-				break;
+	switch(otherKeyState)
+	{
+		case KEY_SPACE:
+			console.log('Space button');
+			//shoot();
+			break;
 
-			case KEY_DOWN: 
-				$('#battle_ship').css('transform',  'rotate(180deg)');
-				posY("battle_ship", posY("battle_ship") + speed);
-				isKeyDown[keyState] = true;
-				break;
+		case KEY_BATTLE_SHIP:
+			battleShipViewLayer(); 	  
+			break;
 
-			case KEY_LEFT: 
-				posX("battle_ship", posX("battle_ship") - speed);
-				$('#battle_ship').css('transform',  'rotate(-90deg)');	
-				isKeyDown[keyState] = true;
-				break;
+		case KEY_RANK:
+			rankViewLayer(); 	  
+			break;
 
-			case KEY_RIGHT:
-				posX("battle_ship", posX("battle_ship") + speed);
-				$('#battle_ship').css('transform',  'rotate(90deg)');	
-				isKeyDown[keyState] = true;
-				break;
+		case KEY_PLANET:
+			planetViewLayer();	  
+			break;
 
-			case KEY_SHOOT:
-				console.log('Shot button');
-				isKeyDown[keyState] = true;
-				break;
+		case KEY_LOGOUT:
+			lastPosX = postX;
+			lastPosY = postY;
+			logout(userId, lastPosX, lastPosY);
+			break;
 
-			case KEY_SPACE:
-				console.log('Space button');
-				//shoot();
-				break;
-
-			case KEY_BATTLE_SHIP:
-				battleShipViewLayer(); 	  
-				break;
-
-			case KEY_RANK:
-				rankViewLayer(); 	  
-				break;
-
-			case KEY_PLANET:
-				planetViewLayer();	  
-				break;
-
-			case KEY_LOGOUT:
-				lastPosX = postX;
-				lastPosY = postY;
-				logout(userId, lastPosX, lastPosY);
-				break;
-
-			default:
-				break;
-	
-		}
-	});
-
-	$(document).keyup(function(e) { 
-
-		var keyState = getKey(e.keyCode);	
-	
-		switch(keyState)
-		{
-			case KEY_UP: 
-				isKeyDown[keyState] = false;
-				break;
-
-			case KEY_DOWN: 
-				isKeyDown[keyState] = false;
-				break;
-
-			case KEY_LEFT: 
-				isKeyDown[keyState] = false;
-				break;
-
-			case KEY_RIGHT:
-				isKeyDown[keyState] = false;
-				break;
-
-			case KEY_SHOOT:
-				console.log('Shot button');
-				isKeyDown[keyState] = false;
-				break;
-
-			default:
-				break;
-		}
-	
-	});	
+		default:
+			break;
+	}
 };
 
-/*
-function checkByKey(keyState) { // keyState is 'e.keyCode' ? true : false; 
-	if()
-	{
-		$('#battle_ship').css('transform',  'rotate(0deg)');
-		posY("battle_ship", posY("battle_ship") - speed);	
-	}	
-	else if()
-	{
-		$('#battle_ship').css('transform',  'rotate(180deg)');
-		posY("battle_ship", posY("battle_ship") + speed);	
-	}
-	else if()
-	{
-		posX("battle_ship", posX("battle_ship") - speed);
-		$('#battle_ship').css('transform',  'rotate(-90deg)');	
-	}
-	else if()
-	{
-		posX("battle_ship", posX("battle_ship") + speed);
-		$('#battle_ship').css('transform',  'rotate(90deg)');	
-	}
-	else if()
-	{
-		// TODO: 미사일 발사 키를 눌렀을 시에 제어할 로직 
-	}
-	return ; // default 'undefined'
-}
-*/
+
 
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
 var posX = function(divId, position) {

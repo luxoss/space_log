@@ -31,7 +31,8 @@ $(document).ready(function(){
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
-	setInterval(stateKeyboard(), 1000/fps);  
+	/*setInterval(keyHandler(), 1000/fps);  */
+	keyHandler();
 	buttonSet();
 });
 
