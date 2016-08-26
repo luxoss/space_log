@@ -153,7 +153,7 @@ function isNumber(str) {
   	return true;
 }
 
-
+// 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
 function drawPlanetImg(planetNumData, planetImgUrl) {
 
 	var planetNum = document.getElementById(planetNumData);	
@@ -198,9 +198,16 @@ function drawShipInfo() {
 }
 
 /*
+// 유저 함선들의 현 위치를 주고 받기 위한 함수
 function userPosUpdate(userid, curPosX, curPosY) 
 {
 	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
+
+	userInfoSocket.on('lpos_res' function(data) {
+		var username = data.username; // 배열 또는 객체로 읽어들일 것 
+		var curPosX = data.location_x;
+		var curPosY = data.location_y;
+	});
 }
 */
 
