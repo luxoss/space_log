@@ -93,8 +93,10 @@ function drawAllAssets() {
 	
 //		userLayer.width();
 //		userLayer.height();
-/*
-		//TODO: 나중에 테스트
+		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
+		drawPlanetImg(data._id, planetImgUrl);
+		
+	/*
 		var posX = parseInt(data.location_x);
 		var posY = parseInt(data.location_y);
 		var planetImg = new Image();	
@@ -121,10 +123,8 @@ function drawAllAssets() {
 			}
 				
 		}
-*/		
-		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
-		
-		drawPlanetImg(data._id, planetImgUrl);
+	*/	
+	
 	});
 }
 
@@ -185,8 +185,7 @@ function drawShipInfo() {
 
 /*
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
-function userPosUpdate(userid, curPosX, curPosY) 
-{
+function userPosUpdate(userid, curPosX, curPosY) {
 	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
 
 	userInfoSocket.on('lpos_res' function(data) {
