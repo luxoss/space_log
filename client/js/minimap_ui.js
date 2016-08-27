@@ -4,7 +4,7 @@
 	File explanation: Control minimap canvas
 */
 
-var canvas = getElementByClass('minimap_canvas'); //  깜박임 현상을 제어하기 위한 더블 버퍼링을 생각
+var canvas = $('.minimap_canvas'); 
 var width = 0;  // width 값은 전체 가로 크기에서 미니맵 가로 크기로 나누어 parseInt 해볼 것 
 var height = 0; // 위와 같은 의미
 
