@@ -90,15 +90,6 @@ function drawAllAssets() {
 			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.png')",
 			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_3.png')",
 			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
-			 5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-			 6 :  "url('http://203.237.179.21:8000/res/img/planet/planet_6.png')",
-			 7 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-			 8 :  "url('http://203.237.179.21:8000/res/img/planet/planet_8.png')",
-			 9 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-			10 :  "url('http://203.237.179.21:8000/res/img/planet/planet_10.png')",
-			11 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-			12 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')",
-			13 :  "url('http://203.237.179.21:8000/res/img/planet/planet_13.png')"
 		};
 
 		var planetImgUrl = [];
@@ -136,13 +127,6 @@ function drawAllAssets() {
 		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
 		
 		drawPlanetImg(data._id, planetImgUrl);
-/*			
-		//TODO: 나중에 테스트			
-		planetImg.onload = function()
-		{
-			context.drawImage(planetImg, posX, posY, 100, 100);
-		}
-*/
 	});
 }
 
