@@ -6,6 +6,10 @@
 	**Variable naming: camelCase 
 	**Function naming: camelCase
 	**jquery selector naming: under_bar
+
+	Main layer size = 5000(width) * 5000(hegiht)
+	User layer size = mainlayer's 1/5
+	All assets size = 100 * 100	
 */
 
 // 모든 코드 모듈에 접근하기 위한 전역 변수 선언.
