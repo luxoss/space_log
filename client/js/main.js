@@ -82,19 +82,17 @@ function drawAllAssets() {
 
 		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
-		var backgroundLayer = $("#background");
-
-		var planetImgNum = {
+		var userLayer = $("#user_layer");
+		var planetImgList = {
 			 0 :  "url('http://203.237.179.21:8000/res/img/planet/planet_0.png')",
 			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.png')",
 			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.png')",
 			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_3.png')",
 			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
 		};
-
-		var planetImgUrl = [];
-		
-		
+	
+//		userLayer.width();
+//		userLayer.height();
 /*
 		//TODO: 나중에 테스트
 		var posX = parseInt(data.location_x);
