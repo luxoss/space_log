@@ -106,7 +106,7 @@ function drawAllAssets() {
 		var posY = parseInt(data.location_y);
 		var planetImg = new Image();	
 		planetImg.src = serverUrl + ":8000/res/img/planet/planet_13.png";
-*/
+
 		if(canvas.getContext)
 		{
 			context = canvas.getContext('2d');
@@ -128,7 +128,7 @@ function drawAllAssets() {
 			}
 				
 		}
-		
+*/		
 		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
 		
 		drawPlanetImg(data._id, planetImgUrl);
