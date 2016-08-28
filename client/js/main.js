@@ -149,6 +149,7 @@ function autoMove(obj) {
 	
 	var offset = $("#" + obj).offset();
 /*	
+	// focusing view port 
 	$('user_layer').css({
 		left: $(window).width(),
 		top: $(window).height()
