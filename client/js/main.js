@@ -160,7 +160,9 @@ function drawShipInfo() {
 		gas      : localStorage.getItem('gas'),
 		unknown  : localStorage.getItem('unknown')
 	};
-var battleShip = $("#battle_ship").offset();	 	     		// offset은 전체를 기준(절대좌표), position은 상대좌표(해당 부모 엘리먼트 기준)
+	
+	// offset - 절대좌표, position - 상대좌표 
+	var battleShip = $("#battle_ship").offset();	 	     		
 
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
