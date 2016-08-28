@@ -225,13 +225,26 @@ body {
 
 .battle_ship_ui {
 	background-color: rgba(255, 255, 255, 0.5);
-	width: 900px;
+	width: 1500px;
 	height: 500px;
-	position: fixed;
-/*	margin: 0 auto;*/
-	display: none;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
 	z-index: 100;
+	display: none;
+	position: fixed;
+}
+
+#battle_ship_info_display {
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 900px;
+	height: 500px;
+	float: left;
+}
+
+#battle_ship_item_slot {
+	background-color: rgba(255, 255, 255, 0.5); 
+	width: 600px;
+	height: 500px;
+	float: right;
 }
 
 #battle_ship_state_img {
@@ -240,7 +253,7 @@ body {
 	background-color: rgb(0, 255, 0);
 	top: 100px;
 	left: 150px;
-	position: relative;
+	position: absolute;
 }
 
 #cube01_slot {
@@ -256,8 +269,9 @@ body {
 	width: 150px;
 	height: 150px;
 	background-color: rgb(0, 0, 255);
+	background-image: url('http://203.237.179.21:8000/res/img/cube1.png');
 	top: 0px;
-	right: 0px;
+	right: 600px;
 	position: absolute;
 }
 
@@ -273,10 +287,11 @@ body {
 	width: 150px;
 	height: 150px;
 	background-color: rgb(0, 0, 255);
-	right: 0px;
+	right: 600px;
 	bottom: 0px;
 	position: absolute;
 }
+
 /*
 // I thinnk that user got by misile and cube information 
 #misile01_slot {
@@ -352,7 +367,7 @@ body {
 	position: relative;
 }
 /*
-#user_layer {
+#uno 종료 (혹은 현재의 file buffer를 닫음)ser_layer {
 	width: 1000px;
 	height: 1000px;
 	position: relative;
