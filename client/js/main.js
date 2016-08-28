@@ -122,8 +122,8 @@ function drawPlanetImg(planetNumData, planetImgUrl) {
 function drawShipInfo() {
 
 	var userInitInfo = {
-		curX     : 1050,//localStorage.getItem('posX');
-		curY     : 1050,//localStorage.getItem('posY');
+		curX     : 3000,//localStorage.getItem('posX');
+		curY     : 3000,//localStorage.getItem('posY');
 		level    : localStorage.getItem('level'),
 		exp      : localStorage.getItem('exp'),
 		mineral  : localStorage.getItem('mineral'),
