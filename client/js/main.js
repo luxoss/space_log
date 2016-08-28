@@ -96,36 +96,6 @@ function drawAllAssets() {
 		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
 		drawPlanetImg(data._id, planetImgUrl);
 	});		
-	/*
-		var canvas = $("background");
-		var posX = parseInt(data.location_x);
-		var posY = parseInt(data.location_y);
-		var planetImg = new Image();	
-		planetImg.src = serverUrl + ":8000/res/img/planet/planet_13.png";
-
-		if(canvas.getContext)
-		{
-			context = canvas.getContext('2d');
-			context.fillStyle = 'Black';
-			context.rect(0, 0, bgWidth-1, bgHeight-1);
-			context.fill();
-			
-			for(var i = 0; i <= 100; i++)
-			{
-				var starX = Math.floor(Math.random() * 4095);
-				var starY = Math.floor(Math.random() * 2047);
-		
-				context.fillStyle = "rgb(255, 255, 0)";
-				
-				context.beginPath();
-				context.arc(starX, starY, 3, 0, Math.PI * 2, true);
-				context.closePath();
-				context.fill();
-			}
-				
-		}
-	*/	
-	
 }
 
 // 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
@@ -162,8 +132,6 @@ function drawShipInfo() {
 	};
 	
 	// offset - 절대좌표, position - 상대좌표 
-	var battleShip = $("#battle_ship").offset();	 	     		
-
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
@@ -173,33 +141,20 @@ function drawShipInfo() {
 	$("#user_name").text("" + userId + "");
 	
 	$("#battle_ship").css({left: userInitInfo.curX, top: userInitInfo.curY});
-	$("html, body, main_layer").animate({scrollLeft: userInitInfo.curX, scrollTop: userInitInfo.curY});
- 
-/*
-	$(window).resize(function(){		
 
-		$("#battle_ship").css({
-			left: ($(self).width() - $('#battle_ship').outerWidth()) / 2,
-			top: ($(self).height() - $('#battle_ship').outerHeight()) / 2
-		});
-
-	});
-*/
+	autoMove('battle_ship');
 }
 
-/*
-// 유저 함선들의 현 위치를 주고 받기 위한 함수
-function userPosUpdate(userid, curPosX, curPosY) {
-	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
+function autoMove(obj) {
+	
+	var offset = $("#" + obj).offset();
 
-	userInfoSocket.on('lpos_res' function(data) {
-		var username = data.username; // 배열 또는 객체로 읽어들일 것 
-		var curPosX = data.location_x;
-		var curPosY = data.location_y;
-	});
+	$('html, body').animate({
+		scrollLeft: offset.left,
+		scrollTop: offset.top
+	}, 1000);
 }
-*/
-
+		
 function logout(logoutUserId) {
 
 	var logoutMsg = confirm('로그아웃 하시겠습니까?');
@@ -239,6 +194,27 @@ function logout(logoutUserId) {
 
 }
 
+//TODO: Later...
+/*
+// 유저 함선들의 현 위치를 주고 받기 위한 함수
+function userPosUpdate(userid, curPosX, curPosY) {
+	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
 
+	userInfoSocket.on('lpos_res' function(data) {
+		var username = data.username; // 배열 또는 객체로 읽어들일 것 
+		var curPosX = data.location_x;
+		var curPosY = data.location_y;
+	});
+}
+*/
 
+/*
+	$(window).resize(function(){		
 
+		$("#battle_ship").css({
+			left: ($(self).width() - $('#battle_ship').outerWidth()) / 2,
+			top: ($(self).height() - $('#battle_ship').outerHeight()) / 2
+		});
+
+	});
+*/
