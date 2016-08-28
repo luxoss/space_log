@@ -148,7 +148,12 @@ function drawShipInfo() {
 function autoMove(obj) {
 	
 	var offset = $("#" + obj).offset();
-
+/*	
+	$('user_layer').css({
+		left: $(window).width(),
+		top: $(window).height()
+	});
+*/	
 	$('html, body').animate({
 		scrollLeft: offset.left,
 		scrollTop: offset.top
