@@ -49,7 +49,7 @@ var shipMove = function() {
                 posY("battle_ship", posY("battle_ship") + speed);
 	}
 
-	if(isKeyDown[32]) { // Shoot
+	if(isKeyDown[83]) { // Shoot
 		console.log('fire!');
 		//shoot();
 	}
@@ -74,17 +74,20 @@ var shipMove = function() {
 	
 var menuButton = function(ev) {
 
-        var KEY_SPACE           = 2;
-        var KEY_BATTLE_SHIP     = 3;
-        var KEY_RANK            = 4;
-        var KEY_PLANET          = 5;
-        var KEY_LOGOUT          = 6;
+        var KEY_SPACE           = 1;
+        var KEY_BATTLE_SHIP     = 2;
+        var KEY_RANK            = 3;
+        var KEY_PLANET          = 4;
+        var KEY_LOGOUT          = 5;
 	var KEY_NONE 		= null;
 
 	var getKey = function(i) {
 
 		switch(i)
 		{
+			case 32: 
+				return KEY_SPACE;
+				break;
 			case 66:
 				return KEY_BATTLE_SHIP;
 				break;
@@ -107,6 +110,10 @@ var menuButton = function(ev) {
 
 	switch(otherKeyState)
 	{
+		case KEY_SPACE:
+			console.log('got a planet');
+			//shoot();
+			break;
 
 		case KEY_BATTLE_SHIP:
 			battleShipViewLayer(); 	  
