@@ -19,7 +19,9 @@ var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고
 var userInfoSocket = io.connect(serverUrl + ":5003");			// 유저 정보를 주고 받기 위한 소캣 생성
 var userId = localStorage.getItem("username");				
 var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
-var bgWidth = 5000, bgHeight = 5000;				
+var bgWidth = 5000, bgHeight = 5000;				        // 메인 화면의 가로, 세로 크기
+var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 (캐릭터가 창 밖으로 나갈 시 스코롤 이동을 위해 생성 
+
 
 /*
 // 마우스의 x, y 위치를 확인하기 위한 코드
@@ -80,7 +82,7 @@ function drawAllAssets() {
 
 	planetSocket.on('planet_res', function(data) {
 
-		var canvas = document.getElementById("background");
+//		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
 		var userLayer = $("#user_layer");
 		var planetImgList = {
@@ -91,12 +93,11 @@ function drawAllAssets() {
 			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
 		};
 	
-//		userLayer.width();
-//		userLayer.height();
 		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
 		drawPlanetImg(data._id, planetImgUrl);
-		
+	});		
 	/*
+		var canvas = $("background");
 		var posX = parseInt(data.location_x);
 		var posY = parseInt(data.location_y);
 		var planetImg = new Image();	
@@ -125,7 +126,6 @@ function drawAllAssets() {
 		}
 	*/	
 	
-	});
 }
 
 // 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
@@ -160,6 +160,7 @@ function drawShipInfo() {
 		gas      : localStorage.getItem('gas'),
 		unknown  : localStorage.getItem('unknown')
 	};
+var battleShip = $("#battle_ship").offset();	 	     		// offset은 전체를 기준(절대좌표), position은 상대좌표(해당 부모 엘리먼트 기준)
 
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
@@ -168,18 +169,20 @@ function drawShipInfo() {
 	$('#user_avartar')
 		.append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
-
-	console.log("x: " + userInitInfo.curX + "y: " + userInitInfo.curY);
+	
+	$("#battle_ship").css({left: userInitInfo.curX, top: userInitInfo.curY});
+	$("html, body, main_layer").animate({scrollLeft: userInitInfo.curX, scrollTop: userInitInfo.curY});
+ 
+/*
 	$(window).resize(function(){		
 
-		$('#battle_ship').css({
-			left: userInitInfo.curX,
-			top: userInitInfo.curY
-			//left: ($("#user_layer").width() - $('#battle_ship').outerWidth()) / 2,
-			//top: ($("#user_layer").height() - $('#battle_ship').outerHeight()) / 2
+		$("#battle_ship").css({
+			left: ($(self).width() - $('#battle_ship').outerWidth()) / 2,
+			top: ($(self).height() - $('#battle_ship').outerHeight()) / 2
 		});
 
-	}).resize();
+	});
+*/
 }
 
 /*
