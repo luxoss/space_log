@@ -28,26 +28,31 @@ function keyHandler() {
 
 var shipMove = function() {
 
-	if(isKeyDown[37]) { // left
+	if(isKeyDown[37]) { // Left
 		posX("battle_ship", posX("battle_ship") - speed);
                 $('#battle_ship').css('transform', 'rotate(-90deg)');  		
 	}
 	
-	if(isKeyDown[39]) { // right
+	if(isKeyDown[39]) { // Right
 		posX("battle_ship", posX("battle_ship") + speed);
                 $('#battle_ship').css('transform', 'rotate(90deg)');   
 	
 	}
 
-	if(isKeyDown[38]) { // up
+	if(isKeyDown[38]) { // Up
 	        $('#battle_ship').css('transform', 'rotate(0deg)');
                 posY("battle_ship", posY("battle_ship") - speed);
 	
 	}
 
-	if(isKeyDown[40]) { // down
+	if(isKeyDown[40]) { // Down
 		$('#battle_ship').css('transform', 'rotate(180deg)');
                 posY("battle_ship", posY("battle_ship") + speed);
+	}
+
+	if(isKeyDown[32]) { // Shoot
+		console.log('fire!');
+		//shoot();
 	}
 
 	// Move a diagonal line 
@@ -70,7 +75,6 @@ var shipMove = function() {
 	
 var menuButton = function(ev) {
 
-	var KEY_SHOOT           = 1;
         var KEY_SPACE           = 2;
         var KEY_BATTLE_SHIP     = 3;
         var KEY_RANK            = 4;
@@ -82,9 +86,6 @@ var menuButton = function(ev) {
 
 		switch(i)
 		{
-			case 32:
-				return KEY_SPACE;
-				break;
 			case 66:
 				return KEY_BATTLE_SHIP;
 				break;
@@ -107,10 +108,6 @@ var menuButton = function(ev) {
 
 	switch(otherKeyState)
 	{
-		case KEY_SPACE:
-			console.log('Space button');
-			//shoot();
-			break;
 
 		case KEY_BATTLE_SHIP:
 			battleShipViewLayer(); 	  
