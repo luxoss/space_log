@@ -150,34 +150,33 @@ function drawPlanetImg(planetNumData, planetImgUrl) {
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function drawShipInfo() {
-/*
+
 	var userInitInfo = {
-		'curX'     : localStorage.getItem('posX');
-		'curY'     : localStorage.getItem('posY');
-		'level'    : localStorage.getItem('level');
-		'exp'      : localStorage.getItem('exp');
-		'mineral'  : localStorage.getItem('mineral');
-		'gas'      : localStorage.getItem('gas');
-		'unknown'  : localStorage.getItem('unknown');
-	}
+		curX     : 1050,//localStorage.getItem('posX');
+		curY     : 1050,//localStorage.getItem('posY');
+		level    : localStorage.getItem('level'),
+		exp      : localStorage.getItem('exp'),
+		mineral  : localStorage.getItem('mineral'),
+		gas      : localStorage.getItem('gas'),
+		unknown  : localStorage.getItem('unknown')
+	};
 
-	$('#mineral').val() = userInitInfo.mineral;
-	$('#gas').val() = userInitInfo.gas;     
-	$('#unknown').val() = userInitInfo.unknown;
-
-	posX("battle_ship", userInitInfo.curX);
-	posY("battle_ship", userInitInfo.curY);
+	//$('#mineral').val() = userInitInfo.mineral;
+	//$('#gas').val() = userInitInfo.gas;     
+	//$('#unknown').val() = userInitInfo.unknown;
 
 	$('#user_avartar')
-		.append("<div id='" + userId + "'style='position: absolute; bottom: 0px; color: white;'>" + userId + "</div>");
-*/
+		.append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
 
+	console.log("x: " + userInitInfo.curX + "y: " + userInitInfo.curY);
 	$(window).resize(function(){		
 
 		$('#battle_ship').css({
-			left: ($("#user_layer").width() - $('#battle_ship').outerWidth()) / 2,
-			top: ($("#user_layer").height() - $('#battle_ship').outerHeight()) / 2
+			left: userInitInfo.curX,
+			top: userInitInfo.curY
+			//left: ($("#user_layer").width() - $('#battle_ship').outerWidth()) / 2,
+			//top: ($("#user_layer").height() - $('#battle_ship').outerHeight()) / 2
 		});
 
 	}).resize();

@@ -4,7 +4,7 @@
 	**File-explanation: Control key value with javascript
 */
 
-var battleShip = $("#battle_ship").offset();	 	     		  // 현재 함선의 객체 offset(left, top)
+var battleShip = $("#battle_ship").position();	 	     		  // offset은 전체를 기준(절대좌표), position은 상대좌표(해당 부모 엘리먼트 기준)
 var curX = 0, curY = 0, postX = 0, postY = 0, lastPosX = 0, lastPosY = 0; // 현재 함선 위치, 그전 함선 위치, 마지막 함선위치를 담을 변수 선언
 var speed = 10;								  // 10의 speed로 이동하기 위한 변수 선언  
 var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // 30 라디안 각도를 주기 위한 변수 선언
