@@ -30,7 +30,7 @@ function create_p(){
 					if(err){
 					
 					} else if (doc == null){
-						console.log('There are no planet\ns location x, y. So insert the documents');
+						console.log('There are no planetn\'s location x, y. So insert the documents');
 						collection.insert({mineral : source_q, gas :source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd}, function(err, ins_res){});
 					} else{ 
 						console.log('there are already data');
