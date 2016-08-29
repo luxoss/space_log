@@ -21,15 +21,13 @@ var userId = localStorage.getItem("username");
 var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
 var bgWidth = 5000, bgHeight = 5000;				        // 메인 화면의 가로, 세로 크기
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 (캐릭터가 창 밖으로 나갈 시 스코롤 이동을 위해 생성 
-
+var mainLayerOffset = $("#main_layer").offset();
 
 /*
-// 마우스의 x, y 위치를 확인하기 위한 코드
 $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
 });
 */
-
 // Ready document that is game loop 
 $(document).ready(function(){  
 
@@ -122,8 +120,8 @@ function drawPlanetImg(planetNumData, planetImgUrl) {
 function drawShipInfo() {
 
 	var userInitInfo = {
-		curX     : 3000,//localStorage.getItem('posX');
-		curY     : 3000,//localStorage.getItem('posY');
+		curX     : 1500,//localStorage.getItem('posX');
+		curY     : 1500,//localStorage.getItem('posY');
 		level    : localStorage.getItem('level'),
 		exp      : localStorage.getItem('exp'),
 		mineral  : localStorage.getItem('mineral'),
@@ -136,28 +134,27 @@ function drawShipInfo() {
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
 
+
 	$('#user_avartar')
 		.append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
 	
 	$("#battle_ship").css({left: userInitInfo.curX, top: userInitInfo.curY});
+	$("#view_layer").css({left: curWinWidth, top: curWinHeight});
 
 	autoMove('battle_ship');
 }
 
 function autoMove(obj) {
-	
+ 	
 	var offset = $("#" + obj).offset();
-/*	
-	// focusing view port 
-	$('user_layer').css({
-		left: $(window).width(),
-		top: $(window).height()
-	});
-*/	
-	$('html, body').animate({
-		scrollLeft: offset.left,
-		scrollTop: offset.top
+
+	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치 
+	$("html, body").animate({
+		// current left(x) pos - (browser window width / 2)
+		// current top(y) pos - (brouwser window height / 2) 
+		scrollLeft: offset.left - (curWinWidth / 2), 
+		scrollTop: offset.top - (curWinHeight / 2)
 	}, 1000);
 }
 		

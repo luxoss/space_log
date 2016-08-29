@@ -51,7 +51,7 @@ var shipMove = function() {
 
 	if(isKeyDown[83]) { // Shoot
 		console.log('fire!');
-		//shoot();
+		//shot();
 	}
 
 	// Move a diagonal line 
@@ -112,7 +112,6 @@ var menuButton = function(ev) {
 	{
 		case KEY_SPACE:
 			console.log('got a planet');
-			//shoot();
 			break;
 
 		case KEY_BATTLE_SHIP:
@@ -201,7 +200,7 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {
 }
 
 /*
-var shoot = function() {
+var shot = function() {
 	var dx = 0.0;
 	var dy = 0.0;
 	var angle = 0.0, _angle = 0;
