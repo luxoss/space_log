@@ -12,6 +12,31 @@ body {
 	margin: 0 auto;
 }
 
+#main_layer {
+	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
+  	width:  5000px;
+  	height: 5000px; 
+	position: absolute;
+}
+
+#view_layer {
+/*	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;*/
+	background-color: rgba(255, 255, 255, 0.5);
+}
+
+#battle_ship {
+	background-image: url('http://203.237.179.21:8000/res/img/space_ship.png');
+	width: 100px;
+	height: 100px;
+	position: absolute;
+}
+
+#planet {
+	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
+	width: 100px;
+	height: 100px;
+}
+
 .user_info_ui {
   	background-color: rgba(102, 153, 255, 0.7);
   	border: 1px solid rgb(0, 0, 0);
@@ -357,30 +382,4 @@ body {
 	position: absolute;
 	right: 0px;
 }
-
-#main_layer {
-	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
-  	width:  5000px;
-  	height: 5000px; 
-	position: absolute;
-}
-
-#view_layer {
-/*	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;*/
-	background-color: rgba(255, 255, 255, 0.5);
-}
-
-#battle_ship {
-	background-image: url('http://203.237.179.21:8000/res/img/space_ship.png');
-	width: 100px;
-	height: 100px;
-	position: absolute;
-}
-
-#planet {
-	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
-	width: 100px;
-	height: 100px;
-}
-
 
