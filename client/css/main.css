@@ -3,6 +3,7 @@
 	**Writer: luxoss
 	**File-explanation: Decorate main html page with cascading style sheet
 */
+
 body {
 	width: 5000px;
 	height: 5000px;
@@ -84,19 +85,24 @@ body {
 }
 
 .menu_buttons_ui {
+/*  	
+	background-color: rgba(102, 153, 255, 0.7);
+  	border: 2px solid;
+  	border-color: rgba(102, 153, 255, 1);
+*/
 	position: fixed;
-  	width: 300px;
-  	height: 70px;
+  	width: 230px;
+  	height: 50px;
   	bottom: 20px;
   	left: 30px;
 }
 
 #logout_btn {
   	background-image: url('../res/img/button_design0.png');
-  	width: 70px;
-  	height: 70px;
+  	width: 50px;
+  	height: 50px;
 	border: 1px solid yellow;
-  	border-radius: 5px;
+  	border-radius: 50em;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
@@ -114,10 +120,10 @@ body {
 
 #planet_btn {
   	background-image: url('../res/img/button_design1.png');
-  	width: 70px;
-  	height: 70px;
+  	width: 50px;
+  	height: 50px;
 	border: 1px solid yellow;
-	border-radius: 5px;
+	border-radius: 50em;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
@@ -136,10 +142,10 @@ body {
 #battle_ship_btn {
   	background-image: url('../res/img/button_design2.png');
   	/*opacity: 0.7;*/
-  	width: 70px;
-  	height: 70px;
+  	width: 50px;
+  	height: 50px;
 	border: 1px solid yellow;
-	border-radius: 5px;
+	border-radius: 50em;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
@@ -157,10 +163,10 @@ body {
 
 #rank_btn {
  	background-image: url('../res/img/button_design3.png');
-  	width: 70px;
-	height: 70px;
+  	width: 50px;
+	height: 50px;
 	border: 1px solid yellow;
-	border-radius: 5px;
+	border-radius: 50em;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
