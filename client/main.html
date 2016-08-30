@@ -24,7 +24,7 @@
 		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/scroll_test.js"></script>
 
 		<!-- Turn on the background sound -->
-		<audio bgsound src="./res/sound/Battle.mp3" loop=infinite autoplay></audio> 
+<!--		<audio bgsound src="./res/sound/Battle.mp3" loop=infinite autoplay></audio> -->
 
 		<title>THE SPACE LOG - SOME SPACE VOYAGERS</title>
 	</head>
@@ -33,28 +33,34 @@
 		<div id = "main_layer">	
 			<div id = "view_layer">
 				<div id = "battle_ship"></div>
+
+				<!-- Menu icon -->
+				<div class = "menu_buttons_ui">		  
+				  &nbsp;<input id ="logout_btn" type = "button"/>
+					<input id = "planet_btn" type = "button" />
+					<input id = "battle_ship_btn" type = "button" />
+					<input id = "rank_btn" type = "button" />
+				</div>
+		
+				<!-- User information UI -->
+				<div class = "user_info_ui">			
+					<div id = "user_avatar">
+						<div id = "user_name"></div>
+					</div>
+					<div id = "hp_progress_bar"></div>
+					<div id = "sp_progress_bar"></div>
+					<div id = "exp_stats"></div>	
+				</div>
+		
+				<!-- Draw minimap user interface -->
+				<div class = "minimap_ui">
+					<canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
+				</div>	
 			</div>
+
 			<!-- Assets in the main game display -->
 			<div id = "assets">
 			</div>
-		</div>
-
-		<!-- Menu icon -->
-		<div class = "menu_buttons_ui">		  
-			&nbsp;<input id ="logout_btn" type = "button"/>
-			<input id = "planet_btn" type = "button" />
-			<input id = "battle_ship_btn" type = "button" />
-			<input id = "rank_btn" type = "button" />
-		</div>
-		
-		<!-- User information UI -->
-		<div class = "user_info_ui">			
-			<div id = "user_avatar">
-				<div id = "user_name"></div>
-			</div>
-			<div id = "hp_progress_bar"></div>
-			<div id = "sp_progress_bar"></div>
-			<div id = "exp_stats"></div>	
 		</div>
 
 		<!-- User resrouce information UI -->
@@ -108,18 +114,14 @@
 				<input type = "button" id = "insert_misile" />
 			</div>
 		</div>	
+
 		<!-- Users' rank inforamtion UI -->	
 		<div class = "rank_ui">
 			<div id = "user_ranking">Rank no.</div>
 			<div id = "user_id">User id</div>
 			<div id = "user_planet_number">User's planet number</div>
 		</div>
-
-		<!-- Draw minimap user interface -->
-		<div class = "minimap_ui">
-			<canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
-		</div>	
-		
+	
 		<!-- Test scroll left, top position -->
 		<div class = "scroll_ui">
 			<div id = "scroll_x"></div>

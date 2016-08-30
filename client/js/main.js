@@ -140,7 +140,7 @@ function drawShipInfo() {
 	$("#user_name").text("" + userId + "");
 	
 	$("#battle_ship").css({left: userInitInfo.curX, top: userInitInfo.curY});
-	$("#view_layer").css({left: curWinWidth - 100, top: curWinHeight - 100});
+	$("#view_layer").css({left: curWinWidth - 200, top: curWinHeight - 200});
 
 	autoMove('battle_ship');
 }

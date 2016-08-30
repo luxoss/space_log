@@ -17,11 +17,13 @@ body {
   	width:  5000px;
   	height: 5000px; 
 	position: absolute;
+	z-index: 1;
 }
 
 #view_layer {
-/*	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;*/
+	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
 	background-color: rgba(255, 255, 255, 0.5);
+	z-index: 2;
 }
 
 #battle_ship {
@@ -29,12 +31,14 @@ body {
 	width: 100px;
 	height: 100px;
 	position: absolute;
+	z-index: 3;
 }
 
 #planet {
 	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
 	width: 100px;
 	height: 100px;
+	z-index: 3;
 }
 
 .user_info_ui {
