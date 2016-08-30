@@ -51,7 +51,9 @@ var shipMove = function() {
 
 	if(isKeyDown[83]) { // Shoot
 		console.log('fire!');
-		//shot();
+		//curX = ;
+		//curY = ;
+		//shot(curX, curY);
 	}
 
 	// Move a diagonal line 
