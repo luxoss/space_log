@@ -53,7 +53,7 @@ var shipMove = function() {
 		console.log('fire!');
 		//curX = ;
 		//curY = ;
-		//shot(curX, curY);
+		//shoot(curX, curY);
 	}
 
 	// Move a diagonal line 
@@ -202,7 +202,7 @@ function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {
 }
 
 /*
-var shot = function() {
+var shoot = function() {
 	var dx = 0.0;
 	var dy = 0.0;
 	var angle = 0.0, _angle = 0;
