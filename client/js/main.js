@@ -16,7 +16,7 @@
 var serverUrl =  "http://203.237.179.21" 				// 메인 서버 URL 주소를 담은 변수 선언
 var socket = io.connect(serverUrl + ":5001");				// 메인 소캣 생성
 var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고 받기 위한 소캣 생성
-var userInfoSocket = io.connect(serverUrl + ":5003");			// 유저 정보를 주고 받기 위한 소캣 생성
+var userInfoSocket = io.connect(serverUrl + ":5005");			// 유저 정보를 주고 받기 위한 소캣 생성
 var userId = localStorage.getItem("username");				
 var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
 var bgWidth = 5000, bgHeight = 5000;				        // 메인 화면의 가로, 세로 크기
@@ -80,7 +80,6 @@ function drawAllAssets() {
 
 	planetSocket.on('planet_res', function(data) {
 
-//		var canvas = document.getElementById("background");
 		var mainLayer = $("#main_layer");
 		var userLayer = $("#user_layer");
 		var planetImgList = {
@@ -91,8 +90,24 @@ function drawAllAssets() {
 			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
 		};
 	
-		mainLayer.append("<div id='" + data._id + "' style='position: fixed; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
-		drawPlanetImg(data._id, planetImgUrl);
+
+		mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
+		drawPlanetImg(data._id, planetImgList['0']);
+/*
+		mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
+		drawPlanetImg(data._id, planetImgList['0']);
+
+	mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
+		drawPlanetImg(data._id, planetImgList['0']);
+
+	mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
+		drawPlanetImg(data._id, planetImgList['0']);
+
+	mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
+		drawPlanetImg(data._id, planetImgList['0']);
+*/
+
+
 	});		
 }
 

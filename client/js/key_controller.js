@@ -4,16 +4,17 @@
 	**File-explanation: Control key value with javascript
 */
 
-var curPosX = 0, curPosY = 0, swapPosX, swapPosY, lastPosX = 0, lastPosY = 0; // 현재 함선 위치, 그전 함선 위치, 마지막 함선위치를 담을 변수 선언
-var speed = 10;								  // 10의 speed로 이동하기 위한 변수 선언  
-var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // 30 라디안 각도를 주기 위한 변수 선언
-var misile = {};				  		 	  // 미사일 이미지를 담을 객체 선언
-var misileSpeed = 10;					  		  // 미사일 스피드(10)를 설정하기 위한 변수 선언 
-var misilePosArray = []; 			 	 		  // 미사일의 x, y 좌표를 담을 배열 선언 
-var isKeyDown = [];							  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
-
-lastPosX = $("#battle_ship").offset().left;
-lastPosY = $("#battle_ship").offset().top;
+var curPosX = 0, curPosY = 0, swapPosX = 0, swapPosY = 0; // 현재 함선 위치, 그전 함선 위치
+var lastPosX = 0;					  // 
+var lastPosY = 0;
+var speed = 10;						  // 10의 speed로 이동하기 위한 변수 선언  
+var radAngle =  parseInt(30 * (Math.PI / 180)); 	  // 30 라디안 각도를 주기 위한 변수 선언
+var misile = {};				  	  // 미사일 이미지를 담을 객체 선언
+var misileSpeed = 10;					  // 미사일 스피드(10)를 설정하기 위한 변수 선언 
+var misilePosArray = []; 			 	  // 미사일의 x, y 좌표를 담을 배열 선언 
+var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
+var lastPosX = 0, lastPosY = 0;
+var battleShipOffset = $("#battle_ship").offset();
 
 function keyHandler() {
 	
@@ -215,8 +216,8 @@ function logout(userId, lastPosX, lastPosY) {
 
                         if(data.response == 'true')
                         {
-                                userInfoSocket.emit('lpos_req', {'username': userId, 'location_x': lastPosX, 'location_y': lastPosY}); 
-                               	alert(logoutUserId + '님께서 로그아웃 되셨습니다.');
+                                userInfoSocket.emit('lpos_req', {'username': userId, 'lastPosX': lastPosX, 'lastPosY': lastPosY}); 
+                               	alert(userId + '님께서 로그아웃 되셨습니다.');
 
                                 localStorage.removeItem('username');
 
@@ -233,7 +234,7 @@ function logout(userId, lastPosX, lastPosY) {
         }
         else 
         {
-                if(logoutUserId == null)
+                if(userId == null)
                 {
                         return false;
                 }
