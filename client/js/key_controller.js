@@ -9,11 +9,15 @@ var lastPosX = 0;					  //
 var lastPosY = 0;
 var speed = 10;						  // 10의 speed로 이동하기 위한 변수 선언  
 var radAngle =  parseInt(30 * (Math.PI / 180)); 	  // 30 라디안 각도를 주기 위한 변수 선언
-var misile = {};				  	  // 미사일 이미지를 담을 객체 선언
-var misileSpeed = 10;					  // 미사일 스피드(10)를 설정하기 위한 변수 선언 
-var misilePosArray = []; 			 	  // 미사일의 x, y 좌표를 담을 배열 선언 
+var missile = {};				  	  // 미사일 이미지를 담을 객체 선언
 var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 var battleShipOffset = $("#battle_ship").offset();
+
+/*
+missile.url = serverUrl + ":8000/res/img/misile1.png";
+missile.speed = 10;
+missile.posArray = function(curPosX, curPosY){}; 
+*/
 
 function keyHandler() {
 	
