@@ -22,23 +22,39 @@ var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언
 var bgWidth = 5000, bgHeight = 5000;				        // 메인 화면의 가로, 세로 크기
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 (캐릭터가 창 밖으로 나갈 시 스코롤 이동을 위해 생성 
 var mainLayerOffset = $("#main_layer").offset();
+var battleShipPos = {
+	curPosX : Math.floor(Math.random() * bgWidth - 1),
+	curPosY : Math.floor(Math.random() * bgHeight - 1),
+	level 	: localStroage.getItem('level'),
+	exp 	: localStroage.getItem('exp'),
+	mineral : localStroage.getItem('mineral'),
+	gas 	: localStroage.getItem('gas'),
+	unknown : localStroage.getItem('unknown')
+};
 
 /*
 $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
 });
 */
+
 // Ready document that is game loop 
 $(document).ready(function(){  
 
 	var indexPageUrl = serverUrl + ":8000";
+
+	gameLoop();
+});
+
+function gameLoop() {
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
 //	setInterval(userPosUpdate(), 1000/fps); 
 	keyHandler();
 	buttonSet();
-});
+
+}
 
 function buttonSet() {
 	
@@ -133,28 +149,16 @@ function drawPlanetImg(planetNumData, planetImgUrl) {
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function drawShipInfo() {
-
-	var userInitInfo = {
-		curX     : 1500,//localStorage.getItem('posX');
-		curY     : 1500,//localStorage.getItem('posY');
-		level    : localStorage.getItem('level'),
-		exp      : localStorage.getItem('exp'),
-		mineral  : localStorage.getItem('mineral'),
-		gas      : localStorage.getItem('gas'),
-		unknown  : localStorage.getItem('unknown')
-	};
-	
 	// offset - 절대좌표, position - 상대좌표 
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
 
-
 	$('#user_avartar')
 		.append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
 	
-	$("#battle_ship").css({left: userInitInfo.curX, top: userInitInfo.curY});
+	$("#battle_ship").css({left: battleShipPos.curPosX, top: battleShipPos.curPosY});
 	$("#view_layer").css({left: curWinWidth - 200, top: curWinHeight - 200});
 
 	autoMove('battle_ship');
@@ -165,11 +169,11 @@ function autoMove(obj) {
 	var offset = $("#" + obj).offset();
 
 	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치 
+	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
+	// 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
 	$("html, body").animate({
-		// current left(x) pos - (browser window width / 2)
-		// current top(y) pos - (brouwser window height / 2) 
 		scrollLeft: offset.left - (curWinWidth / 2), 
-		scrollTop: offset.top - (curWinHeight / 2)
+		scrollTop: offset.top - (curWinHeight / 2)  
 	}, 1000);
 }
 
