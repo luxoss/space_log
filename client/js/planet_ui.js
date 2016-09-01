@@ -13,8 +13,17 @@ function planetViewLayer()
 	var planetInfo = {
 		'name' : ,
 		'resource' : , 
-		'grade' : , 
-		contorlPlanet = function(){ // 서버로 부터 받은 행성 정보를 제어하기 위한 매서드 
+		'grade' : ,
+		contorlPlanet = function(){ // 서버로 부터 받은 행성 정보를 제어하기 위한 매서드 	
+			var planet_name = this.name;
+			var planet_resource = this.resource;
+			var planet_grade = this.grade;
+
+			if(planet_grade == 1){}
+			else if(planet_grade == 2){}
+			else if(planet_grade == 3){}
+			else if(planet_grade == 4){}
+			else{}
 		}					
 	};
 	//TODO: 나중에 처리
