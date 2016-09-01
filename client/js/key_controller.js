@@ -12,6 +12,9 @@ var misileSpeed = 10;					  		  // 미사일 스피드(10)를 설정하기 위�
 var misilePosArray = []; 			 	 		  // 미사일의 x, y 좌표를 담을 배열 선언 
 var isKeyDown = [];							  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 
+lastPosX = $("#battle_ship").offset().left;
+lastPosY = $("#battle_ship").offset().top;
+
 function keyHandler() {
 	
 	$(document).keydown(function(ev) {  
@@ -129,8 +132,6 @@ var menuButton = function(ev) {
 			break;
 
 		case KEY_LOGOUT:
-			lastPosX = postX;
-			lastPosY = postY;
 			logout(userId, lastPosX, lastPosY);
 			break;
 
@@ -205,9 +206,6 @@ function logout(userId, lastPosX, lastPosY) {
 
         var logoutMsg = confirm('로그아웃 하시겠습니까?');
         var indexPageUrl = serverUrl + ":8000";
-
-	lastPosX = $("#battle_ship").offset().left;
-	lastPosY = $("#battle_ship").offset().top;
 
         if(logoutMsg == true)
         {

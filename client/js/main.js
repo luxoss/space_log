@@ -46,7 +46,7 @@ function buttonSet() {
 			
 		if(userId != null)
 		{
-			logout(userId);
+			logout(userId, lastPosX, lastPosY);
 		}
 		else
 		{
