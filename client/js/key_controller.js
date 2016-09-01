@@ -206,6 +206,9 @@ function logout(userId, lastPosX, lastPosY) {
         var logoutMsg = confirm('로그아웃 하시겠습니까?');
         var indexPageUrl = serverUrl + ":8000";
 
+	lastPosX = $("#battle_ship").offset().left;
+	lastPosY = $("#battle_ship").offset().top;
+
         if(logoutMsg == true)
         {
                 socket.emit('logout_msg', {username: userId}); 
@@ -214,12 +217,12 @@ function logout(userId, lastPosX, lastPosY) {
 
                         if(data.response == 'true')
                         {
-                                alert(logoutUserId + '님께서 로그아웃 되셨습니다.');
+                                userInfoSocket.emit('lpos_req', {'username': userId, 'location_x': lastPosX, 'location_y': lastPosY}); 
+                               	alert(logoutUserId + '님께서 로그아웃 되셨습니다.');
 
                                 localStorage.removeItem('username');
 
-                                socket.emit('lpos_req', {'username': userId, 'location_x': lastPosX, 'location_y': lastPosY}); 
-                                socket.disconnect();
+				socket.disconnect();
 
                                 $(location).attr('href', indexPageUrl);
                         }
