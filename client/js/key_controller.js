@@ -4,7 +4,7 @@
 	**File-explanation: Control key value with javascript
 */
 
-var curX = 0, curY = 0, postX = 0, postY = 0, lastPosX = 0, lastPosY = 0; // 현재 함선 위치, 그전 함선 위치, 마지막 함선위치를 담을 변수 선언
+var curPosX = 0, curPosY = 0, swapPosX, swapPosY, lastPosX = 0, lastPosY = 0; // 현재 함선 위치, 그전 함선 위치, 마지막 함선위치를 담을 변수 선언
 var speed = 10;								  // 10의 speed로 이동하기 위한 변수 선언  
 var radAngle =  parseInt(30 * (Math.PI / 180)); 	  		  // 30 라디안 각도를 주기 위한 변수 선언
 var misile = {};				  		 	  // 미사일 이미지를 담을 객체 선언
@@ -51,9 +51,9 @@ var shipMove = function() {
 
 	if(isKeyDown[83]) { // Shoot
 		console.log('fire!');
-		//curX = ;
-		//curY = ;
-		//shoot(curX, curY);
+		//curPosX = ;
+		//curPosY = ;
+		//shoot(curPosX, curPosY);
 	}
 
 	// Move a diagonal line 
@@ -167,39 +167,79 @@ var posY = function(divId, position) {
 };
 
 // 시계 방향으로 회전하기 위한 함수
-function clockwiseRotateTransform(divId, curX, curY, radAngle) {
+function clockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {
 
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
 
-	preX = curX; // 현재 x좌표를 이전 x좌표에 저장
-	preY = curY; // 현재 y좌표를 이전 y좌표에 저장
+	swapPosX = curPosX; // 현재 x좌표를 이전 x좌표에 저장
+	swapPosY = curPosY; // 현재 y좌표를 이전 y좌표에 저장
 
 	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
 	// That is, x' = xcos(rad) - ysin(rad)
 	// That is, y' = xsin(rad) + ycos(rad)
-	postX = parseInt((preX * cos) - (preY * sin));
-	postY = parseInt((preX * sin) + (preY *cos));
+	postX = parseInt((swapPosX * cos) - (swapPosY * sin));
+	postY = parseInt((swapPosX * sin) + (swapPosY *cos));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
 }
 
 // 반시계 방향으로 회전하기 위한 함수
-function counterClockwiseRotateTransform(divId, curX, curY, radAngle) {	
+function counterClockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {	
 
 	var sin = Math.cos(radAngle);
 	var cos = Math.sin(radAngle);
 
-	preX = curX;
-	preY = curY;
+	swapPosX = curPosX;
+	swapPosY = curPosY;
 
-	postX = parseInt((preX * cos) + (preY * sin));
-	postY = parseInt((preY * cos) - (preX * sin));
+	postX = parseInt((swapPosX * cos) + (swapPosY * sin));
+	postY = parseInt((swapPosY * cos) - (swapPosX * sin));
 
 	console.log("postX: " + postX + ", postY: " + postY);
 
 }
+
+function logout(userId, lastPosX, lastPosY) {
+
+        var logoutMsg = confirm('로그아웃 하시겠습니까?');
+        var indexPageUrl = serverUrl + ":8000";
+
+        if(logoutMsg == true)
+        {
+                socket.emit('logout_msg', {username: userId}); 
+
+                socket.on('logout_res', function(data){
+
+                        if(data.response == 'true')
+                        {
+                                alert(logoutUserId + '님께서 로그아웃 되셨습니다.');
+
+                                localStorage.removeItem('username');
+
+                                socket.emit('lpos_req', {'username': userId, 'location_x': lastPosX, 'location_y': lastPosY}); 
+                                socket.disconnect();
+
+                                $(location).attr('href', indexPageUrl);
+                        }
+                        else if(data.response == 'false')
+                        {
+                                        alert('Logout error.');
+                        }
+
+                });
+        }
+        else 
+        {
+                if(logoutUserId == null)
+                {
+                        return false;
+                }
+        }
+
+}
+
 
 /*
 var shoot = function() {

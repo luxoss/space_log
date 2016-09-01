@@ -157,45 +157,6 @@ function autoMove(obj) {
 		scrollTop: offset.top - (curWinHeight / 2)
 	}, 1000);
 }
-		
-function logout(logoutUserId) {
-
-	var logoutMsg = confirm('로그아웃 하시겠습니까?');
-	var indexPageUrl = serverUrl + ":8000";
-
-	if(logoutMsg == true)
-	{
-		socket.emit('logout_msg', {username: logoutUserId}); 
-
-		socket.on('logout_res', function(data){
-
-			if(data.response == 'true')
-			{
-				alert(logoutUserId + '님께서 로그아웃 되셨습니다.');
-
-				localStorage.removeItem('username');
-
-				//socket.emit('lpos_req', {'x': postX, 'y': postY}); 
-				socket.disconnect();
-
-				$(location).attr('href', indexPageUrl);
-			}
-			else if(data.response == 'false')
-			{
-					alert('Logout error.');
-			}
-
-		});
-	}
-	else 
-	{
-		if(logoutUserId == null)
-		{
-			return false;
-		}
-	}
-
-}
 
 //TODO: Later...
 /*
