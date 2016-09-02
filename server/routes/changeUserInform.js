@@ -1,3 +1,5 @@
+/*
+
 var username;
 var g_mineral, g_gas, g_unknown;
 var g_exp;
@@ -9,26 +11,53 @@ var l_x, l_y;
 
 var MongoClient = require('mongodb').MongoClient;
 
-var io = require('socket.io').listen(5003);
+var io = require('socket.io').listen(5005);
 
 io.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-		var collection;
+		var collection = db.collection("MEM_INFO");
 		var f_obj;
 		//user get resource -> change the user's informations
+	
+		socket.on('lpos_req', function(data){
+
+			console.log('lastposition req-------------');
+			username = data.username;
+			l_x = data.lastPosX;
+			l_y = data.lastPosY;
+
+			
+			console.log('!!!!!!!!!!!!!!USERNAME ::: ' + username + '   LASTPOSITION_X :::  ' + l_x + '   LASTPOSITION_Y :::  ' + l_y + '!!!!!!!!!!!!!!!!!!');
+			
+
+			f_obj ={"username":username};
+
+			collection.findOne(f_obj, function(err, user){
+				if(err){
+					console.log("changUserInform.js file's error: collection.findOne is error - socket(lpos_req");
+					console.log("==================ERROR MESSAGE is=====================");
+					console.log(err);
+				} else if(user != null){
+					collection.update(f_obj, {$set:{"location_x":l_x, "location_y":l_y}});
+				} else if(user == null){
+					console.log('There is no user: No matching username data in DB');
+				}
+			});
+		});
+
 		socket.on('uinfo_req', function(data){
 			username = data.username;
 			g_mineral = data.mineral;
 			g_gas = data.gas;
 			g_unknown = data.unknown;
 			g_exp = data.exp
-			collection = db.collection("MEM_INFO");
+		//	collection = db.collection("MEM_INFO");
 			
 			f_obj = {"username":username};
 			
 			collection.findOne(f_obj, function(err, user){
 				if(err){
-					console.log('changeUserInform.js file\'s error : collection.findOne is error - socket(rsrc_req) ');
+					console.log("changeUserInform.js file's error : collection.findOne is error - socket(rsrc_req)");
 					console.log("================ERROR MESSAGE is===========");
 					console.log(err);
 
@@ -48,32 +77,14 @@ io.on('connection', function(socket){
 		
 		});
 
-		socket.on('lpos_req', function(data){
-			username = data.username;
-			l_x = data.x;
-			l_y = data.y;
-			
-			f_obj ={"username":username};
-
-			collection.findOne(f_obj, function(err, user){
-				if(err){
-					console.log('changUserInform.js file\'s error: collection.findOne is error - socket(lpos_req');
-					console.log("==================ERROR MESSAGE is=====================");
-					console.log(err);
-				} else if(user != null){
-					collection.update(f_obj, {$set:{location_x:l_x, location_y:l_y}});
-				} else if(user == null){
-					console.log('There is no user: No matching username data in DB');
-				}
-			});
-
-		
-		});
 	
 	});
 
 
-});
+
+	
+
+});*/
 /*
 io.on('connection', function(socket){
 	//user get resource -> change the user's informations
@@ -154,4 +165,4 @@ io.on('connection', function(socket){
 
 });
 */
-console.log('changeUserInform.js : https://203.237.179.21:5003');
+console.log('changeUserInform.js : https://203.237.179.21:5005');

@@ -19,13 +19,18 @@ function create_p(){
 				get_time = date.getTime();	
 				console.log('get Time : ' + get_time);
 
+
+				
 				var ran = parseInt(Math.random() % 999) + 1;
 				var t = get_time%999 + 1;
 				source_q = (100 + t)*(t%level_p +1);
-				x = (t+level_p*100)*(t%level_p +1)+(t+ran);
-				y = (t+level_p)*(100-t)-(level_p-ran);
+				//x = (t+level_p*100)*(t%level_p +1)+(t+ran);
+				//y = (t+level_p)*(100-t)-(level_p-ran);
 				spd = t%level_p;
 				
+				x = Math.floor(Math.random()*5000-1);
+				y = Math.floor(Math.random()*5000-1);
+
 				collection.findOne({location_x : x, location_y : y},  function(err, doc){
 					if(err){
 					

@@ -1,20 +1,24 @@
-/*
 
-var io = require('socket.io').listen(5003);
+
+var LastPio = require('socket.io').listen(5005);
 var MongoClient = require('mongodb').MongoClient;
 var username, x , y;
 
 
-io.on('connection', function(socket){
+LastPio.on('connection', function(socket){
+	console.log('ㅎㅎㅎㅎㅎlastposition.js file');
 	socket.on('lpos_req', function(data){
 		console.log('I get a request saving user\'s last position');
-		MongoClient.connect("mongodb://localhost/space_log",function(err, db){
-			var collecction = db.collection("MEM_INFO");
-			username = data.username;
-			x = data.x;
-			y = data.y;
+		username = data.username;
+		x = data.lastPosX;
+		y = data.lastPosY;
 
-			collection.update({username : username}, {$set : {location_x : x, location_y : y}}, function(err, Pdocs){
+		MongoClient.connect("mongodb://localhost/space_log",function(err, db){
+			var collection = db.collection("MEM_INFO");
+			console.log("LASTPOSITION :: USERNAME" + username);
+			console.log("!!!!!!!" + x + "!!!!!!!!!" + y +"!!!!");
+
+			collection.update({"username" : username}, {$set : {"location_x" : x, "location_y" : y}}, function(err, Pdocs){
 				if(err){
 					console.log(err);				
 				} else if(Pdocs != null){
@@ -29,6 +33,6 @@ io.on('connection', function(socket){
 	});
 });
 
-console.log('lastPosition.js : http://203.237.179.21:5003');
+console.log('lastPosition.js : http://203.237.179.21:5005');
 
-*/
+
