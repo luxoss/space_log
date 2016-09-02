@@ -8,7 +8,7 @@
 	**jquery selector naming: under_bar
 
 	Main layer size = 5000(width) * 5000(hegiht)
-	User layer size = mainlayer's 1/5
+	User layer size = window.width(), window.height()
 	All assets size = 100 * 100	
 */
 
@@ -139,17 +139,17 @@ function isNumber(str) {
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(planetNumData, planetImgUrl) {
+function drawPlanetImg(divId, planetImgUrl) {
 
-	var planetNum = document.getElementById(planetNumData);	
-	
-	planetNum.style.backgroundImage = planetImgUrl; 
+	$("#" + divId).css("backgroundImage", "url('" + planetImgUrl + "')");
+
+//	var planetNum = (planetNumData);	
+//	planetNum.style.backgroundImage = planetImgUrl; 
 
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function drawShipInfo() {
-	// offset - 절대좌표, position - 상대좌표 
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
@@ -164,9 +164,9 @@ function drawShipInfo() {
 	autoMove('battle_ship');
 }
 
-function autoMove(obj) {
+function autoMove(divId) {
  	
-	var offset = $("#" + obj).offset();
+	var offset = $("#" + divId).offset();
 
 	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치 
 	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
