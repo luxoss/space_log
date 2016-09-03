@@ -99,8 +99,8 @@ function drawAllAssets() {
 		var mainLayer = $("#main_layer");
 		var userLayer = $("#user_layer");
 		var planetImgList = {
-			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_0.png')",
-			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_3.png')",
+			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.svg')",
+			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.svg')",
 			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
 			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
 			 5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')",
