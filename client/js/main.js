@@ -40,13 +40,13 @@ $(document).mousemove(function(e){
 
 // Ready document that is game loop 
 $(document).ready(function(){  
-
-	var indexPageUrl = serverUrl + ":8000";
-
+	
 	gameLoop();
 });
 
 function gameLoop() {
+
+	var indexPageUrl = serverUrl + ":8000";
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
@@ -59,7 +59,7 @@ function gameLoop() {
 function buttonSet() {
 	
 	$('#logout_btn').on('click', function(){
-			
+	
 		if(userId != null)
 		{
 			logout(userId, lastPosX, lastPosY);
@@ -162,7 +162,6 @@ function drawShipInfo() {
 	$("#user_name").text("" + userId + "");
 	
 	$("#battle_ship").css({left: battleShipPos.curPosX, top: battleShipPos.curPosY});
-	$("#view_layer").css({left: curWinWidth - 200, top: curWinHeight - 200});
 
 	autoMove('battle_ship');
 }
@@ -178,6 +177,9 @@ function autoMove(divId) {
 		scrollLeft: offset.left - (curWinWidth / 2), 
 		scrollTop: offset.top - (curWinHeight / 2)  
 	}, 1000);
+
+	//$("#view_layer").css({left: offset.left - (curWinWidth / 2), top: offset.top - (curWinHeight / 2)});
+
 }
 
 //TODO: Later...
