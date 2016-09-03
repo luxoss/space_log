@@ -5,8 +5,8 @@
 */
 (function(){ // Create Immediately-invoked function expression
 	$(document).ready(function(){ 						// Jquery ready to document
-		var socket = io.connect('http://203.237.179.21:5001'); 		// Create join and login socket
-		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information socket
+		var mainSocket = io.connect('http://203.237.179.21:5001'); 		// Create join and login socket
+		var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information mainSocket
 //		mainAudioControl();
 		mainDisplayResize();
 
@@ -27,8 +27,8 @@
 			}
 			else
 			{
-				socket.emit('join_msg', {username: userInfo0.username, password: userInfo0.password }); // Send to server
-				socket.on('join_res', function(data){ // Receive to server
+				mainSocket.emit('join_msg', {username: userInfo0.username, password: userInfo0.password }); // Send to server
+				mainSocket.on('join_res', function(data){ // Receive to server
 				
 					if(data['response'] == 'true')
 					{
@@ -60,9 +60,9 @@
 			
 				alert('loading...');
 
-				socket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+				mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
 				
-				socket.on('login_res', function(data){
+				mainSocket.on('login_res', function(data){
 					
 					var userId = userInfo.username;
 
@@ -93,9 +93,9 @@
 			
 			alert('loading...');
 
-			socket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+			mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
 				
-			socket.on('login_res', function(data){
+			mainSocket.on('login_res', function(data){
 					
 				var userId = userInfo.username;
 

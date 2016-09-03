@@ -31,7 +31,7 @@ var sound = function() {
 var initialize = function() {
 	// TODO: Later...
 	backgroundMusic = new sound();
-	backgroundMusic.preload(/*Insert background music url*/);
+	backgroundMusic.preload('http://203.237.179.21:8000/res/sound/Battle.mp3');
 	waitForSound();
 };
 

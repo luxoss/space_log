@@ -21,9 +21,9 @@ body {
 }
 
 #view_layer {
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	background-color: rgba(255, 255, 255, 0.5);
-	z-index: 2;
+	/*box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;*/
+	background-color: rgba(255, 255, 255, 0.7);
+	z-index: 3;
 }
 
 #battle_ship {
@@ -31,14 +31,14 @@ body {
 	width: 100px;
 	height: 100px;
 	position: absolute;
-	z-index: 3;
+	z-index: 2;
 }
 
 #planet {
 	background-image: url('http://203.237.179.21:8000/res/img/planet/planet_0.png');
 	width: 100px;
 	height: 100px;
-	z-index: 3;
+	z-index: 2;
 }
 
 .user_info_ui {
@@ -50,6 +50,7 @@ body {
   	top: 20px;
   	left: 30px;
 	border-radius: 10px;
+	z-index: 3;
 }
 
 #user_avatar {
@@ -111,19 +112,16 @@ body {
   	bottom: 20px;
   	right: 30px;
 	border-radius: 50em;
+	z-index:3;
 }
 
 .menu_buttons_ui {
-/*  	
-	background-color: rgba(102, 153, 255, 0.7);
-  	border: 2px solid;
-  	border-color: rgba(102, 153, 255, 1);
-*/
 	position: fixed;
   	width: 230px;
   	height: 50px;
   	bottom: 20px;
   	left: 30px;
+	z-index: 3;
 }
 
 #logout_btn {

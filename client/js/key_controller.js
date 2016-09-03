@@ -176,20 +176,18 @@ function logout(userId, lastPosX, lastPosY) {
 
         if(logoutMsg == true)
         {
-                socket.emit('logout_msg', {username: userId}); 
+                mainSocket.emit('logout_msg', {username: userId}); 
 
-                socket.on('logout_res', function(data){
+                mainSocket.on('logout_res', function(data){
 
                         if(data.response == 'true')
                         {
-				lastPosX = parseInt(battleShipOffset.left);
-				lastPosX = parseInt(battleShipOffset.top);
                                 userInfoSocket.emit('lpos_req', {'username': userId, 'lastPosX': lastPosX, 'lastPosY': lastPosY}); 
                                	alert(userId + '님께서 로그아웃 되셨습니다.');
 
                                 localStorage.removeItem('username');
 
-				socket.disconnect();
+				mainSocket.disconnect();
 
                                 $(location).attr('href', indexPageUrl);
                         }

@@ -14,7 +14,7 @@
 
 // 모든 코드 모듈에 접근하기 위한 전역 변수 선언.
 var serverUrl =  "http://203.237.179.21" 				// 메인 서버 URL 주소를 담은 변수 선언
-var socket = io.connect(serverUrl + ":5001");				// 메인 소캣 생성
+var mainSocket = io.connect(serverUrl + ":5001");				// 메인 소캣 생성
 var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고 받기 위한 소캣 생성
 var userInfoSocket = io.connect(serverUrl + ":5005");			// 유저 정보를 주고 받기 위한 소캣 생성
 var userId = localStorage.getItem("username");				
@@ -23,8 +23,8 @@ var bgWidth = 5000, bgHeight = 5000;				        // 메인 화면의 가로, 세�
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 (캐릭터가 창 밖으로 나갈 시 스코롤 이동을 위해 생성 
 var mainLayerOffset = $("#main_layer").offset();
 var battleShipPos = { // 변수 명이 안의 키, 벨류 값들을 포괄하지 못하므로 손 볼 필요가 있음.
-	curPosX : Math.floor(Math.random() * bgWidth - 1),
-	curPosY : Math.floor(Math.random() * bgHeight - 1),
+	curPosX : Math.floor(Math.random() * bgWidth - 100),
+	curPosY : Math.floor(Math.random() * bgHeight - 100),
 	level 	: localStorage.getItem('level'),
 	exp 	: localStorage.getItem('exp'),
 	mineral : localStorage.getItem('mineral'),
@@ -68,7 +68,7 @@ function buttonSet() {
 		{
 			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
 
-			socket.disconnect();
+			mainSocket.disconnect();
 
 			$(location).attr('href', indexPageUrl);	
 		
@@ -99,29 +99,33 @@ function drawAllAssets() {
 		var mainLayer = $("#main_layer");
 		var userLayer = $("#user_layer");
 		var planetImgList = {
-			 0 :  "url('http://203.237.179.21:8000/res/img/planet/planet_0.png')",
-			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.png')",
-			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.png')",
-			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_3.png')",
-			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
+			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_0.png')",
+			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.png')",
+			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.png')",
+			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_3.png')",
+			 5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_4.png')",
 		};
 	
-
-		mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
-		drawPlanetImg(data._id, planetImgList['0']);
-/*
-		mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
-		drawPlanetImg(data._id, planetImgList['0']);
-
-	mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
-		drawPlanetImg(data._id, planetImgList['0']);
-
-	mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
-		drawPlanetImg(data._id, planetImgList['0']);
-
-	mainLayer.append("<div id='" + data._id + "' style='position: absolute; color: white; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");			
-		drawPlanetImg(data._id, planetImgList['0']);
-*/
+		if(data.create_spd == 1) {
+			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
+			drawPlanetImg(data._id, planetImgList['1']);
+		}
+		else if(data.create_spd == 2) {
+			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");
+			drawPlanetImg(data._id, planetImgList['2']);
+		}
+		else if(data.create_spd == 3) {
+			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");
+			drawPlanetImg(data._id, planetImgList['3']);
+		}
+		else if(data.create_spd == 4) {
+			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");
+			drawPlanetImg(data._id, planetImgList['4']);
+		}
+		else {
+			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
+			drawPlanetImg(data._id, planetImgList['5']);
+		}
 
 
 	});		
@@ -141,11 +145,10 @@ function isNumber(str) {
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
 function drawPlanetImg(divId, planetImgUrl) {
 
-	$("#" + divId).css("backgroundImage", "url('" + planetImgUrl + "')");
+	$("#" + divId).css("backgroundImage", planetImgUrl);
 
-//	var planetNum = (planetNumData);	
-//	planetNum.style.backgroundImage = planetImgUrl; 
-
+	var planetNum = document.getElementById(divId);	
+	planetNum.style.backgroundImage = planetImgUrl; 
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
