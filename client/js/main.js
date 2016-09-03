@@ -147,8 +147,8 @@ function drawPlanetImg(divId, planetImgUrl) {
 
 	$("#" + divId).css("backgroundImage", planetImgUrl);
 
-	var planetNum = document.getElementById(divId);	
-	planetNum.style.backgroundImage = planetImgUrl; 
+//	var planetNum = document.getElementById(divId);	
+//	planetNum.style.backgroundImage = planetImgUrl; 
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
