@@ -182,6 +182,7 @@ function autoMove(divId) {
 
 }
 
+
 //TODO: Later...
 /*
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
