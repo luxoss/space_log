@@ -51,10 +51,10 @@ function gameLoop() {
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
-//	setInterval(userPosUpdate(), 1000/fps); 
 	viewLayer();
 	keyHandler();
 	buttonSet();
+//	setInterval(userPosUpdate(), 1000/fps); 
 
 }
 
@@ -181,6 +181,11 @@ function autoMove(divId) {
 }
 
 function viewLayer() {
+	$("#view_layer").css({
+		width: ($(window).width() - 100),
+		height: ($(window).height() - 100)
+	});
+
 	$(window).resize(function(){
 
                 $('#view_layer').css({
@@ -205,13 +210,3 @@ function userPosUpdate(userid, curPosX, curPosY) {
 }
 */
 
-/*
-	$(window).resize(function(){		
-
-		$("#battle_ship").css({
-			left: ($(self).width() - $('#battle_ship').outerWidth()) / 2,
-			top: ($(self).height() - $('#battle_ship').outerHeight()) / 2
-		});
-
-	});
-*/
