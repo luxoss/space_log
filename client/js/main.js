@@ -144,11 +144,7 @@ function isNumber(str) {
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
 function drawPlanetImg(divId, planetImgUrl) {
-
 	$("#" + divId).css("backgroundImage", planetImgUrl);
-
-//	var planetNum = document.getElementById(divId);	
-//	planetNum.style.backgroundImage = planetImgUrl; 
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
@@ -181,7 +177,6 @@ function autoMove(divId) {
 	//$("#view_layer").css({left: offset.left - (curWinWidth / 2), top: offset.top - (curWinHeight / 2)});
 
 }
-
 
 //TODO: Later...
 /*
