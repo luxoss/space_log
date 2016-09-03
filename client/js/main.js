@@ -22,6 +22,7 @@ var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언
 var bgWidth = 5000, bgHeight = 5000;				        // 메인 화면의 가로, 세로 크기
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 (캐릭터가 창 밖으로 나갈 시 스코롤 이동을 위해 생성 
 var mainLayerOffset = $("#main_layer").offset();
+
 var battleShipPos = { // 변수 명이 안의 키, 벨류 값들을 포괄하지 못하므로 손 볼 필요가 있음.
 	curPosX : Math.floor(Math.random() * bgWidth - 100),
 	curPosY : Math.floor(Math.random() * bgHeight - 100),
@@ -51,6 +52,7 @@ function gameLoop() {
 	drawAllAssets(); 		
 	drawShipInfo(); 
 //	setInterval(userPosUpdate(), 1000/fps); 
+	viewLayer();
 	keyHandler();
 	buttonSet();
 
@@ -176,6 +178,17 @@ function autoMove(divId) {
 
 	//$("#view_layer").css({left: offset.left - (curWinWidth / 2), top: offset.top - (curWinHeight / 2)});
 
+}
+
+function viewLayer() {
+	$(window).resize(function(){
+
+                $('#view_layer').css({
+                        left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
+                        top: ($(window).height() - $('#view_layer').outerHeight()) / 2
+                });
+
+        }).resize();
 }
 
 //TODO: Later...
