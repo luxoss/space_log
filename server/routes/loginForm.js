@@ -46,6 +46,7 @@ io.on('connection', function (socket) {
 
 			var findByUsrname = {"username" : username};
 			var collection = db.collection("MEMBER");
+			var collection2 = db.collection("MEM_INFO");
 			
 			collection.findOne(findByUsrname, function(err, findres){
 				if(err){
@@ -59,6 +60,12 @@ io.on('connection', function (socket) {
 						console.log("Match the password!!!! findres.password : " + findres.password);
 						collection.update({"username" : username},{$set : {"accessing" : "true"}});
 						socket.emit('login_res', {response : 'true'});
+						collection2.findOne(findByUsername, function(err, userinfo){
+							
+							socket.emit('user_inform', userinfo);
+						});
+
+
 
 						//Find user's information to MEM_INFO
 						db.collection("MEM_INFO").findOne({"username" : username}, function(err, doc){

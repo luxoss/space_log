@@ -17,6 +17,9 @@ function improve_p(){
 					improve_q = (planet[i].create_spd+1) * level_p *100;				
 
 					
+					collection.update({_id : planet[i]._id}, {$set : {mineral : planet[i].mineral +improve_q, gas : planet[i].gas + improve_q, unknown : planet[i].unknown + improve_q}});
+
+					/*
 					switch(planet[i].create_spd){
 					case 0:
 
@@ -39,7 +42,7 @@ function improve_p(){
 					default:
 					
 					}
-				
+					*/
 				}
 			}
 		});
