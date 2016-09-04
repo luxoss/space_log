@@ -61,7 +61,7 @@ io.on('connection', function (socket) {
 						collection.update({"username" : username},{$set : {"accessing" : "true"}});
 						socket.emit('login_res', {response : 'true'});
 						collection2.findOne(findByUsername, function(err, userinfo){
-							
+							var sendinfo = {"username" : userinfo.username, "exp" : userinfo.exp, "mineral" : userinfo.mineral, "gas" : userinfo.gas, "unknown" : userinfo.unknown, "location_x" : userinfo.location_x, "location_y" : userinfo.location_y, "gold" : userinfo.gold}	
 							socket.emit('user_inform', userinfo);
 						});
 
