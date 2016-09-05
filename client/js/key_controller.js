@@ -9,8 +9,6 @@ var lastPosX = 0, lastPosY = 0;				  // 로그아웃 시 마지막 위치를 받
 var speed = 10;						  // 10의 speed로 이동하기 위한 변수 선언  
 var missile = {};				  	  // 미사일 이미지를 담을 객체 선언
 var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
-var viewLayerOffset = $("#view_layer").offset();
-
 /*
 missile.url = serverUrl + ":8000/res/img/misile1.png";
 missile.speed = 10;
@@ -133,6 +131,8 @@ var menuButton = function(ev) {
 			break;
 
 		case KEY_LOGOUT:
+			lastPosX = $("#battle_ship").offset().left;
+			lastPosY = $("#battle_ship").offset().top;
 			logout(userId, lastPosX, lastPosY);
 			break;
 
