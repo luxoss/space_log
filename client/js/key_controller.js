@@ -131,8 +131,10 @@ var menuButton = function(ev) {
 			break;
 
 		case KEY_LOGOUT:
-			lastPosX = $("#battle_ship").offset().left;
-			lastPosY = $("#battle_ship").offset().top;
+			lastPosX = parseInt($("#battle_ship").offset().left);
+			lastPosY = parseInt($("#battle_ship").offset().top);
+			//TODO:lastPosX = parseInt($("#" + userId).offset().left);
+			//TODO:lastPosY = parseInt($("#" + userId).offset().top);	
 			logout(userId, lastPosX, lastPosY);
 			break;
 
