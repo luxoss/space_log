@@ -160,10 +160,10 @@ function drawShipInfo() {
 		zIndex: 2
 	});
 */
-	autoMove('battle_ship');
+	autoFocus('battle_ship');
 }
 
-function autoMove(divId) {
+function autoFocus(divId) {
  	
 	var offset = $("#" + divId).offset();
 
@@ -175,8 +175,7 @@ function autoMove(divId) {
 		scrollTop: offset.top - (curWinHeight / 2)  
 	}, 1000);
 
-	//$("#view_layer").css({left: offset.left - (curWinWidth / 2), top: offset.top - (curWinHeight / 2)});
-
+	//viewPort.css({left: offset.left - (curWinWidth / 2), top: offset.top - (curWinHeight / 2)});
 }
 
 function viewPort() {
