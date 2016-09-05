@@ -13,8 +13,8 @@
 */
 
 // 모든 코드 모듈에 접근하기 위한 전역 변수 선언.
-var serverUrl =  "http://203.237.179.21" 				// 메인 서버 URL 주소를 담은 변수 선언
-var mainSocket = io.connect(serverUrl + ":5001");				// 메인 소캣 생성
+var serverUrl =  "http://203.237.179.21" 				
+var mainSocket = io.connect(serverUrl + ":5001");			
 var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고 받기 위한 소캣 생성
 var userInfoSocket = io.connect(serverUrl + ":5005");			// 유저 정보를 주고 받기 위한 소캣 생성
 var userId = localStorage.getItem("username");				
@@ -24,7 +24,7 @@ var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현�
 var mainLayerOffset = $("#main_layer").offset();
 var viewLayerOffset = $("#view_layer").offset();
 
-var battleShipPos = { // 변수 명이 안의 키, 벨류 값들을 포괄하지 못하므로 손 볼 필요가 있음.
+var battleShipPos = { 							// 변수 명이 안의 키, 벨류 값들을 포괄하지 못하므로 손 볼 필요가 있음.
 	curPosX : Math.floor(Math.random() * mainWidth - 100),
 	curPosY : Math.floor(Math.random() * mainHeight - 100),
 	level 	: localStorage.getItem('level'),
