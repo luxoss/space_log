@@ -35,9 +35,6 @@ var battleShipPos = { 							// 변수 명이 안의 키, 벨류 값들을 포�
 };
 
 /*
-$(document).mousemove(function(e){
-	console.log(e.pageX + ',' + e.pageY);
-});
 */
 
 // Ready document that is game loop 
@@ -52,7 +49,7 @@ function gameLoop() {
 
 	drawAllAssets(); 		
 	drawShipInfo(); 
-	viewLayer();
+	viewPort();
 	keyHandler();
 	buttonSet();
 //	setInterval(userPosUpdate(), 1000/fps); 
@@ -94,57 +91,54 @@ function buttonSet() {
 // 캔버스 및 서버로 부터 받은 행성 데이터를 division 테그로 겹쳐 그리기 위한 함수 
 function drawAllAssets() {
 
-	planetSocket.emit('planet_req', {'ready' : 'ready to connect planet db'});
+	planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
 	planetSocket.on('planet_res', function(data) {
 
 		var mainLayer = $("#main_layer");
-		var userLayer = $("#user_layer");
-		var planetImgList = {
-			 1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.svg')",
-			 2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.svg')",
-			 3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-			 4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-			 5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')",
+		var viewLayer = $("#view_layer");
+		var planetInfo = {
+			id : data._id,
+			x  : data.location_x,
+			y  : data.location_y,
+			grade : data.create_spd,
+			image : { 
+				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.svg')",
+				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.svg')",
+				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+				4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+				5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+			}
 		};
 	
-		if(data.create_spd == 1) {
-			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
-			drawPlanetImg(data._id, planetImgList['1']);
+		if(planetInfo.grade == 1) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
 		}
-		else if(data.create_spd == 2) {
-			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");
-			drawPlanetImg(data._id, planetImgList['2']);
+
+		else if(planetInfo.grade == 2) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
 		}
-		else if(data.create_spd == 3) {
-			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");
-			drawPlanetImg(data._id, planetImgList['3']);
+		else if(planetInfo.grade == 3) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
 		}
-		else if(data.create_spd == 4) {
-			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");
-			drawPlanetImg(data._id, planetImgList['4']);
+		else if(planetInfo.grade == 4) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
 		}
 		else {
-			mainLayer.append("<div id='" + data._id + "' style='position: absolute; top: " + data.location_x + "px" + "; left:" + data.location_y + "px" + "; width: 100px; height: 100px;'></div>");	
-			drawPlanetImg(data._id, planetImgList['5']);
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
 		}
 	});		
 }
 
-// 자바스크립트 변수의 특성상 값이 입력되는 순간 타입이 정해지기 때문에 타입이 제대로 들어갔는지 테스트 해보기 위한 함수 
-function isNumber(str) {
-
-  	str += ''; 			     // Change to string type 
-  	str = str.replace(/^\s*|\s*$/g, ''); // Delete left and right blank 
-
-  	if (str == '' || isNaN(str)) {return false };
-
-  	return true;
-}
-
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(divId, planetImgUrl) {
-	$("#" + divId).css("backgroundImage", planetImgUrl);
+function drawPlanetImg(mainLayer, divId, x, y, imgUrl) {
+	mainLayer.append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
+
+	$("#" + divId).css({
+		"backgroundImage" : imgUrl,
+		"width"		: "100px",
+		"height" 	: "100px"
+	});
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
@@ -185,7 +179,7 @@ function autoMove(divId) {
 
 }
 
-function viewLayer() {
+function viewPort() {
 	$("#view_layer").css({
 		width: ($(window).width() - 100),
 		height: ($(window).height() - 100)
@@ -201,8 +195,24 @@ function viewLayer() {
         }).resize();
 }
 
-//TODO: Later...
+//TODO: LATER
 /*
+// 마우스 위치 확인하기 위한 코드 
+$(document).mousemove(function(e){
+	console.log(e.pageX + ',' + e.pageY);
+});
+
+// 숫자 타입인지 아닌지 체크하기 위한 함수 
+function isNumber(str) {
+
+  	str += ''; 			     // 문자열 타입으로 변환 
+  	str = str.replace(/^\s*|\s*$/g, ''); // 좌우 공백 제거 
+
+  	if (str == '' || isNaN(str)) {return false };
+
+  	return true;
+}
+
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
 function userPosUpdate(userid, curPosX, curPosY) {
 	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
