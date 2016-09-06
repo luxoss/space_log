@@ -6,7 +6,7 @@
 
 var curPosX = 0, curPosY = 0, swapPosX = 0, swapPosY = 0; // 현재 함선 위치, 그전 함선 위치
 var lastPosX = 0, lastPosY = 0;				  // 로그아웃 시 마지막 위치를 받기 위한 변수  
-var speed = 20;						  // 10의 speed로 이동하기 위한 변수 선언  
+var speed = 10;					          // 10의 speed로 이동하기 위한 변수 선언  
 var missile = {};				  	  // 미사일 이미지를 담을 객체 선언
 var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 /*
@@ -214,8 +214,8 @@ function logout(userId, lastPosX, lastPosY) {
 // 시계 방향으로 회전하기 위한 함수
 function clockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {
 
-	var sin = Math.cos(radAngle);
-	var cos = Math.sin(radAngle);
+	var sin = Math.cos(radAngle * (Math.PI / 180));
+	var cos = Math.sin(radAngle * (Math.PI / 180));
 
 	swapPosX = curPosX; // 현재 x좌표를 이전 x좌표에 저장
 	swapPosY = curPosY; // 현재 y좌표를 이전 y좌표에 저장
@@ -233,8 +233,8 @@ function clockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {
 // 반시계 방향으로 회전하기 위한 함수
 function counterClockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {	
 
-	var sin = Math.cos(radAngle);
-	var cos = Math.sin(radAngle);
+	var sin = Math.cos(radAngle * (Math.PI / 180));
+	var cos = Math.sin(radAngle * (Math.PI / 180));
 
 	swapPosX = curPosX;
 	swapPosY = curPosY;
