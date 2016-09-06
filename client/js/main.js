@@ -181,12 +181,12 @@ function autoFocus(divId) {
 }
 
 function viewPort() {
-	$("#view_layer").css({
-		width: ($(window).width() - 100),
-		height: ($(window).height() - 100)
-	});
-
+	
 	$(window).resize(function(){
+		$("#view_layer").css({
+			width: ($(window).width() - 100),
+			height: ($(window).height() - 100)
+		});
 
                 $('#view_layer').css({
                         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,

@@ -32,14 +32,12 @@ function shipMove() {
 
 	if(isKeyDown[37]) { // Left
 		posX("battle_ship", posX("battle_ship") - speed);
-                $('#battle_ship').css('transform', 'rotate(-90deg)');  		
-		
+                $('#battle_ship').css('transform', 'rotate(-90deg)');  				
 	}
 	
 	if(isKeyDown[39]) { // Right
 		posX("battle_ship", posX("battle_ship") + speed);
                 $('#battle_ship').css('transform', 'rotate(90deg)');   
-	
 	}
 
 	if(isKeyDown[38]) { // Up
