@@ -211,43 +211,6 @@ function logout(userId, lastPosX, lastPosY) {
 }
 
 /*
-// 시계 방향으로 회전하기 위한 함수
-function clockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {
-
-	var sin = Math.cos(radAngle * (Math.PI / 180));
-	var cos = Math.sin(radAngle * (Math.PI / 180));
-
-	swapPosX = curPosX; // 현재 x좌표를 이전 x좌표에 저장
-	swapPosY = curPosY; // 현재 y좌표를 이전 y좌표에 저장
-
-	// Rotate transform formula >> [x', y'] = [(cos(rad), -sin(rad)), (sin(rad), cos(rad))][x, y]
-	// That is, x' = xcos(rad) - ysin(rad)
-	// That is, y' = xsin(rad) + ycos(rad)
-	postX = parseInt((swapPosX * cos) - (swapPosY * sin));
-	postY = parseInt((swapPosX * sin) + (swapPosY *cos));
-
-	console.log("postX: " + postX + ", postY: " + postY);
-
-}
-
-// 반시계 방향으로 회전하기 위한 함수
-function counterClockwiseRotateTransform(divId, curPosX, curPosY, radAngle) {	
-
-	var sin = Math.cos(radAngle * (Math.PI / 180));
-	var cos = Math.sin(radAngle * (Math.PI / 180));
-
-	swapPosX = curPosX;
-	swapPosY = curPosY;
-
-	postX = parseInt((swapPosX * cos) + (swapPosY * sin));
-	postY = parseInt((swapPosY * cos) - (swapPosX * sin));
-
-	console.log("postX: " + postX + ", postY: " + postY);
-
-}
-*/
-
-/*
 var shoot = function() {
 	var dx = 0.0;
 	var dy = 0.0;
