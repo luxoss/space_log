@@ -167,7 +167,9 @@ function autoFocus(divId) {
  	
 	var offset = $("#" + divId).offset();
 
-	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치 
+	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
+	// (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
+	// 실제론 가운데 맞춰지려 하는 것)
 	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
 	// 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
 	$("html, body").animate({
@@ -214,10 +216,10 @@ function isNumber(str) {
 
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
 function userPosUpdate(userid, curPosX, curPosY) {
-	userInfoSocket.emit('lpos_req', {'username' : userid, 'x' : curPosX,'y' : curPosY});
+	userInfoSocket.emit('cpos_req', {'username' : userid, 'location_x' : curPosX,'location_y' : curPosY});
 
-	userInfoSocket.on('lpos_res' function(data) {
-		var username = data.username; // 배열 또는 객체로 읽어들일 것 
+	userInfoSocket.on('cpos_res' function(data) {
+		var username = data.username;  
 		var curPosX = data.location_x;
 		var curPosY = data.location_y;
 	});

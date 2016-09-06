@@ -6,7 +6,7 @@
 
 var curPosX = 0, curPosY = 0, swapPosX = 0, swapPosY = 0; // 현재 함선 위치, 그전 함선 위치
 var lastPosX = 0, lastPosY = 0;				  // 로그아웃 시 마지막 위치를 받기 위한 변수  
-var speed = 10;						  // 10의 speed로 이동하기 위한 변수 선언  
+var speed = 20;						  // 10의 speed로 이동하기 위한 변수 선언  
 var missile = {};				  	  // 미사일 이미지를 담을 객체 선언
 var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 /*
@@ -28,11 +28,12 @@ function keyHandler() {
 	});
 }
 
-var shipMove = function() {
+function shipMove() {
 
 	if(isKeyDown[37]) { // Left
 		posX("battle_ship", posX("battle_ship") - speed);
                 $('#battle_ship').css('transform', 'rotate(-90deg)');  		
+		
 	}
 	
 	if(isKeyDown[39]) { // Right
@@ -76,7 +77,7 @@ var shipMove = function() {
 	}	
 }
 	
-var menuButton = function(ev) {
+function menuButton(ev) {
 
         var KEY_SPACE           = 1;
         var KEY_BATTLE_SHIP     = 2;

@@ -224,36 +224,40 @@ body {
 	z-index: 100;
 }
 
-#planet_img {
-	background-color: rgb(255, 0, 0);
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	left: 0px;
-}
-
 #planet_name {
 	background-color: rgb(0, 255, 0);
 	width: 300px;
 	height: 100px;
 	position: absolute;
-	left: 100px;
+	left: 0px;
+	border: 1px solid white;
 }
 
 #planet_resource {
 	background-color: rgb(0, 0, 255);
-	width: 400px;
+	width: 300px;
 	height: 100px;
 	position: absolute;
-	right: 100px;
+	left: 300px;
+	border: 1px solid white;
+}
+
+#planet_discovered {
+	background-color: rgb(255, 0, 0);
+	width: 150px;
+	height: 100px;
+	position: absolute;
+	right: 150px;
+	border: 1px solid white;
 }
 
 #planet_grade {
 	background-color: rgb(255, 255, 0);
-	width: 100px;
+	width: 150px;
 	height: 100px;
 	position: absolute;
 	right: 0px;
+	border: 1px solid white;
 }
 
 .battle_ship_ui {
