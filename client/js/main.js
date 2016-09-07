@@ -199,10 +199,23 @@ function viewPort() {
 function userPosUpdate(userid, curPosX, curPosY) {
 	userInfoSocket.emit('cpos_req', {'username' : userid, 'location_x' : curPosX,'location_y' : curPosY});
 
-	userInfoSocket.on('cpos_res' function(data) {
-		var username = data.username;  
-		var curPosX = data.location_x;
-		var curPosY = data.location_y;
+	userInfoSocket.on('cpos_res', function(data) {
+		var userPosInfo = {
+			name : data.username,
+			curPosX : data.location_x,
+			curPosY : data.location_y
+		};
+		
+		$("#main_layer").append("<div id='" + userPosInfo.name + "' style='position:absolute;'></div>");
+		$("#" + userPosInfo.name).css({
+				"backgroundImage" : imgUrl,
+				"width"  : "100px",
+				"height" : "100px",
+				"zIndex" : "2",
+				left: userPosInfo.curPosX, 
+				top: userPosInfo.curPosY
+		});
+		
 	});
 }
 

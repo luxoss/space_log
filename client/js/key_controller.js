@@ -33,10 +33,6 @@ function shipMove(divId) {
 	if(isKeyDown[37]) { // Left
 		posX(divId, posX(divId) - speed);
                 $("#" + divId).css('transform', 'rotate(-90deg)');  				
-		$("html, body").animate({
-			scrollLeft: $("#" + divId).offset().left - speed,
-			scrollTop: $("#" + divId).offset().top
-		});
 	}
 	
 	if(isKeyDown[39]) { // Right
@@ -246,4 +242,11 @@ var shoot = function() {
 	
 	isFire = true;
 };
+
+		$("html, body").animate({
+			scrollLeft: $("#" + divId).offset().left - speed,
+			scrollTop: $("#" + divId).offset().top
+		});
+
+
 */
