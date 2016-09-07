@@ -67,7 +67,7 @@ $(document).ready(function(){ 						// Jquery ready to document
 					$(location).attr('href', mainPageUrl);
 				}else {
 					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-					$(location).reload();
+					window.location.reload();
 				}
 			});
 		}	
@@ -99,7 +99,7 @@ $(document).ready(function(){ 						// Jquery ready to document
 				$(location).attr('href', mainPageUrl);
 			} else {
 				alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-				$(location).reload();
+				window.location.reload();
 			}
 		});
 	});

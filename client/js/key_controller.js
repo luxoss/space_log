@@ -4,16 +4,17 @@
 	**File-explanation: Control key value with javascript
 */
 
-var curPosX = 0, curPosY = 0, swapPosX = 0, swapPosY = 0; // 현재 함선 위치, 그전 함선 위치
 var lastPosX = 0, lastPosY = 0;				  // 로그아웃 시 마지막 위치를 받기 위한 변수  
 var speed = 10;					          // 10의 speed로 이동하기 위한 변수 선언  
-var missile = {};				  	  // 미사일 이미지를 담을 객체 선언
+var missile = new Object();				  // 미사일 이미지를 담을 객체 선언
+var fire = new Audio();
 var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
 /*
 missile.url = serverUrl + ":8000/res/img/misile1.png";
 missile.speed = 10;
 missile.posArray = function(curPosX, curPosY){}; 
 */
+fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
 
 function keyHandler(divId) {
 	
@@ -51,7 +52,9 @@ function shipMove(divId) {
         }
 
 	if(isKeyDown[83]) { // Shoot
+		fire.play();
 		console.log('fire!');
+		fire.currentTime = 0;
 		//curPosX = ;
 		//curPosY = ;
 		//shoot(curPosX, curPosY);
@@ -130,10 +133,8 @@ function menuButton(ev) {
 			break;
 
 		case KEY_LOGOUT:
-			lastPosX = parseInt($("#battle_ship").offset().left);
-			lastPosY = parseInt($("#battle_ship").offset().top);
-			//TODO:lastPosX = parseInt($("#" + userId).offset().left);
-			//TODO:lastPosY = parseInt($("#" + userId).offset().top);	
+			lastPosX = parseInt($("#" + userId).offset().left);
+			lastPosY = parseInt($("#" + userId).offset().top);	
 			logout(userId, lastPosX, lastPosY);
 			break;
 
@@ -145,7 +146,7 @@ function menuButton(ev) {
 
 
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
-var posX = function(divId, position) {
+function posX(divId, position) {
 
 	if(position)
 	{
@@ -157,7 +158,7 @@ var posX = function(divId, position) {
 	}
 };
 
-var posY = function(divId, position) { 
+function posY(divId, position) { 
 
 	if(position)
 	{

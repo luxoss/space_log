@@ -16,41 +16,50 @@
 var serverUrl =  "http://203.237.179.21" 				
 var mainSocket = io.connect(serverUrl + ":5001"),			
     planetSocket = io.connect(serverUrl + ":5002"),			// 행성 정보를 주고 받기 위한 소캣 생성
-    userInfoSocket = io.connect(serverUrl + ":5005");			// 유저 정보를 주고 받기 위한 소캣 생성
+    userInfoSocket = io.connect(serverUrl + ":5005"),			// 유저 정보를 주고 받기 위한 소캣 생성
+    userPosSocket = io.connect(serverUrl + ":5006");
 var userId = localStorage.getItem("username");				
 var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
 var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 
 var mainLayerOffset = $("#main_layer").offset();
 var viewLayerOffset = $("#view_layer").offset();
-
-var battleShipPos = { 							// 변수 명이 안의 키, 벨류 값들을 포괄하지 못하므로 손 볼 필요가 있음.
-	curPosX : Math.floor(Math.random() * mainWidth - 100),
-	curPosY : Math.floor(Math.random() * mainHeight - 100),
-	level 	: localStorage.getItem('level'),
-	exp 	: localStorage.getItem('exp'),
-	mineral : localStorage.getItem('mineral'),
-	gas 	: localStorage.getItem('gas'),
-	unknown : localStorage.getItem('unknown')
-};
+var curPosX = Math.floor(Math.random() * mainWidth - 100),
+    curPosY = Math.floor(Math.random() * mainHeight - 100);
 
 // Ready document that is game loop 
-$(document).ready(function(){  
-	
+$(document).ready(function(){  	
 	gameLoop();
 });
 
 function gameLoop() {
-	
 	var indexPageUrl = serverUrl + ":8000";
 	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship.png')";
 
+	var battleShipPos = { 	
+		x : curPosX,
+		y : curPosY,
+		level 	: localStorage.getItem('level'),
+		exp 	: localStorage.getItem('exp'),
+		mineral : localStorage.getItem('mineral'),
+		gas 	: localStorage.getItem('gas'),
+		unknown : localStorage.getItem('unknown')
+	};
+
+	curPosX = battleShipPos.x; 
+	curPosY = battleShipPos.y;
+
 	drawAllAssets(); 		
-	drawShipInfo(imgUrl); 
+	drawShipInfo(curPosX, curPosY, imgUrl); 
 	viewPort();
 	keyHandler(userId);
 	buttonSet();
-	setInterval(userPosUpdate(), 1000/fps); 
+	setInterval(function(){
+		userPosUpdate(userId, curPosX, curPosY, imgUrl);
+		curPosX = parseInt($("#" + userId).offset().left);
+		curPosY = parseInt($("#" + userId).offset().top);
+	}, 1000);
+ 
 }
 
 function buttonSet() {
@@ -140,7 +149,7 @@ function drawPlanetImg(mainLayer, divId, x, y, imgUrl) {
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(imgUrl) {
+function drawShipInfo(curPosX, curPosY,imgUrl) {
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
@@ -155,8 +164,8 @@ function drawShipInfo(imgUrl) {
 		"width"  : "100px",
 		"height" : "100px",
 		"zIndex" : "2",
-		left: battleShipPos.curPosX, 
-		top: battleShipPos.curPosY
+		left: curPosX, 
+		top: curPosY
 	});
 
 	autoFocus(userId);
@@ -196,10 +205,11 @@ function viewPort() {
 }
 
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
-function userPosUpdate(userid, curPosX, curPosY) {
-	userInfoSocket.emit('cpos_req', {'username' : userid, 'location_x' : curPosX,'location_y' : curPosY});
+function userPosUpdate(userId, curPosX, curPosY, imgUrl) {
+	
+	userPosSocket.emit('cpos_req', {'username' : userId, 'location_x' : curPosX,'location_y' : curPosY});
 
-	userInfoSocket.on('cpos_res', function(data) {
+	userPosSocket.on('cpos_res', function(data) {
 		var userPosInfo = {
 			name : data.username,
 			curPosX : data.location_x,
@@ -214,9 +224,9 @@ function userPosUpdate(userid, curPosX, curPosY) {
 				"zIndex" : "2",
 				left: userPosInfo.curPosX, 
 				top: userPosInfo.curPosY
-		});
-		
+		});			
 	});
+
 }
 
 //TODO: LATER
