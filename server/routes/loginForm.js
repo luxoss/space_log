@@ -60,6 +60,9 @@ io.on('connection', function (socket) {
 						console.log("Match the password!!!! findres.password : " + findres.password);
 						member.update({"username" : username},{$set : {"accessing" : "true"}});
 						socket.emit('login_res', {response : 'true'});
+						
+						socket.join('playing');//this socket binding at playing group(room)
+						
 						mem_info.findOne(findByUsrname, function(err, userinfo){
 							var sendinfo = {
 								"username" 	: userinfo.username, 
@@ -184,6 +187,7 @@ io.on('connection', function (socket) {
 				} else{
 					console.log("logout success!!!!!!!!!!");
 					socket.emit('logout_res', {response : 'true'});
+					socket.leave('playing');//leave the playing group
 				}
 			});
 		});
