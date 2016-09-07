@@ -34,9 +34,6 @@ var battleShipPos = { 							// 변수 명이 안의 키, 벨류 값들을 포�
 	unknown : localStorage.getItem('unknown')
 };
 
-/*
-*/
-
 // Ready document that is game loop 
 $(document).ready(function(){  
 	
@@ -53,7 +50,7 @@ function gameLoop() {
 	viewPort();
 	keyHandler(userId);
 	buttonSet();
-//	setInterval(userPosUpdate(), 1000/fps); 
+	setInterval(userPosUpdate(), 1000/fps); 
 }
 
 function buttonSet() {
@@ -161,14 +158,7 @@ function drawShipInfo(imgUrl) {
 		left: battleShipPos.curPosX, 
 		top: battleShipPos.curPosY
 	});
-/*
-	viewLayer.append("<div id = '" + userId + "style='position:absolute;'></div>"
-	$("#" + userId).css({ 
-		width: 100, 
-		height: 100,
-		zIndex: 2
-	});
-*/
+
 	autoFocus(userId);
 }
 
@@ -205,6 +195,17 @@ function viewPort() {
         }).resize();
 }
 
+// 유저 함선들의 현 위치를 주고 받기 위한 함수
+function userPosUpdate(userid, curPosX, curPosY) {
+	userInfoSocket.emit('cpos_req', {'username' : userid, 'location_x' : curPosX,'location_y' : curPosY});
+
+	userInfoSocket.on('cpos_res' function(data) {
+		var username = data.username;  
+		var curPosX = data.location_x;
+		var curPosY = data.location_y;
+	});
+}
+
 //TODO: LATER
 /*
 // 마우스 위치 확인하기 위한 코드 
@@ -222,16 +223,4 @@ function isNumber(str) {
 
   	return true;
 }
-
-// 유저 함선들의 현 위치를 주고 받기 위한 함수
-function userPosUpdate(userid, curPosX, curPosY) {
-	userInfoSocket.emit('cpos_req', {'username' : userid, 'location_x' : curPosX,'location_y' : curPosY});
-
-	userInfoSocket.on('cpos_res' function(data) {
-		var username = data.username;  
-		var curPosX = data.location_x;
-		var curPosY = data.location_y;
-	});
-}
 */
-
