@@ -7,7 +7,7 @@ var username, x , y;
 
 LastPio.on('connection', function(socket){
 	console.log('ㅎㅎㅎㅎㅎlastposition.js file');
-	socket.on('lpos_req', function(data){
+	socket.on('lpos', function(data){
 		console.log('I get a request saving user\'s last position');
 		username = data.username;
 		x = data.lastPosX;

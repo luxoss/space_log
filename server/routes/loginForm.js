@@ -45,10 +45,10 @@ io.on('connection', function (socket) {
 	
 
 			var findByUsrname = {"username" : username};
-			var collection = db.collection("MEMBER");
-			var collection2 = db.collection("MEM_INFO");
+			var member = db.collection("MEMBER");
+			var mem_info = db.collection("MEM_INFO");
 			
-			collection.findOne(findByUsrname, function(err, findres){
+			member.findOne(findByUsrname, function(err, findres){
 				if(err){
 					console.log("ERROR!!!!!!!!!!!!");
 					console.log(err);
@@ -58,15 +58,23 @@ io.on('connection', function (socket) {
 					
 					if(findres.password == password && findres.accessing == "false"){
 						console.log("Match the password!!!! findres.password : " + findres.password);
-						collection.update({"username" : username},{$set : {"accessing" : "true"}});
+						member.update({"username" : username},{$set : {"accessing" : "true"}});
 						socket.emit('login_res', {response : 'true'});
-						collection2.findOne(findByUsername, function(err, userinfo){
-							var sendinfo = {"username" : userinfo.username, "exp" : userinfo.exp, "mineral" : userinfo.mineral, "gas" : userinfo.gas, "unknown" : userinfo.unknown, "location_x" : userinfo.location_x, "location_y" : userinfo.location_y, "gold" : userinfo.gold}	
-							socket.emit('user_inform', userinfo);
+						mem_info.findOne(findByUsrname, function(err, userinfo){
+							var sendinfo = {
+								"username" 	: userinfo.username, 
+								"exp" 		: userinfo.exp, 
+								"mineral" 	: userinfo.mineral, 
+								"gas" 		: userinfo.gas, 
+								"unknown" 	: userinfo.unknown, 
+								"location_x" 	: userinfo.location_x, 
+								"location_y" 	: userinfo.location_y, 
+								"gold" 		: userinfo.gold
+							}	
+							socket.emit('user_info', sendinfo);
 						});
 
-
-
+						/*
 						//Find user's information to MEM_INFO
 						db.collection("MEM_INFO").findOne({"username" : username}, function(err, doc){
 							if(err){
@@ -76,7 +84,7 @@ io.on('connection', function (socket) {
 								socket.emit('myinfo', doc);
 							}
 						
-						});
+						});*/
 					} else{
 						console.log("No match the password T-T.... " + findres.password);
 						socket.emit('login_res', {response : 'false'});
