@@ -15,11 +15,11 @@ missile.speed = 10;
 missile.posArray = function(curPosX, curPosY){}; 
 */
 
-function keyHandler() {
+function keyHandler(divId) {
 	
 	$(document).keydown(function(ev) {  
 		isKeyDown[ev.keyCode] = true;
-		shipMove();
+		shipMove(divId);
 		menuButton(ev);
 	});
 
@@ -28,26 +28,26 @@ function keyHandler() {
 	});
 }
 
-function shipMove() {
+function shipMove(divId) {
 
 	if(isKeyDown[37]) { // Left
-		posX("battle_ship", posX("battle_ship") - speed);
-                $('#battle_ship').css('transform', 'rotate(-90deg)');  				
+		posX(divId, posX(divId) - speed);
+                $("#" + divId).css('transform', 'rotate(-90deg)');  				
 	}
 	
 	if(isKeyDown[39]) { // Right
-		posX("battle_ship", posX("battle_ship") + speed);
-                $('#battle_ship').css('transform', 'rotate(90deg)');   
+		posX(divId, posX(divId) + speed);
+                $("#" + divId).css('transform', 'rotate(90deg)');   
 	}
 
 	if(isKeyDown[38]) { // Up
-	        posY("battle_ship", posY("battle_ship") - speed);
-		$('#battle_ship').css('transform', 'rotate(0deg)');
+	        posY(divId, posY(divId) - speed);
+		$("#" + divId).css('transform', 'rotate(0deg)');
 	}
 
 	if(isKeyDown[40]) { // Down
-		posY("battle_ship", posY("battle_ship") + speed);
-		$('#battle_ship').css('transform', 'rotate(180deg)');
+		posY(divId, posY(divId) + speed);
+		$("#" + divId).css('transform', 'rotate(180deg)');
         }
 
 	if(isKeyDown[83]) { // Shoot
@@ -59,19 +59,19 @@ function shipMove() {
 
 	// Move a diagonal line 
 	if(isKeyDown[38] && isKeyDown[37]) { 
-		$('#battle_ship').css('transform', 'rotate(-45deg)');
+		$("#" + divId).css('transform', 'rotate(-45deg)');
 	}
 
 	if(isKeyDown[38] && isKeyDown[39]) {
-		$('#battle_ship').css('transform', 'rotate(45deg)');
+		$("#" + divId).css('transform', 'rotate(45deg)');
 	}
 
 	if(isKeyDown[40] && isKeyDown[37]) {
-		$('#battle_ship').css('transform', 'rotate(-135deg)');
+		$("#" + divId).css('transform', 'rotate(-135deg)');
 	}
 
 	if(isKeyDown[40] && isKeyDown[39]) {
-		$('#battle_ship').css('transform', 'rotate(135deg)');
+		$("#" + divId).css('transform', 'rotate(135deg)');
 	}	
 }
 	

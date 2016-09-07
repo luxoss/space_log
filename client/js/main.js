@@ -14,9 +14,9 @@
 
 // 모든 코드 모듈에 접근하기 위한 전역 변수 선언.
 var serverUrl =  "http://203.237.179.21" 				
-var mainSocket = io.connect(serverUrl + ":5001");			
-var planetSocket = io.connect(serverUrl + ":5002");			// 행성 정보를 주고 받기 위한 소캣 생성
-var userInfoSocket = io.connect(serverUrl + ":5005");			// 유저 정보를 주고 받기 위한 소캣 생성
+var mainSocket = io.connect(serverUrl + ":5001"),			
+    planetSocket = io.connect(serverUrl + ":5002"),			// 행성 정보를 주고 받기 위한 소캣 생성
+    userInfoSocket = io.connect(serverUrl + ":5005");			// 유저 정보를 주고 받기 위한 소캣 생성
 var userId = localStorage.getItem("username");				
 var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
 var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
@@ -44,13 +44,14 @@ $(document).ready(function(){
 });
 
 function gameLoop() {
-
+	
 	var indexPageUrl = serverUrl + ":8000";
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship.png')";
 
 	drawAllAssets(); 		
-	drawShipInfo(); 
+	drawShipInfo(imgUrl); 
 	viewPort();
-	keyHandler();
+	keyHandler(userId);
 	buttonSet();
 //	setInterval(userPosUpdate(), 1000/fps); 
 }
@@ -142,7 +143,7 @@ function drawPlanetImg(mainLayer, divId, x, y, imgUrl) {
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo() {
+function drawShipInfo(imgUrl) {
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
@@ -151,7 +152,15 @@ function drawShipInfo() {
 		.append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
 	
-	$("#battle_ship").css({left: battleShipPos.curPosX, top: battleShipPos.curPosY});
+	$("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
+	$("#" + userId).css({
+		"backgroundImage" : imgUrl,
+		"width"  : "100px",
+		"height" : "100px",
+		"zIndex" : "2",
+		left: battleShipPos.curPosX, 
+		top: battleShipPos.curPosY
+	});
 /*
 	viewLayer.append("<div id = '" + userId + "style='position:absolute;'></div>"
 	$("#" + userId).css({ 
@@ -160,7 +169,7 @@ function drawShipInfo() {
 		zIndex: 2
 	});
 */
-	autoFocus('battle_ship');
+	autoFocus(userId);
 }
 
 function autoFocus(divId) {

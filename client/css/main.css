@@ -14,15 +14,15 @@ body {
 
 #main_layer {
 	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
-  	width:  5000px;
-  	height: 5000px; 
+  	width:  5100px;
+  	height: 5100px; 
 	position: absolute;
 	border: 1px solid white;
 	z-index: 1;
 }
 
 #view_layer {
-	box-shadow: rgba(0, 0, 0, 0.7) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
+	box-shadow: rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
 	position: fixed;
 	border: 1px solid yellow;
 	z-index: 3;
