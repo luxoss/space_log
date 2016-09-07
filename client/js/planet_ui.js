@@ -9,8 +9,7 @@ function planetViewLayer()
 	var state = $('.planet_ui').css('display');
 	var planetSocket = io.connect('http://203.237.179.21:5002');
 
-	if(state == 'none')
-	{
+	if(state == 'none') {
 		$('.planet_ui').show();
 
 		// 행성 DB를 plnaet socket으로 받기 위함. 
@@ -34,8 +33,7 @@ function planetViewLayer()
 			$("#planet_grade").append("<div id='" + planet.grade + "'style='position:absolute;'></div>"); 
 		});
 	}
-	else
-	{
+	else {
 		$('.planet_ui').hide();
 	}
 
@@ -46,9 +44,7 @@ function planetViewLayer()
 			top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
 		});
 
-	}).resize();
-		
-	return ; 		
-};
+	}).resize();		
+}
 
 
