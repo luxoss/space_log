@@ -5,7 +5,6 @@
 */
 $(document).ready(function(){ 						// Jquery ready to document
 	var mainSocket = io.connect('http://203.237.179.21:5001'); 	// Create join and login socket
-	var userInfoSocket = io.connect('http://203.237.179.21:5003'); 	// Create user information mainSocket
 //	mainAudioControl();
 	mainDisplayResize();
 
