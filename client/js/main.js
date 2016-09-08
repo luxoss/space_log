@@ -12,7 +12,6 @@
 	All assets size = 100 * 100	
 */
 
-// 모든 코드 모듈에 접근하기 위한 전역 변수 선언.
 var serverUrl =  "http://203.237.179.21" 				
 var mainSocket = io.connect(serverUrl + ":5001"),			
     planetSocket = io.connect(serverUrl + ":5002"),			// 행성 정보를 주고 받기 위한 소캣 생성
@@ -37,7 +36,6 @@ missile.speed = 10;
 missile.posArray = function(curPosX, curPosY){}; 
 */
 fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
-
 
 // Ready document that is game loop 
 $(document).ready(function(){  	
