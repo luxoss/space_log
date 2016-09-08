@@ -17,7 +17,6 @@
 		
 <!--		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/sound.js"></script> -->
 		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/main.js"></script>
-		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/key_controller.js"></script>
 		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/planet_ui.js"></script>
 		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/battle_ship_ui.js"></script>
 		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/rank_ui.js"></script>
@@ -30,37 +29,37 @@
 	<body>
 		<!-- Main display -->
 		<div id = "main_layer">	
-			<div id = "view_layer">
-				<!-- Menu icon -->
-				<div class = "menu_buttons_ui">		  
-				  &nbsp;<input id ="logout_btn" type = "button"/>
-					<input id = "planet_btn" type = "button" />
-					<input id = "battle_ship_btn" type = "button" />
-					<input id = "rank_btn" type = "button" />
-				</div>
-		
-				<!-- User information UI -->
-				<div class = "user_info_ui">			
-					<div id = "user_avatar">
-						<div id = "user_name"></div>
-					</div>
-					<div id = "hp_progress_bar"></div>
-					<div id = "sp_progress_bar"></div>
-					<div id = "exp_stats"></div>	
-
-					<!-- User resrouce information UI -->
-					<div class = "resource_info_ui">
-						<div id = "mineral"></div>
-						<div id = "gas"></div>
-						<div id = "unknown"></div>
-					</div>		
-				</div>
-		
-				<!-- Draw minimap user interface -->
-				<div class = "minimap_ui">
-					<canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
-				</div>	
+		</div>
+		<div id = "view_layer">
+			<!-- Menu icon -->
+			<div class = "menu_buttons_ui">		  
+			  &nbsp;<input id ="logout_btn" type = "button"/>
+				<input id = "planet_btn" type = "button" />
+				<input id = "battle_ship_btn" type = "button" />
+				<input id = "rank_btn" type = "button" />
 			</div>
+		
+			<!-- User information UI -->
+			<div class = "user_info_ui">			
+				<div id = "user_avatar">
+					<div id = "user_name"></div>
+				</div>
+				<div id = "hp_progress_bar"></div>
+				<div id = "sp_progress_bar"></div>
+				<div id = "exp_stats"></div>	
+
+				<!-- User resrouce information UI -->
+				<div class = "resource_info_ui">
+					<div id = "mineral"></div>
+					<div id = "gas"></div>
+					<div id = "unknown"></div>
+				</div>		
+			</div>
+		
+			<!-- Draw minimap user interface -->
+			<div class = "minimap_ui">
+				<canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
+			</div>	
 		</div>
 
 		<!-- Planet UI -->

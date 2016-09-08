@@ -18,24 +18,26 @@ var mainSocket = io.connect(serverUrl + ":5001"),
     userInfoSocket = io.connect(serverUrl + ":5005"),			// 유저 정보를 주고 받기 위한 소캣 생성
     userPosSocket = io.connect(serverUrl + ":5006");
 var userId = localStorage.getItem("username");				
-var fps = 30;								// fps를 30으로 맞추기 위한 변수 선언 
+var fps = 30, speed = 15;						// fps를 30으로 맞추기 위한 변수 선언 
 var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 
+var mainLayer = "main_layer";
 var mainLayerOffset = $("#main_layer").offset();
 var viewLayerOffset = $("#view_layer").offset();
 var curPosX = Math.floor(Math.random() * mainWidth - 100),
     curPosY = Math.floor(Math.random() * mainHeight - 100);
-var lastPosX = 0, lastPosY = 0;				  // 로그아웃 시 마지막 위치를 받기 위한 변수  
-var speed = 10;					          // 10의 speed로 이동하기 위한 변수 선언  
-var missile = new Object();				  // 미사일 이미지를 담을 객체 선언
+var lastPosX = 0, lastPosY = 0;		// 로그아웃 시 마지막 위치를 받기 위한 변수  
+var missile = new Object();		// 미사일 이미지를 담을 객체 선언
+var isKeyDown = new Array();			// 키 상태를 polling 하기 위한 배열 선언 
 var fire = new Audio();
-var isKeyDown = [];					  // 키 상태를 polling 하기 위한 배열 선언(동시에 키가 눌러지지 않은 문제를 해결하기 위함) 
+var discovered = new Audio();
 /*
 missile.url = serverUrl + ":8000/res/img/misile1.png";
 missile.speed = 10;
 missile.posArray = function(curPosX, curPosY){}; 
 */
 fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
+discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 // Ready document that is game loop 
 $(document).ready(function(){  	
@@ -59,10 +61,10 @@ function gameLoop() {
 	curPosX = battleShipPos.x; 
 	curPosY = battleShipPos.y;
 
-	drawAllAssets(); 		
+	drawAllAssets(mainLayer); 		
 	drawShipInfo(curPosX, curPosY, imgUrl); 
 	viewPort();
-	keyHandler(userId);
+	keyHandler(mainLayer, userId);
 	buttonSet();
 	setInterval(function(){
 		userPosUpdate(userId, curPosX, curPosY, imgUrl);
@@ -106,14 +108,13 @@ function buttonSet() {
 
 	
 // 캔버스 및 서버로 부터 받은 행성 데이터를 division 테그로 겹쳐 그리기 위한 함수 
-function drawAllAssets() {
+function drawAllAssets(mainLayer) {
 
 	planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
 	planetSocket.on('planet_res', function(data) {
 
-		var mainLayer = $("#main_layer");
-		var viewLayer = $("#view_layer");
+		//var mainLayer = $("#main_layer");
 		var planetInfo = {
 			id : data._id,
 			x  : data.location_x,
@@ -149,7 +150,7 @@ function drawAllAssets() {
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
 function drawPlanetImg(mainLayer, divId, x, y, imgUrl) {
-	mainLayer.append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
+	$("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
 
 	$("#" + divId).css({
 		"backgroundImage" : imgUrl,
@@ -164,8 +165,7 @@ function drawShipInfo(curPosX, curPosY,imgUrl) {
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
 
-	$('#user_avartar')
-		.append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
+	$('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
 	
 	$("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
@@ -239,11 +239,11 @@ function userPosUpdate(userId, curPosX, curPosY, imgUrl) {
 
 }
 
-function keyHandler(divId) {
+function keyHandler(divId, divId1) {
 	
 	$(document).keydown(function(ev) {  
 		isKeyDown[ev.keyCode] = true;
-		shipMove(divId);
+		shipMove(divId, divId1);
 		menuButton(ev);
 	});
 
@@ -252,26 +252,30 @@ function keyHandler(divId) {
 	});
 }
 
-function shipMove(divId) {
+function shipMove(divId, divId1) {
 
 	if(isKeyDown[37]) { // Left
-		posX(divId, posX(divId) - speed);
-                $("#" + divId).css('transform', 'rotate(-90deg)');  				
+		posX(divId1, posX(divId1) - speed);
+		posX(divId, posX(divId) + speed);
+		$("#" + divId1).css('transform', 'rotate(-90deg)');  				
 	}
 	
 	if(isKeyDown[39]) { // Right
-		posX(divId, posX(divId) + speed);
-                $("#" + divId).css('transform', 'rotate(90deg)');   
+		posX(divId1, posX(divId1) + speed);
+		posX(divId, posX(divId) - speed);
+	        $("#" + divId1).css('transform', 'rotate(90deg)');   
 	}
 
 	if(isKeyDown[38]) { // Up
-	        posY(divId, posY(divId) - speed);
-		$("#" + divId).css('transform', 'rotate(0deg)');
+		posY(divId1, posY(divId1) - speed);
+	        posY(divId, posY(divId) + speed);
+		$("#" + divId1).css('transform', 'rotate(0deg)');
 	}
 
 	if(isKeyDown[40]) { // Down
-		posY(divId, posY(divId) + speed);
-		$("#" + divId).css('transform', 'rotate(180deg)');
+		posY(divId1, posY(divId1) + speed);
+		posY(divId, posY(divId) - speed);
+		$("#" + divId1).css('transform', 'rotate(180deg)');
         }
 
 	if(isKeyDown[83]) { // Shoot
@@ -282,7 +286,7 @@ function shipMove(divId) {
 		//curPosY = ;
 		//shoot(curPosX, curPosY);
 	}
-
+/*
 	// Move a diagonal line 
 	if(isKeyDown[38] && isKeyDown[37]) { 
 		$("#" + divId).css('transform', 'rotate(-45deg)');
@@ -299,6 +303,7 @@ function shipMove(divId) {
 	if(isKeyDown[40] && isKeyDown[39]) {
 		$("#" + divId).css('transform', 'rotate(135deg)');
 	}	
+*/
 }
 	
 function menuButton(ev) {
@@ -340,7 +345,9 @@ function menuButton(ev) {
 	switch(otherKeyState)
 	{
 		case KEY_SPACE:
+			discovered.play();
 			console.log('got a planet');
+			discovered.currentTime = 0;
 			break;
 
 		case KEY_BATTLE_SHIP:
