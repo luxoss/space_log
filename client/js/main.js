@@ -28,10 +28,15 @@ var curPosX = Math.floor(Math.random() * mainWidth - 100),
     curPosY = Math.floor(Math.random() * mainHeight - 100);
 var lastPosX = 0, lastPosY = 0;		// 로그아웃 시 마지막 위치를 받기 위한 변수  
 var missile = new Object();		// 미사일 이미지를 담을 객체 선언
-var isKeyDown = new Array();			// 키 상태를 polling 하기 위한 배열 선언 
+var isKeyDown = new Array();		// 키 상태를 polling 하기 위한 배열 선언 
 var fire = new Audio();
 var discovered = new Audio();
 /*
+var open = new Audio();
+var close = new Audio();
+var insert = new Audio();
+var ignite = new Audio(); 
+
 missile.url = serverUrl + ":8000/res/img/misile1.png";
 missile.speed = 10;
 missile.posArray = function(curPosX, curPosY){}; 
