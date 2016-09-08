@@ -20,20 +20,8 @@ UsersPio.on('connection', function(socket){
 		console.log("location_y : " + y);
 		console.log("================================================");
 		var allUPosObj = {"username" : username, "location_x" : x, "location_y" : y};
-		/*
-		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-			var member = db.collection("MEMBER");
-			console.log("Find users who login now in Member collections");
-			member.find({"accessing" : "true"}, function(err, access){
-				if(err){
-				
-				} else {
-					
-				}
-			};
-		});
-		*/
-	socket.broadcast.emit('cpos_res', allUPosObj);
+
+	socket.broadcast.to('playing').emit('cpos_res', allUPosObj);
 	});
 
 });
