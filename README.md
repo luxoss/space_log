@@ -15,12 +15,18 @@ WEB GAME > THE SPACE LOG
 **REFERENCE:**
 
 * **Image source** 
+	+ http://www.opengameart.org/ (background-star-image)
+	+ Make by myself
+
+* **Sound source**
 	+ http://www.opengameart.org/
+	+ http://www.freesound.org/
 
 * **Library source** 
 	+ https://www.nodejs.org/  
 	+ https://www.jquery.com/  
 	+ https://www.mongodb.com/
 	+ http://www.socket.io/
+
 			
 
