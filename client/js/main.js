@@ -219,8 +219,12 @@ function viewPort() {
 
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
 function userPosUpdate(userId, curPosX, curPosY, imgUrl) {
-	
-	userPosSocket.emit('cpos_req', {'username' : userId, 'location_x' : curPosX,'location_y' : curPosY});
+
+	userPosSocket.emit('cpos_req', { 
+		'username' : userId, 
+		'location_x' : curPosX,
+		'location_y' : curPosY
+	});
 
 	userPosSocket.on('cpos_res', function(data) {
 		var userPosInfo = {
@@ -491,7 +495,3 @@ function isNumber(str) {
   	if (str == '' || isNaN(str)) {return false };
 
   	return true;
-}
-*/
-
-
