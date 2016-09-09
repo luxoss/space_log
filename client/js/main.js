@@ -12,18 +12,16 @@
 	All assets size = 100 * 100	
 */
 
-var serverUrl =  "http://203.237.179.21" 				
-var mainSocket = io.connect(serverUrl + ":5001"),			
-    planetSocket = io.connect(serverUrl + ":5002"),			// 행성 정보를 주고 받기 위한 소캣 생성
+var serverUrl =  "http://203.237.179.21" 					
+var indexPageUrl = serverUrl + ":8000";
+var mainSocket     = io.connect(serverUrl + ":5001"),			
+    planetSocket   = io.connect(serverUrl + ":5002"),			// 행성 정보를 주고 받기 위한 소캣 생성
     userInfoSocket = io.connect(serverUrl + ":5005"),			// 유저 정보를 주고 받기 위한 소캣 생성
-    userPosSocket = io.connect(serverUrl + ":5006");
-var userId = localStorage.getItem("username");				
-var fps = 30, speed = 15;						// fps를 30으로 맞추기 위한 변수 선언 
-var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
+    userPosSocket  = io.connect(serverUrl + ":5006");
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 
 var mainLayer = "main_layer";
-var mainLayerOffset = $("#main_layer").offset();
-var viewLayerOffset = $("#view_layer").offset();
+var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
+var fps = 30, speed = 15;			
 var curPosX = Math.floor(Math.random() * mainWidth - 100),
     curPosY = Math.floor(Math.random() * mainHeight - 100);
 var lastPosX = 0, lastPosY = 0;		// 로그아웃 시 마지막 위치를 받기 위한 변수  
@@ -50,7 +48,7 @@ $(document).ready(function(){
 });
 
 function gameLoop() {
-	var indexPageUrl = serverUrl + ":8000";
+	var userId = localStorage.getItem("username");				
 	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship.png')";
 
 	var battleShipPos = { 	
