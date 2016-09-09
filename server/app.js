@@ -22,7 +22,7 @@ var changeUserInform = require('./routes/changeUserInform');
 //new : changing the users' planet informnation
 var changeUserPlanet = require('./routes/changeUserPlanet');
 //new : Sending all Users' position
-var allUserPos = require('./routes/allUsersPos');
+var broadcastPos = require('./routes/broadcastPos');
 
 
 var app = express();
