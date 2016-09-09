@@ -21,7 +21,8 @@ var mainSocket     = io.connect(serverUrl + ":5001"),
 var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
-var fps = 30, speed = 15;			
+var userId = localStorage.getItem("username");				
+var fps = 30, speed = 7;			
 var curPosX = Math.floor(Math.random() * mainWidth - 100),
     curPosY = Math.floor(Math.random() * mainHeight - 100);
 var lastPosX = 0, lastPosY = 0;		// 로그아웃 시 마지막 위치를 받기 위한 변수  
@@ -48,10 +49,9 @@ $(document).ready(function(){
 });
 
 function gameLoop() {
-	var userId = localStorage.getItem("username");				
 	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship.png')";
 
-	var battleShipPos = { 	
+	var battleShipPos = { 
 		x : curPosX,
 		y : curPosY,
 		level 	: localStorage.getItem('level'),
@@ -443,8 +443,9 @@ function logout(userId, lastPosX, lastPosY) {
         }
 
 }
-
 /*
+//TODO: LATER
+
 var shoot = function() {
 	var dx = 0.0;
 	var dy = 0.0;
@@ -474,13 +475,7 @@ var shoot = function() {
 	
 	isFire = true;
 };
-		$("html, body").animate({
-			scrollLeft: $("#" + divId).offset().left - speed,
-			scrollTop: $("#" + divId).offset().top
-		});
-*/
-//TODO: LATER
-/*
+
 // 마우스 위치 확인하기 위한 코드 
 $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
@@ -495,3 +490,4 @@ function isNumber(str) {
   	if (str == '' || isNaN(str)) {return false };
 
   	return true;
+*/

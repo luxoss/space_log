@@ -5,9 +5,9 @@
 */
 
 body {
+	background-color: rgb(0, 0, 0);
 	width: 15000px;
 	height: 15000px;
-	background-color: rgb(0, 0, 0);
 	overflow: hidden; 
 	margin: 0 auto;
 }
@@ -16,15 +16,15 @@ body {
 	background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
   	width:  5000px;
   	height: 5000px; 
-	position: absolute;
 	border: 1px solid white;
+	position: absolute;
 	z-index: 1;
 }
 
 #view_layer {
 	box-shadow: rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
-	position: fixed;
 	border: 1px solid yellow;
+	position: fixed;
 	z-index: 3;
 }
 
@@ -38,13 +38,13 @@ body {
 
 .user_info_ui {
   	background-color: rgba(102, 153, 255, 0.7);
-  	border: 1px solid rgb(0, 0, 0);
   	width: 400px;
   	height: 102px;
-  	position: absolute;
-  	top: 20px;
-  	left: 30px;
+  	border: 1px solid rgb(0, 0, 0);
 	border-radius: 10px;
+  	top: 20px;
+  	left: 30px;	
+  	position: absolute;
 	z-index: 3;
 }
 
@@ -62,11 +62,11 @@ body {
 	background-color: rgba(255, 128, 255, 0.7);
 	width: 100px;
 	height: 20px;
-	position: absolute;	
-	bottom: 0px;
 	font-weight: bold;
 	text-align: center;
 	border-radius: 0px 0px 0px 10px;
+	bottom: 0px;
+	position: absolute;	
 }
 
 #hp_progress_bar {
@@ -99,23 +99,23 @@ body {
 
 .minimap_ui {
   	background-color: rgba(102, 153, 255, 0.7);
+  	width: 250px;
+  	height: 250px; 
   	border: 1px solid;
   	border-color: rgba(102, 153, 255, 1);
-  	width: 250px;
-  	height: 250px;
-  	position: absolute;
-  	bottom: 20px;
-  	right: 30px;
 	border-radius: 50em;
+ 	right: 30px;
+  	bottom: 20px;
+  	position: absolute;
 	z-index:3;
 }
 
 .menu_buttons_ui {
-	position: absolute;
   	width: 230px;
   	height: 50px;
   	bottom: 20px;
   	left: 30px;
+	position: absolute;
 	z-index: 3;
 }
 
@@ -209,11 +209,10 @@ body {
 	background-color: rgba(255, 255, 255, 0.5);
 	width: 900px;
 	height: 700px;
-	position: fixed;
-/*	margin: 0 auto;*/
 	display: none;
 	overflow-y: scroll;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position: fixed;
 	z-index: 100;
 }
 
@@ -221,36 +220,36 @@ body {
 	background-color: rgb(0, 255, 0);
 	width: 300px;
 	height: 100px;
-	position: absolute;
-	left: 0px;
 	border: 1px solid white;
+	left: 0px;
+	position: absolute;
 }
 
 #planet_resource {
 	background-color: rgb(0, 0, 255);
 	width: 300px;
 	height: 100px;
-	position: absolute;
-	left: 300px;
 	border: 1px solid white;
+	left: 300px;
+	position: absolute;
 }
 
 #planet_discovered {
 	background-color: rgb(255, 0, 0);
 	width: 150px;
 	height: 100px;
-	position: absolute;
-	right: 150px;
 	border: 1px solid white;
+	right: 150px;
+	position: absolute;
 }
 
 #planet_grade {
 	background-color: rgb(255, 255, 0);
 	width: 150px;
 	height: 100px;
-	position: absolute;
-	right: 0px;
 	border: 1px solid white;
+	right: 0px;
+	position: absolute;
 }
 
 .battle_ship_ui {
@@ -258,9 +257,9 @@ body {
 	width: 1500px;
 	height: 500px;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	z-index: 100;
 	display: none;
 	position: fixed;
+	z-index: 100;
 }
 
 #battle_ship_info_display {
@@ -278,46 +277,81 @@ body {
 }
 
 #battle_ship_state_img {
+	background-color: rgb(0, 255, 0);
 	width: 600px;
 	height: 300px;
-	background-color: rgb(0, 255, 0);
 	top: 100px;
 	left: 150px;
 	position: absolute;
 }
 
 #cube01_slot {
+	background-color: rgb(0, 0, 255);
 	width: 150px;
 	height: 150px;
-	background-color: rgb(0, 0, 255);
 	top: 0px;
 	left: 0px;
 	position: absolute;
 }
 
 #cube02_slot {
+	background-color: rgb(0, 0, 255);
 	width: 150px;
 	height: 150px;
-	background-color: rgb(0, 0, 255);
-	top: 0px;
 	right: 600px;
+	top: 0px;
 	position: absolute;
 }
 
 #cube03_slot {
+	background-color: rgb(0, 0, 255);
 	width: 150px;
 	height: 150px;
-	background-color: rgb(0, 0, 255);
 	bottom: 0px;
 	position: absolute;
 }
 
 #cube04_slot {
+	background-color: rgb(0, 0, 255);
 	width: 150px;
 	height: 150px;
-	background-color: rgb(0, 0, 255);
 	right: 600px;
 	bottom: 0px;
+	position: absolute;
+}
+
+.rank_ui { 
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 500px;
+	height: 600px;
+	display: none;
+	overflow-y: scroll;
+	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position: fixed;
+	z-index: 100;
+}
+
+#user_ranking {
+	background-color: rgb(255, 0, 0);
+	width: 100px;
+	height: 100px;
+	left: 0px;
+	position: absolute;
+}
+
+#user_id {
+	background-color: rgb(0, 255, 0);
+	width: 200px;
+	height: 100px;
+	left: 100px;
+	position: absolute;
+}
+
+#user_planet_number {
+	background-color: rgb(0, 0, 255);
+	width: 200px;
+	height: 100px;
+	right: 0px;
 	position: absolute;
 }
 
@@ -347,39 +381,4 @@ body {
 	background-color: rgb(0, 0, 255);
 }
 */
-.rank_ui { 
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 500px;
-	height: 600px;
-	position: fixed;
-/*	margin: 0 auto;*/
-	display: none;
-	overflow-y: scroll;
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	z-index: 100;
-}
-
-#user_ranking {
-	background-color: rgb(255, 0, 0);
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	left: 0px;
-}
-
-#user_id {
-	background-color: rgb(0, 255, 0);
-	width: 200px;
-	height: 100px;
-	position: absolute;
-	left: 100px;
-}
-
-#user_planet_number {
-	background-color: rgb(0, 0, 255);
-	width: 200px;
-	height: 100px;
-	position: absolute;
-	right: 0px;
-}
 
