@@ -23,7 +23,8 @@ body {
 
 #view_layer {
 	box-shadow: rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
-	border: 1px solid yellow;
+	border: 2px solid yellow;
+	border-radius: 5px;
 	position: fixed;
 	z-index: 3;
 }
