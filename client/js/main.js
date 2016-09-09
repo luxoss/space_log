@@ -34,6 +34,7 @@ var discovered = new Audio();
 var open = new Audio();
 var close = new Audio();
 var insert = new Audio();
+var remove = new Audio();
 var ignite = new Audio(); 
 
 missile.url = serverUrl + ":8000/res/img/misile1.png";
