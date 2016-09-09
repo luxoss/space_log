@@ -37,13 +37,12 @@ body {
 }
 
 .user_info_ui {
-  	background-color: rgba(102, 153, 255, 0.7);
+	background: transparent;
   	width: 400px;
-  	height: 102px;
-  	border: 1px solid rgb(0, 0, 0);
+  	height: 100px;
 	border-radius: 10px;
-  	top: 20px;
-  	left: 30px;	
+  	top: 0px;
+  	left: 0px;	
   	position: absolute;
 	z-index: 3;
 }
@@ -53,9 +52,11 @@ body {
 	background-color: rgba(255, 128, 255, 0.7);
 	width: 100px;
 	height: 100px;
-	float: left;
 	border: 1px solid yellow;
 	border-radius: 10px 0px 0px 10px;
+	top: 0px;
+	left: 0px;
+	position: absolute;
 }
 
 #user_name {
@@ -71,29 +72,32 @@ body {
 
 #hp_progress_bar {
 	background-color: rgba(204, 51, 51, 1);
-	width: 295px;
+	width: 300px;
 	height: 35px;
-	float:left;
 	border: 1px solid rgb(255, 128, 0);
-	border-radius: 0px 10px 10px 0px;
+	top: 0px; 
+	left: 102px;
+	position: absolute;
 }
 
 #sp_progress_bar {
 	background-color: rgba(0, 0, 255, 0.7);
-	width: 295px;
+	width: 300px;
 	height: 35px;
-	float: left;
 	border: 1px solid rgb(0, 128, 255);;
-	border-radius: 0px 10px 10px 0px;
+	top: 38px;
+	left: 102px;
+	position: absolute;
 }
 
 #exp_stats {
 	background-color: rgba(255, 255, 255, 0.7);
-	width: 295px;
+	width: 300px;
 	height: 25px;
-	float: left;
 	border: 1px solid white;
-	border-radius: 0px 10px 10px 0px;
+	top: 75px;
+	left: 102px;	
+	position: absolute;
 }
 
 
@@ -103,18 +107,19 @@ body {
   	height: 250px; 
   	border: 1px solid;
   	border-color: rgba(102, 153, 255, 1);
-	border-radius: 50em;
- 	right: 30px;
-  	bottom: 20px;
+	border-radius: 10px;
+ 	right: 5px;
+  	bottom: 5px;
   	position: absolute;
-	z-index:3;
+	z-index: 3;
 }
 
 .menu_buttons_ui {
   	width: 230px;
   	height: 50px;
   	bottom: 20px;
-  	left: 30px;
+  	left: 0px;
+	bottom: 0px;
 	position: absolute;
 	z-index: 3;
 }
@@ -124,7 +129,7 @@ body {
   	width: 50px;
   	height: 50px;
 	border: 1px solid yellow;
-  	border-radius: 50em;
+  	border-radius: 5px;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
@@ -145,7 +150,7 @@ body {
   	width: 50px;
   	height: 50px;
 	border: 1px solid yellow;
-	border-radius: 50em;
+	border-radius: 5px;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
@@ -167,7 +172,7 @@ body {
   	width: 50px;
   	height: 50px;
 	border: 1px solid yellow;
-	border-radius: 50em;
+	border-radius: 5px;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
@@ -188,7 +193,7 @@ body {
   	width: 50px;
 	height: 50px;
 	border: 1px solid yellow;
-	border-radius: 50em;
+	border-radius: 5px;
 	-webkit-transition: all 0.3s ease-in-out;
  	-moz-transition: all 0.3s ease-in-out; 
   	-o-transition: all 0.3s ease-in-out; 
