@@ -285,7 +285,9 @@ function shipMove(divId, divId1) {
 		posY(divId, posY(divId) - speed);
 		$("#" + divId1).css('transform', 'rotate(180deg)');
         }
-
+ttr("width", GAME_SETTINGS.WIDTH);
+        $(canvas).attr("height", GAME_SETTINGS.HEIGHT);
+        document.body.appendChild(canvas);
 	if(isKeyDown[83]) { // Shoot
 		fire.play();
 		console.log('fire!');
@@ -476,6 +478,15 @@ var shoot = function() {
 	
 	isFire = true;
 };
+
+// 키 입력 상태를 서버에 전송하기 위한 코드
+$('body').on('keydown', function(ev){
+	userPosSocket.emit('keydown', ev.keycode);
+});
+
+$('body').on('keyup', function(ev){
+	userPosSocket.emit('keyup', ev.keycode);
+});
 
 // 마우스 위치 확인하기 위한 코드 
 $(document).mousemove(function(e){
