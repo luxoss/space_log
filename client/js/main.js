@@ -12,6 +12,8 @@
 	All assets size = 100 * 100	
 */
 
+//using strict; 
+
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
 var mainSocket     = io.connect(serverUrl + ":5001"),			
@@ -22,7 +24,7 @@ var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현�
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
 var userId = localStorage.getItem("username");				
-var fps = 30, speed = 7;			
+var fps = 30, speed = 10;			
 var curPosX = Math.floor(Math.random() * mainWidth - 100),
     curPosY = Math.floor(Math.random() * mainHeight - 100);
 var lastPosX = 0, lastPosY = 0;		// 로그아웃 시 마지막 위치를 받기 위한 변수  
@@ -285,35 +287,23 @@ function shipMove(divId, divId1) {
 		posY(divId, posY(divId) - speed);
 		$("#" + divId1).css('transform', 'rotate(180deg)');
         }
-ttr("width", GAME_SETTINGS.WIDTH);
-        $(canvas).attr("height", GAME_SETTINGS.HEIGHT);
-        document.body.appendChild(canvas);
-	if(isKeyDown[83]) { // Shoot
-		fire.play();
-		console.log('fire!');
-		fire.currentTime = 0;
-		//curPosX = ;
-		//curPosY = ;
-		//shoot(curPosX, curPosY);
-	}
-/*
+
 	// Move a diagonal line 
 	if(isKeyDown[38] && isKeyDown[37]) { 
-		$("#" + divId).css('transform', 'rotate(-45deg)');
+		$("#" + divId1).css('transform', 'rotate(-45deg)');
 	}
 
 	if(isKeyDown[38] && isKeyDown[39]) {
-		$("#" + divId).css('transform', 'rotate(45deg)');
+		$("#" + divId1).css('transform', 'rotate(45deg)');
 	}
 
 	if(isKeyDown[40] && isKeyDown[37]) {
-		$("#" + divId).css('transform', 'rotate(-135deg)');
+		$("#" + divId1).css('transform', 'rotate(-135deg)');
 	}
 
 	if(isKeyDown[40] && isKeyDown[39]) {
-		$("#" + divId).css('transform', 'rotate(135deg)');
+		$("#" + divId1).css('transform', 'rotate(135deg)');
 	}	
-*/
 }
 	
 function menuButton(ev) {
@@ -323,7 +313,8 @@ function menuButton(ev) {
         var KEY_RANK            = 3;
         var KEY_PLANET          = 4;
         var KEY_LOGOUT          = 5;
-	var KEY_NONE 		= null;
+	var KEY_SHOOT		= 6;
+	var KEY_NONE 		= undefined;
 
 	var getKey = function(i) {
 
@@ -344,6 +335,9 @@ function menuButton(ev) {
 			case 82:
 				return KEY_RANK;
 				break;
+			case 83:  
+				return KEY_SHOOT;
+				break; 
 			default:
 				return KEY_NONE;
 				break;
@@ -354,6 +348,15 @@ function menuButton(ev) {
 
 	switch(otherKeyState)
 	{
+		case KEY_SHOOT:
+			fire.play();
+			console.log('fire!');
+			fire.currentTime = 0;
+			//curPosX = ;
+			//curPosY = ;
+			//shoot(curPosX, curPosY);
+			break;
+
 		case KEY_SPACE:
 			discovered.play();
 			console.log('got a planet');
