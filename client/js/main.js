@@ -42,7 +42,7 @@ fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 // Ready document that is game loop 
-$(document).ready(function(){  	
+$(document).ready(function() {  	
 	gameLoop();
 });
 
@@ -79,18 +79,13 @@ function buttonSet() {
 	
 	$('#logout_btn').on('click', function(){
 	
-		if(userId != null)
-		{
+		if(userId != null) {
 			logout(userId, lastPosX, lastPosY);
 		}
-		else
-		{
+		else {
 			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-
 			mainSocket.disconnect();
-
 			$(location).attr('href', indexPageUrl);	
-		
 		}
 	});	
 
@@ -384,24 +379,19 @@ function menuButton(ev) {
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
 function posX(divId, position) {
 
-	if(position)
-	{
+	if(position) {
 		return parseInt($("#" + divId).css("left", position));
-	}
-	else	
-	{
+	}else {
 		return parseInt($("#" + divId).css("left"));
 	}
 };
 
 function posY(divId, position) { 
 
-	if(position)
-	{
+	if(position) {
 		return parseInt($("#" + divId).css("top", position));
 	}
-	else
-	{
+	else {
 		return parseInt($("#" + divId).css("top"));
 	}
 };
@@ -411,36 +401,27 @@ function logout(userId, lastPosX, lastPosY) {
         var logoutMsg = confirm('로그아웃 하시겠습니까?');
         var indexPageUrl = serverUrl + ":8000";
 
-        if(logoutMsg == true)
-        {
+        if(logoutMsg == true) {
                 mainSocket.emit('logout_msg', {username: userId}); 
 
                 mainSocket.on('logout_res', function(data){
 
-                        if(data.response == 'true')
-                        {
+                        if(data.response == 'true') {
+
                                 userInfoSocket.emit('lpos_req', {'username': userId, 'lastPosX': lastPosX, 'lastPosY': lastPosY}); 
                                	alert(userId + '님께서 로그아웃 되셨습니다.');
 
                                 localStorage.removeItem('username');
-
 				mainSocket.disconnect();
-
                                 $(location).attr('href', indexPageUrl);
-                        }
-                        else if(data.response == 'false')
-                        {
+
+                        }else if(data.response == 'false') {
                                         alert('Logout error.');
                         }
 
                 });
-        }
-        else 
-        {
-                if(userId == null)
-                {
-                        return false;
-                }
+        }else {
+                if(userId == null){ return false; }
         }
 
 }
