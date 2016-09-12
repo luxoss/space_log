@@ -16,7 +16,7 @@ WEB GAME > THE SPACE LOG
 
 * **Image source** 
 	+ http://www.opengameart.org/ (background-star-image)
-	+ Make by myself
+	+ http://game-icons.net/ (Icons)
 
 * **Sound source**
 	+ http://www.opengameart.org/
