@@ -2,17 +2,13 @@
 	**File name: main.js
 	**Writer: luxoss
 	**File-explanation: Control main html page with javascript	
-
 	**Variable naming: camelCase 
 	**Function naming: camelCase
 	**jquery selector naming: under_bar
-
 	Main layer size = 5000(width) * 5000(hegiht)
 	User layer size = window.width(), window.height()
 	All assets size = 100 * 100	
 */
-
-//using strict; 
 
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
@@ -38,7 +34,6 @@ var close = new Audio();
 var insert = new Audio();
 var remove = new Audio();
 var ignite = new Audio(); 
-
 missile.url = serverUrl + ":8000/res/img/misile1.png";
 missile.speed = 10;
 missile.posArray = function(curPosX, curPosY){}; 
@@ -52,7 +47,7 @@ $(document).ready(function(){
 });
 
 function gameLoop() {
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship.png')";
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
 
 	var battleShipPos = { 
 		x : curPosX,
@@ -127,8 +122,8 @@ function drawAllAssets(mainLayer) {
 			y  : data.location_y,
 			grade : data.create_spd,
 			image : { 
-				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_1.svg')",
-				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_2.svg')",
+				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_grade1.svg')",
+				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_grade2.svg')",
 				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
 				4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
 				5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
@@ -155,11 +150,11 @@ function drawAllAssets(mainLayer) {
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(mainLayer, divId, x, y, imgUrl) {
+function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) {
 	$("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
 
 	$("#" + divId).css({
-		"backgroundImage" : imgUrl,
+		"backgroundImage" : planetImgUrl,
 		"width"		: "100px",
 		"height" 	: "100px"
 	});
@@ -177,8 +172,8 @@ function drawShipInfo(curPosX, curPosY,imgUrl) {
 	$("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
 	$("#" + userId).css({
 		"backgroundImage" : imgUrl,
-		"width"  : "100px",
-		"height" : "100px",
+		"width"  : "64px",
+		"height" : "64px",
 		"zIndex" : "2",
 		left: curPosX, 
 		top: curPosY
@@ -238,12 +233,12 @@ function userPosUpdate(userId, curPosX, curPosY, imgUrl) {
 		
 		$("#main_layer").append("<div id='" + userPosInfo.name + "' style='position:absolute;'></div>");
 		$("#" + userPosInfo.name).css({
-				"backgroundImage" : imgUrl,
-				"width"  : "100px",
-				"height" : "100px",
-				"zIndex" : "2",
-				left: userPosInfo.curPosX, 
-				top: userPosInfo.curPosY
+			"backgroundImage" : imgUrl,
+			"width"  : "100px",
+			"height" : "100px",
+			"zIndex" : "2",
+			left: userPosInfo.curPosX, 
+			top: userPosInfo.curPosY
 		});			
 	});
 
@@ -451,7 +446,6 @@ function logout(userId, lastPosX, lastPosY) {
 }
 /*
 //TODO: LATER
-
 var shoot = function() {
 	var dx = 0.0;
 	var dy = 0.0;
@@ -481,28 +475,21 @@ var shoot = function() {
 	
 	isFire = true;
 };
-
 // 키 입력 상태를 서버에 전송하기 위한 코드
 $('body').on('keydown', function(ev){
 	userPosSocket.emit('keydown', ev.keycode);
 });
-
 $('body').on('keyup', function(ev){
 	userPosSocket.emit('keyup', ev.keycode);
 });
-
 // 마우스 위치 확인하기 위한 코드 
 $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
 });
-
 // 숫자 타입인지 아닌지 체크하기 위한 함수 
 function isNumber(str) {
-
   	str += ''; 			     // 문자열 타입으로 변환 
   	str = str.replace(/^\s*|\s*$/g, ''); // 좌우 공백 제거 
-
   	if (str == '' || isNaN(str)) {return false };
-
   	return true;
 */
