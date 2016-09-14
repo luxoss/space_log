@@ -198,8 +198,8 @@ function viewPort() {
 	
 	$(window).resize(function(){
 		$("#view_layer").css({
-			width: ($(window).width() - 100),
-			height: ($(window).height() - 100)
+			width: 1368,//($(window).width() - 100),
+			height: 768//($(window).height() - 100)
 		});
 
                 $('#view_layer').css({
