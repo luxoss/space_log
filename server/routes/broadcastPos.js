@@ -33,16 +33,20 @@ UsersPio.on('connection', function(socket){
 	*/
 	socket.on('press_key', function(data){
 		var mv_obj;
-		
+		var x=data.location_x, y=data.location_y;
 		var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 		switch(data.key_val){
 		case LEFT:
+			x -= 10;
 			break;
 		case UP: 
+			y -= 10;
 			break;
 		case RIGHT:
+			x += 10;
 			break;
 		case DOWN:
+			y += 10;
 			break;
 		default:
 			break;
