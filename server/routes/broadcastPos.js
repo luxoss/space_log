@@ -51,7 +51,7 @@ UsersPio.on('connection', function(socket){
 		default:
 			break;
 		}
-		
+		mv_obj = {location_x:x, location_y:y};		
 		io.sockets.in('playing').emit('mv',mv_obj);
 
 	});
