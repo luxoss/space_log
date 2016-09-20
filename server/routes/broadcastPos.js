@@ -32,8 +32,9 @@ UsersPio.on('connection', function(socket){
 
 	*/
 	socket.on('press_key', function(data){
+		console.log("Client press arrow key");
 		var mv_obj;
-		var x=data.location_x, y=data.location_y;
+		var username=data.username, x=data.location_x, y=data.location_y;
 		var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 		switch(data.key_val){
 		case LEFT:
@@ -51,7 +52,7 @@ UsersPio.on('connection', function(socket){
 		default:
 			break;
 		}
-		mv_obj = {location_x:x, location_y:y};		
+		mv_obj = {"username":username, "location_x":x, "location_y":y};		
 		io.sockets.in('playing').emit('mv',mv_obj);
 
 	});
