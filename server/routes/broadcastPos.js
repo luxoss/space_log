@@ -35,12 +35,13 @@ UsersPio.on('connection', function(socket){
 		console.log("Client press arrow key");
 		var mv_obj;
 		var username=data.username, x=data.location_x, y=data.location_y;
+		console.log("username : " + username + "x : " + x + "  Y : " + y);
 		var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 		switch(data.key_val){
 		case LEFT:
 			x -= 10;
 			break;
-		case UP: 
+		case UP:	
 			y -= 10;
 			break;
 		case RIGHT:
@@ -53,7 +54,8 @@ UsersPio.on('connection', function(socket){
 			break;
 		}
 		mv_obj = {"username":username, "location_x":x, "location_y":y};		
-		io.sockets.in('playing').emit('mv',mv_obj);
+		console.log('mv_obj : ' + mv_obj.username + " " + mv_obj.location_x + " " + mv_obj.location_y +".");
+		UsersPio.sockets.in('playing').emit('mv',mv_obj);
 
 	});
 
