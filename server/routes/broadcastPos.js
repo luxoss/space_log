@@ -35,7 +35,7 @@ UsersPio.on('connection', function(socket){
 		console.log("Client press arrow key");
 		var mv_obj;
 		var username=data.username, x=data.location_x, y=data.location_y;
-		console.log("username : " + username + "x : " + x + "  Y : " + y);
+		console.log("username : " + username + "  x : " + x + "  Y : " + y);
 		var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 		switch(data.key_val){
 		case LEFT:

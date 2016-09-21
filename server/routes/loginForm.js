@@ -145,9 +145,10 @@ io.on('connection', function (socket) {
 							}
 							else{
 								socket.emit('join_res', {response : 'true'});
-
+								var sampleX = Math.floor(Math.random()*5000-1);
+								var sampleY = Math.floor(Math.random()*5000-1);
 								
-								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : 150, "location_y" : 150});
+								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : sampleX, "location_y" : sampleY});
 							}
 						});
 						
