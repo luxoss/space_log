@@ -13,19 +13,20 @@
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
 var mainSocket     = io.connect(serverUrl + ":5001"),			
-    planetSocket   = io.connect(serverUrl + ":5002"),			// 행성 정보를 주고 받기 위한 소캣 생성
-    userInfoSocket = io.connect(serverUrl + ":5005"),			// 유저 정보를 주고 받기 위한 소캣 생성
-    userPosSocket  = io.connect(serverUrl + ":5006");
-var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // 현재 창의 가로, 세로의 크기 
+    planetSocket   = io.connect(serverUrl + ":5002"),			// Create socket :: Planet information
+    userInfoSocket = io.connect(serverUrl + ":5005"),			// Create socket :: User inforamtion
+    userPosSocket  = io.connect(serverUrl + ":5006");			// Create socket :: Battle ship position information 
+var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // Current window width and height size  
 var mainLayer = "main_layer";
-var mainWidth = 5000, mainHeight = 5000;				// 메인 화면의 가로, 세로 크기
+var mainWidth = 5000, mainHeight = 5000;				// Main display width and height size 
 var userId = localStorage.getItem("username");				
 var fps = 30, speed = 10;			
-var curPosX = Math.floor(Math.random() * mainWidth - 100),
-    curPosY = Math.floor(Math.random() * mainHeight - 100);
-var lastPosX = 0, lastPosY = 0;		// 로그아웃 시 마지막 위치를 받기 위한 변수  
-var missile = new Object();		// 미사일 이미지를 담을 객체 선언
-var isKeyDown = new Array();		// 키 상태를 polling 하기 위한 배열 선언 
+var initPosX = parseInt(mainWidth / 2);  //Math.floor(Math.random() * mainWidth - 100),
+    initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
+var curPosX = 0, curPosY = 0;
+var lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
+var missile = new Object();		// Create missile image object 
+var isKeyDown = new Array();		// Create key state array to keyboard polling  
 var fire = new Audio();
 var discovered = new Audio();
 /*
@@ -36,7 +37,7 @@ var remove = new Audio();
 var ignite = new Audio(); 
 missile.url = serverUrl + ":8000/res/img/misile1.png";
 missile.speed = 10;
-missile.posArray = function(curPosX, curPosY){}; 
+missile.posArray = function(initPosX, initPosY){}; 
 */
 fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
@@ -47,61 +48,158 @@ $(document).ready(function() {
 });
 
 function gameLoop() {
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
+	curPosX = initPosX;
+	curPosY = initPosY;
+	//After init, update and display
 
-	var battleShipPos = { 
-		x : curPosX,
-		y : curPosY,
-		level 	: localStorage.getItem('level'),
-		exp 	: localStorage.getItem('exp'),
-		mineral : localStorage.getItem('mineral'),
-		gas 	: localStorage.getItem('gas'),
-		unknown : localStorage.getItem('unknown')
-	};
-
-	curPosX = battleShipPos.x; 
-	curPosY = battleShipPos.y;
-
+//	initialize();
+//	update();
+//	display();
 	drawAllAssets(mainLayer); 		
-	drawShipInfo(curPosX, curPosY, imgUrl); 
+	drawShipInfo(initPosX, initPosY); 
 	viewPort();
-	keyHandler(mainLayer, userId);
+	keyHandler(mainLayer, userId, curPosX, curPosY);
 	buttonSet();
-	setInterval(function(){
-		userPosUpdate(userId, curPosX, curPosY, imgUrl);
-		curPosX = parseInt($("#" + userId).offset().left);
-		curPosY = parseInt($("#" + userId).offset().top);
-	}, 1000/fps);
+	userPosUpdate();
  
 }
+// 유저 함선들의 현 위치를 주고 받기 위한 함수
+function userPosUpdate() {
 
-function buttonSet() {
-	
-	$('#logout_btn').on('click', function(){
-	
-		if(userId != null) {
-			logout(userId, lastPosX, lastPosY);
-		}
-		else {
-			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-			mainSocket.disconnect();
-			$(location).attr('href', indexPageUrl);	
-		}
-	});	
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
 
-	$('#planet_btn').on('click', function(){
-		planetViewLayer();
-	});
+	userPosSocket.on('mv', function(mv_obj) {
+		console.log(mv_obj.username);
+		curPosX = mv_obj.location_x;
+		curPosY = mv_obj.location_y;
 
-	$('#battle_ship_btn').on('click', function(){
-		battleShipViewLayer();
-	});
-
-	$('#rank_btn').on('click', function(){
-		rankViewLayer();
+		$("#main_layer").append("<div id='" + mv_obj.username + "' style='position:absolute;'></div>");
+		$("#" + mv_obj.username).css({
+			"backgroundImage" : imgUrl,
+			"width"  : "64px",
+			"height" : "64px",
+			"zIndex" : "2",
+			left: curPosX, 
+			top: curPosY
+		});			
 	});
 }
 
+function keyHandler(mainLayer, userId, curPosX, curPosY) {
+	
+	$(document).keydown(function(ev) {  
+		userPosSocket.emit('press_key', {
+			'username': userId, 
+			'key_val' : ev.keyCode, 
+			'location_x' : curPosX,
+			'location_y' : curPosY
+		});
+		isKeyDown[ev.keyCode] = true;
+		shipMove(mainLayer, userId, curPosX, curPosY);
+	});
+
+	$(document).keyup(function(ev) {
+		isKeyDown[ev.keyCode] = false;
+	});
+}
+
+function shipMove(divId, divId1, curPosX, curPosY) {
+	lastPosX = curPosX;
+	lastPosY = curPosY;
+
+	if(isKeyDown[37]) { // Left
+		posX(divId1, posX(divId1) - speed);
+		posX(divId, posX(divId) + speed);
+		$("#" + divId1).css('transform', 'rotate(-90deg)');  				
+	}
+	
+	if(isKeyDown[39]) { // Right
+		posX(divId1, posX(divId1) + speed);
+		posX(divId, posX(divId) - speed);
+	        $("#" + divId1).css('transform', 'rotate(90deg)');   
+	}
+
+	if(isKeyDown[38]) { // Up
+		posY(divId1, posY(divId1) - speed);
+	        posY(divId, posY(divId) + speed);
+		$("#" + divId1).css('transform', 'rotate(0deg)');
+	}
+
+	if(isKeyDown[40]) { // Down
+		posY(divId1, posY(divId1) + speed);
+		posY(divId, posY(divId) - speed);
+		$("#" + divId1).css('transform', 'rotate(180deg)');
+        }
+
+	// Move a diagonal line 
+	if(isKeyDown[38] && isKeyDown[37]) { 
+		$("#" + divId1).css('transform', 'rotate(-45deg)');
+	}
+
+	if(isKeyDown[38] && isKeyDown[39]) {
+		$("#" + divId1).css('transform', 'rotate(45deg)');
+	}
+
+	if(isKeyDown[40] && isKeyDown[37]) {
+		$("#" + divId1).css('transform', 'rotate(-135deg)');
+	}
+
+	if(isKeyDown[40] && isKeyDown[39]) {
+		$("#" + divId1).css('transform', 'rotate(135deg)');
+	}	
+
+
+	if(isKeyDown[32]) { // press space key
+		discovered.play();
+		console.log('got a planet');
+		discovered.currentTime = 0;
+	}
+
+	if(isKeyDown[66]) { // press battle ship menu button
+		battleShipViewLayer(); 	  
+	}
+
+	if(isKeyDown[80]) { // press planet menu button
+		planetViewLayer();
+	}
+
+	if(isKeyDown[81]) { // press logout(q)
+	//	lastPosX = parseInt($("#" + userId).offset().left);
+	//	lastPosY = parseInt($("#" + userId).offset().top);	
+		logout(divId1, lastPosX, lastPosY);
+	}
+
+	if(isKeyDown[82]) { // press rank menu button
+		rankViewLayer();
+	}
+
+	if(isKeyDown[83]) { // press shoot key(s)
+		fire.play();
+		console.log('fire!');
+		fire.currentTime = 0;
+		//shoot(curPosX, curPosY);	
+	}
+}
+
+// x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
+function posX(divId, position) {
+
+	if(position) {
+		return parseInt($("#" + divId).css("left", position));
+	}else {
+		return parseInt($("#" + divId).css("left"));
+	}
+}
+
+function posY(divId, position) { 
+
+	if(position) {
+		return parseInt($("#" + divId).css("top", position));
+	}
+	else {
+		return parseInt($("#" + divId).css("top"));
+	}
+}
 	
 // 캔버스 및 서버로 부터 받은 행성 데이터를 division 테그로 겹쳐 그리기 위한 함수 
 function drawAllAssets(mainLayer) {
@@ -156,10 +254,11 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) {
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(curPosX, curPosY,imgUrl) {
+function drawShipInfo(initPosX, initPosY) {
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
 
 	$('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
@@ -170,36 +269,35 @@ function drawShipInfo(curPosX, curPosY,imgUrl) {
 		"width"  : "64px",
 		"height" : "64px",
 		"zIndex" : "2",
-		left: curPosX, 
-		top: curPosY
+		left: initPosX, 
+		top: initPosY
 	});
 
 	autoFocus(userId);
 }
 
 function autoFocus(divId) {
- 	
-	var offset = $("#" + divId).offset();
 
-	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
+ 	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
 	// (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
 	// 실제론 가운데 맞춰지려 하는 것)
 	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
 	// 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
+	
+	var offset = $("#" + divId).offset();
+
 	$("html, body").animate({
 		scrollLeft: offset.left - (curWinWidth / 2), 
 		scrollTop: offset.top - (curWinHeight / 2)  
 	}, 1000);
-
-	//viewPort.css({left: offset.left - (curWinWidth / 2), top: offset.top - (curWinHeight / 2)});
 }
 
 function viewPort() {
 	
 	$(window).resize(function(){
 		$("#view_layer").css({
-			width: 1368,//($(window).width() - 100),
-			height: 768//($(window).height() - 100)
+			width: 1368,	//($(window).width() - 100),
+			height: 768	//($(window).height() - 100)
 		});
 
                 $('#view_layer').css({
@@ -209,192 +307,33 @@ function viewPort() {
 
         }).resize();
 }
-
-// 유저 함선들의 현 위치를 주고 받기 위한 함수
-function userPosUpdate(userId, curPosX, curPosY, imgUrl) {
-
-	userPosSocket.emit('cpos_req', { 
-		'username' : userId, 
-		'location_x' : curPosX,
-		'location_y' : curPosY
-	});
-
-	userPosSocket.on('cpos_res', function(data) {
-		var userPosInfo = {
-			name : data.username,
-			curPosX : data.location_x,
-			curPosY : data.location_y
-		};
-		
-		$("#main_layer").append("<div id='" + userPosInfo.name + "' style='position:absolute;'></div>");
-		$("#" + userPosInfo.name).css({
-			"backgroundImage" : imgUrl,
-			"width"  : "100px",
-			"height" : "100px",
-			"zIndex" : "2",
-			left: userPosInfo.curPosX, 
-			top: userPosInfo.curPosY
-		});			
-	});
-
-}
-
-function keyHandler(divId, divId1) {
 	
-	$(document).keydown(function(ev) {  
-		isKeyDown[ev.keyCode] = true;
-		shipMove(divId, divId1);
-		menuButton(ev);
-	});
-
-	$(document).keyup(function(ev) {
-		isKeyDown[ev.keyCode] = false;
-	});
-}
-
-function shipMove(divId, divId1) {
-
-	if(isKeyDown[37]) { // Left
-		posX(divId1, posX(divId1) - speed);
-		posX(divId, posX(divId) + speed);
-		$("#" + divId1).css('transform', 'rotate(-90deg)');  				
-	}
+function buttonSet() {
 	
-	if(isKeyDown[39]) { // Right
-		posX(divId1, posX(divId1) + speed);
-		posX(divId, posX(divId) - speed);
-	        $("#" + divId1).css('transform', 'rotate(90deg)');   
-	}
-
-	if(isKeyDown[38]) { // Up
-		posY(divId1, posY(divId1) - speed);
-	        posY(divId, posY(divId) + speed);
-		$("#" + divId1).css('transform', 'rotate(0deg)');
-	}
-
-	if(isKeyDown[40]) { // Down
-		posY(divId1, posY(divId1) + speed);
-		posY(divId, posY(divId) - speed);
-		$("#" + divId1).css('transform', 'rotate(180deg)');
-        }
-
-	// Move a diagonal line 
-	if(isKeyDown[38] && isKeyDown[37]) { 
-		$("#" + divId1).css('transform', 'rotate(-45deg)');
-	}
-
-	if(isKeyDown[38] && isKeyDown[39]) {
-		$("#" + divId1).css('transform', 'rotate(45deg)');
-	}
-
-	if(isKeyDown[40] && isKeyDown[37]) {
-		$("#" + divId1).css('transform', 'rotate(-135deg)');
-	}
-
-	if(isKeyDown[40] && isKeyDown[39]) {
-		$("#" + divId1).css('transform', 'rotate(135deg)');
-	}	
-}
+	$('#logout_btn').on('click', function(){
 	
-function menuButton(ev) {
-
-        var KEY_SPACE           = 1;
-        var KEY_BATTLE_SHIP     = 2;
-        var KEY_RANK            = 3;
-        var KEY_PLANET          = 4;
-        var KEY_LOGOUT          = 5;
-	var KEY_SHOOT		= 6;
-	var KEY_NONE 		= undefined;
-
-	var getKey = function(i) {
-
-		switch(i)
-		{
-			case 32: 
-				return KEY_SPACE;
-				break;
-			case 66:
-				return KEY_BATTLE_SHIP;
-				break;
-			case 80:
-				return KEY_PLANET;
-				break;
-			case 81:
-				return KEY_LOGOUT;
-				break;
-			case 82:
-				return KEY_RANK;
-				break;
-			case 83:  
-				return KEY_SHOOT;
-				break; 
-			default:
-				return KEY_NONE;
-				break;
-		}
-	};
-
-	var otherKeyState = getKey(ev.keyCode);
-
-	switch(otherKeyState)
-	{
-		case KEY_SHOOT:
-			fire.play();
-			console.log('fire!');
-			fire.currentTime = 0;
-			//curPosX = ;
-			//curPosY = ;
-			//shoot(curPosX, curPosY);
-			break;
-
-		case KEY_SPACE:
-			discovered.play();
-			console.log('got a planet');
-			discovered.currentTime = 0;
-			break;
-
-		case KEY_BATTLE_SHIP:
-			battleShipViewLayer(); 	  
-			break;
-
-		case KEY_RANK:
-			rankViewLayer(); 	  
-			break;
-
-		case KEY_PLANET:
-			planetViewLayer();	  
-			break;
-
-		case KEY_LOGOUT:
-			lastPosX = parseInt($("#" + userId).offset().left);
-			lastPosY = parseInt($("#" + userId).offset().top);	
+		if(userId != null) {
 			logout(userId, lastPosX, lastPosY);
-			break;
+		}
+		else {
+			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+			mainSocket.disconnect();
+			$(location).attr('href', indexPageUrl);	
+		}
+	});	
 
-		default:
-			break;
-	}
-};
+	$('#planet_btn').on('click', function(){
+		planetViewLayer();
+	});
 
-// x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
-function posX(divId, position) {
+	$('#battle_ship_btn').on('click', function(){
+		battleShipViewLayer();
+	});
 
-	if(position) {
-		return parseInt($("#" + divId).css("left", position));
-	}else {
-		return parseInt($("#" + divId).css("left"));
-	}
-};
-
-function posY(divId, position) { 
-
-	if(position) {
-		return parseInt($("#" + divId).css("top", position));
-	}
-	else {
-		return parseInt($("#" + divId).css("top"));
-	}
-};
+	$('#rank_btn').on('click', function(){
+		rankViewLayer();
+	});
+}
 
 function logout(userId, lastPosX, lastPosY) {
 
@@ -408,7 +347,12 @@ function logout(userId, lastPosX, lastPosY) {
 
                         if(data.response == 'true') {
 
-                                userInfoSocket.emit('lpos_req', {'username': userId, 'lastPosX': lastPosX, 'lastPosY': lastPosY}); 
+                                userInfoSocket.emit('lpos', {
+					'username': userId, 
+					'lastPosX': lastPosX, 
+					'lastPosY': lastPosY
+				}); 
+
                                	alert(userId + '님께서 로그아웃 되셨습니다.');
 
                                 localStorage.removeItem('username');
@@ -425,6 +369,7 @@ function logout(userId, lastPosX, lastPosY) {
         }
 
 }
+
 /*
 //TODO: LATER
 var shoot = function() {
