@@ -21,7 +21,7 @@ var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;				// Main display width and height size 
 var userId = localStorage.getItem("username");				
 var fps = 30, speed = 10;			
-var initPosX = parseInt(mainWidth / 2);  //Math.floor(Math.random() * mainWidth - 100),
+var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
 var curPosX = 0, curPosY = 0;
 var lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
@@ -68,13 +68,13 @@ function userPosUpdate() {
 
 	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
 
-	userPosSocket.on('mv', function(mv_obj) {
-		console.log(mv_obj.username);
-		curPosX = mv_obj.location_x;
-		curPosY = mv_obj.location_y;
+	userPosSocket.on('mv', function(my_obj) {
+		console.log(my_obj.username);
+		curPosX = my_obj.location_x;
+		curPosY = my_obj.location_y;
 
-		$("#main_layer").append("<div id='" + mv_obj.username + "' style='position:absolute;'></div>");
-		$("#" + mv_obj.username).css({
+		$("#main_layer").append("<div id='" + my_obj.username + "' style='position:absolute;'></div>");
+		$("#" + my_obj.username).css({
 			"backgroundImage" : imgUrl,
 			"width"  : "64px",
 			"height" : "64px",
@@ -130,7 +130,7 @@ function shipMove(divId, divId1, curPosX, curPosY) {
 		posY(divId, posY(divId) - speed);
 		$("#" + divId1).css('transform', 'rotate(180deg)');
         }
-
+/*
 	// Move a diagonal line 
 	if(isKeyDown[38] && isKeyDown[37]) { 
 		$("#" + divId1).css('transform', 'rotate(-45deg)');
@@ -147,8 +147,7 @@ function shipMove(divId, divId1, curPosX, curPosY) {
 	if(isKeyDown[40] && isKeyDown[39]) {
 		$("#" + divId1).css('transform', 'rotate(135deg)');
 	}	
-
-
+*/
 	if(isKeyDown[32]) { // press space key
 		discovered.play();
 		console.log('got a planet');
