@@ -23,8 +23,8 @@ var userId = localStorage.getItem("username");
 var fps = 30, speed = 10;			
 var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
-var curPosX = 0, curPosY = 0;
-var lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
+var curPosX = 0, curPosY = 0,
+    lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
 var fire = new Audio();
@@ -63,6 +63,7 @@ function gameLoop() {
 	userPosUpdate();
  
 }
+
 // 유저 함선들의 현 위치를 주고 받기 위한 함수
 function userPosUpdate() {
 
@@ -370,7 +371,23 @@ function logout(userId, lastPosX, lastPosY) {
 }
 
 /*
-//TODO: LATER
+	Collision model width boxing
+*/
+
+/*
+//TODO: Some code lines 
+function isCollision(otherObj, player) {
+	return (otherObj.x < player.x + player.width) && (otherObj.x + otherObj.width > player.x) && 
+               (otherObj.y < player.y + player.height) && (otherObj.y + otherObj.height > player.y);
+}
+
+function boxModel(x, y, width, height) {
+	this.x = x;
+	this.y = y;
+	this.width = width;
+	this.height = height;
+}
+
 var shoot = function() {
 	var dx = 0.0;
 	var dy = 0.0;
