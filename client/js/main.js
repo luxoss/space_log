@@ -51,7 +51,6 @@ function gameLoop() {
 	curPosX = initPosX;
 	curPosY = initPosY;
 	//After init, update and display
-
 //	initialize();
 //	update();
 //	display();
