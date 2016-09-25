@@ -47,7 +47,8 @@ $(document).ready(function() {
 	gameLoop();
 });
 
-function gameLoop() {
+function gameLoop() 
+{
 	curPosX = initPosX;
 	curPosY = initPosY;
 	//After init, update and display
@@ -59,12 +60,11 @@ function gameLoop() {
 	viewPort();
 	keyHandler(mainLayer, userId, curPosX, curPosY);
 	buttonSet();
-	userPosUpdate();
- 
+	userPosUpdate(); 
 }
 
-// 유저 함선들의 현 위치를 주고 받기 위한 함수
-function userPosUpdate() {
+function userPosUpdate() 
+{
 
 	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
 
@@ -85,7 +85,8 @@ function userPosUpdate() {
 	});
 }
 
-function keyHandler(mainLayer, userId, curPosX, curPosY) {
+function keyHandler(mainLayer, userId, curPosX, curPosY) 
+{
 	
 	$(document).keydown(function(ev) {  
 		userPosSocket.emit('press_key', {
@@ -94,42 +95,79 @@ function keyHandler(mainLayer, userId, curPosX, curPosY) {
 			'location_x' : curPosX,
 			'location_y' : curPosY
 		});
-		isKeyDown[ev.keyCode] = true;
-		shipMove(mainLayer, userId, curPosX, curPosY);
+		//isKeyDown[ev.keyCode] = true;
+		shipMove(ev, mainLayer, userId, curPosX, curPosY);
 	});
 
 	$(document).keyup(function(ev) {
-		isKeyDown[ev.keyCode] = false;
+		//isKeyDown[ev.keyCode] = false;
 	});
 }
 
-function shipMove(divId, divId1, curPosX, curPosY) {
+function shipMove(ev, divId, divId1, curPosX, curPosY)
+{
+	var keyState = ev.keyCode;
+	var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, 
+            SHOOT = 83, GOT_PLANET = 32, 
+            BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
+
 	lastPosX = curPosX;
 	lastPosY = curPosY;
 
-	if(isKeyDown[37]) { // Left
+	if(keyState == LEFT) { // Left, isKeyDown[37]
 		posX(divId1, posX(divId1) - speed);
 		posX(divId, posX(divId) + speed);
 		$("#" + divId1).css('transform', 'rotate(-90deg)');  				
 	}
 	
-	if(isKeyDown[39]) { // Right
+	if(keyState == RIGHT) { // Right, isKeyDown[39]
 		posX(divId1, posX(divId1) + speed);
 		posX(divId, posX(divId) - speed);
 	        $("#" + divId1).css('transform', 'rotate(90deg)');   
 	}
 
-	if(isKeyDown[38]) { // Up
+	if(keyState == UP) { // Up, iskeyDown[38]
 		posY(divId1, posY(divId1) - speed);
 	        posY(divId, posY(divId) + speed);
 		$("#" + divId1).css('transform', 'rotate(0deg)');
 	}
 
-	if(isKeyDown[40]) { // Down
+	if(keyState == DOWN) { // Down, isKeyDown[40]
 		posY(divId1, posY(divId1) + speed);
 		posY(divId, posY(divId) - speed);
 		$("#" + divId1).css('transform', 'rotate(180deg)');
         }
+
+	if(keyState == GOT_PLANET) { // press space key, isKeyDown[32]
+		discovered.play();
+		console.log('got a planet');
+		discovered.currentTime = 0;
+	}
+
+	if(keyState == BATTLESHIP_BTN) { // press battle ship menu button, isKeyDown[66]
+		battleShipViewLayer(); 	  
+	}
+
+	if(keyState == PLANET_BTN) { // press planet menu button, isKeyDown[80]
+		planetViewLayer();
+	}
+
+	if(keyState == LOGOUT_BTN) { // press logout(q), isKeydown[81]
+	//	lastPosX = parseInt($("#" + userId).offset().left);
+	//	lastPosY = parseInt($("#" + userId).offset().top);	
+		logout(divId1, lastPosX, lastPosY);
+	}
+
+	if(keyState == RANK_BTN) { // press rank menu button, isKeyDown[82]
+		rankViewLayer();
+	}
+
+	if(keyState == 83) { // press shoot key(s), iskeyDown[83]
+		fire.play();
+		console.log('fire!');
+		fire.currentTime = 0;
+		//shoot(curPosX, curPosY);	
+	}
 /*
 	// Move a diagonal line 
 	if(isKeyDown[38] && isKeyDown[37]) { 
@@ -148,36 +186,6 @@ function shipMove(divId, divId1, curPosX, curPosY) {
 		$("#" + divId1).css('transform', 'rotate(135deg)');
 	}	
 */
-	if(isKeyDown[32]) { // press space key
-		discovered.play();
-		console.log('got a planet');
-		discovered.currentTime = 0;
-	}
-
-	if(isKeyDown[66]) { // press battle ship menu button
-		battleShipViewLayer(); 	  
-	}
-
-	if(isKeyDown[80]) { // press planet menu button
-		planetViewLayer();
-	}
-
-	if(isKeyDown[81]) { // press logout(q)
-	//	lastPosX = parseInt($("#" + userId).offset().left);
-	//	lastPosY = parseInt($("#" + userId).offset().top);	
-		logout(divId1, lastPosX, lastPosY);
-	}
-
-	if(isKeyDown[82]) { // press rank menu button
-		rankViewLayer();
-	}
-
-	if(isKeyDown[83]) { // press shoot key(s)
-		fire.play();
-		console.log('fire!');
-		fire.currentTime = 0;
-		//shoot(curPosX, curPosY);	
-	}
 }
 
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
@@ -214,9 +222,9 @@ function drawAllAssets(mainLayer) {
 			y  : data.location_y,
 			grade : data.create_spd,
 			image : { 
-				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_grade1.svg')",
-				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_grade2.svg')",
-				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
 				4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
 				5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
 			}
