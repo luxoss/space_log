@@ -3,9 +3,8 @@
 	**Writer: luxoss 
 	**File-explanation: Contorl index html page with javascript
 */
-$(document).ready(function(){ 						// Jquery ready to document
-	var mainSocket = io.connect('http://203.237.179.21:5001'); 	// Create join and login socket
-//	mainAudioControl();
+$(function() {  // Same to $(document).ready(function()) that is 'onload' 
+	var mainSocket = io.connect('http://203.237.179.21:5001'); 
 	mainDisplayResize();
 
 	$("#join_btn").on('click', function(){

@@ -12,13 +12,13 @@
 
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
-var mainSocket     = io.connect(serverUrl + ":5001"),			
-    planetSocket   = io.connect(serverUrl + ":5002"),			// Create socket :: Planet information
-    userInfoSocket = io.connect(serverUrl + ":5005"),			// Create socket :: User inforamtion
-    userPosSocket  = io.connect(serverUrl + ":5006");			// Create socket :: Battle ship position information 
-var curWinWidth = $(window).width(), curWinHeight = $(window).height(); // Current window width and height size  
+var mainSocket     = io.connect(serverUrl + ":5001"),	// Create socket :: Control join and login
+    planetSocket   = io.connect(serverUrl + ":5002"),	// Create socket :: Planet information
+    userInfoSocket = io.connect(serverUrl + ":5005"),	// Create socket :: User inforamtion
+    userPosSocket  = io.connect(serverUrl + ":5006");	// Create socket :: Battle ship position information 
+var curWinWidth = $(window).width(), curWinHeight = $(window).height();   
 var mainLayer = "main_layer";
-var mainWidth = 5000, mainHeight = 5000;				// Main display width and height size 
+var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
 var fps = 30, speed = 10;			
 var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
@@ -43,7 +43,7 @@ fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 // Ready document that is game loop 
-$(document).ready(function() {  	
+$(function() {  // Same to $(document).ready(function()) that is 'onload' 
 	gameLoop();
 });
 
