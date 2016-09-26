@@ -60,15 +60,28 @@ function gameLoop()
 	viewPort();
 	keyHandler(mainLayer, userId, curPosX, curPosY);
 	buttonSet();
-	userPosUpdate(); 
+	userPosUpdate(userId); 
 }
 
-function userPosUpdate() 
+function userPosUpdate(userId) 
 {
 
 	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
 
-	userPosSocket.on('mv', function(my_obj) {
+	userPosSocket.on('mv', function(userStatus) { // userStatus is 'object type'
+
+		/*
+			for(var id in userStatus) {
+				console.log(id.status.username, id.status.x, id.status.y);
+				
+				if(id.status.username == userId) {
+					// TODO: Update current client x, y position
+				}
+				else{
+					// TODO: Update the others x, y position 
+				}
+			}
+		*/
 		console.log(my_obj.username);
 		curPosX = my_obj.location_x;
 		curPosY = my_obj.location_y;
