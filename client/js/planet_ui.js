@@ -1,20 +1,21 @@
 /**
-	**File name: planetUi.js
-	**Writer: luxoss
+	**File name: planet_ui.js
 	**File-explanation: Control planet user interface with javascript
+	**Writer: luxoss
 */
 
-function planetViewLayer()
+function planetViewLayer(planetSocket)
 {
 	var state = $('.planet_ui').css('display');
-	var planetSocket = io.connect('http://203.237.179.21:5002');
+	console.log(typeof planetSocket);
+	console.log(planetSocket);
 
 	if(state == 'none') {
 		$('.planet_ui').show();
 
-		// 행성 DB를 plnaet socket으로 받기 위함. 
-		planetSocket.on("planet_res", function(data){
+		planetSocket.on('planet_res', function(data){
 
+			console.log('socket is alive.');
 			var planet = {
 				name : data._id,
 				gas : data.gas,

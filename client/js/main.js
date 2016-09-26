@@ -162,7 +162,7 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 	}
 
 	if(keyState == PLANET_BTN) { // press planet menu button, isKeyDown[80]
-		planetViewLayer();
+		planetViewLayer(planetSocket);
 	}
 
 	if(keyState == LOGOUT_BTN) { // press logout(q), isKeydown[81]
