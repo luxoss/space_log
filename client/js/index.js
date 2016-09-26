@@ -27,13 +27,13 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			}); 
 			mainSocket.on('join_res', function(data){
 				
-					if(data['response'] == 'true') {
-						alert('회원가입이 완료 되었습니다.');
-						window.location.reload();
-					}else {
-						alert('해당 아이디가 이미 있습니다.');
-						window.location.reload();
-					}
+				if(data['response'] == 'true') {
+					alert('회원가입이 완료 되었습니다.');
+					window.location.reload();
+				}else {
+					alert('해당 아이디가 이미 있습니다.');
+					window.location.reload();
+				}
 			});
 		}
 	});
