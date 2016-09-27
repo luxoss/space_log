@@ -45,474 +45,460 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 // Ready document that is game loop 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
-	initialize();
+   initialize();
 });
 
 function initialize() 
 {
-	//After init, update and display
-//	update();
-//	display();
-	drawAllAssets(mainLayer); 		
-	drawShipInfo(initPosX, initPosY); 
-	viewPort();
-	keyHandler(mainLayer, userId);
-	buttonSet();
-	userPosUpdate(); 
+   //After init, update and display
+   //update();
+   //display();
+   drawAllAssets(mainLayer); 		
+   drawShipInfo(initPosX, initPosY); 
+   viewPort();
+   keyHandler(mainLayer, userId);
+   buttonSet();
+   userPosUpdate(); 
 }	
 
 function drawAllAssets(mainLayer) 
 {
-	planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
+   planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
-	planetSocket.on('planet_res', function(data) {
-
-		//var mainLayer = $("#main_layer");
-		var planetInfo = {
-			id : data._id,
-			x  : data.location_x,
-			y  : data.location_y,
-			grade : data.create_spd,
-			image : { 
-				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-				4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-				5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
-			}
-		};
+   planetSocket.on('planet_res', function(data) {
+      //var mainLayer = $("#main_layer");
+      var planetInfo = {
+         id : data._id,
+         x  : data.location_x,
+         y  : data.location_y,
+         grade : data.create_spd,
+         image : { 
+            1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+	    2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+	    3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
+	    4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+	    5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+         }
+      };
 	
-		if(planetInfo.grade == 1) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
-		}
-
-		else if(planetInfo.grade == 2) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
-		}
-		else if(planetInfo.grade == 3) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
-		}
-		else if(planetInfo.grade == 4) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
-		}
-		else {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
-		}
-	});		
+      if(planetInfo.grade == 1) 
+      {
+         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
+      }
+      else if(planetInfo.grade == 2) 
+      {
+         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
+      }
+      else if(planetInfo.grade == 3) 
+      {
+         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
+      }
+      else if(planetInfo.grade == 4) 
+      {
+         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
+      }
+      else 
+      {
+         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
+      }
+   });		
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) {
-	$("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
+function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
+{
+   $("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
 
-	$("#" + divId).css({
-		"backgroundImage" : planetImgUrl,
-		"width"		: "100px",
-		"height" 	: "100px"
-	});
+   $("#" + divId).css({
+      "backgroundImage" : planetImgUrl,
+      "width"   : "100px",
+      "height" 	: "100px"
+   });
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(initPosX, initPosY) {
-	//$('#mineral').val() = userInitInfo.mineral;
-	//$('#gas').val() = userInitInfo.gas;     
-	//$('#unknown').val() = userInitInfo.unknown;
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
+function drawShipInfo(initPosX, initPosY) 
+{
+   //$('#mineral').val() = userInitInfo.mineral;
+   //$('#gas').val() = userInitInfo.gas;     
+   //$('#unknown').val() = userInitInfo.unknown;
+   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
 
-	$('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
-	$("#user_name").text("" + userId + "");
+   $('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
+   $("#user_name").text("" + userId + "");
 	
-	$("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
-	$("#" + userId).css({
-		"backgroundImage" : imgUrl,
-		"width"  : "64px",
-		"height" : "64px",
-		"zIndex" : "2",
-		left: initPosX, 
-		top: initPosY
-	});
+   $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
+   $("#" + userId).css({
+      "backgroundImage" : imgUrl,
+      "width"  : "64px",
+      "height" : "64px",
+      "zIndex" : "2",
+      left: initPosX, 
+      top: initPosY
+   });
 
-	autoFocus(userId);
+   autoFocus(userId);
 }
 
-function autoFocus(divId) {
+function autoFocus(divId) 
+{
+   // 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
+   // (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
+   // 실제론 가운데 맞춰지려 하는 것)
+   // 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
+   // 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
+   var offset = $("#" + divId).offset();
 
- 	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
-	// (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
-	// 실제론 가운데 맞춰지려 하는 것)
-	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
-	// 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
-	
-	var offset = $("#" + divId).offset();
-
-	$("html, body").animate({
-		scrollLeft: offset.left - (curWinWidth / 2), 
-		scrollTop: offset.top - (curWinHeight / 2)  
-	}, 1000);
+   $("html, body").animate({
+      scrollLeft: offset.left - (curWinWidth / 2), 
+      scrollTop: offset.top - (curWinHeight / 2)  
+   }, 1000);
 }
 	
 function keyHandler(mainLayer, userId) 
 {
-	
-	$(document).keydown(function(ev) {  
-		userPosSocket.emit('press_key', {
-			'username': userId, 
-			'key_val' : ev.keyCode, 
-			'location_x' : curPosX,
-			'location_y' : curPosY
-		});
-		//isKeyDown[ev.keyCode] = true;
-		shipMove(ev, mainLayer, userId, curPosX, curPosY);
-	});
+   $(document).keydown(function(ev) {  
+      userPosSocket.emit('press_key', {
+         'username': userId, 
+	 'key_val' : ev.keyCode, 
+	 'location_x' : curPosX,
+	 'location_y' : curPosY
+      });
+      //isKeyDown[ev.keyCode] = true;
+      shipMove(ev, mainLayer, userId, curPosX, curPosY);
+   });
 
-	$(document).keyup(function(ev) {
-		//isKeyDown[ev.keyCode] = false;
-	});
+   $(document).keyup(function(ev) {
+      //isKeyDown[ev.keyCode] = false;
+   });
 }
 
 function shipMove(ev, divId, divId1, curPosX, curPosY)
 {
-	var keyState = ev.keyCode;
-	var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, 
-            SHOOT = 83, GOT_PLANET = 32, 
-            BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
-	var mainLayer = divId;
-//	var userId = divId1;
+   var keyState = ev.keyCode;
+   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, 
+       SHOOT = 83, GOT_PLANET = 32, 
+       BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
+   var mainLayer = divId;
+   //var userId = divId1;
 
-	lastPosX = curPosX;
-	lastPosY = curPosY;
+   lastPosX = curPosX;
+   lastPosY = curPosY;
 /*
-		posX(divId1, posX(divId1) - speed); 
-		$("#" + userId).css('transform', 'rotate(-90deg)');
-	//	posX(divId1, posX(divId1) + speed);
-	//      $("#" + userId).css('transform', 'rotate(90deg)');   
-	//	posY(divId1, posY(divId1) - speed);
-	//	$("#" + userId).css('transform', 'rotate(0deg)');
-	//	posY(divId1, posY(divId1) + speed);
-	//	$("#" + userId).css('transform', 'rotate(180deg)');
-		$("#" + userId).css(
-			'background-image', 
-			"url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
-		); 				
+   posX(divId1, posX(divId1) - speed); 
+   $("#" + userId).css('transform', 'rotate(-90deg)');
+   posX(divId1, posX(divId1) + speed);
+   $("#" + userId).css('transform', 'rotate(90deg)');   
+   posY(divId1, posY(divId1) - speed);
+   $("#" + userId).css('transform', 'rotate(0deg)');
+   posY(divId1, posY(divId1) + speed);
+   $("#" + userId).css('transform', 'rotate(180deg)');
+   $("#" + userId).css(
+      'background-image', 
+      "url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
+   ); 				
 */
-	if(keyState == LEFT) { // Left, isKeyDown[37]
-		posX(mainLayer, posX(mainLayer) + speed);   
-
-	}
+   if(keyState == LEFT)// Left, isKeyDown[37]
+   {      
+      posX(mainLayer, posX(mainLayer) + speed);   
+   }
 	
-	if(keyState == RIGHT) { // Right, isKeyDown[39]
-		posX(mainLayer, posX(mainLayer) - speed);
-	}
+   if(keyState == RIGHT) // Right, isKeyDown[39]
+   {
+      posX(mainLayer, posX(mainLayer) - speed);
+   }
 
-	if(keyState == UP) { // Up, iskeyDown[38]
-	        posY(mainLayer, posY(mainLayer) + speed);
-	}
+   if(keyState == UP) // Up, iskeyDown[38]
+   {
+      posY(mainLayer, posY(mainLayer) + speed);
+   }
 
-	if(keyState == DOWN) { // Down, isKeyDown[40]
-		posY(mainLayer, posY(mainLayer) - speed);
-        }
+   if(keyState == DOWN) // Down, isKeyDown[40]
+   {
+      posY(mainLayer, posY(mainLayer) - speed);
+   }
 
-	if(keyState == GOT_PLANET) { // press space key, isKeyDown[32]
-		discovered.play();
-		console.log('got a planet');
-		discovered.currentTime = 0;
-	}
+   if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
+   {
+      discovered.play();
+      console.log('got a planet');
+      discovered.currentTime = 0;
+   }
 
-	if(keyState == BATTLESHIP_BTN) { // press battle ship menu button, isKeyDown[66]
-		battleShipViewLayer(); 	  
-	}
+   if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
+   {
+      battleShipViewLayer(); 	  
+   }
 
-	if(keyState == PLANET_BTN) { // press planet menu button, isKeyDown[80]
-		planetViewLayer(planetSocket);
-	}
+   if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
+   {
+      planetViewLayer(planetSocket);
+   }
 
-	if(keyState == LOGOUT_BTN) { // press logout(q), isKeydown[81]
-		logout(userId, lastPosX, lastPosY);
-	}
+   if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
+   {
+      logout(userId, lastPosX, lastPosY);
+   }
 
-	if(keyState == RANK_BTN) { // press rank menu button, isKeyDown[82]
-		rankViewLayer();
-	}
+   if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
+   {
+      rankViewLayer();
+   }
 
-	if(keyState == 83) { // press shoot key(s), iskeyDown[83]
-		fire.play();
-		console.log('fire!');
-		fire.currentTime = 0;
-		//shoot(curPosX, curPosY);	
-	}
+   if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
+   {
+      fire.play();
+      console.log('fire!');
+      fire.currentTime = 0;
+      //shoot(curPosX, curPosY);	
+   }
 }
 
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
-function posX(divId, position) {
-
-	if(position) {
-		return parseInt($("#" + divId).css("left", position));
-	}else {
-		return parseInt($("#" + divId).css("left"));
-	}
+function posX(divId, position) 
+{
+   if(position) 
+   {
+      return parseInt($("#" + divId).css("left", position));
+   }
+   else 
+   {
+      return parseInt($("#" + divId).css("left"));
+   }
 }
 
-function posY(divId, position) { 
-
-	if(position) {
-		return parseInt($("#" + divId).css("top", position));
-	}
-	else {
-		return parseInt($("#" + divId).css("top"));
-	}
+function posY(divId, position) 
+{ 
+   if(position) 
+   {
+      return parseInt($("#" + divId).css("top", position));
+   }
+   else 
+   {
+      return parseInt($("#" + divId).css("top"));
+   }
 }
 
-function viewPort() {
-	
-	$(window).resize(function(){
-		$("#view_layer").css({
-			width: 1368,	//($(window).width() - 100),
-			height: 768	//($(window).height() - 100)
-		});
+function viewPort() 
+{	
+   $(window).resize(function() {
+      $("#view_layer").css({
+         width: 1368,	//($(window).width() - 100),
+	 height: 768	//($(window).height() - 100)
+      });
 
-                $('#view_layer').css({
-                        left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
-                        top: ($(window).height() - $('#view_layer').outerHeight()) / 2
-                });
+      $('#view_layer').css({
+         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
+         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
+      });
 
-        }).resize();
+   }).resize();
 }
 
 function buttonSet() 
 {	
-	$('#logout_btn').on('click', function(){
-	
-		if(userId != null) {
-			logout(userId, lastPosX, lastPosY);
-		}
-		else {
-			alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-			mainSocket.disconnect();
-			$(location).attr('href', indexPageUrl);	
-		}
-	});	
+   $('#logout_btn').on('click', function(){	
+      if(userId != null) 
+      {
+         logout(userId, lastPosX, lastPosY);
+      }
+      else 
+      {
+         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+         mainSocket.disconnect();
+         $(location).attr('href', indexPageUrl);	
+      }
+   });	
 
-	$('#planet_btn').on('click', function(){
-		planetViewLayer();
-	});
+   $('#planet_btn').on('click', function(){
+      planetViewLayer();
+   });
 
-	$('#battle_ship_btn').on('click', function(){
-		battleShipViewLayer();
-	});
+   $('#battle_ship_btn').on('click', function(){
+      battleShipViewLayer();
+   });
 
-	$('#rank_btn').on('click', function(){
-		rankViewLayer();
-	});
+   $('#rank_btn').on('click', function(){
+      rankViewLayer();
+   });
 }
 
-function logout(userId, lastPosX, lastPosY) {
+function logout(userId, lastPosX, lastPosY) 
+{
+   var logoutMsg = confirm('로그아웃 하시겠습니까?');
+   var indexPageUrl = serverUrl + ":8000";
 
-        var logoutMsg = confirm('로그아웃 하시겠습니까?');
-        var indexPageUrl = serverUrl + ":8000";
+   if(logoutMsg == true) 
+   {
+      mainSocket.emit('logout_msg', { username: userId }); 
 
-        if(logoutMsg == true) {
-                mainSocket.emit('logout_msg', {username: userId}); 
+      mainSocket.on('logout_res', function(data) {
 
-                mainSocket.on('logout_res', function(data){
+         if(data.response == 'true') 
+         {
+            userInfoSocket.emit('lpos', {
+	       'username': userId, 
+	       'lastPosX': lastPosX, 
+	       'lastPosY': lastPosY
+	    }); 
 
-                        if(data.response == 'true') {
+            alert(userId + '님께서 로그아웃 되셨습니다.');
 
-                                userInfoSocket.emit('lpos', {
-					'username': userId, 
-					'lastPosX': lastPosX, 
-					'lastPosY': lastPosY
-				}); 
+            localStorage.removeItem('username');
+	    mainSocket.disconnect();
+            $(location).attr('href', indexPageUrl);
 
-                               	alert(userId + '님께서 로그아웃 되셨습니다.');
+         }
+         else if(data.response == 'false') 
+         {
+            alert('Logout error.');
+         }
 
-                                localStorage.removeItem('username');
-				mainSocket.disconnect();
-                                $(location).attr('href', indexPageUrl);
-
-                        }else if(data.response == 'false') {
-                                        alert('Logout error.');
-                        }
-
-                });
-        }else {
-                if(userId == null){ return false; }
-        }
-
+     });
+   }
+   else 
+   {
+      if(userId == null) { return false; }
+   }
 }
 
 function userPosUpdate() 
 {
-	var playUserId = localStorage.getItem('username');
+   var playUserId = localStorage.getItem('username');
 
-	var imgState = {
-		LEFT :  "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
-		RIGHT:  "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
-		UP: 	"url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-		DOWN: 	"url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')",
-	}; 
+   var imgState = {
+      LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
+      RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
+      UP   : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+      DOWN : "url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')",
+   }; 
 
-	userPosSocket.on('mv', function(data) { // userStatus is 'object type'
-		var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
-		var keyPressVal = data.key_val;
+   userPosSocket.on('mv', function(data) { // userStatus is 'object type'
+      var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
+      var keyPressVal = data.key_val;
 
-		/*
-			for(var id in userStatus) {
-				console.log(id.status.username, id.status.x, id.status.y);
-				
-				if(id.status.username == userId) {
-					// TODO: Update current client x, y position
-				}
-				else{
-					// TODO: Update the others x, y position 
-				}
-			}
-		*/
-		console.log(data.username, data.location_x, data.location_y, data.key_val);
+      console.log(data.username, data.location_x, data.location_y, data.key_val);
 
-		$("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
+      $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
 
-		if(data.username == playUserId) 
-		{
-			switch(keyPressVal)
-			{
-				case LEFT:
-					curPosX = parseInt(data.location_x);
-					curPosY = parseInt(data.location_y);
+      if(data.username == playUserId) 
+      {
+         switch(keyPressVal)
+	 {
+	    case LEFT:
+	       curPosX = parseInt(data.location_x);
+	       curPosY = parseInt(data.location_y);
 	
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.LEFT,
-						left: curPosX, 
-						top: curPosY
-					});
-					break;
+	      $("#" + data.username).css({
+	         "backgroundImage" : imgState.LEFT,
+		 left: curPosX, 
+		 top: curPosY
+	      });
+	      break;
 
-				case RIGHT:
-					curPosX = parseInt(data.location_x);
-					curPosY = parseInt(data.location_y);
+ 	    case RIGHT:
+	       curPosX = parseInt(data.location_x);
+	       curPosY = parseInt(data.location_y);
 
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.RIGHT,
-						left: curPosX, 
-						top: curPosY
-					});		
-					break;
+	       $("#" + data.username).css({
+	          "backgroundImage" : imgState.RIGHT,
+ 	 	  left: curPosX, 
+	          top: curPosY
+	       });		
+	       break;
 				
-				case UP:
-					curPosX = parseInt(data.location_x);
-					curPosY = parseInt(data.location_y);
+	    case UP:
+	       curPosX = parseInt(data.location_x);
+	       curPosY = parseInt(data.location_y);
 	
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.UP,
-						left: curPosX, 
-						top: curPosY
-					});		
-					break;
+	       $("#" + data.username).css({
+	          "backgroundImage" : imgState.UP,
+		  left: curPosX, 
+		  top: curPosY
+	       });		
+	       break;
 				
-				case DOWN:
-					curPosX = parseInt(data.location_x);
-					curPosY = parseInt(data.location_y);
+	    case DOWN:
+	       curPosX = parseInt(data.location_x);
+	       curPosY = parseInt(data.location_y);
 	
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.DOWN,
-						left: curPosX, 
-						top: curPosY
-					});	
+	       $("#" + data.username).css({
+	          "backgroundImage" : imgState.DOWN,
+		  left: curPosX, 
+		  top: curPosY
+	       });	
 				
-				default:
-					break;
-			}
-		}
-		else 
-		{
-			switch(keyPressVal)
-			{
-				case LEFT:
-					//curPosX = parseInt(data.location_x);
-					//curPosY = parseInt(data.location_y);
-					enemyPosX = parseInt(data.location_x);
-					enemyPosY = parseInt(data.location_y);
+            default:
+	       break;
+         }
+      }
+      else 
+      {
+         switch(keyPressVal)
+         {
+            case LEFT:
+	       //curPosX = parseInt(data.location_x);
+	       //curPosY = parseInt(data.location_y);
+	       enemyPosX = parseInt(data.location_x);
+	       enemyPosY = parseInt(data.location_y);
 	
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.LEFT,
-						"width"  : "64px",
-						"height" : "64px",
-						"zIndex" : "2",
-						left: enemyPosX, 
-						top: enemyPosY
-					});
-					break;
+	       $("#" + data.username).css({
+	          "backgroundImage" : imgState.LEFT,
+		  "width"  : "64px",
+		  "height" : "64px",
+		  "zIndex" : "2",
+		  left: enemyPosX, 
+		  top: enemyPosY
+	       });
+	       break;
 
-				case RIGHT:
-					enemyPosX = parseInt(data.location_x);
-					enemyPosY = parseInt(data.location_y);
+	     case RIGHT:
+	        enemyPosX = parseInt(data.location_x);
+		enemyPosY = parseInt(data.location_y);
 
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.RIGHT,
-						"width"  : "64px",
-						"height" : "64px",
-						"zIndex" : "2",
-						left: enemyPosX, 
-						top: enemyPosY
-					});		
-					break;
+		$("#" + data.username).css({
+		   "backgroundImage" : imgState.RIGHT,
+		   "width"  : "64px",
+		   "height" : "64px",
+		   "zIndex" : "2",
+		   left: enemyPosX, 
+		   top: enemyPosY
+		});		
+		break;
 				
-				case UP:
-					enemyPosX = parseInt(data.location_x);
-					enemyPosY = parseInt(data.location_y);
+	     case UP:
+		enemyPosX = parseInt(data.location_x);
+		enemyPosY = parseInt(data.location_y);
 	
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.UP,
-						"width"  : "64px",
-						"height" : "64px",
-						"zIndex" : "2",
-						left: enemyPosX, 
-						top: enemyPosY
-					});		
-					break;
+		$("#" + data.username).css({
+			"backgroundImage" : imgState.UP,
+			"width"  : "64px",
+			"height" : "64px",
+			"zIndex" : "2",
+			left: enemyPosX, 
+			top: enemyPosY
+		});		
+		break;
 				
-				case DOWN:
-					enemyPosX = parseInt(data.location_x);
-					enemyPosY = parseInt(data.location_y);
+	     case DOWN:
+		enemyPosX = parseInt(data.location_x);
+		enemyPosY = parseInt(data.location_y);
 	
-					$("#" + data.username).css({
-						"backgroundImage" : imgState.DOWN,
-						"width"  : "64px",
-						"height" : "64px",
-						"zIndex" : "2",
-						left: enemyPosX, 
-						top: enemyPosY
-					});	
+		$("#" + data.username).css({
+		   "backgroundImage" : imgState.DOWN,
+		   "width"  : "64px",
+		   "height" : "64px",
+		   "zIndex" : "2",
+		   left: enemyPosX, 
+		   top: enemyPosY
+		});	
 				
-				default:
-					break;
-			}
-		}
-	});		
+	     default:
+                break;
+         }
+      }
+   });		
 }
-/*					
-			if(data.key_val == LEFT) 
-			{
-
-			}
-		
-			if(data.key_val == RIGHT) 
-			{
-
-			}
-
-			if(data.key_val == UP) 
-			{
-
-			}
-
-			if(data.key_val == DOWN) 
-			{
-		
-			}
-*/
-
-
-
 /*
 	//Code's grave
 
@@ -570,7 +556,8 @@ $(document).mousemove(function(e){
 	console.log(e.pageX + ',' + e.pageY);
 });
 // 숫자 타입인지 아닌지 체크하기 위한 함수 
-function isNumber(str) {
+function isNumber(str) 
+{
   	str += ''; 			     // 문자열 타입으로 변환 
   	str = str.replace(/^\s*|\s*$/g, ''); // 좌우 공백 제거 
   	if (str == '' || isNaN(str)) {return false };
@@ -595,5 +582,21 @@ function isNumber(str) {
 	// get a current div offset
 	lastPosX = parseInt($("#" + userId).offset().left);
 	lastPosY = parseInt($("#" + userId).offset().top);	
+					
+	if(data.key_val == LEFT) 
+	{
+	}
+	if(data.key_val == RIGHT) 
+	{
+	}
+	if(data.key_val == UP) 
+	{
+	}
+	if(data.key_val == DOWN) 
+	{
+	}
 */
+
+
+
 
