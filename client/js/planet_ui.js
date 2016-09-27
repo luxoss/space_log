@@ -13,6 +13,8 @@ function planetViewLayer(planetSocket)
 	if(state == 'none') {
 		$('.planet_ui').show();
 
+		planetSocket.emit('planet_req', {'receive' : 'that'});
+
 		planetSocket.on('planet_res', function(data){
 
 			console.log('socket is alive.');
@@ -20,7 +22,7 @@ function planetViewLayer(planetSocket)
 				name : data._id,
 				gas : data.gas,
 				mineral : data.mineral,
-				unknown : dta.unknown,
+				unknown : data.unknown,
 				//discover : "false",
 				grade : data.create_spd
 			};

@@ -23,7 +23,7 @@ var userId = localStorage.getItem("username");
 var fps = 30, speed = 10;			
 var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
-var curPosX = 0, curPosY = 0,
+var curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
@@ -49,8 +49,6 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function gameLoop() 
 {
-	curPosX = initPosX;
-	curPosY = initPosY;
 	//After init, update and display
 //	initialize();
 //	update();
@@ -58,47 +56,63 @@ function gameLoop()
 	drawAllAssets(mainLayer); 		
 	drawShipInfo(initPosX, initPosY); 
 	viewPort();
-	keyHandler(mainLayer, userId, curPosX, curPosY);
+	keyHandler(mainLayer, userId);
 	buttonSet();
 	userPosUpdate(userId); 
+}	
+
+function drawAllAssets(mainLayer) 
+{
+	planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
+
+	planetSocket.on('planet_res', function(data) {
+
+		//var mainLayer = $("#main_layer");
+		var planetInfo = {
+			id : data._id,
+			x  : data.location_x,
+			y  : data.location_y,
+			grade : data.create_spd,
+			image : { 
+				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
+				4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+				5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+			}
+		};
+	
+		if(planetInfo.grade == 1) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
+		}
+
+		else if(planetInfo.grade == 2) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
+		}
+		else if(planetInfo.grade == 3) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
+		}
+		else if(planetInfo.grade == 4) {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
+		}
+		else {
+			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
+		}
+	});		
 }
 
-function userPosUpdate(userId) 
-{
+// 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
+function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) {
+	$("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
 
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
-
-	userPosSocket.on('mv', function(userStatus) { // userStatus is 'object type'
-
-		/*
-			for(var id in userStatus) {
-				console.log(id.status.username, id.status.x, id.status.y);
-				
-				if(id.status.username == userId) {
-					// TODO: Update current client x, y position
-				}
-				else{
-					// TODO: Update the others x, y position 
-				}
-			}
-		*/
-		console.log(my_obj.username);
-		curPosX = my_obj.location_x;
-		curPosY = my_obj.location_y;
-
-		$("#main_layer").append("<div id='" + my_obj.username + "' style='position:absolute;'></div>");
-		$("#" + my_obj.username).css({
-			"backgroundImage" : imgUrl,
-			"width"  : "64px",
-			"height" : "64px",
-			"zIndex" : "2",
-			left: curPosX, 
-			top: curPosY
-		});			
+	$("#" + divId).css({
+		"backgroundImage" : planetImgUrl,
+		"width"		: "100px",
+		"height" 	: "100px"
 	});
 }
-
-function keyHandler(mainLayer, userId, curPosX, curPosY) 
+	
+function keyHandler(mainLayer, userId) 
 {
 	
 	$(document).keydown(function(ev) {  
@@ -123,32 +137,34 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 	var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, 
             SHOOT = 83, GOT_PLANET = 32, 
             BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
+	var mainLayer = divId;
+//	var userId = divId1;
 
 	lastPosX = curPosX;
 	lastPosY = curPosY;
 
 	if(keyState == LEFT) { // Left, isKeyDown[37]
-		posX(divId1, posX(divId1) - speed);
-		posX(divId, posX(divId) + speed);
-		$("#" + divId1).css('transform', 'rotate(-90deg)');  				
+	//	posX(divId1, posX(divId1) - speed); 
+		posX(mainLayer, posX(mainLayer) + speed);   
+		$("#" + userId).css('transform', 'rotate(-90deg)');  				
 	}
 	
 	if(keyState == RIGHT) { // Right, isKeyDown[39]
-		posX(divId1, posX(divId1) + speed);
-		posX(divId, posX(divId) - speed);
-	        $("#" + divId1).css('transform', 'rotate(90deg)');   
+	//	posX(divId1, posX(divId1) + speed);
+		posX(mainLayer, posX(mainLayer) - speed);
+	        $("#" + userId).css('transform', 'rotate(90deg)');   
 	}
 
 	if(keyState == UP) { // Up, iskeyDown[38]
-		posY(divId1, posY(divId1) - speed);
-	        posY(divId, posY(divId) + speed);
-		$("#" + divId1).css('transform', 'rotate(0deg)');
+	//	posY(divId1, posY(divId1) - speed);
+	        posY(mainLayer, posY(mainLayer) + speed);
+		$("#" + userId).css('transform', 'rotate(0deg)');
 	}
 
 	if(keyState == DOWN) { // Down, isKeyDown[40]
-		posY(divId1, posY(divId1) + speed);
-		posY(divId, posY(divId) - speed);
-		$("#" + divId1).css('transform', 'rotate(180deg)');
+	//	posY(divId1, posY(divId1) + speed);
+		posY(mainLayer, posY(mainLayer) - speed);
+		$("#" + userId).css('transform', 'rotate(180deg)');
         }
 
 	if(keyState == GOT_PLANET) { // press space key, isKeyDown[32]
@@ -220,58 +236,6 @@ function posY(divId, position) {
 		return parseInt($("#" + divId).css("top"));
 	}
 }
-	
-// 캔버스 및 서버로 부터 받은 행성 데이터를 division 테그로 겹쳐 그리기 위한 함수 
-function drawAllAssets(mainLayer) {
-
-	planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
-
-	planetSocket.on('planet_res', function(data) {
-
-		//var mainLayer = $("#main_layer");
-		var planetInfo = {
-			id : data._id,
-			x  : data.location_x,
-			y  : data.location_y,
-			grade : data.create_spd,
-			image : { 
-				1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-				2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-				3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-				4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-				5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
-			}
-		};
-	
-		if(planetInfo.grade == 1) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
-		}
-
-		else if(planetInfo.grade == 2) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
-		}
-		else if(planetInfo.grade == 3) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
-		}
-		else if(planetInfo.grade == 4) {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
-		}
-		else {
-			drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
-		}
-	});		
-}
-
-// 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) {
-	$("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
-
-	$("#" + divId).css({
-		"backgroundImage" : planetImgUrl,
-		"width"		: "100px",
-		"height" 	: "100px"
-	});
-}
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function drawShipInfo(initPosX, initPosY) {
@@ -327,9 +291,9 @@ function viewPort() {
 
         }).resize();
 }
-	
-function buttonSet() {
-	
+
+function buttonSet() 
+{	
 	$('#logout_btn').on('click', function(){
 	
 		if(userId != null) {
@@ -389,6 +353,65 @@ function logout(userId, lastPosX, lastPosY) {
         }
 
 }
+
+function userPosUpdate(userId) 
+{
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
+
+	userPosSocket.on('mv', function(data) { // userStatus is 'object type'
+		var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
+
+		/*
+			for(var id in userStatus) {
+				console.log(id.status.username, id.status.x, id.status.y);
+				
+				if(id.status.username == userId) {
+					// TODO: Update current client x, y position
+				}
+				else{
+					// TODO: Update the others x, y position 
+				}
+			}
+		*/
+		console.log(data.username, data.location_x, data.location_y, data.key_val);
+
+		if(data.key_val == LEFT) {
+			curPosX = parseInt(data.location_x);
+			curPosY = parseInt(data.location_y);
+			console.log(curPosX, curPosY); 
+		}
+		
+		if(data.key_val == RIGHT) {
+			curPosX = parseInt(data.location_x);
+			curPosY = parseInt(data.location_y);
+			console.log(curPosX, curPosY); 
+		}
+
+		if(data.key_val == UP) {
+			curPosX = parseInt(data.location_x);
+			curPosY = parseInt(data.location_y);
+			console.log(curPosX, curPosY); 
+		}
+
+		if(data.key_val == DOWN) {
+			curPosX = parseInt(data.location_x);
+			curPosY = parseInt(data.location_y);
+			console.log(curPosX, curPosY); 
+		}
+
+		$("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
+		$("#" + data.username).css({
+			"backgroundImage" : imgUrl,
+			"width"  : "64px",
+			"height" : "64px",
+			"zIndex" : "2",
+			left: curPosX, 
+			top: curPosY
+		});			
+	});
+}
+
+
 
 /*
 	Collision model width boxing
