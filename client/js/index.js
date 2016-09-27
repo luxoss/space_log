@@ -4,119 +4,142 @@
 	**File-explanation: Contorl index html page with javascript
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
-	var mainSocket = io.connect('http://203.237.179.21:5001'); 
-	mainDisplayResize();
+   var mainSocket = io.connect('http://203.237.179.21:5001'); 
 
-	$("#join_btn").on('click', function(){
-		var username = $('#username').val(); 
-		var password = $('#password').val();
-		var userInfo0 = {};
+   mainDisplayResize();
 
-		userInfo0.username = username;
-		userInfo0.password = password;
+   $("#join_btn").on('click', function(){
+      var username = $('#username').val(); 
+      var password = $('#password').val();
+      var userInfo0 = {};
+      
+      userInfo0.username = username;
+      userInfo0.password = password;
 			
-		alert("Loading...");
+      alert("Loading...");
 
-		if((userInfo0.username == " " ) || (userInfo0.password == " ")) {
-			alert("아이디와 비밀번호를 입력해주세요.");
-			window.location.reload();
-		}else {
-			mainSocket.emit('join_msg', {
-				username: userInfo0.username, 
-				password: userInfo0.password 
-			}); 
-			mainSocket.on('join_res', function(data){
+      if((userInfo0.username == " " ) || (userInfo0.password == " ")) 
+      {
+         alert("아이디와 비밀번호를 입력해주세요.");
+         window.location.reload();
+      }
+      else 
+      {
+	 mainSocket.emit('join_msg', {    
+            username: userInfo0.username, 
+            password: userInfo0.password 
+	 }); 
+
+	 mainSocket.on('join_res', function(data){
 				
-				if(data['response'] == 'true') {
-					alert('회원가입이 완료 되었습니다.');
-					window.location.reload();
-				}else {
-					alert('해당 아이디가 이미 있습니다.');
-					window.location.reload();
-				}
-			});
-		}
-	});
+	    if(data['response'] == 'true') 
+            {
+               alert('회원가입이 완료 되었습니다.');
+	       window.location.reload();
+	    }
+            else 
+            {
+	       alert('해당 아이디가 이미 있습니다.');
+               window.location.reload();
+	    }
+	 });
+      }
+   });
 
-	$(document).keydown(function(ev){
+   $(document).keydown(function(ev){
 
-		var keyCode = ev.keyCode;
+      var keyCode = ev.keyCode;
 			
-		if(keyCode == 13) {
-			var username = $('#username').val();
-			var password = $('#password').val();
-			var mainPageUrl = "./main.html";
-			var userInfo = {}; // Create user information obj		
+      if(keyCode == 13) 
+      {
+         var username = $('#username').val();
+	 var password = $('#password').val();
+	 var mainPageUrl = "./main.html";
+	 var userInfo = {}; // Create user information obj		
 		
-			userInfo.username = username;
-			userInfo.password = password;
+	 userInfo.username = username;
+	 userInfo.password = password;
 			
-			alert('loading...');
+	 alert('loading...');
 
-			mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+	 mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
 				
-			mainSocket.on('login_res', function(data){
+	 mainSocket.on('login_res', function(data){
 					
-				var userId = userInfo.username;
+	    var userId = userInfo.username;
 
-				if(data['response'] == "true") {
-					alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-					usernameValue(userId);
-					$(location).attr('href', mainPageUrl);
-				}else {
-					alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-					window.location.reload();
-				}
-			});
-		}	
+	    if(data['response'] == "true") 
+            {
+	       alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
+     
+               usernameValue(userId);
+	       $(location).attr('href', mainPageUrl);
+	    }
+            else 
+            {
+	       alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+	       window.location.reload();
+	    }
 	});
+      }	
+   });
 
-	$("#login_btn").on('click', function(){ 
-
-		var username = $('#username').val();
-		var password = $('#password').val();
-		var mainPageUrl = "./main.html";
-		var userInfo = {}; // Create user information obj		
+   $("#login_btn").on('click', function(){ 
+      
+      var username = $('#username').val();
+      var password = $('#password').val();
+      var mainPageUrl = "./main.html";
+      var userInfo = {}; // Create user information obj		
 		
-		userInfo.username = username;
-		userInfo.password = password;
+      userInfo.username = username;
+      userInfo.password = password;
 			
-		alert('loading...');
+      alert('loading...');
 
-		mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
-				
-		mainSocket.on('login_res', function(data){
+      mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+
+      mainSocket.on('login_res', function(data){
 					
-			var userId = userInfo.username;
+         var userId = userInfo.username;
 
-			if(data['response'] == "true") {
-				alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
+	 if(data['response'] == "true") 
+         {
+            alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
+        
+            usernameValue(userId);
 
-				usernameValue(userId);
-
-				$(location).attr('href', mainPageUrl);
-			} else {
-				alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-				window.location.reload();
-			}
-		});
-	});
-	
+	    $(location).attr('href', mainPageUrl);
+	 } 
+         else 
+         {
+	    alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+	    window.location.reload();
+	 }
+      });
+   });
 });
 
-function mainDisplayResize() {
-	$(window).resize(function(){
-		$('#main_container').css({position:'absolute'}).css({
-			left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
-			top: ($(window).height() - $('#main_container').outerHeight()) / 2
-		});
-	}).resize();		
+function mainDisplayResize() 
+{
+   $(window).resize(function(){
+      $('#main_container').css({position:'absolute'}).css({
+	 left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
+	 top: ($(window).height() - $('#main_container').outerHeight()) / 2
+      });
+   }).resize();		
 }
 
-function usernameValue(userValue) {
-	if(!localStorage) {
-		alert("This browser isn'y support localStorage.");
-	}else {	
+function usernameValue(userValue) 
+{
+   if(!localStorage) 
+   {
+      alert("This browser isn'y support localStorage.");
+   }
+   else 
+   {	
+      localStorage.setItem('username', userValue);
+   }
+}
 /*	
 		// TODO: { Code line explanation } User information received to server
 		// (Resource, Initialize postion, Level, and so on)' to server
@@ -141,9 +164,6 @@ function usernameValue(userValue) {
 			console.log('y: ' + userInitInfo.posY);
 
 		});
-*/			
-		localStorage.setItem('username', userValue);
-/*			
 		// TODO: { Code line explanation } Some user initialize information saved by localstorage
 		localStorage.setItem('level', userInitInfo.level);
 		localStorage.setItem('exp', userInitInfo.exp);
@@ -152,10 +172,6 @@ function usernameValue(userValue) {
 		localStorage.setItem('unknown', userInitInfo.unknown);
  		localStorage.setItem('posX', userInitInfo.posX);
 		localStorage.setItem('posY', userInitInfo.posY);
-*/
-	}	
-}
-/*	
 //TODO: Check 'join form '
 function pwdCheck() {
 	var pwd = $('#password').val();
