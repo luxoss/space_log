@@ -117,7 +117,7 @@ function drawShipInfo(initPosX, initPosY) {
 	//$('#mineral').val() = userInitInfo.mineral;
 	//$('#gas').val() = userInitInfo.gas;     
 	//$('#unknown').val() = userInitInfo.unknown;
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
 
 	$('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
 	$("#user_name").text("" + userId + "");
@@ -186,28 +186,40 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 	//	posX(divId1, posX(divId1) - speed); 
 	//	$("#" + userId).css('transform', 'rotate(-90deg)');
 		posX(mainLayer, posX(mainLayer) + speed);   
-		$("#" + userId).css('background-image', "url()");  				
+		$("#" + userId).css(
+			'background-image', 
+			"url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
+		); 				
 	}
 	
 	if(keyState == RIGHT) { // Right, isKeyDown[39]
 	//	posX(divId1, posX(divId1) + speed);
 	//      $("#" + userId).css('transform', 'rotate(90deg)');   
 		posX(mainLayer, posX(mainLayer) - speed);
-		$("#" + userId).css('background-image', "url()");  				
+		$("#" + userId).css(
+			'background-image', 
+			"url(http://203.237.179.21:8000/res/img/space_ship1_right.svg"
+		); 				
 	}
 
 	if(keyState == UP) { // Up, iskeyDown[38]
 	//	posY(divId1, posY(divId1) - speed);
 	//	$("#" + userId).css('transform', 'rotate(0deg)');
 	        posY(mainLayer, posY(mainLayer) + speed);
-		$("#" + userId).css('background-image', "url()");  				
+		$("#" + userId).css(
+			'background-image', 
+			"url(http://203.237.179.21:8000/res/img/space_ship1_up.svg"
+		); 					
 	}
 
 	if(keyState == DOWN) { // Down, isKeyDown[40]
 	//	posY(divId1, posY(divId1) + speed);
 	//	$("#" + userId).css('transform', 'rotate(180deg)');
 		posY(mainLayer, posY(mainLayer) - speed);
-		$("#" + userId).css('background-image', "url()");  				
+		$("#" + userId).css(
+			'background-image', 
+			"url(http://203.237.179.21:8000/res/img/space_ship1_down.svg"
+		); 						
         }
 
 	if(keyState == GOT_PLANET) { // press space key, isKeyDown[32]
@@ -360,7 +372,12 @@ function logout(userId, lastPosX, lastPosY) {
 
 function userPosUpdate(userId) 
 {
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
+	var imgState = {
+		LEFT :  "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
+		RIGHT:  "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
+		UP: 	"url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+		DOWN: 	"url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')",
+	}; 
 
 	userPosSocket.on('mv', function(data) { // userStatus is 'object type'
 		var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
@@ -379,39 +396,59 @@ function userPosUpdate(userId)
 		*/
 		console.log(data.username, data.location_x, data.location_y, data.key_val);
 
+		$("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
+
 		if(data.key_val == LEFT) {
 			curPosX = parseInt(data.location_x);
 			curPosY = parseInt(data.location_y);
-			console.log(curPosX, curPosY); 
+			$("#" + data.username).css({
+				"backgroundImage" : imgState.LEFT,
+				"width"  : "64px",
+				"height" : "64px",
+				"zIndex" : "2",
+				left: curPosX, 
+				top: curPosY
+			});		
 		}
 		
 		if(data.key_val == RIGHT) {
 			curPosX = parseInt(data.location_x);
 			curPosY = parseInt(data.location_y);
-			console.log(curPosX, curPosY); 
+			$("#" + data.username).css({
+				"backgroundImage" : imgState.RIGHT,
+				"width"  : "64px",
+				"height" : "64px",
+				"zIndex" : "2",
+				left: curPosX, 
+				top: curPosY
+			});		
 		}
 
 		if(data.key_val == UP) {
 			curPosX = parseInt(data.location_x);
 			curPosY = parseInt(data.location_y);
-			console.log(curPosX, curPosY); 
+			$("#" + data.username).css({
+				"backgroundImage" : imgState.UP,
+				"width"  : "64px",
+				"height" : "64px",
+				"zIndex" : "2",
+				left: curPosX, 
+				top: curPosY
+			});	
 		}
 
 		if(data.key_val == DOWN) {
 			curPosX = parseInt(data.location_x);
 			curPosY = parseInt(data.location_y);
-			console.log(curPosX, curPosY); 
+			$("#" + data.username).css({
+				"backgroundImage" : imgState.DOWN,
+				"width"  : "64px",
+				"height" : "64px",
+				"zIndex" : "2",
+				left: curPosX, 
+				top: curPosY
+			});	
 		}
-
-		$("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
-		$("#" + data.username).css({
-			"backgroundImage" : imgUrl,
-			"width"  : "64px",
-			"height" : "64px",
-			"zIndex" : "2",
-			left: curPosX, 
-			top: curPosY
-		});			
 	});
 }
 
