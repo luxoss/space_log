@@ -159,7 +159,7 @@ function keyHandler(mainLayer, userId)
 	 'location_y' : curPosY
       });
       //isKeyDown[ev.keyCode] = true;
-      shipMove(ev, mainLayer, userId, curPosX, curPosY);
+      //shipMove(ev, mainLayer, curPosX, curPosY);
    });
 
    $(document).keyup(function(ev) {
@@ -167,7 +167,7 @@ function keyHandler(mainLayer, userId)
    });
 }
 
-function shipMove(ev, divId, divId1, curPosX, curPosY)
+function shipMove(ev, divId, curPosX, curPosY)
 {
    var keyState = ev.keyCode;
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, 
@@ -383,12 +383,13 @@ function userPosUpdate()
 	       curPosX = parseInt(data.location_x);
 	       curPosY = parseInt(data.location_y);
 	
-	      $("#" + data.username).css({
-	         "backgroundImage" : imgState.LEFT,
-		 left: curPosX, 
-		 top: curPosY
-	      });
-	      break;
+	       $("#" + data.username).css({
+	          "backgroundImage" : imgState.LEFT,
+ 		  left: curPosX, 
+		  top: curPosY
+	       });
+	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	       break;
 
  	    case RIGHT:
 	       curPosX = parseInt(data.location_x);
@@ -399,6 +400,7 @@ function userPosUpdate()
  	 	  left: curPosX, 
 	          top: curPosY
 	       });		
+	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
 	    case UP:
@@ -410,6 +412,7 @@ function userPosUpdate()
 		  left: curPosX, 
 		  top: curPosY
 	       });		
+	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
 	    case DOWN:
@@ -421,6 +424,8 @@ function userPosUpdate()
 		  left: curPosX, 
 		  top: curPosY
 	       });	
+	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	       break;
 				
             default:
 	       break;
@@ -486,7 +491,8 @@ function userPosUpdate()
 		   left: enemyPosX, 
 		   top: enemyPosY
 		});	
-				
+		break;
+		
 	     default:
                 break;
          }
