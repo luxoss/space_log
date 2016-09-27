@@ -1,13 +1,7 @@
 /**
-	**File name: main.js
-	**Writer: luxoss
-	**File-explanation: Control main html page with javascript	
-	**Variable naming: camelCase 
-	**Function naming: camelCase
-	**jquery selector naming: under_bar
-	Main layer size = 5000(width) * 5000(hegiht)
-	User layer size = window.width(), window.height()
-	All assets size = 100 * 100	
+   ** File name: main.js
+   ** Writer: luxoss
+   ** File-explanation: Control main html page with javascript	
 */
 
 var serverUrl =  "http://203.237.179.21" 					
