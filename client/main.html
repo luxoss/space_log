@@ -1,114 +1,116 @@
 <!--
-	**File-name: main.html
-	**Wrtier: luxoss
-	**File-explanation: Display main html page 
+   ** File-name: main.html
+   ** Wrtier: luxoss
+   ** File-explanation: Display main html page 
 -->
 <!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="utf-8"/>
-		<meta name = "viewport" content = "width=device-width, initial-scale=1">
-		<link rel = "stylesheet" href= "./css/main.css" media = "screen" charset = "utf-8">
+   <head>
+      <meta charset="utf-8"/>
+      <meta name = "viewport" content = "width=device-width, initial-scale=1" />
 
-		<!-- Contain javascript libs -->
-		<script type = "text/javascript" src = "http://code.jquery.com/jquery-2.1.0.min.js"></script>
-		<script type = "text/javascript" src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		<!-- Load main control javascript file list -->
+      <link rel = "stylesheet" href= "./css/main.css" media = "screen" charset = "utf-8" />
+
+      <!-- Contain javascript libs -->
+      <script type = "text/javascript" src = "http://code.jquery.com/jquery-2.1.0.min.js"></script>
+      <script type = "text/javascript" src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+      <!-- Load main control javascript file list -->
 		
-<!--		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/sound.js"></script> -->
-		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/main.js"></script> 
-		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/planet_ui.js"></script>
-		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/battle_ship_ui.js"></script>
-		<script type = "text/javascript" src = "http://203.237.179.21:8000/js/rank_ui.js"></script>
+      <!--<script type = "text/javascript" src = "http://203.237.179.21:8000/js/sound.js"></script> -->
+      <script type = "text/javascript" src = "http://203.237.179.21:8000/js/main.js"></script> 
+      <script type = "text/javascript" src = "http://203.237.179.21:8000/js/planet_ui.js"></script>
+      <script type = "text/javascript" src = "http://203.237.179.21:8000/js/battle_ship_ui.js"></script>
+      <script type = "text/javascript" src = "http://203.237.179.21:8000/js/rank_ui.js"></script>
 
-		<!-- Turn on the background sound -->
-<!--		<audio bgsound src= "./res/sound/Battle.mp3" loop = infinite autoplay></audio> -->
+      <!-- Turn on the background sound -->
+      <!--<audio bgsound src= "./res/sound/Battle.mp3" loop = infinite autoplay></audio> -->
 
-		<title>THE SPACE LOG - SOME SPACE VOYAGERS</title>
-	</head>
-	<body>
-		<!-- Main display -->
-		<div id = "main_layer">	
-		</div>
-		<div id = "view_layer">
-			<!-- Menu icon -->
-			<div class = "menu_buttons_ui">		  
-			  &nbsp;<input id ="logout_btn" type = "button"/>
-				<input id = "planet_btn" type = "button" />
-				<input id = "battle_ship_btn" type = "button" />
-				<input id = "rank_btn" type = "button" />
-			</div>
+      <title>THE SPACE LOG - SOME SPACE VOYAGERS</title>
+   </head>
+   <body>
+      <!-- Main display -->
+      <div id = "main_layer"></div>
+
+      <div id = "view_layer">
+         <!-- Menu icon -->
+         <div class = "menu_buttons_ui">		  
+            <input id ="logout_btn" type = "button"/>
+	    <input id = "planet_btn" type = "button" />
+	    <input id = "battle_ship_btn" type = "button" />
+	    <input id = "rank_btn" type = "button" />
+	 </div>
 		
-			<!-- User information UI -->
-			<div class = "user_info_ui">			
-				<div id = "user_avatar">
-					<div id = "user_name"></div>
-				</div>
-				<div id = "hp_progress_bar"></div>
-				<div id = "sp_progress_bar"></div>
-				<div id = "exp_stats"></div>	
-			</div>
-			<div id = "mineral"></div>
-			<div id = "gas"></div>
-			<div id = "dark_meterial"></div>
-			<div id = "gold"></div>
+	<!-- User information UI -->
+	 <div class = "user_info_ui">			
+	    <div id = "user_avatar">
+	    <div id = "user_name"></div>
+	 </div>
+	 <div id = "hp_progress_bar"></div>
+	 <div id = "sp_progress_bar"></div>
+	 <div id = "exp_stats"></div>	
+      </div>
+
+      <div id = "mineral"></div>
+      <div id = "gas"></div>
+      <div id = "dark_meterial"></div>
+      <div id = "gold"></div>
 		
-			<!-- Draw minimap user interface -->
-			<div class = "minimap_ui">
-				<canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
-			</div>	
-		</div>
+      <!-- Draw minimap user interface -->
+      <div class = "minimap_ui">
+         <canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
+      </div>	
+      </div>
 
-		<!-- Planet UI -->
-		<div class = "planet_ui">
-			<div id = "planet_name">행성 이름</div>
-			<div id = "planet_resource">행성이 보유한 자원</div>
-			<div id = "planet_discovered">개척 상황</div>
-			<div id = "planet_grade">행성 등급</div>
-			
-		</div>
+      <!-- Planet UI -->
+      <div class = "planet_ui">
+         <div id = "planet_name">행성 이름</div>
+	 <div id = "planet_resource">행성이 보유한 자원</div>
+	 <div id = "planet_discovered">개척 상황</div>
+	 <div id = "planet_grade">행성 등급</div>	
+      </div>
 	
-		<!-- Battle ship information UI -->	
-		<div class = "battle_ship_ui">
-			<div id = "battle_ship_info_display">
-				<div id = "battle_ship_state_img">Battle ship state image</div>
+      <!-- Battle ship information UI -->	
+      <div class = "battle_ship_ui">
+         <div id = "battle_ship_info_display">
+	    <div id = "battle_ship_state_img">Battle ship state image</div>
 	
-				<!-- Set four cube slots -->
-				<div id = "cube01_slot">Insert cube01</div>
-				<div id = "cube02_slot">Insert cube02</div>
-				<div id = "cube03_slot">Insert cube03</div>	
-				<div id = "cube04_slot">Insert cube04</div>
-			</div>
-			<div id = "battle_ship_item_slot">
-				<!-- Slot list -->
-				<div id = "slot01"></div>
-				<div id = "slot02"></div>
-				<div id = "slot03"></div>
-				<div id = "slot04"></div>
-				<div id = "slot05"></div>
-				<div id = "slot06"></div>
-				<div id = "slot07"></div>
-				<div id = "slot08"></div>
-				<div id = "slot09"></div>
-				<div id = "slot10"></div>
-				<div id = "slot11"></div>
-				<div id = "slot12"></div>
-				<input type = "button" id = "insert_cube" />
-				<input type = "button" id = "insert_misile" />
-			</div>
-		</div>	
+	    <!-- Set four cube slots -->
+	    <div id = "cube01_slot">Insert cube01</div>
+	    <div id = "cube02_slot">Insert cube02</div>
+	    <div id = "cube03_slot">Insert cube03</div>	
+	    <div id = "cube04_slot">Insert cube04</div>
+	 </div>
+	 <div id = "battle_ship_item_slot">
+	    <!-- Slot list -->
+	    <div id = "slot01"></div>
+	    <div id = "slot02"></div>
+	    <div id = "slot03"></div>
+            <div id = "slot04"></div>
+	    <div id = "slot05"></div>
+	    <div id = "slot06"></div>
+	    <div id = "slot07"></div>
+	    <div id = "slot08"></div>
+	    <div id = "slot09"></div>
+	    <div id = "slot10"></div>
+	    <div id = "slot11"></div>
+	    <div id = "slot12"></div>
+	    <input type = "button" id = "insert_cube" />
+	    <input type = "button" id = "insert_misile" />
+	 </div>
+      </div>	
 
-		<!-- Users' rank inforamtion UI -->	
-		<div class = "rank_ui">
-			<div id = "user_ranking">Rank no.</div>
-			<div id = "user_id">User id</div>
-			<div id = "user_planet_number">User's planet number</div>
-		</div>
+      <!-- Users' rank inforamtion UI -->	
+      <div class = "rank_ui">
+         <div id = "user_ranking">Rank no.</div>
+         <div id = "user_id">User id</div>
+	 <div id = "user_planet_number">User's planet number</div>
+      </div>
 	
-		<!-- Test scroll left, top position -->
-		<div class = "scroll_ui">
-			<div id = "scroll_x"></div>
-			<div id = "scroll_y"></div>
-		</div>
-	</body>
+      <!-- Test scroll left, top position -->
+      <div class = "scroll_ui">
+         <div id = "scroll_x"></div>
+	 <div id = "scroll_y"></div>
+      </div>
+   </body>
 </html>

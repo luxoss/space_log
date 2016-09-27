@@ -1,51 +1,51 @@
 <!--
-	**File-name: index.html
-	**Writer: luxoss
-	**File-expalanation: Join and login html page 
+   ** File-name: index.html
+   ** Writer: luxoss
+   **File-expalanation: Join and login html page 
 -->
 <!DOCTYPE html>
 <html>
-	<head>    
-		<meta charset = "UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1"/>
+   <head>    
+      <meta charset = "UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
 
-		<link rel="space_log_icon" type="image/x-icon" href="http://203.237.179.21:8000/favicon.ico"/>
-		<link rel="stylesheet" href="http://203.237.179.21:8000/css/index.css" media="all"/>
+      <link rel="space_log_icon" type="image/x-icon" href="http://203.237.179.21:8000/favicon.ico"/>
+      <link rel="stylesheet" href="http://203.237.179.21:8000/css/index.css" media="all"/>
 
-		<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script> 
-		<script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
-		<script type="text/javascript" src="http://203.237.179.21:8000/js/index.js"></script> 
-<!--		<script type="text/javascript" src="http://203.237.179.21:8000/js/sound.js"></script>-->
-		<title>Welcome to the space log web game</title>
-	</head>
-	<body>
-			
-		<!-- Play background sound -->
-		<audio bgsound src = "./res/sound/InterStellare.mp3" loop = infinite autoplay></audio>
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script> 
+      <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+      <script type="text/javascript" src="http://203.237.179.21:8000/js/index.js"></script> 
+      <!--<script type="text/javascript" src="http://203.237.179.21:8000/js/sound.js"></script>-->
+      <title>Welcome to the space log web game</title>
+   </head>
+   <body>
+      <!-- Play background sound -->
+      <audio bgsound src = "./res/sound/InterStellare.mp3" loop = infinite autoplay></audio>
 
-		<!-- Main container -->
-		<div id="main_container"> 			
-			<!-- Header division -->
-			<div id="header">	
-				<h1>SPACE LOG</h1>
-			</div>
-			<!-- User information division -->
-			<div id="user_info"> 
-				<br/><br/>
-				<center>
-					<input type="text" class="input_text" id="username" name="username" placeholder=" >>USERNAME" value="" /><br/><br/>
-					<input type="password" class="input_text" id="password" name="password" placeholder=" >>PASSWORD" value="" /><br/><br/>
-					<!-- Login button -->
-					<input type="button" class="input_btn" id="login_btn" name="login" value="Sign In" onfocus=this.style.background="#004080"; onblur=this.style.background="#004080" /><br/><br/>
-					<!-- Join button -->
-          				<input type="button" class="input_btn" id="join_btn" name="join" value="Sign Up" onfocus=this.style.background="red"; onblur=this.style.background="#004080" /><br/><br/> 
+      <!-- Main container -->
+      <div id="main_container"> 			
+         <!-- Header division -->
+         <div id="header">	
+            <h1>SPACE LOG</h1>
+         </div>
 
-      				</center>
-			</div><br/>
-			<!-- footer division -->
-			<div id="footer">
-				<h3>Created by 'SPACE LOG TEAM'</h3>
-			</div> 
-      	    	</div>
-  	</body>
+	 <!-- User information division -->
+         <div id="user_info"> 
+	    <input type="text" class="input_text" id="username" name="username" placeholder=" >>USERNAME" value="" /><br/><br/>
+	    <input type="password" class="input_text" id="password" name="password" placeholder=" >>PASSWORD" value="" /><br/><br/>
+
+	    <!-- Login button -->
+	    <input type="button" class="input_btn" id="login_btn" name="login" value="Sign In" onfocus=this.style.background="#004080"; onblur=this.style.background="#004080" />
+
+	    <!-- Join button -->
+            <input type="button" class="input_btn" id="join_btn" name="join" value="Sign Up" onfocus=this.style.background="red"; onblur=this.style.background="#004080" />
+	 </div>
+
+	 <!-- footer division -->
+	 <div id="footer">
+	    <h3>Created by 'SPACE LOG TEAM'</h3>
+	 </div> 
+      </div>
+   </body>
 </html>
+
