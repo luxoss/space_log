@@ -58,7 +58,7 @@ function gameLoop()
 	viewPort();
 	keyHandler(mainLayer, userId);
 	buttonSet();
-	userPosUpdate(userId); 
+	userPosUpdate(); 
 }	
 
 function drawAllAssets(mainLayer) 
@@ -370,7 +370,7 @@ function logout(userId, lastPosX, lastPosY) {
 
 }
 
-function userPosUpdate(userId) 
+function userPosUpdate() 
 {
 	var imgState = {
 		LEFT :  "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
