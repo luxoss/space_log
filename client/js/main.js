@@ -20,11 +20,12 @@ var curWinWidth = $(window).width(), curWinHeight = $(window).height();
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
-var fps = 30, speed = 10;			
+var fps = 30, speed = 2;			
 var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
 var curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
+var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
 var fire = new Audio();
@@ -44,13 +45,12 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 // Ready document that is game loop 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
-	gameLoop();
+	initialize();
 });
 
-function gameLoop() 
+function initialize() 
 {
 	//After init, update and display
-//	initialize();
 //	update();
 //	display();
 	drawAllAssets(mainLayer); 		
@@ -181,45 +181,35 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 
 	lastPosX = curPosX;
 	lastPosY = curPosY;
-
-	if(keyState == LEFT) { // Left, isKeyDown[37]
-	//	posX(divId1, posX(divId1) - speed); 
-	//	$("#" + userId).css('transform', 'rotate(-90deg)');
-		posX(mainLayer, posX(mainLayer) + speed);   
+/*
+		posX(divId1, posX(divId1) - speed); 
+		$("#" + userId).css('transform', 'rotate(-90deg)');
+	//	posX(divId1, posX(divId1) + speed);
+	//      $("#" + userId).css('transform', 'rotate(90deg)');   
+	//	posY(divId1, posY(divId1) - speed);
+	//	$("#" + userId).css('transform', 'rotate(0deg)');
+	//	posY(divId1, posY(divId1) + speed);
+	//	$("#" + userId).css('transform', 'rotate(180deg)');
 		$("#" + userId).css(
 			'background-image', 
 			"url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
 		); 				
+*/
+	if(keyState == LEFT) { // Left, isKeyDown[37]
+		posX(mainLayer, posX(mainLayer) + speed);   
+
 	}
 	
 	if(keyState == RIGHT) { // Right, isKeyDown[39]
-	//	posX(divId1, posX(divId1) + speed);
-	//      $("#" + userId).css('transform', 'rotate(90deg)');   
 		posX(mainLayer, posX(mainLayer) - speed);
-		$("#" + userId).css(
-			'background-image', 
-			"url(http://203.237.179.21:8000/res/img/space_ship1_right.svg"
-		); 				
 	}
 
 	if(keyState == UP) { // Up, iskeyDown[38]
-	//	posY(divId1, posY(divId1) - speed);
-	//	$("#" + userId).css('transform', 'rotate(0deg)');
 	        posY(mainLayer, posY(mainLayer) + speed);
-		$("#" + userId).css(
-			'background-image', 
-			"url(http://203.237.179.21:8000/res/img/space_ship1_up.svg"
-		); 					
 	}
 
 	if(keyState == DOWN) { // Down, isKeyDown[40]
-	//	posY(divId1, posY(divId1) + speed);
-	//	$("#" + userId).css('transform', 'rotate(180deg)');
 		posY(mainLayer, posY(mainLayer) - speed);
-		$("#" + userId).css(
-			'background-image', 
-			"url(http://203.237.179.21:8000/res/img/space_ship1_down.svg"
-		); 						
         }
 
 	if(keyState == GOT_PLANET) { // press space key, isKeyDown[32]
@@ -237,9 +227,7 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 	}
 
 	if(keyState == LOGOUT_BTN) { // press logout(q), isKeydown[81]
-	//	lastPosX = parseInt($("#" + userId).offset().left);
-	//	lastPosY = parseInt($("#" + userId).offset().top);	
-		logout(divId1, lastPosX, lastPosY);
+		logout(userId, lastPosX, lastPosY);
 	}
 
 	if(keyState == RANK_BTN) { // press rank menu button, isKeyDown[82]
@@ -252,24 +240,6 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 		fire.currentTime = 0;
 		//shoot(curPosX, curPosY);	
 	}
-/*
-	// Move a diagonal line 
-	if(isKeyDown[38] && isKeyDown[37]) { 
-		$("#" + divId1).css('transform', 'rotate(-45deg)');
-	}
-
-	if(isKeyDown[38] && isKeyDown[39]) {
-		$("#" + divId1).css('transform', 'rotate(45deg)');
-	}
-
-	if(isKeyDown[40] && isKeyDown[37]) {
-		$("#" + divId1).css('transform', 'rotate(-135deg)');
-	}
-
-	if(isKeyDown[40] && isKeyDown[39]) {
-		$("#" + divId1).css('transform', 'rotate(135deg)');
-	}	
-*/
 }
 
 // x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
@@ -372,6 +342,8 @@ function logout(userId, lastPosX, lastPosY) {
 
 function userPosUpdate() 
 {
+	var playUserId = localStorage.getItem('username');
+
 	var imgState = {
 		LEFT :  "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
 		RIGHT:  "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
@@ -381,6 +353,7 @@ function userPosUpdate()
 
 	userPosSocket.on('mv', function(data) { // userStatus is 'object type'
 		var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
+		var keyPressVal = data.key_val;
 
 		/*
 			for(var id in userStatus) {
@@ -398,67 +371,151 @@ function userPosUpdate()
 
 		$("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
 
-		if(data.key_val == LEFT) {
-			curPosX = parseInt(data.location_x);
-			curPosY = parseInt(data.location_y);
-			$("#" + data.username).css({
-				"backgroundImage" : imgState.LEFT,
-				"width"  : "64px",
-				"height" : "64px",
-				"zIndex" : "2",
-				left: curPosX, 
-				top: curPosY
-			});		
-		}
-		
-		if(data.key_val == RIGHT) {
-			curPosX = parseInt(data.location_x);
-			curPosY = parseInt(data.location_y);
-			$("#" + data.username).css({
-				"backgroundImage" : imgState.RIGHT,
-				"width"  : "64px",
-				"height" : "64px",
-				"zIndex" : "2",
-				left: curPosX, 
-				top: curPosY
-			});		
-		}
+		if(data.username == playUserId) 
+		{
+			switch(keyPressVal)
+			{
+				case LEFT:
+					curPosX = parseInt(data.location_x);
+					curPosY = parseInt(data.location_y);
+	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.LEFT,
+						left: curPosX, 
+						top: curPosY
+					});
+					break;
 
-		if(data.key_val == UP) {
-			curPosX = parseInt(data.location_x);
-			curPosY = parseInt(data.location_y);
-			$("#" + data.username).css({
-				"backgroundImage" : imgState.UP,
-				"width"  : "64px",
-				"height" : "64px",
-				"zIndex" : "2",
-				left: curPosX, 
-				top: curPosY
-			});	
-		}
+				case RIGHT:
+					curPosX = parseInt(data.location_x);
+					curPosY = parseInt(data.location_y);
 
-		if(data.key_val == DOWN) {
-			curPosX = parseInt(data.location_x);
-			curPosY = parseInt(data.location_y);
-			$("#" + data.username).css({
-				"backgroundImage" : imgState.DOWN,
-				"width"  : "64px",
-				"height" : "64px",
-				"zIndex" : "2",
-				left: curPosX, 
-				top: curPosY
-			});	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.RIGHT,
+						left: curPosX, 
+						top: curPosY
+					});		
+					break;
+				
+				case UP:
+					curPosX = parseInt(data.location_x);
+					curPosY = parseInt(data.location_y);
+	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.UP,
+						left: curPosX, 
+						top: curPosY
+					});		
+					break;
+				
+				case DOWN:
+					curPosX = parseInt(data.location_x);
+					curPosY = parseInt(data.location_y);
+	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.DOWN,
+						left: curPosX, 
+						top: curPosY
+					});	
+				
+				default:
+					break;
+			}
 		}
-	});
+		else 
+		{
+			switch(keyPressVal)
+			{
+				case LEFT:
+					//curPosX = parseInt(data.location_x);
+					//curPosY = parseInt(data.location_y);
+					enemyPosX = parseInt(data.location_x);
+					enemyPosY = parseInt(data.location_y);
+	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.LEFT,
+						"width"  : "64px",
+						"height" : "64px",
+						"zIndex" : "2",
+						left: enemyPosX, 
+						top: enemyPosY
+					});
+					break;
+
+				case RIGHT:
+					enemyPosX = parseInt(data.location_x);
+					enemyPosY = parseInt(data.location_y);
+
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.RIGHT,
+						"width"  : "64px",
+						"height" : "64px",
+						"zIndex" : "2",
+						left: enemyPosX, 
+						top: enemyPosY
+					});		
+					break;
+				
+				case UP:
+					enemyPosX = parseInt(data.location_x);
+					enemyPosY = parseInt(data.location_y);
+	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.UP,
+						"width"  : "64px",
+						"height" : "64px",
+						"zIndex" : "2",
+						left: enemyPosX, 
+						top: enemyPosY
+					});		
+					break;
+				
+				case DOWN:
+					enemyPosX = parseInt(data.location_x);
+					enemyPosY = parseInt(data.location_y);
+	
+					$("#" + data.username).css({
+						"backgroundImage" : imgState.DOWN,
+						"width"  : "64px",
+						"height" : "64px",
+						"zIndex" : "2",
+						left: enemyPosX, 
+						top: enemyPosY
+					});	
+				
+				default:
+					break;
+			}
+		}
+	});		
 }
+/*					
+			if(data.key_val == LEFT) 
+			{
 
+			}
+		
+			if(data.key_val == RIGHT) 
+			{
 
+			}
 
-/*
-	Collision model width boxing
+			if(data.key_val == UP) 
+			{
+
+			}
+
+			if(data.key_val == DOWN) 
+			{
+		
+			}
 */
 
+
+
 /*
+	//Code's grave
+
 //TODO: Some code lines 
 function isCollision(otherObj, player) {
 	return (otherObj.x < player.x + player.width) && (otherObj.x + otherObj.width > player.x) && 
@@ -518,4 +575,25 @@ function isNumber(str) {
   	str = str.replace(/^\s*|\s*$/g, ''); // 좌우 공백 제거 
   	if (str == '' || isNaN(str)) {return false };
   	return true;
+}
+	// Move a diagonal line 
+	if(isKeyDown[38] && isKeyDown[37]) { 
+		$("#" + divId1).css('transform', 'rotate(-45deg)');
+	}
+
+	if(isKeyDown[38] && isKeyDown[39]) {
+		$("#" + divId1).css('transform', 'rotate(45deg)');
+	}
+
+	if(isKeyDown[40] && isKeyDown[37]) {
+		$("#" + divId1).css('transform', 'rotate(-135deg)');
+	}
+
+	if(isKeyDown[40] && isKeyDown[39]) {
+		$("#" + divId1).css('transform', 'rotate(135deg)');
+	}	
+	// get a current div offset
+	lastPosX = parseInt($("#" + userId).offset().left);
+	lastPosY = parseInt($("#" + userId).offset().top);	
 */
+
