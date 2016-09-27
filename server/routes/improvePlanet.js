@@ -1,7 +1,7 @@
 var MongoClient = require('mongodb').MongoClient;
 
 var level_p = 5;
-var improve_q;
+var improve_q=0;
 
 function improve_p(){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){

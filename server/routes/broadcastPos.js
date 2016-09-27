@@ -6,8 +6,8 @@ var fs = require('fs');
 var file = 'space_log.txt';
 
 var objects = {};
-var mv_obj;
-var username, key_val, x, y;
+var mv_obj={};
+var username="", key_val=0, x=0, y=0;
 var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 
 UsersPio.on('connection', function(socket){
@@ -51,6 +51,7 @@ UsersPio.on('connection', function(socket){
 		
 		//objects[socket.id] = new UserObj();
 		//objects[socket.id].status.x = x;
+		/*
 		objects[socket.id] = function(){
 			this.status = {};
 			this.status.x;
@@ -64,23 +65,36 @@ UsersPio.on('connection', function(socket){
 		objects[socket.id].status.y = y;
 		objects[socket.id].status.username = username;
 		objects[socket.id].status.keypress = key_val;
+		*/
 	
-		console.log(":::::::: " + objects[socket.id].status.x + " :::::");
+	//	console.log(":::::::: " + objects[socket.id].status.x + " :::::");
 		console.log('=============== key_val : ' + key_val +"============");
 		
 		if(key_val == LEFT){
-			objects[socket.id].status.x -= 10;
+		//	objects[socket.id].status.x -= 10;
+			x -= 10;
+
 		} else if(key_val == UP){
-			objects[socket.id].status.y -= 10;
+		//	objects[socket.id].status.y -= 10;
+			y -= 10;
 		} else if(key_val == RIGHT){
-			objects[socket.id].status.x += 10;
+		//	objects[socket.id].status.x += 10;
+			x += 10;
 		} else if(key_val == DOWN){
-			objects[socket.id].status.y += 10;
+		//	objects[socket.id].status.y += 10;
+			y += 10;
 		} else{
 			//nothing
 		}
+		
+		mv_obj = {
+			"location_x" : x, 
+			"location_y" : y,
+			"username" : username,
+			"key_val" : key_val
+		};
 
-		UsersPio.sockets.in('playing').emit('mv', objects[socket.id].status);
+	UsersPio.emit('mv', mv_obj);
 
 		/*
 		var update = setInterval(function(){
@@ -130,6 +144,8 @@ UsersPio.on('connection', function(socket){
 	});
 
 });
+
+
 /*
 function UserObj(){
 	

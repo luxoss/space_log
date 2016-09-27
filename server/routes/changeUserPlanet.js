@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 
-var username;
-var p_id;
+var username="";
+var p_id="";
 
 var MongoClient = require('mongodb').MongoClient;
 

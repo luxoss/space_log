@@ -4,7 +4,7 @@ var express = require('express');
 var app = express();
 var router = express.Router();
 
-var username, password, email;
+var username="", password="", email="";
 var MongoClient = require('mongodb').MongoClient;
 
 var io = require('socket.io').listen(5001);

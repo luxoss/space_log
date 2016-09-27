@@ -2,8 +2,8 @@ var MongoClient = require('mongodb').MongoClient;
 
 var new_p_n;
 var level_p=5;
-var source_q, x, y, spd;
-var data, get_time;
+var source_q=0, x=0, y=0, spd=0;
+var date, get_time;
 
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기

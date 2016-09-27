@@ -2,7 +2,7 @@
 
 var LastPio = require('socket.io').listen(5005);
 var MongoClient = require('mongodb').MongoClient;
-var username, x , y;
+var username="", x=0 , y=0;
 
 
 LastPio.on('connection', function(socket){
