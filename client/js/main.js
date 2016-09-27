@@ -111,6 +111,45 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) {
 		"height" 	: "100px"
 	});
 }
+
+// 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
+function drawShipInfo(initPosX, initPosY) {
+	//$('#mineral').val() = userInitInfo.mineral;
+	//$('#gas').val() = userInitInfo.gas;     
+	//$('#unknown').val() = userInitInfo.unknown;
+	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
+
+	$('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
+	$("#user_name").text("" + userId + "");
+	
+	$("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
+	$("#" + userId).css({
+		"backgroundImage" : imgUrl,
+		"width"  : "64px",
+		"height" : "64px",
+		"zIndex" : "2",
+		left: initPosX, 
+		top: initPosY
+	});
+
+	autoFocus(userId);
+}
+
+function autoFocus(divId) {
+
+ 	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
+	// (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
+	// 실제론 가운데 맞춰지려 하는 것)
+	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
+	// 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
+	
+	var offset = $("#" + divId).offset();
+
+	$("html, body").animate({
+		scrollLeft: offset.left - (curWinWidth / 2), 
+		scrollTop: offset.top - (curWinHeight / 2)  
+	}, 1000);
+}
 	
 function keyHandler(mainLayer, userId) 
 {
@@ -145,26 +184,30 @@ function shipMove(ev, divId, divId1, curPosX, curPosY)
 
 	if(keyState == LEFT) { // Left, isKeyDown[37]
 	//	posX(divId1, posX(divId1) - speed); 
+	//	$("#" + userId).css('transform', 'rotate(-90deg)');
 		posX(mainLayer, posX(mainLayer) + speed);   
-		$("#" + userId).css('transform', 'rotate(-90deg)');  				
+		$("#" + userId).css('background-image', "url()");  				
 	}
 	
 	if(keyState == RIGHT) { // Right, isKeyDown[39]
 	//	posX(divId1, posX(divId1) + speed);
+	//      $("#" + userId).css('transform', 'rotate(90deg)');   
 		posX(mainLayer, posX(mainLayer) - speed);
-	        $("#" + userId).css('transform', 'rotate(90deg)');   
+		$("#" + userId).css('background-image', "url()");  				
 	}
 
 	if(keyState == UP) { // Up, iskeyDown[38]
 	//	posY(divId1, posY(divId1) - speed);
+	//	$("#" + userId).css('transform', 'rotate(0deg)');
 	        posY(mainLayer, posY(mainLayer) + speed);
-		$("#" + userId).css('transform', 'rotate(0deg)');
+		$("#" + userId).css('background-image', "url()");  				
 	}
 
 	if(keyState == DOWN) { // Down, isKeyDown[40]
 	//	posY(divId1, posY(divId1) + speed);
+	//	$("#" + userId).css('transform', 'rotate(180deg)');
 		posY(mainLayer, posY(mainLayer) - speed);
-		$("#" + userId).css('transform', 'rotate(180deg)');
+		$("#" + userId).css('background-image', "url()");  				
         }
 
 	if(keyState == GOT_PLANET) { // press space key, isKeyDown[32]
@@ -235,45 +278,6 @@ function posY(divId, position) {
 	else {
 		return parseInt($("#" + divId).css("top"));
 	}
-}
-
-// 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(initPosX, initPosY) {
-	//$('#mineral').val() = userInitInfo.mineral;
-	//$('#gas').val() = userInitInfo.gas;     
-	//$('#unknown').val() = userInitInfo.unknown;
-	var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1.svg')";
-
-	$('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
-	$("#user_name").text("" + userId + "");
-	
-	$("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
-	$("#" + userId).css({
-		"backgroundImage" : imgUrl,
-		"width"  : "64px",
-		"height" : "64px",
-		"zIndex" : "2",
-		left: initPosX, 
-		top: initPosY
-	});
-
-	autoFocus(userId);
-}
-
-function autoFocus(divId) {
-
- 	// 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
-	// (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
-	// 실제론 가운데 맞춰지려 하는 것)
-	// 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
-	// 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
-	
-	var offset = $("#" + divId).offset();
-
-	$("html, body").animate({
-		scrollLeft: offset.left - (curWinWidth / 2), 
-		scrollTop: offset.top - (curWinHeight / 2)  
-	}, 1000);
 }
 
 function viewPort() {
