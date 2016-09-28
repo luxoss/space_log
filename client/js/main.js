@@ -14,7 +14,7 @@ var curWinWidth = $(window).width(), curWinHeight = $(window).height();
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
-var fps = 30, speed = 2;			
+var fps = 30, speed = 5;			
 var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
 var curPosX = initPosX, curPosY = initPosY,
@@ -68,10 +68,10 @@ function drawAllAssets(mainLayer)
          grade : data.create_spd,
          image : { 
             1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-	    2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-	    3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-	    4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-	    5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+            2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+            3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
+            4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+            5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
          }
       };
 	
@@ -118,10 +118,12 @@ function drawShipInfo(initPosX, initPosY)
    //$('#unknown').val() = userInitInfo.unknown;
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
 
-   $('#user_avartar').append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
+   $("#user_avartar").append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
    $("#user_name").text("" + userId + "");
 	
    $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
+   $("#" + userId).append("<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" + userId + "</div>");
+
    $("#" + userId).css({
       "backgroundImage" : imgUrl,
       "width"  : "64px",
@@ -154,12 +156,12 @@ function keyHandler(mainLayer, userId)
    $(document).keydown(function(ev) {  
       userPosSocket.emit('press_key', {
          'username': userId, 
-	 'key_val' : ev.keyCode, 
-	 'location_x' : curPosX,
-	 'location_y' : curPosY
+         'key_val' : ev.keyCode, 
+         'location_x' : curPosX,
+         'location_y' : curPosY
       });
       //isKeyDown[ev.keyCode] = true;
-      //viewControl(ev, mainLayer, curPosX, curPosY);
+      viewControl(ev, mainLayer, curPosX, curPosY);
    });
 
    $(document).keyup(function(ev) {
@@ -263,8 +265,8 @@ function viewPort()
 {	
    $(window).resize(function() {
       $("#view_layer").css({
-         width: 1368,	//($(window).width() - 100),
-	 height: 768	//($(window).height() - 100)
+         width: ($(window).width() - 200), // 1368px
+         height: ($(window).height() - 100) // 768px
       });
 
       $('#view_layer').css({
@@ -317,24 +319,22 @@ function logout(userId, lastPosX, lastPosY)
          if(data.response == 'true') 
          {
             userInfoSocket.emit('lpos', {
-	       'username': userId, 
-	       'lastPosX': lastPosX, 
-	       'lastPosY': lastPosY
-	    }); 
+               'username': userId, 
+               'lastPosX': lastPosX, 
+               'lastPosY': lastPosY
+            }); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
 
-//	    $("#" + userId).remove();
+      //	   $("#" + userId).remove();
             localStorage.removeItem('username');
-	    mainSocket.disconnect();
+	         mainSocket.disconnect();
             $(location).attr('href', indexPageUrl);
-
          }
          else if(data.response == 'false') 
          {
             alert('Logout error.');
          }
-
      });
    }
    else 
@@ -357,7 +357,7 @@ function userPosUpdate(/*viewControl*/)
       },
       others : {
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship2_left.svg')",
-	 RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship2_right.svg')",
+         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship2_right.svg')",
          UP   : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')",
          DOWN : "url('http://203.237.179.21:8000/res/img/space_ship2_down.svg')"
      } 
@@ -370,65 +370,62 @@ function userPosUpdate(/*viewControl*/)
       console.log(data.username, data.location_x, data.location_y, data.key_val);
 
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
+      $("#" + data.username).append("<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>");
 
       if(data.username == playUserId) 
       {
-	 $("#" + playUserId).append("<div>" + playUserId + "</div>");
-
          switch(keyPressVal)
-	 {
-	    case LEFT:
-	       curPosX = parseInt(data.location_x);
-	       curPosY = parseInt(data.location_y);
-	      rankViewLayer();
-   }
+         {
+            case LEFT:
+	            curPosX = parseInt(data.location_x);
+	            curPosY = parseInt(data.location_y);
+               
+               $("#" + data.username).css({
+	               "backgroundImage" : imgSprite.player.LEFT,
+ 		            left: curPosX, 
+		            top: curPosY
+	            });
+	            // viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            break;
 
-	       $("#" + data.username).css({
-	          "backgroundImage" : imgSprite.player.LEFT,
- 		  left: curPosX, 
-		  top: curPosY
-	       });
-	      // viewControl(keyPressVal, mainLayer, curPosX, curPosY);
-	       break;
+ 	         case RIGHT:
+	            curPosX = parseInt(data.location_x);
+	            curPosY = parseInt(data.location_y);
 
- 	    case RIGHT:
-	       curPosX = parseInt(data.location_x);
-	       curPosY = parseInt(data.location_y);
-
-	       $("#" + data.username).css({
-	          "backgroundImage" : imgSprite.player.RIGHT,
- 	 	  left: curPosX, 
-	          top: curPosY
-	       });		
-	     //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
-	       break;
+	            $("#" + data.username).css({
+	               "backgroundImage" : imgSprite.player.RIGHT,
+ 	 	            left: curPosX, 
+	               top: curPosY
+	            });		
+	            //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            break;
 				
-	    case UP:
-	       curPosX = parseInt(data.location_x);
-	       curPosY = parseInt(data.location_y);
+	         case UP:
+	            curPosX = parseInt(data.location_x);
+	            curPosY = parseInt(data.location_y);
 	
-	       $("#" + data.username).css({
-	          "backgroundImage" : imgSprite.player.UP,
-		  left: curPosX, 
-		  top: curPosY
-	       });		
-	     //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
-	       break;
+	            $("#" + data.username).css({
+	               "backgroundImage" : imgSprite.player.UP,
+		            left: curPosX, 
+		            top: curPosY
+	            });		
+	            //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            break;
 				
-	    case DOWN:
-	       curPosX = parseInt(data.location_x);
-	       curPosY = parseInt(data.location_y);
+	         case DOWN:
+	            curPosX = parseInt(data.location_x);
+	            curPosY = parseInt(data.location_y);
 	
-	       $("#" + data.username).css({
-	          "backgroundImage" : imgSprite.player.DOWN,
-		  left: curPosX, 
-		  top: curPosY
-	       });	
-	     //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
-	       break;
+	            $("#" + data.username).css({
+	               "backgroundImage" : imgSprite.player.DOWN,
+		            left: curPosX, 
+		            top: curPosY
+	            });	
+	            //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            break;
 				
             default:
-	       break;
+	            break;
          }
       }
       else 
@@ -436,62 +433,62 @@ function userPosUpdate(/*viewControl*/)
          switch(keyPressVal)
          {
             case LEFT:
-	       enemyPosX = parseInt(data.location_x);
-	       enemyPosY = parseInt(data.location_y);
+	            enemyPosX = parseInt(data.location_x);
+	            enemyPosY = parseInt(data.location_y);
 	
-	       $("#" + data.username).css({
-	          "backgroundImage" : imgSprite.others.LEFT,
-		  "width"  : "64px",
-		  "height" : "64px",
-		  "zIndex" : "2",
-		  left: enemyPosX, 
-		  top: enemyPosY
-	       });
-	       break;
+	            $("#" + data.username).css({
+	               "backgroundImage" : imgSprite.others.LEFT,
+		            "width"  : "64px",
+		            "height" : "64px",
+		            "zIndex" : "2",
+		            left: enemyPosX, 
+		            top: enemyPosY
+	            });
+	            break;
 
-	     case RIGHT:
-	        enemyPosX = parseInt(data.location_x);
-		enemyPosY = parseInt(data.location_y);
+	         case RIGHT:
+	            enemyPosX = parseInt(data.location_x);
+		         enemyPosY = parseInt(data.location_y);
 
-		$("#" + data.username).css({
-		   "backgroundImage" : imgSprite.others.RIGHT,
-		   "width"  : "64px",
-		   "height" : "64px",
-		   "zIndex" : "2",
-		   left: enemyPosX, 
-		   top: enemyPosY
-		});		
-		break;
+		         $("#" + data.username).css({
+		            "backgroundImage" : imgSprite.others.RIGHT,
+		            "width"  : "64px",
+		            "height" : "64px",
+		            "zIndex" : "2",
+		            left: enemyPosX, 
+		            top: enemyPosY
+		         });		
+		         break;
 				
-	     case UP:
-		enemyPosX = parseInt(data.location_x);
-		enemyPosY = parseInt(data.location_y);
+	        case UP:
+               enemyPosX = parseInt(data.location_x);
+		         enemyPosY = parseInt(data.location_y);
 	
-		$("#" + data.username).css({
-			"backgroundImage" : imgSprite.others.UP,
-			"width"  : "64px",
-			"height" : "64px",
-			"zIndex" : "2",
-			left: enemyPosX, 
-			top: enemyPosY
-		});		
-		break;
+		         $("#" + data.username).css({
+			         "backgroundImage" : imgSprite.others.UP,
+			         "width"  : "64px",
+			         "height" : "64px",
+			         "zIndex" : "2",
+			         left: enemyPosX, 
+			         top: enemyPosY
+		         });		
+		         break;
 				
-	     case DOWN:
-		enemyPosX = parseInt(data.location_x);
-		enemyPosY = parseInt(data.location_y);
+	        case DOWN:
+		         enemyPosX = parseInt(data.location_x);
+		         enemyPosY = parseInt(data.location_y);
 	
-		$("#" + data.username).css({
-		   "backgroundImage" : imgSprite.others.DOWN,
-		   "width"  : "64px",
-		   "height" : "64px",
-		   "zIndex" : "2",
-		   left: enemyPosX, 
-		   top: enemyPosY
-		});	
-		break;
+		         $("#" + data.username).css({
+		            "backgroundImage" : imgSprite.others.DOWN,
+		            "width"  : "64px",
+		            "height" : "64px",
+		            "zIndex" : "2",
+		            left: enemyPosX, 
+		            top: enemyPosY
+		         });	
+		         break;
 		
-	     default:
+         default:
                 break;
          }
       }
