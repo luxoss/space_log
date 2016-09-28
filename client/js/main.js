@@ -325,6 +325,7 @@ function logout(userId, lastPosX, lastPosY)
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
 
+//	    $("#" + userId).remove();
             localStorage.removeItem('username');
 	    mainSocket.disconnect();
             $(location).attr('href', indexPageUrl);
@@ -347,7 +348,7 @@ function userPosUpdate()
 {
    var playUserId = localStorage.getItem('username');
 
-   var imageStripe = {
+   var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
          RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
@@ -493,7 +494,7 @@ function userPosUpdate()
    });		
 }
 /*
-	//Code's grave
+	//Code's GRAVE
 
 //TODO: Some code lines 
 function isCollision(otherObj, player) {
