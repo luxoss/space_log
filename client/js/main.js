@@ -347,11 +347,19 @@ function userPosUpdate()
 {
    var playUserId = localStorage.getItem('username');
 
-   var imgState = {
-      LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
-      RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
-      UP   : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-      DOWN : "url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')",
+   var imageStripe = {
+      player : { 
+         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
+         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
+         UP   : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')"
+      },
+      others : {
+         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship2_left.svg')",
+	 RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship2_right.svg')",
+         UP   : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')",
+         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship2_down.svg')"
+     } 
    }; 
 
    userPosSocket.on('mv', function(data) { // userStatus is 'object type'
@@ -371,7 +379,7 @@ function userPosUpdate()
 	       curPosY = parseInt(data.location_y);
 	
 	       $("#" + data.username).css({
-	          "backgroundImage" : imgState.LEFT,
+	          "backgroundImage" : imgSprite.player.LEFT,
  		  left: curPosX, 
 		  top: curPosY
 	       });
@@ -383,7 +391,7 @@ function userPosUpdate()
 	       curPosY = parseInt(data.location_y);
 
 	       $("#" + data.username).css({
-	          "backgroundImage" : imgState.RIGHT,
+	          "backgroundImage" : imgSprite.player.RIGHT,
  	 	  left: curPosX, 
 	          top: curPosY
 	       });		
@@ -395,7 +403,7 @@ function userPosUpdate()
 	       curPosY = parseInt(data.location_y);
 	
 	       $("#" + data.username).css({
-	          "backgroundImage" : imgState.UP,
+	          "backgroundImage" : imgSprite.player.UP,
 		  left: curPosX, 
 		  top: curPosY
 	       });		
@@ -407,7 +415,7 @@ function userPosUpdate()
 	       curPosY = parseInt(data.location_y);
 	
 	       $("#" + data.username).css({
-	          "backgroundImage" : imgState.DOWN,
+	          "backgroundImage" : imgSprite.player.DOWN,
 		  left: curPosX, 
 		  top: curPosY
 	       });	
@@ -423,13 +431,11 @@ function userPosUpdate()
          switch(keyPressVal)
          {
             case LEFT:
-	       //curPosX = parseInt(data.location_x);
-	       //curPosY = parseInt(data.location_y);
 	       enemyPosX = parseInt(data.location_x);
 	       enemyPosY = parseInt(data.location_y);
 	
 	       $("#" + data.username).css({
-	          "backgroundImage" : imgState.LEFT,
+	          "backgroundImage" : imgSprite.others.LEFT,
 		  "width"  : "64px",
 		  "height" : "64px",
 		  "zIndex" : "2",
@@ -443,7 +449,7 @@ function userPosUpdate()
 		enemyPosY = parseInt(data.location_y);
 
 		$("#" + data.username).css({
-		   "backgroundImage" : imgState.RIGHT,
+		   "backgroundImage" : imgSprite.others.RIGHT,
 		   "width"  : "64px",
 		   "height" : "64px",
 		   "zIndex" : "2",
@@ -457,7 +463,7 @@ function userPosUpdate()
 		enemyPosY = parseInt(data.location_y);
 	
 		$("#" + data.username).css({
-			"backgroundImage" : imgState.UP,
+			"backgroundImage" : imgSprite.others.UP,
 			"width"  : "64px",
 			"height" : "64px",
 			"zIndex" : "2",
@@ -471,7 +477,7 @@ function userPosUpdate()
 		enemyPosY = parseInt(data.location_y);
 	
 		$("#" + data.username).css({
-		   "backgroundImage" : imgState.DOWN,
+		   "backgroundImage" : imgSprite.others.DOWN,
 		   "width"  : "64px",
 		   "height" : "64px",
 		   "zIndex" : "2",
