@@ -13,7 +13,7 @@ function planetViewLayer(planetSocket)
    {
       $('.planet_ui').show();
 
-      planetSocket.emit('planet_req', {'ready' : 'client=>ready to receive planet information db'});
+      planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       planetSocket.on('planet_res', function(data){
          console.log('socket is alive.');

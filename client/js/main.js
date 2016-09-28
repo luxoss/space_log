@@ -178,20 +178,7 @@ function shipMove(ev, divId, curPosX, curPosY)
 
    lastPosX = curPosX;
    lastPosY = curPosY;
-/*
-   posX(divId1, posX(divId1) - speed); 
-   $("#" + userId).css('transform', 'rotate(-90deg)');
-   posX(divId1, posX(divId1) + speed);
-   $("#" + userId).css('transform', 'rotate(90deg)');   
-   posY(divId1, posY(divId1) - speed);
-   $("#" + userId).css('transform', 'rotate(0deg)');
-   posY(divId1, posY(divId1) + speed);
-   $("#" + userId).css('transform', 'rotate(180deg)');
-   $("#" + userId).css(
-      'background-image', 
-      "url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
-   ); 				
-*/
+
    if(keyState == LEFT)// Left, isKeyDown[37]
    {      
       posX(mainLayer, posX(mainLayer) + speed);   
@@ -388,7 +375,7 @@ function userPosUpdate()
  		  left: curPosX, 
 		  top: curPosY
 	       });
-	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	      // shipMove(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 
  	    case RIGHT:
@@ -400,7 +387,7 @@ function userPosUpdate()
  	 	  left: curPosX, 
 	          top: curPosY
 	       });		
-	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	     //  shipMove(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
 	    case UP:
@@ -412,7 +399,7 @@ function userPosUpdate()
 		  left: curPosX, 
 		  top: curPosY
 	       });		
-	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	     //  shipMove(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
 	    case DOWN:
@@ -424,7 +411,7 @@ function userPosUpdate()
 		  left: curPosX, 
 		  top: curPosY
 	       });	
-	       //shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	     //  shipMove(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
             default:
@@ -595,6 +582,19 @@ function isNumber(str)
 	if(data.key_val == DOWN) 
 	{
 	}
+/*
+   posX(divId1, posX(divId1) - speed); 
+   $("#" + userId).css('transform', 'rotate(-90deg)');
+   posX(divId1, posX(divId1) + speed);
+   $("#" + userId).css('transform', 'rotate(90deg)');   
+   posY(divId1, posY(divId1) - speed);
+   $("#" + userId).css('transform', 'rotate(0deg)');
+   posY(divId1, posY(divId1) + speed);
+   $("#" + userId).css('transform', 'rotate(180deg)');
+   $("#" + userId).css(
+      'background-image', 
+      "url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
+   ); 				
 */
 
 
