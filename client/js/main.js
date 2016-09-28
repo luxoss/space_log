@@ -39,6 +39,7 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 // Ready document that is game loop 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
+   //TODO: Request to server initialize value. (PROBLEM: At first, didn't displayed other spaceship image. 
    initialize();
 });
 
