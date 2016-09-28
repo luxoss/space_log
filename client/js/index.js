@@ -7,6 +7,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
    var mainSocket = io.connect('http://203.237.179.21:5001'); 
 
    mainDisplayResize();
+//   audioControl();
 
    $("#join_btn").on('click', function(){
       var username = $('#username').val(); 
@@ -62,7 +63,10 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			
 	 alert('loading...');
 
-	 mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+	 mainSocket.emit('login_msg', {
+            username: userInfo.username, 
+            password: userInfo.password
+         });
 				
 	 mainSocket.on('login_res', function(data){
 					
@@ -127,6 +131,16 @@ function mainDisplayResize()
 	 top: ($(window).height() - $('#main_container').outerHeight()) / 2
       });
    }).resize();		
+}
+
+function audioControl() 
+{
+   var audioSelector = $("#audio_control");
+   var backgroundSound = new audio();
+   
+   audioSelector.click(function(audioSelector) {
+	audioSelector.val();
+   });
 }
 
 function usernameValue(userValue) 

@@ -4,86 +4,84 @@
 	**File-explanation: Decorate index html page with cascading style sheet
 */	
 body {
-	background-image: url('http://203.237.179.21:8000/res/img/galaxy_box.png');
-	background-size: cover;
+   background-image: url('http://203.237.179.21:8000/res/img/galaxy_box.png');
+   background-size: cover;
 }
 
 input {
-	width: 290px;
-	height: 30px;
-	margin: 0px;
-	padding: 0px;
-	border: 1px solid rgb(255, 255, 255);
+   width: 290px;
+   height: 30px;
+   margin: 0px;
+   padding: 0px;
+   border: 1px solid rgb(255, 255, 255);
 }
 
 .input_text {
-/*	background-color: rgba(23, 25, 25, 0.7);*/
-	background: transparent;
-	color: rgb(255, 255, 0);
-	font-weight: bold;
-	border: 2px solid white;
-	border-radius: 10px;
-	position: relative;
+   background: transparent;
+   color: rgb(255, 255, 0);
+   font-weight: bold;
+   border: 2px solid white;
+   border-radius: 10px;
+   position: relative;
 }	
 
 .input_btn {
-/*	background-color: rgba(0, 64, 128, 0.7);*/
-	background: transparent;
-  	color: rgb(255, 255, 255);
-	font-size: 16px;
-  	font-weight: bold;
-	border: 3px solid white;
-	border-radius: 10px;
-	position: relative;
+   background: transparent;
+   color: rgb(255, 255, 255);
+   font-size: 16px;
+   font-weight: bold;
+   border: 3px solid white;
+   border-radius: 10px;
+   position: relative;
 }
 
 #main_container {
-/* 	background-color: rgba(0, 0, 0, 0.7);*/
-	background: transparent;
-  	width: 450px;
-	height: 500px; 
-  	margin: 0px auto;
-  	border-radius: 10px;
+   background: transparent;
+   width: 450px;
+   height: 500px; 
+   margin: 0px auto;
+   border-radius: 10px;
 }
 
 #header {
-  	width: 400px;
- 	height: 150px; 
-   	color: rgb(255, 255, 255);
-  	font-size: 24pt;
- 	text-align: left;
- 	margin: 0px;
-  	padding: 0px;
-  	border-bottom: 2px solid rgb(255, 255, 255);
-	top: 0px;
-  	position: absolute;
+   width: 400px;
+   height: 150px; 
+   color: rgb(255, 255, 255);
+   font-size: 24pt;
+   text-align: left;
+   margin: 0px;
+   padding: 0px;
+   border-bottom: 2px solid rgb(255, 255, 255);
+   top: 0px;
+   position: absolute;
 }
 
 #user_info {
-/*  	background-color: rgba(0, 0, 0, 0.7);*/
-	background: transparent;
-  	width: 449px;
-	height: 275px;
-  	margin: 0px;
-  	padding: 0px;
-  	border: 0px;
-	top: 150px;
-	position: absolute;
+   background: transparent;
+   width: 449px;
+   height: 275px;
+   margin: 0px;
+   padding: 0px;
+   border: 0px;
+   top: 150px;
+   position: absolute;
 }
 
 #footer {
-/* 	background-color: rgba(0, 0, 0, 0.5);*/
-	background: transparent;
-  	width: 400px;
-  	height: 75px;
-  	color: rgb(255, 255, 255);
-  	text-align: right;
-  	clear: both;
- 	margin: 0px;
-  	padding: 0px;
-  	border-top: 2px solid rgb(255, 255, 255);
-	top: 425px;
-	left: 50px; 
-  	position: absolute;
+   background: transparent;
+   width: 400px;
+   height: 75px;
+   color: rgb(255, 255, 255);
+   text-align: right;
+   clear: both;
+   margin: 0px;
+   padding: 0px;
+   border-top: 2px solid rgb(255, 255, 255);
+   top: 425px;
+   left: 50px; 
+   position: absolute;
 }
 
+#sound_control {
+   font-weight: bold;
+}
