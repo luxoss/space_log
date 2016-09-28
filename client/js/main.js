@@ -159,7 +159,7 @@ function keyHandler(mainLayer, userId)
 	 'location_y' : curPosY
       });
       //isKeyDown[ev.keyCode] = true;
-      //shipMove(ev, mainLayer, curPosX, curPosY);
+      //viewControl(ev, mainLayer, curPosX, curPosY);
    });
 
    $(document).keyup(function(ev) {
@@ -167,8 +167,7 @@ function keyHandler(mainLayer, userId)
    });
 }
 
-function shipMove(ev, divId, curPosX, curPosY)
-{
+var viewControl = function(ev, divId, curPosX, curPosY) {
    var keyState = ev.keyCode;
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, 
        SHOOT = 83, GOT_PLANET = 32, 
@@ -344,9 +343,10 @@ function logout(userId, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate() 
+function userPosUpdate(/*viewControl*/) 
 {
    var playUserId = localStorage.getItem('username');
+//   var viewMove = viewControl;
 
    var imgSprite = {
       player : { 
@@ -373,18 +373,22 @@ function userPosUpdate()
 
       if(data.username == playUserId) 
       {
+	 $("#" + playUserId).append("<div>" + playUserId + "</div>");
+
          switch(keyPressVal)
 	 {
 	    case LEFT:
 	       curPosX = parseInt(data.location_x);
 	       curPosY = parseInt(data.location_y);
-	
+	      rankViewLayer();
+   }
+
 	       $("#" + data.username).css({
 	          "backgroundImage" : imgSprite.player.LEFT,
  		  left: curPosX, 
 		  top: curPosY
 	       });
-	      // shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	      // viewControl(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 
  	    case RIGHT:
@@ -396,7 +400,7 @@ function userPosUpdate()
  	 	  left: curPosX, 
 	          top: curPosY
 	       });		
-	     //  shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	     //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
 	    case UP:
@@ -408,7 +412,7 @@ function userPosUpdate()
 		  left: curPosX, 
 		  top: curPosY
 	       });		
-	     //  shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	     //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
 	    case DOWN:
@@ -420,7 +424,7 @@ function userPosUpdate()
 		  left: curPosX, 
 		  top: curPosY
 	       });	
-	     //  shipMove(keyPressVal, mainLayer, curPosX, curPosY);
+	     //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
 	       break;
 				
             default:
