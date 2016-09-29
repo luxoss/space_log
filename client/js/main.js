@@ -48,6 +48,7 @@ function initialize()
    //After init, update and display
    //update();
    //display();
+   userPosSocket.emit('press_key', {'ready' : "update all user's pos"});
    drawAllAssets(mainLayer); 		
    drawShipInfo(initPosX, initPosY); 
    viewPort();
@@ -97,6 +98,13 @@ function drawAllAssets(mainLayer)
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
       }
    });		
+/*
+   userPosSocket.on({'mv', function(data) {
+      for(var users in data) {
+         // draw all spaceship image sprite 
+      }
+   });
+*/
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
