@@ -26,24 +26,23 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
       else 
       {
-	 mainSocket.emit('join_msg', {    
+         mainSocket.emit('join_msg', {    
             username: userInfo0.username, 
             password: userInfo0.password 
-	 }); 
+         }); 
 
-	 mainSocket.on('join_res', function(data){
-				
-	    if(data['response'] == 'true') 
+	      mainSocket.on('join_res', function(data){		
+	         if(data['response'] == 'true') 
             {
                alert('회원가입이 완료 되었습니다.');
-	       window.location.reload();
-	    }
+	            window.location.reload();
+	         }
             else 
             {
-	       alert('해당 아이디가 이미 있습니다.');
+               alert('해당 아이디가 이미 있습니다.');
                window.location.reload();
-	    }
-	 });
+	         }
+	      });
       }
    });
 
@@ -54,37 +53,35 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       if(keyCode == 13) 
       {
          var username = $('#username').val();
-	 var password = $('#password').val();
-	 var mainPageUrl = "./main.html";
-	 var userInfo = {}; // Create user information obj		
-		
-	 userInfo.username = username;
-	 userInfo.password = password;
-			
-	 alert('loading...');
+         var password = $('#password').val();
+         var mainPageUrl = "./main.html";
+         var userInfo = {}; // Create user information obj		
 
-	 mainSocket.emit('login_msg', {
+		   userInfo.username = username;
+	      userInfo.password = password;
+			
+	      alert('loading...');
+
+	      mainSocket.emit('login_msg', {
             username: userInfo.username, 
             password: userInfo.password
          });
-				
-	 mainSocket.on('login_res', function(data){
-					
-	    var userId = userInfo.username;
-
-	    if(data['response'] == "true") 
+         
+         mainSocket.on('login_res', function(data){
+			   var userId = userInfo.username;
+            
+            if(data['response'] == "true") 
             {
-	       alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-     
+               alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
                usernameValue(userId);
-	       $(location).attr('href', mainPageUrl);
-	    }
+               $(location).attr('href', mainPageUrl);
+	         }
             else 
             {
-	       alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-	       window.location.reload();
-	    }
-	});
+	            alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+	            window.location.reload();
+	         }
+	      });
       }	
    });
 
@@ -103,57 +100,6 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
 
       mainSocket.on('login_res', function(data){
-					
-         var userId = userInfo.username;
-
-	 if(data['response'] == "true") 
-         {
-            alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-        
-            usernameValue(userId);
-
-	    $(location).attr('href', mainPageUrl);
-	 } 
-         else 
-         {
-	    alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-	    window.location.reload();
-	 }
-      });
-   });
-});
-
-function mainDisplayResize() 
-{
-   $(window).resize(function(){
-      $('#main_container').css({position:'absolute'}).css({
-	 left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
-	 top: ($(window).height() - $('#main_container').outerHeight()) / 2
-      });
-   }).resize();		
-}
-
-function audioControl() 
-{
-   var audioSelector = $("#audio_control");
-   var backgroundSound = new audio();
-   
-   audioSelector.click(function(audioSelector) {
-	audioSelector.val();
-   });
-}
-
-function usernameValue(userValue) 
-{
-   if(!localStorage) 
-   {
-      alert("This browser isn'y support localStorage.");
-   }
-   else 
-   {	
-      localStorage.setItem('username', userValue);
-   }
-}
 /*	
 		// TODO: { Code line explanation } User information received to server
 		// (Resource, Initialize postion, Level, and so on)' to server
@@ -186,15 +132,70 @@ function usernameValue(userValue)
 		localStorage.setItem('unknown', userInitInfo.unknown);
  		localStorage.setItem('posX', userInitInfo.posX);
 		localStorage.setItem('posY', userInitInfo.posY);
+
+*/
+         var userId = userInfo.username;
+         
+         if(data['response'] == "true") 
+         {
+            alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
+            usernameValue(userId);
+            $(location).attr('href', mainPageUrl);
+	      } 
+         else 
+         {
+            alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
+            window.location.reload();
+         }
+      });
+   });
+});
+
+function mainDisplayResize() 
+{
+   $(window).resize(function(){
+      $('#main_container').css({position:'absolute'}).css({
+	 left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
+	 top: ($(window).height() - $('#main_container').outerHeight()) / 2
+      });
+   }).resize();		
+}
+
+function audioControl() 
+{
+   var audioSelector = $("#audio_control");
+   var backgroundSound = new audio();
+   
+   audioSelector.click(function(audioSelector) {
+      audioSelector.val();
+   });
+}
+
+function usernameValue(userValue) 
+{
+   if(!localStorage) 
+   {
+      alert("This browser isn'y support localStorage.");
+   }
+   else 
+   {	
+      localStorage.setItem('username', userValue);
+   }
+}
+
 //TODO: Check 'join form '
-function pwdCheck() {
+function pwdCheck() 
+{
 	var pwd = $('#password').val();
 	var check_pwd = $('#check_password').val();
 
-	if(pwd == check_pwd) {
+	if(pwd == check_pwd) 
+   {
 		alert("회원가입이 완료되었습니다.");
-	}else {
+	}
+   else 
+   {
 		alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
 	}
 }
-*/			
+	
