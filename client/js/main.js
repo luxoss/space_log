@@ -359,11 +359,10 @@ function logout(userId, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate(/*viewControl*/) 
+function userPosUpdate(/*keyController*/) 
 {
    var playUserId = localStorage.getItem('username');
-//   var viewMove = viewControl;
-
+//   var keyCotroller = keyController();
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
