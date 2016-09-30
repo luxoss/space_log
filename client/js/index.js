@@ -4,7 +4,7 @@
 	**File-explanation: Contorl index html page with javascript
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
-   var mainSocket = io.connect('http://203.237.179.21:5001'); 
+   var userInfoSocket = io.connect('http://203.237.179.21:5001'); 
 
    mainDisplayResize();
 //   audioControl();
@@ -26,12 +26,12 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
       else 
       {
-         mainSocket.emit('join_msg', {    
+         userInfoSocket.emit('join_msg', {    
             username: userInfo0.username, 
             password: userInfo0.password 
          }); 
 
-	      mainSocket.on('join_res', function(data){		
+	      userInfoSocket.on('join_res', function(data){		
 	         if(data['response'] == 'true') 
             {
                alert('회원가입이 완료 되었습니다.');
@@ -62,15 +62,15 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			
 	      alert('loading...');
 
-	      mainSocket.emit('login_msg', {
+	      userInfoSocket.emit('login_msg', {
             username: userInfo.username, 
             password: userInfo.password
          });
          
-         mainSocket.on('login_res', function(data){
+         userInfoSocket.on('login_res', function(data){
 			   var userId = userInfo.username;
             
-            if(data['response'] == "true") 
+            if(data.response == "true") 
             {
                alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
                usernameValue(userId);
@@ -90,56 +90,40 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       var username = $('#username').val();
       var password = $('#password').val();
       var mainPageUrl = "./main.html";
-      var userInfo = {}; // Create user information obj		
-		
-      userInfo.username = username;
-      userInfo.password = password;
+		var userInitInfo = {};
+	
+      userInitInfo.username = username;
+      userInitInfo.password = password;
 			
       alert('loading...');
 
-      mainSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+      userInfoSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
 
-      mainSocket.on('login_res', function(data){
-/*	
-		// TODO: { Code line explanation } User information received to server
-		// (Resource, Initialize postion, Level, and so on)' to server
-		userInfoSocket.on('user_info', function(data){
-
-			var userInitInfo = {};
-
+      userInfoSocket.on('login_res', function(data){
 			userInitInfo.level = data.level;
 			userInitInfo.exp = data.exp;
 			userInitInfo.mineral = data.mineral;
 			userInitInfo.gas = data.gas;
 			userInitInfo.unknown = data.unknown;
-			userInitInfo.pos_x = data.location_x;
-			userInitInfo.pos_y = data.location_y;
+			userInitInfo.x = data.location_x;
+			userInitInfo.y = data.location_y;
 			
-			console.log('level: ' + userInitInfo.level);
-			console.log('exp: ' + userInitInfo.exp);
-			console.log('mineral: ' + userInitInfo.mineral);
-			console.log('gas: ' + userInitInfo.gas);
-			console.log('unknown: ' + userInitInfo.unknown);
-			console.log('x: ' + userInitInfo.posX);
-			console.log('y: ' + userInitInfo.posY);
-
-		});
-		// TODO: { Code line explanation } Some user initialize information saved by localstorage
-		localStorage.setItem('level', userInitInfo.level);
-		localStorage.setItem('exp', userInitInfo.exp);
-		localStorage.setItem('mineral', userInitInfo.mineral);
-		localStorage.setItem('gas', userInitInfo.gas);
-		localStorage.setItem('unknown', userInitInfo.unknown);
- 		localStorage.setItem('posX', userInitInfo.posX);
-		localStorage.setItem('posY', userInitInfo.posY);
-
-*/
-         var userId = userInfo.username;
+			console.log(
+            'level: ', userInitInfo.level,
+            'exp: ', userInitInfo.exp,
+            'mineral: ', userInitInfo.mineral,
+            'gas: ', userInitInfo.gas,
+            'unknown: ', userInitInfo.unknown,
+            'x: ', userInitInfo.x,
+            'y: ', userInitInfo.y
+         );
          
-         if(data['response'] == "true") 
+         var name = userInitInfo.username;
+
+         if(data.response == "true") 
          {
             alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-            usernameValue(userId);
+            usernameValue(name);
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -171,15 +155,26 @@ function audioControl()
    });
 }
 
-function usernameValue(userValue) 
+function usernameValue(name) 
 {
+
    if(!localStorage) 
    {
       alert("This browser isn'y support localStorage.");
    }
    else 
    {	
-      localStorage.setItem('username', userValue);
+      localStorage.setItem('username', name);
+      /*
+	   // TODO: { Code line explanation } Some user initialize information saved by localstorage
+	   localStorage.setItem('level', userInitInfo.level);
+	   localStorage.setItem('exp', userInitInfo.exp);
+	   localStorage.setItem('mineral', userInitInfo.mineral);
+	   localStorage.setItem('gas', userInitInfo.gas);
+	   localStorage.setItem('unknown', userInitInfo.unknown);
+ 	   localStorage.setItem('posX', userInitInfo.posX);
+	   localStorage.setItem('posY', userInitInfo.posY);
+      */
    }
 }
 

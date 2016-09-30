@@ -15,10 +15,10 @@ var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
 var fps = 30, speed = 5;			
-var initPosX = parseInt(mainWidth / 2),  //Math.floor(Math.random() * mainWidth - 100),
-    initPosY = parseInt(mainHeight / 2); //Math.floor(Math.random() * mainHeight - 100);
+var initPosX = Math.floor(Math.random() * mainWidth - 100),     
+    initPosY = Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
-    lastPosX = 0, lastPosY = 0;		// Create last position val :: If user is disconnected, client send last position to server    
+    lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
