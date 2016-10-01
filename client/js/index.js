@@ -5,7 +5,12 @@
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    var userInfoSocket = io.connect('http://203.237.179.21:5001'); 
-
+   /*
+   var userInitInfo = {
+      username : $("#username").val(),
+      password : $("#password").val(),
+   };
+*/
    mainDisplayResize();
 //   audioControl();
 
