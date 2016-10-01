@@ -5,26 +5,23 @@
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    var userInfoSocket = io.connect('http://203.237.179.21:5001'); 
-   /*
+  
    var userInitInfo = {
-      username : $("#username").val(),
-      password : $("#password").val(),
+      username : null,
+      password : null,
    };
-*/
+
    mainDisplayResize();
 //   audioControl();
 
-   $("#join_btn").on('click', function(){
-      var username = $('#username').val(); 
-      var password = $('#password').val();
-      var userInfo0 = {};
-      
-      userInfo0.username = username;
-      userInfo0.password = password;
+   $("#join_btn").on('click', function(userInitInfo){
+
+      userInitInfo.username = $("#username").val();
+      userInitInfo.password = $("#password").val();
 			
       alert("Loading...");
 
-      if((userInfo0.username == " " ) || (userInfo0.password == " ")) 
+      if((userInitInfo.username == "" ) || (userInitInfo.password == "")) 
       {
          alert("아이디와 비밀번호를 입력해주세요.");
          window.location.reload();
@@ -32,12 +29,12 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       else 
       {
          userInfoSocket.emit('join_msg', {    
-            username: userInfo0.username, 
-            password: userInfo0.password 
+            username: userInitInfo.username, 
+            password: userInitInfo.password 
          }); 
 
 	      userInfoSocket.on('join_res', function(data){		
-	         if(data['response'] == 'true') 
+	         if(data.response == 'true') 
             {
                alert('회원가입이 완료 되었습니다.');
 	            window.location.reload();
@@ -90,19 +87,18 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }	
    });
 
-   $("#login_btn").on('click', function(){ 
-      
-      var username = $('#username').val();
-      var password = $('#password').val();
+   $("#login_btn").on('click', function(userInitInfo){ 
       var mainPageUrl = "./main.html";
-		var userInitInfo = {};
-	
-      userInitInfo.username = username;
-      userInitInfo.password = password;
-			
+
+      userInitInfo.username = $('#username').val();
+      userInitInfo.password = $('#password').val();
+      			
       alert('loading...');
 
-      userInfoSocket.emit('login_msg', {username: userInfo.username, password: userInfo.password});
+      userInfoSocket.emit('login_msg', {
+         username: userInitInfo.username, 
+         password: userInitInfo.password
+      });
 
       userInfoSocket.on('login_res', function(data){
 			userInitInfo.level = data.level;
@@ -112,16 +108,6 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			userInitInfo.unknown = data.unknown;
 			userInitInfo.x = data.location_x;
 			userInitInfo.y = data.location_y;
-			
-			console.log(
-            'level: ', userInitInfo.level,
-            'exp: ', userInitInfo.exp,
-            'mineral: ', userInitInfo.mineral,
-            'gas: ', userInitInfo.gas,
-            'unknown: ', userInitInfo.unknown,
-            'x: ', userInitInfo.x,
-            'y: ', userInitInfo.y
-         );
          
          var name = userInitInfo.username;
 
