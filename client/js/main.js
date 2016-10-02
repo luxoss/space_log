@@ -4,6 +4,36 @@
    ** File-explanation: Control main html page with javascript	
 */
 
+/*
+   var socket = {
+      main : io.connect(serverUrl + ":5001"),
+      planet : io.connect(serverUrl + ":5002"),
+      userInfo : io.connect(serverUrl + ":5005"),
+      userPos : io.connect(serverUrl + ":5006)
+   };
+
+   var user = {
+      x : ,
+      y : ,
+      missile :
+   };
+
+   var enemy = {
+      x : ,
+      y : ,
+      missile : 
+   };
+   
+   var rank = {
+      users : ,
+      resource : {
+         mineral : ,
+         gas : ,
+         unknown :
+      },
+      planet : 
+   };
+*/
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
 var mainSocket     = io.connect(serverUrl + ":5001"),	// Create socket :: Control join and login
@@ -359,10 +389,10 @@ function logout(userId, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate(/*keyController*/) 
+function userPosUpdate()//btnControl
 {
    var playUserId = localStorage.getItem('username');
-//   var keyCotroller = keyController();
+ //  var keyCotroller = btnControl();
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
@@ -400,7 +430,7 @@ function userPosUpdate(/*keyController*/)
  		            left: curPosX, 
 		            top: curPosY
 	            });
-	            // viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            // keyContoller(keyPressVal, mainLayer, curPosX, curPosY);
 	            break;
 
  	         case RIGHT:
@@ -412,7 +442,7 @@ function userPosUpdate(/*keyController*/)
  	 	            left: curPosX, 
 	               top: curPosY
 	            });		
-	            //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            //  keyController(keyPressVal, mainLayer, curPosX, curPosY);
 	            break;
 				
 	         case UP:
@@ -424,7 +454,7 @@ function userPosUpdate(/*keyController*/)
 		            left: curPosX, 
 		            top: curPosY
 	            });		
-	            //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            //  keyController(keyPressVal, mainLayer, curPosX, curPosY);
 	            break;
 				
 	         case DOWN:
@@ -436,7 +466,7 @@ function userPosUpdate(/*keyController*/)
 		            left: curPosX, 
 		            top: curPosY
 	            });	
-	            //  viewControl(keyPressVal, mainLayer, curPosX, curPosY);
+	            //  keyController(keyPressVal, mainLayer, curPosX, curPosY);
 	            break;
 				
             default:
