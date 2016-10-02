@@ -54,7 +54,7 @@
 */
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
-var mainSocket     = io.connect(serverUrl + ":5001"),	// Create socket :: Control join and login
+var userInfoSocket     = io.connect(serverUrl + ":5001"),	// Create socket :: Control join and login
     planetSocket   = io.connect(serverUrl + ":5002"),	// Create socket :: Planet information
     userInfoSocket = io.connect(serverUrl + ":5005"),	// Create socket :: User inforamtion
     userPosSocket  = io.connect(serverUrl + ":5006");	// Create socket :: Battle ship position information 
@@ -346,7 +346,7 @@ function buttonSet()
       else 
       {
          alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         mainSocket.disconnect();
+         userInfoSocket.disconnect();
          $(location).attr('href', indexPageUrl);	
       }
    });	
@@ -371,9 +371,9 @@ function logout(userId, lastPosX, lastPosY)
 
    if(logoutMsg == true) 
    {
-      mainSocket.emit('logout_msg', { username: userId }); 
+      userInfoSocket.emit('logout_msg', { username: userId }); 
 
-      mainSocket.on('logout_res', function(data) {
+      userInfoSocket.on('logout_res', function(data) {
 
          if(data.response == 'true') 
          {
@@ -387,7 +387,7 @@ function logout(userId, lastPosX, lastPosY)
 
       //	   $("#" + userId).remove();
             localStorage.removeItem('username');
-	         mainSocket.disconnect();
+	         userInfoSocket.disconnect();
             $(location).attr('href', indexPageUrl);
          }
          else if(data.response == 'false') 
