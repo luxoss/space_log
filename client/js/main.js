@@ -13,35 +13,18 @@
    };
 
    var user = {
-      x : ,
-      y : ,
-      missile :
+      x : localStorage.getItem('x'),
+      y : localStorage.getItem('y'),
       resource : {
-         mineral :,
-         gas : ,
-         unknown :
+         mineral : localStorage.getItem('mineral'),
+         gas : localStorage.getItem('gas'),
+         unknown : localStorage.getItem('unknown')
       },
       state : {
-         hp : ,
-         exp : ,
-         level : 
+         hp : localStorage.getItem('hp'),
+         exp : localStorage.getItem('exp'),
+         level localStorage.getItem('level'): 
       }
-   };
-
-   var enemy = {
-      x : ,
-      y : ,
-      missile : 
-   };
-   
-   var rank = {
-      users : ,
-      resource : {
-         mineral : ,
-         gas : ,
-         unknown :
-      },
-      planet : 
    };
 
    // object oriented programming with javascript
@@ -197,11 +180,6 @@ function drawShipInfo(initPosX, initPosY)
 
 function autoFocus(divId) 
 {
-   // 해당 함선을 기준으로 스크롤 하면서 브라우저 창 정 가운데에 배치
-   // (해당 배경 크기만큼 스코롤링 하기 때문에 가장자리에 위치한 객체의 경우 가운데 포커싱이 안되는 것처럼 보이나
-   // 실제론 가운데 맞춰지려 하는 것)
-   // 현재 left 좌표 - (현재 브라우저 창 넓이 값 / 2)
-   // 현재 top 좌표 - (현재 브라우저 창 높이 값 / 2)
    var offset = $("#" + divId).offset();
 
    $("html, body").animate({

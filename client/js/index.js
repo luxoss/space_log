@@ -103,6 +103,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       userInfoSocket.on('login_res', function(data){
 			userInitInfo.level = data.level;
 			userInitInfo.exp = data.exp;
+         userInitInfo.hp = data.hp;
 			userInitInfo.mineral = data.mineral;
 			userInitInfo.gas = data.gas;
 			userInitInfo.unknown = data.unknown;
@@ -110,11 +111,11 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			userInitInfo.y = data.location_y;
          
          var name = userInitInfo.username;
-
+         
          if(data.response == "true") 
          {
             alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-            usernameValue(name);
+            usernameValue(userInitInfo);
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -146,7 +147,7 @@ function audioControl()
    });
 }
 
-function usernameValue(name) 
+function usernameValue(userInitInfo) 
 {
 
    if(!localStorage) 
@@ -155,17 +156,14 @@ function usernameValue(name)
    }
    else 
    {	
-      localStorage.setItem('username', name);
-      /*
-	   // TODO: { Code line explanation } Some user initialize information saved by localstorage
+      localStorage.setItem('username', userInitInfo.name); 
 	   localStorage.setItem('level', userInitInfo.level);
 	   localStorage.setItem('exp', userInitInfo.exp);
 	   localStorage.setItem('mineral', userInitInfo.mineral);
 	   localStorage.setItem('gas', userInitInfo.gas);
 	   localStorage.setItem('unknown', userInitInfo.unknown);
- 	   localStorage.setItem('posX', userInitInfo.posX);
-	   localStorage.setItem('posY', userInitInfo.posY);
-      */
+ 	   localStorage.setItem('x', userInitInfo.x);
+	   localStorage.setItem('y', userInitInfo.y);
    }
 }
 
