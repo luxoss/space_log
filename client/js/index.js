@@ -4,15 +4,14 @@
 	**File-explanation: Contorl index html page with javascript
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
-   var userInfoSocket = io.connect('http://203.237.179.21:5001'); 
-  
+   var userInfoSocket = io.connect('http://203.237.179.21:5001');  
    var userInitInfo = {
       username : null,
       password : null,
    };
 
    mainDisplayResize();
-//   audioControl();
+   //audioControl();
 
    $("#join_btn").on('click', function(userInitInfo){
 
