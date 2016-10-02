@@ -12,6 +12,13 @@
       userPos : io.connect(serverUrl + ":5006)
    };
 
+   var size = {
+      mainLayer : {
+         width : 5000,
+         height : 5000
+      }
+   };
+
    var user = {
       x : localStorage.getItem('x'),
       y : localStorage.getItem('y'),
@@ -25,6 +32,14 @@
          exp : localStorage.getItem('exp'),
          level localStorage.getItem('level'): 
       }
+   };
+
+   var sound = {
+      open : new Audio(),
+      close : new Audio(),
+      insert : new Audio(),
+      remove : new Audio(),
+      ignite : new Audio()
    };
 
    // object oriented programming with javascript
