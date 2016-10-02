@@ -16,6 +16,16 @@
       x : ,
       y : ,
       missile :
+      resource : {
+         mineral :,
+         gas : ,
+         unknown :
+      },
+      state : {
+         hp : ,
+         exp : ,
+         level : 
+      }
    };
 
    var enemy = {
@@ -32,6 +42,16 @@
          unknown :
       },
       planet : 
+   };
+
+   // object oriented programming with javascript
+   var class = function() {
+      this.name = name;
+      this.grade = grade;
+      this.state = state;
+   };
+
+   class.prototype.speed = function() { // create method
    };
 */
 var serverUrl =  "http://203.237.179.21" 					
