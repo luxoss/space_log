@@ -5,13 +5,6 @@
 */
 
 /*
-   var socket = {
-      userInit : io.connect(serverUrl + ":5001"),
-      planet : io.connect(serverUrl + ":5002"),
-      userInfo : io.connect(serverUrl + ":5005"),
-      userPos : io.connect(serverUrl + ":5006)
-   };
-
    var size = {
       mainLayer : {
          width : 5000,
@@ -54,10 +47,12 @@
 */
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
-var userInitSocket     = io.connect(serverUrl + ":5001"),	// Create socket :: Control join and login
-    planetSocket   = io.connect(serverUrl + ":5002"),	// Create socket :: Planet information
-    userInfoSocket = io.connect(serverUrl + ":5005"),	// Create socket :: User inforamtion
-    userPosSocket  = io.connect(serverUrl + ":5006");	// Create socket :: Battle ship position information 
+var socket = {
+   userInit : io.connect(serverUrl + ":5001"),
+   planet : io.connect(serverUrl + ":5002"),
+   userInfo : io.connect(serverUrl + ":5005"),
+   userPos : io.connect(serverUrl + ":5006")
+};
 var curWinWidth = $(window).width(), curWinHeight = $(window).height();   
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
@@ -96,7 +91,7 @@ function initialize()
    //After init, update and display
    //update();
    //display();
-   userPosSocket.emit('press_key', {'ready' : "update all user's pos"});
+   socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
    drawAllAssets(mainLayer); 		
    drawShipInfo(initPosX, initPosY); 
    viewPort();
@@ -107,9 +102,9 @@ function initialize()
 
 function drawAllAssets(mainLayer) 
 {
-   planetSocket.emit('planet_req', {'ready' : 'Ready to draw all assets'});
+   socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
-   planetSocket.on('planet_res', function(data) {
+   socket.planet.on('planet_res', function(data) {
       //var mainLayer = $("#main_layer");
       var planetInfo = {
          id : data._id,
@@ -147,7 +142,7 @@ function drawAllAssets(mainLayer)
       }
    });		
 /*
-   userPosSocket.on({'mv', function(data) {
+   socket.userPos.on({'mv', function(data) {
       for(var users in data) {
          // draw all spaceship image sprite 
       }
@@ -206,7 +201,7 @@ function autoFocus(divId)
 function keyHandler(mainLayer, userId) 
 {
    $(document).keydown(function(ev) {  
-      userPosSocket.emit('press_key', {
+      socket.userPos.emit('press_key', {
          'username': userId, 
          'key_val' : ev.keyCode, 
          'location_x' : curPosX,
@@ -235,7 +230,7 @@ var btnControl = function(ev) {
 
    if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
    {
-      planetViewLayer(planetSocket);
+      planetViewLayer(socket.planet);
    }
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
@@ -346,7 +341,7 @@ function buttonSet()
       else 
       {
          alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         userInitSocket.disconnect();
+         socket.userInit.disconnect();
          $(location).attr('href', indexPageUrl);	
       }
    });	
@@ -371,13 +366,13 @@ function logout(userId, lastPosX, lastPosY)
 
    if(logoutMsg == true) 
    {
-      userInitSocket.emit('logout_msg', { username: userId }); 
+      socket.userInit.emit('logout_msg', { username: userId }); 
 
-      userInitSocket.on('logout_res', function(data) {
+      socket.userInit.on('logout_res', function(data) {
 
          if(data.response == 'true') 
          {
-            userInfoSocket.emit('lpos', {
+            socket.userInfo.emit('lpos', {
                'username': userId, 
                'lastPosX': lastPosX, 
                'lastPosY': lastPosY
@@ -387,7 +382,6 @@ function logout(userId, lastPosX, lastPosY)
 
       //	   $("#" + userId).remove();
             localStorage.removeItem('username');
-	         userInfoSocket.disconnect();
             $(location).attr('href', indexPageUrl);
          }
          else if(data.response == 'false') 
@@ -421,7 +415,7 @@ function userPosUpdate()//btnControl
      } 
    }; 
 
-   userPosSocket.on('mv', function(data) { // userStatus is 'object type'
+   socket.userPos.on('mv', function(data) { // userStatus is 'object type'
       var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
       var keyPressVal = data.key_val;
 
@@ -600,10 +594,10 @@ var shoot = function() {
 };
 // 키 입력 상태를 서버에 전송하기 위한 코드
 $('body').on('keydown', function(ev){
-	userPosSocket.emit('keydown', ev.keycode);
+	socket.userPos.emit('keydown', ev.keycode);
 });
 $('body').on('keyup', function(ev){
-	userPosSocket.emit('keyup', ev.keycode);
+	socket.userPos.emit('keyup', ev.keycode);
 });
 // 마우스 위치 확인하기 위한 코드 
 $(document).mousemove(function(e){
