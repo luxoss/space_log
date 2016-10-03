@@ -48,8 +48,8 @@ var user = {
       unknown : parseInt(localStorage.getItem('unknown'))
    },
    state : {
+        exp : parseInt(localStorage.getItem('exp'))
 //        hp : parseInt(localStorage.getItem('hp')),
-        exp : parseInt(localStorage.getItem('exp')),
 //      level : parseInt(localStorage.getItem('level')) 
    }
 };

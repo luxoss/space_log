@@ -135,6 +135,9 @@ function getUserItems(userInitInfo)
    }
    else 
    {	
+      localStorage.setItem('username', userInitInfo.name); 
+
+      getUserInfo.emit('user_info', {'ready' : "ready to get user status"});
       getUserInfo.on('user_info', function(data) {
    //    userInitInfo.level = data.level;
          userInitInfo.exp = data.exp;
@@ -144,15 +147,14 @@ function getUserItems(userInitInfo)
          userInitInfo.unknown = data.unknown;
          userInitInfo.x = data.location_x;
          userInitInfo.y = data.location_y;
-      });
 
-      localStorage.setItem('username', userInitInfo.name); 
-	   localStorage.setItem('exp', userInitInfo.exp);
-	   localStorage.setItem('mineral', userInitInfo.mineral);
-	   localStorage.setItem('gas', userInitInfo.gas);
-	   localStorage.setItem('unknown', userInitInfo.unknown);
- 	   localStorage.setItem('x', userInitInfo.x);
-	   localStorage.setItem('y', userInitInfo.y);
+         localStorage.setItem('exp', userInitInfo.exp);
+         localStorage.setItem('mineral', userInitInfo.mineral);
+         localStorage.setItem('gas', userInitInfo.gas);
+         localStorage.setItem('unknown', userInitInfo.unknown);
+         localStorage.setItem('x', userInitInfo.x);
+         localStorage.setItem('y', userInitInfo.y);
+      });
    }
 }
 
