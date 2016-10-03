@@ -103,31 +103,61 @@ body {
 #m_icon {
    width: 30px;
    height: 35px;
+   left: 0px;
+   position: absolute;
 }
 
 #mineral {
+   color: white;
+   background-color: rgba(0, 0, 255, 0.7);
+   border: 0px;
+   padding: 0px;
+   margin: 0px;
    width: 70px;
    height: 35px;
+   left: 30px;
+   position: absolute;
+   text-align: right;
 }
 
 #g_icon {
    width: 30px;
    height: 35px;
+   left: 100px;
+   position: absolute;
 }
 
 #gas {
+   color: white;
+   background-color: rgba(0, 255, 0, 0.7);
+   border: 0px;
+   padding: 0px;
+   margin: 0px;
    width: 70px;
    height: 35px;
+   left: 130px;
+   position: absolute;
+   text-align: right;
 }
 
 #u_icon {
    width: 30px;
    height: 35px;
+   left: 200px;
+   position: absolute;
 }
 
 #unknown {
+   color: white;
+   background-color: rgba(0, 0, 0, 0.7);
+   border: 0px;
+   padding: 0px;
+   margin: 0px;
    width: 70px;
    height: 35px;
+   left: 230px;
+   position: absolute;
+   text-align: right;
 }
 
 .minimap_ui {

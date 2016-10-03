@@ -96,7 +96,7 @@ function initialize()
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
    keyHandler(socket, user);
-   buttonSet();
+   buttonSet(user);
    userPosUpdate(); 
 }	
 
@@ -168,16 +168,26 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function drawShipInfo(initPosX, initPosY, user) 
 {
-   //$('#mineral').val() = userInitInfo.mineral;
-   //$('#gas').val() = userInitInfo.gas;     
-   //$('#unknown').val() = userInitInfo.unknown;
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
+   var mineral = $("#mineral");
+   var gas = $("#gas");
+   var unknown = $("#unknown");
 
-   $("#user_avartar").append("<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
+   mineral.text("" + user['mineral']+ "");
+   gas.text("" + user['gas'] + "");     
+   unknown.text("" + user['unknown'] + "");
+
+   $("#user_avartar").append(
+      "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 
+      + userId + "</div>"
+   );
    $("#user_name").text("" + user['name'] + "");
 	
    $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
-   $("#" + user['name']).append("<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" + userId + "</div>");
+   $("#" + user['name']).append(
+      "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+      + user['name'] + "</div>"
+   );
 
    $("#" + user['name']).css({
       "backgroundImage" : imgUrl,
@@ -203,7 +213,7 @@ function autoFocus(divId)
 	
 function keyHandler(socket, user) 
 {
-   var userId = user.name;
+   var userId = user['name'];
 
    $(document).keydown(function(ev) {  
       socket.userPos.emit('press_key', {
@@ -335,17 +345,16 @@ function viewPort()
    }).resize();
 }
 
-function buttonSet() 
+function buttonSet(user) 
 {	
    $('#logout_btn').on('click', function(){	
-      if(user.name != null) 
+      if(user['name'] != null) 
       {
          logout(user, lastPosX, lastPosY);
       }
       else 
       {
          alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         socket.userInit.disconnect();
          $(location).attr('href', indexPageUrl);	
       }
    });	
