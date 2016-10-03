@@ -49,6 +49,7 @@ UsersPio.on('connection', function(socket){
 		};
 
 	UsersPio.emit('mv', mv_obj);
+//	socket.emit('background_mv', {'b_m_top' : y, 'b_m_left' : x});
 
 	});
 

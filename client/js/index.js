@@ -66,6 +66,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
          {
             alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다.");
             getUserItems(userInitInfo);
+		
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -101,8 +102,9 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
                        
             if(data.response == "true") 
             {
-               alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다.");
-               getUserItems(userInitInfo);
+               alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다!!");
+	       
+               getUserItems(userInfoSocket, userInitInfo);
                $(location).attr('href', mainPageUrl);
 	         }
             else 
@@ -111,6 +113,12 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 	            window.location.reload();
 	         }
 	      });
+		/*
+	      userInfoSocket.on('user_info', function(data){
+	      	console.log(data.username);
+		alert("USERNAME :: " + data.username);
+	      });
+		*/
       }	
    });
 });
@@ -125,22 +133,32 @@ function mainDisplayResize()
    }).resize();		
 }
 
-function getUserItems(userInitInfo) 
+function getUserItems(userInfoSocket, userInitInfo) 
 {
+// var getUserInfo = io.connect('http://203.237.179.21:5001');
+
+	alert("Call the getUserItems function");
    if(!localStorage) 
    {
       alert("This browser isn't support localStorage.");
    }
    else 
    {	
-      var getUserInfo = io.connect('http://203.237.179.21:8000:5001');
+   	alert('what is else ????');
+	var test =0;
+//      var getUserInfo = io.connect('http://203.237.179.21:8000:5001');
 
-      getUserInfo.emit('user_info', {'ready' : "ready to get user status"});
-      getUserInfo.on('user_info', function(data) {
-
-         if(data.username == userInitInfo['name'])
+//      getUserInfo.emit('user_info', {'ready' : "ready to get user status"});
+      userInfoSocket.on('user_info', function(data) {
+	      	alert("User Name : " + data.username);
+		alert("");
+		console.log('socket on user_info');
+		test ++;
+		
+         if(data.username == userInitInfo['username'])
          {
-               userInitInfo.name = data.username
+
+               userInitInfo.name = data.username;
          //    userInitInfo.level = data.level;
                userInitInfo.exp = data.exp;
          //    userInitInfo.hp = data.hp;
@@ -163,6 +181,7 @@ function getUserItems(userInitInfo)
             alert('Not received data');
          }
       });
+      alert("test : " + test);
    }
 }
 

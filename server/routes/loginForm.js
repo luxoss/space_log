@@ -5,6 +5,9 @@ var app = express();
 var router = express.Router();
 
 var username="", password="", email="";
+
+var sendinfo={};
+
 var MongoClient = require('mongodb').MongoClient;
 
 var io = require('socket.io').listen(5001);
@@ -64,7 +67,7 @@ io.on('connection', function (socket) {
 						socket.join('playing');//this socket binding at playing group(room)
 						
 						mem_info.findOne(findByUsrname, function(err, userinfo){
-							var sendinfo = {
+							sendinfo = {
 								"username" 	: userinfo.username, 
 								"exp" 		: userinfo.exp, 
 								"mineral" 	: userinfo.mineral, 
@@ -75,8 +78,17 @@ io.on('connection', function (socket) {
 								"gold" 		: userinfo.gold
 							}	
 							socket.emit('user_info', sendinfo);
-						});
+							console.log('SENDINFO object : ');
+								console.log(sendinfo.username);
+					//	
+					});
+					//socket.emit('user_info', sendinfo);
 
+					console.log('+++++++++++++++++++++++++++++++');
+					console.log(sendinfo.username);
+					console.log('+++++++++++++++++++++++++++++++');
+
+						
 						/*
 						//Find user's information to MEM_INFO
 						db.collection("MEM_INFO").findOne({"username" : username}, function(err, doc){
