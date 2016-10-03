@@ -7,7 +7,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
    var userInfoSocket = io.connect('http://203.237.179.21:5001');  
    var userInitInfo = {
       username : null,
-      password : null,
+      password : null, 
    };
 
    mainDisplayResize();
@@ -20,7 +20,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			
       alert("Loading...");
 
-      if((userInitInfo.username == "" ) || (userInitInfo.password == "")) 
+      if((userInitInfo['username'] == "" ) || (userInitInfo['password'] == "")) 
       {
          alert("아이디와 비밀번호를 입력해주세요.");
          window.location.reload();
@@ -56,25 +56,24 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
          var username = $('#username').val();
          var password = $('#password').val();
          var mainPageUrl = "./main.html";
-         var userInfo = {}; // Create user information obj		
+         var userIniyInfo = {}; // Create user information obj		
 
-		   userInfo.username = username;
-	      userInfo.password = password;
+		   userInitInfo.username = username;
+	      userInitInfo.password = password;
 			
 	      alert('loading...');
 
 	      userInfoSocket.emit('login_msg', {
-            username: userInfo.username, 
-            password: userInfo.password
+            username: userInitInfo.username, 
+            password: userInitInfo.password
          });
          
          userInfoSocket.on('login_res', function(data){
-			   var userId = userInfo.username;
-            
+                       
             if(data.response == "true") 
             {
-               alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-               usernameValue(userId);
+               alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다.");
+               getUserItems(userInitInfo);
                $(location).attr('href', mainPageUrl);
 	         }
             else 
@@ -100,21 +99,11 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       });
 
       userInfoSocket.on('login_res', function(data){
-			userInitInfo.level = data.level;
-			userInitInfo.exp = data.exp;
-         userInitInfo.hp = data.hp;
-			userInitInfo.mineral = data.mineral;
-			userInitInfo.gas = data.gas;
-			userInitInfo.unknown = data.unknown;
-			userInitInfo.x = data.location_x;
-			userInitInfo.y = data.location_y;
-         
-         var name = userInitInfo.username;
          
          if(data.response == "true") 
          {
-            alert(userId + "님 space_log 세계에 오신 것을 환영합니다.");
-            usernameValue(userInitInfo);
+            alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다.");
+            getUserItems(userInitInfo);
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -130,33 +119,34 @@ function mainDisplayResize()
 {
    $(window).resize(function(){
       $('#main_container').css({position:'absolute'}).css({
-	 left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
-	 top: ($(window).height() - $('#main_container').outerHeight()) / 2
+	      left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
+	      top: ($(window).height() - $('#main_container').outerHeight()) / 2
       });
    }).resize();		
 }
 
-function audioControl() 
+function getUserItems(userInitInfo) 
 {
-   var audioSelector = $("#audio_control");
-   var backgroundSound = new audio();
-   
-   audioSelector.click(function(audioSelector) {
-      audioSelector.val();
-   });
-}
-
-function usernameValue(userInitInfo) 
-{
+   var getUserInfo = io.connect('http://203.237.179.21:8000:5001');
 
    if(!localStorage) 
    {
-      alert("This browser isn'y support localStorage.");
+      alert("This browser isn't support localStorage.");
    }
    else 
    {	
+      getUserInfo.on('user_info', function(data) {
+   //    userInitInfo.level = data.level;
+         userInitInfo.exp = data.exp;
+   //    userInitInfo.hp = data.hp;
+         userInitInfo.mineral = data.mineral;
+         userInitInfo.gas = data.gas;
+         userInitInfo.unknown = data.unknown;
+         userInitInfo.x = data.location_x;
+         userInitInfo.y = data.location_y;
+      });
+
       localStorage.setItem('username', userInitInfo.name); 
-	   localStorage.setItem('level', userInitInfo.level);
 	   localStorage.setItem('exp', userInitInfo.exp);
 	   localStorage.setItem('mineral', userInitInfo.mineral);
 	   localStorage.setItem('gas', userInitInfo.gas);
@@ -181,4 +171,16 @@ function pwdCheck()
 		alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
 	}
 }
+
+function audioControl() 
+{
+   var audioSelector = $("#audio_control");
+   var backgroundSound = new audio();
+   
+   audioSelector.click(function(audioSelector) {
+      audioSelector.val();
+   });
+}
+
+
 	
