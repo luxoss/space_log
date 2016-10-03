@@ -12,21 +12,6 @@
       }
    };
 
-   var user = {
-      x : localStorage.getItem('x'),
-      y : localStorage.getItem('y'),
-      resource : {
-         mineral : localStorage.getItem('mineral'),
-         gas : localStorage.getItem('gas'),
-         unknown : localStorage.getItem('unknown')
-      },
-      state : {
-         hp : localStorage.getItem('hp'),
-         exp : localStorage.getItem('exp'),
-         level localStorage.getItem('level'): 
-      }
-   };
-
    var sound = {
       open : new Audio(),
       close : new Audio(),
@@ -49,17 +34,32 @@ var serverUrl =  "http://203.237.179.21"
 var indexPageUrl = serverUrl + ":8000";
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
-   planet : io.connect(serverUrl + ":5002"),
    userInfo : io.connect(serverUrl + ":5005"),
-   userPos : io.connect(serverUrl + ":5006")
+   userPos : io.connect(serverUrl + ":5006"),
+   planet : io.connect(serverUrl + ":5002")
+};
+var user = {
+       name : localStorage.getItem('username'),
+          x : parseInt(localStorage.getItem('x')),
+          y : parseInt(localStorage.getItem('y')),
+   resource : {
+      mineral : parseInt(localStorage.getItem('mineral')),
+          gas : parseInt(localStorage.getItem('gas')),
+      unknown : parseInt(localStorage.getItem('unknown'))
+   },
+   state : {
+//        hp : parseInt(localStorage.getItem('hp')),
+        exp : parseInt(localStorage.getItem('exp')),
+//      level : parseInt(localStorage.getItem('level')) 
+   }
 };
 var curWinWidth = $(window).width(), curWinHeight = $(window).height();   
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
 var fps = 30, speed = 5;			
-var initPosX = Math.floor(Math.random() * mainWidth - 100),     
-    initPosY = Math.floor(Math.random() * mainHeight - 100);  
+var initPosX = user.x,//Math.floor(Math.random() * mainWidth - 100),     
+    initPosY = user.y//Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
@@ -91,11 +91,21 @@ function initialize()
    //After init, update and display
    //update();
    //display();
+   console.log(
+      user.x,
+      user.y,
+      user.name,
+      user.resource.mineral,
+      user.resource.gas,
+      user.resource.unknown,
+      user.state.exp,
+      user.state.hp
+   );
    socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
    drawAllAssets(mainLayer); 		
    drawShipInfo(initPosX, initPosY); 
    viewPort();
-   keyHandler(mainLayer, userId);
+   keyHandler(mainLayer, user);
    buttonSet();
    userPosUpdate(); 
 }	
@@ -153,12 +163,15 @@ function drawAllAssets(mainLayer)
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
 function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
 {
-   $("#" + mainLayer).append("<div id='" + divId + "' style='position: absolute; top: " + x + "px" + "; left:" + y + "px" + ";'></div>");	
+   $("#" + mainLayer).append(
+      "<div id='" + divId + "' style='position: absolute; top: " 
+      + x + "px" + "; left:" + y + "px" + ";'></div>"
+   );	
 
    $("#" + divId).css({
       "backgroundImage" : planetImgUrl,
-      "width"   : "100px",
-      "height" 	: "100px"
+      "width"  : "100px",
+      "height" : "100px"
    });
 }
 
@@ -168,6 +181,7 @@ function drawShipInfo(initPosX, initPosY)
    //$('#mineral').val() = userInitInfo.mineral;
    //$('#gas').val() = userInitInfo.gas;     
    //$('#unknown').val() = userInitInfo.unknown;
+   var userId = user.name;
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
 
    $("#user_avartar").append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
@@ -176,7 +190,7 @@ function drawShipInfo(initPosX, initPosY)
    $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
    $("#" + userId).append("<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" + userId + "</div>");
 
-   $("#" + userId).css({
+   $("#" + user.name).css({
       "backgroundImage" : imgUrl,
       "width"  : "64px",
       "height" : "64px",
@@ -198,8 +212,10 @@ function autoFocus(divId)
    }, 1000);
 }
 	
-function keyHandler(mainLayer, userId) 
+function keyHandler(mainLayer, user) 
 {
+   var userId = user.name;
+
    $(document).keydown(function(ev) {  
       socket.userPos.emit('press_key', {
          'username': userId, 
@@ -235,7 +251,7 @@ var btnControl = function(ev) {
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
    {
-      logout(userId, lastPosX, lastPosY);
+      logout(user, lastPosX, lastPosY);
    }
 
    if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
@@ -248,7 +264,7 @@ var keyController = function(ev, divId, curPosX, curPosY) {
    var keyState = ev.keyCode;
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
    var mainLayer = divId;
-   //var userId = divId1;
+   //var user.name = divId1;
 
    lastPosX = curPosX;
    lastPosY = curPosY;
@@ -334,9 +350,9 @@ function viewPort()
 function buttonSet() 
 {	
    $('#logout_btn').on('click', function(){	
-      if(userId != null) 
+      if(user.name != null) 
       {
-         logout(userId, lastPosX, lastPosY);
+         logout(user, lastPosX, lastPosY);
       }
       else 
       {
@@ -359,8 +375,9 @@ function buttonSet()
    });
 }
 
-function logout(userId, lastPosX, lastPosY) 
+function logout(user, lastPosX, lastPosY) 
 {
+   var userId = user.name;
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
    var indexPageUrl = serverUrl + ":8000";
 
@@ -380,7 +397,7 @@ function logout(userId, lastPosX, lastPosY)
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
 
-      //	   $("#" + userId).remove();
+      //	   $("#" + user.name).remove();
             localStorage.removeItem('username');
             $(location).attr('href', indexPageUrl);
          }
@@ -392,7 +409,7 @@ function logout(userId, lastPosX, lastPosY)
    }
    else 
    {
-      if(userId == null) { return false; }
+      if(user.name == null) { return false; }
    }
 }
 
@@ -422,7 +439,9 @@ function userPosUpdate()//btnControl
       console.log(data.username, data.location_x, data.location_y, data.key_val);
 
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
-      $("#" + data.username).append("<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>");
+      $("#" + data.username).append(
+         "<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>"
+      );
 
       if(data.username == playUserId) 
       {
@@ -628,8 +647,8 @@ function isNumber(str)
 		$("#" + divId1).css('transform', 'rotate(135deg)');
 	}	
 	// get a current div offset
-	lastPosX = parseInt($("#" + userId).offset().left);
-	lastPosY = parseInt($("#" + userId).offset().top);	
+	lastPosX = parseInt($("#" + user.name).offset().left);
+	lastPosY = parseInt($("#" + user.name).offset().top);	
 					
 	if(data.key_val == LEFT) 
 	{
@@ -645,14 +664,14 @@ function isNumber(str)
 	}
 /*
    posX(divId1, posX(divId1) - speed); 
-   $("#" + userId).css('transform', 'rotate(-90deg)');
+   $("#" + user.name).css('transform', 'rotate(-90deg)');
    posX(divId1, posX(divId1) + speed);
-   $("#" + userId).css('transform', 'rotate(90deg)');   
+   $("#" + user.name).css('transform', 'rotate(90deg)');   
    posY(divId1, posY(divId1) - speed);
-   $("#" + userId).css('transform', 'rotate(0deg)');
+   $("#" + user.name).css('transform', 'rotate(0deg)');
    posY(divId1, posY(divId1) + speed);
-   $("#" + userId).css('transform', 'rotate(180deg)');
-   $("#" + userId).css(
+   $("#" + user.name).css('transform', 'rotate(180deg)');
+   $("#" + user.name).css(
       'background-image', 
       "url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
    ); 				
