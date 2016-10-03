@@ -58,8 +58,8 @@ var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
 var fps = 30, speed = 5;			
-var initPosX = user.x,//Math.floor(Math.random() * mainWidth - 100),     
-    initPosY = user.y//Math.floor(Math.random() * mainHeight - 100);  
+var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
+    initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
@@ -91,20 +91,11 @@ function initialize()
    //After init, update and display
    //update();
    //display();
-   console.log(
-      ' x: ', user.x,
-      ' y: ', user.y,
-      ' name: ', user.name,
-      ' mineral: ', user.resource.mineral,
-      ' gas: ', user.resource.gas,
-      ' unknown: ', user.resource.unknown,
-      ' exp: ', user.state.exp
-   );
    socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
    drawAllAssets(mainLayer); 		
-   drawShipInfo(initPosX, initPosY); 
+   drawShipInfo(initPosX, initPosY, user); 
    viewPort();
-   keyHandler(mainLayer, user);
+   keyHandler(socket, user);
    buttonSet();
    userPosUpdate(); 
 }	
@@ -175,21 +166,20 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(initPosX, initPosY) 
+function drawShipInfo(initPosX, initPosY, user) 
 {
    //$('#mineral').val() = userInitInfo.mineral;
    //$('#gas').val() = userInitInfo.gas;     
    //$('#unknown').val() = userInitInfo.unknown;
-   var userId = user.name;
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
 
-   $("#user_avartar").append("<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
-   $("#user_name").text("" + userId + "");
+   $("#user_avartar").append("<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" + userId + "</div>");
+   $("#user_name").text("" + user['name'] + "");
 	
-   $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
-   $("#" + userId).append("<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" + userId + "</div>");
+   $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
+   $("#" + user['name']).append("<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" + userId + "</div>");
 
-   $("#" + user.name).css({
+   $("#" + user['name']).css({
       "backgroundImage" : imgUrl,
       "width"  : "64px",
       "height" : "64px",
@@ -198,7 +188,7 @@ function drawShipInfo(initPosX, initPosY)
       top: initPosY
    });
 
-   autoFocus(userId);
+   autoFocus(user['name']);
 }
 
 function autoFocus(divId) 
@@ -211,7 +201,7 @@ function autoFocus(divId)
    }, 1000);
 }
 	
-function keyHandler(mainLayer, user) 
+function keyHandler(socket, user) 
 {
    var userId = user.name;
 
@@ -222,8 +212,8 @@ function keyHandler(mainLayer, user)
          'location_x' : curPosX,
          'location_y' : curPosY
       });
+      btnControl(ev, user, curPosX, curPosY);
       //isKeyDown[ev.keyCode] = true;
-      //btnController(ev);
       //keyController(ev, mainLayer, curPosX, curPosY);
    });
 
@@ -232,11 +222,13 @@ function keyHandler(mainLayer, user)
    });
 }
 
-var btnControl = function(ev) {
-   var keyValue = ev.keyCode;
+function btnControl(ev, user, curPosX, curPosY) {
+   var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 
        BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
 
+   lastPosX = curPosX;
+   lastPosY = curPosY;
 
    if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
    {
@@ -245,7 +237,7 @@ var btnControl = function(ev) {
 
    if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
    {
-      planetViewLayer(socket.planet);
+      planetViewLayer(socket['planet']);
    }
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
@@ -264,9 +256,6 @@ var keyController = function(ev, divId, curPosX, curPosY) {
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
    var mainLayer = divId;
    //var user.name = divId1;
-
-   lastPosX = curPosX;
-   lastPosY = curPosY;
 
    if(keyState == LEFT)// Left, isKeyDown[37]
    {      
