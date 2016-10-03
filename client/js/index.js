@@ -102,8 +102,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
                        
             if(data.response == "true") 
             {
-               alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다!!");
-	       
+               alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다!!");	       
                getUserItems(userInfoSocket, userInitInfo);
                $(location).attr('href', mainPageUrl);
 	         }
@@ -130,7 +129,6 @@ function mainDisplayResize()
 function getUserItems(userInfoSocket, userInitInfo) 
 {
 
-	alert("Call the getUserItems function");
    if(!localStorage) 
    {
       alert("This browser isn't support localStorage.");
@@ -138,8 +136,6 @@ function getUserItems(userInfoSocket, userInitInfo)
    else 
    {	
       userInfoSocket.on('user_info', function(data) {
-      	console.log('socket on user_info');
-         alert("User Name : " + data.username);
 	      		
          if(data.username == userInitInfo['username'])
          {
@@ -164,7 +160,7 @@ function getUserItems(userInfoSocket, userInitInfo)
          }
          else
          {
-            alert('Not received data');
+            alert('ERROR: This socket is not available. please, try again and check this code line.');
          }
       });
    }
