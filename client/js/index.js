@@ -83,11 +83,11 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			
       if(keyCode == 13) 
       {
+         var userInitInfo = {}; // Create user information obj		
          var username = $('#username').val();
          var password = $('#password').val();
          var mainPageUrl = "./main.html";
-         var userInitInfo = {}; // Create user information obj		
-
+        
 		   userInitInfo.username = username;
 	      userInitInfo.password = password;
 			
@@ -113,12 +113,6 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 	            window.location.reload();
 	         }
 	      });
-		/*
-	      userInfoSocket.on('user_info', function(data){
-	      	console.log(data.username);
-		alert("USERNAME :: " + data.username);
-	      });
-		*/
       }	
    });
 });
@@ -135,7 +129,6 @@ function mainDisplayResize()
 
 function getUserItems(userInfoSocket, userInitInfo) 
 {
-// var getUserInfo = io.connect('http://203.237.179.21:5001');
 
 	alert("Call the getUserItems function");
    if(!localStorage) 
@@ -144,17 +137,10 @@ function getUserItems(userInfoSocket, userInitInfo)
    }
    else 
    {	
-   	alert('what is else ????');
-	var test =0;
-//      var getUserInfo = io.connect('http://203.237.179.21:8000:5001');
-
-//      getUserInfo.emit('user_info', {'ready' : "ready to get user status"});
       userInfoSocket.on('user_info', function(data) {
-	      	alert("User Name : " + data.username);
-		alert("");
-		console.log('socket on user_info');
-		test ++;
-		
+      	console.log('socket on user_info');
+         alert("User Name : " + data.username);
+	      		
          if(data.username == userInitInfo['username'])
          {
 
@@ -181,7 +167,6 @@ function getUserItems(userInfoSocket, userInitInfo)
             alert('Not received data');
          }
       });
-      alert("test : " + test);
    }
 }
 
