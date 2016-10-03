@@ -81,26 +81,54 @@ body {
 	position: absolute;
 }
 
-#sp_progress_bar {
-	background-color: rgba(0, 0, 255, 0.7);
+#exp_stats {
+   background-color : rgba(255, 255, 255, 0.7);
 	width: 300px;
-	height: 35px;
-	border: 1px solid rgb(0, 128, 255);;
+	height: 25px;
+	border: 1px solid rgb(255, 255, 255);
 	top: 38px;
 	left: 102px;
 	position: absolute;
 }
 
-#exp_stats {
-	background-color: rgba(255, 255, 255, 0.7);
+#resource {
 	width: 300px;
-	height: 25px;
+	height: 35px;
 	border: 1px solid white;
-	top: 75px;
+	top: 65px;
 	left: 102px;	
 	position: absolute;
 }
 
+#m_icon {
+   width: 30px;
+   height: 35px;
+}
+
+#mineral {
+   width: 70px;
+   height: 35px;
+}
+
+#g_icon {
+   width: 30px;
+   height: 35px;
+}
+
+#gas {
+   width: 70px;
+   height: 35px;
+}
+
+#u_icon {
+   width: 30px;
+   height: 35px;
+}
+
+#unknown {
+   width: 70px;
+   height: 35px;
+}
 
 .minimap_ui {
   	background-color: rgba(102, 153, 255, 0.7);
