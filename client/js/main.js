@@ -92,14 +92,13 @@ function initialize()
    //update();
    //display();
    console.log(
-      user.x,
-      user.y,
-      user.name,
-      user.resource.mineral,
-      user.resource.gas,
-      user.resource.unknown,
-      user.state.exp,
-      user.state.hp
+      ' x: ', user.x,
+      ' y: ', user.y,
+      ' name: ', user.name,
+      ' mineral: ', user.resource.mineral,
+      ' gas: ', user.resource.gas,
+      ' unknown: ', user.resource.unknown,
+      ' exp: ', user.state.exp
    );
    socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
    drawAllAssets(mainLayer); 		
