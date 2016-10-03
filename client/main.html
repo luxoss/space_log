@@ -36,81 +36,82 @@
          <!-- Menu icon -->
          <div class = "menu_buttons_ui">		  
             <input id ="logout_btn" type = "button"/>
-	    <input id = "planet_btn" type = "button" />
-	    <input id = "battle_ship_btn" type = "button" />
-	    <input id = "rank_btn" type = "button" />
-	 </div>
+	         <input id = "planet_btn" type = "button" />
+	         <input id = "battle_ship_btn" type = "button" />
+	         <input id = "rank_btn" type = "button" />
+	      </div>
 		
-	<!-- User information UI -->
-	 <div class = "user_info_ui">			
-	    <div id = "user_avatar">
-	    <div id = "user_name"></div>
-	 </div>
-	 <div id = "hp_progress_bar"></div>
-	 <div id = "sp_progress_bar"></div>
-	 <div id = "exp_stats"></div>	
-      </div>
+	      <!-- User information UI -->
+	      <div class = "user_info_ui">			
+	         <div id = "user_avatar">
+	            <div id = "user_name"></div>
+	         </div>
+	         <div id = "hp_progress_bar"></div>
+	         <div id = "exp_stats"></div>	
+            <div id = "resource">
+               <div id = "mineral"></div>
+               <div id = "gas"></div>
+               <div id = "unknown"></div>
+            </div>
+         </div>
 
-      <div id = "mineral"></div>
-      <div id = "gas"></div>
-      <div id = "dark_meterial"></div>
-      <div id = "gold"></div>
+         <!--<div id = "gold"></div>-->
 		
-      <!-- Draw minimap user interface -->
-      <div class = "minimap_ui">
-         <canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
-      </div>	
+         <!-- Draw minimap user interface -->
+         <div class = "minimap_ui">
+            <canvas id = "minimap_canvas" width="250px" height="250px"></canvas>
+         </div>	
       </div>
 
       <!-- Planet UI -->
       <div class = "planet_ui">
          <div id = "planet_name">행성 이름</div>
-	 <div id = "planet_resource">행성이 보유한 자원</div>
-	 <div id = "planet_discovered">개척 상황</div>
-	 <div id = "planet_grade">행성 등급</div>	
+	      <div id = "planet_resource">행성이 보유한 자원</div>
+	      <div id = "planet_discovered">개척 상황</div>
+	      <div id = "planet_grade">행성 등급</div>	
       </div>
 	
       <!-- Battle ship information UI -->	
       <div class = "battle_ship_ui">
          <div id = "battle_ship_info_display">
-	    <div id = "battle_ship_state_img">Battle ship state image</div>
+	      <div id = "battle_ship_state_img">Battle ship state image</div>
 	
-	    <!-- Set four cube slots -->
-	    <div id = "cube01_slot">Insert cube01</div>
-	    <div id = "cube02_slot">Insert cube02</div>
-	    <div id = "cube03_slot">Insert cube03</div>	
-	    <div id = "cube04_slot">Insert cube04</div>
-	 </div>
-	 <div id = "battle_ship_item_slot">
-	    <!-- Slot list -->
-	    <div id = "slot01"></div>
-	    <div id = "slot02"></div>
-	    <div id = "slot03"></div>
-            <div id = "slot04"></div>
-	    <div id = "slot05"></div>
-	    <div id = "slot06"></div>
-	    <div id = "slot07"></div>
-	    <div id = "slot08"></div>
-	    <div id = "slot09"></div>
-	    <div id = "slot10"></div>
-	    <div id = "slot11"></div>
-	    <div id = "slot12"></div>
-	    <input type = "button" id = "insert_cube" />
-	    <input type = "button" id = "insert_misile" />
-	 </div>
-      </div>	
+	      <!-- Set four cube slots -->
+	      <div id = "cube01_slot">Insert cube01</div>
+	      <div id = "cube02_slot">Insert cube02</div>
+	      <div id = "cube03_slot">Insert cube03</div>	
+	      <div id = "cube04_slot">Insert cube04</div>
+	   </div>
+	   <div id = "battle_ship_item_slot">
+	      <!-- Slot list -->
+	      <div id = "slot01"></div>
+	      <div id = "slot02"></div>
+	      <div id = "slot03"></div>
+         <div id = "slot04"></div>
+	      <div id = "slot05"></div>
+	      <div id = "slot06"></div>
+	      <div id = "slot07"></div>
+	      <div id = "slot08"></div>
+	      <div id = "slot09"></div>
+	      <div id = "slot10"></div>
+	      <div id = "slot11"></div>
+	      <div id = "slot12"></div>
+	      <input type = "button" id = "insert_cube" />
+	      <input type = "button" id = "insert_misile" />
+	   </div>
+      <!--</div>	-->
 
       <!-- Users' rank inforamtion UI -->	
       <div class = "rank_ui">
          <div id = "user_ranking">Rank no.</div>
          <div id = "user_id">User id</div>
-	 <div id = "user_planet_number">User's planet number</div>
+	      <div id = "user_planet_number">User's planet number</div>
       </div>
 	
       <!-- Test scroll left, top position -->
       <div class = "scroll_ui">
          <div id = "scroll_x"></div>
-	 <div id = "scroll_y"></div>
+	      <div id = "scroll_y"></div>
       </div>
    </body>
 </html>
