@@ -3,7 +3,6 @@
    ** File explanation: Control main html page with javascript	
    ** Author: luxoss
 */
-
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
 var socket = {
