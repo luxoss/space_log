@@ -50,10 +50,6 @@ var background = {
       }
    }
 };
-var curWinWidth = $(window).width(), curWinHeight = $(window).height();   
-var mainLayer = "main_layer";
-var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
-var userId = localStorage.getItem("username");				
 var fps = 30, speed = 8;			
 var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
@@ -76,7 +72,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 function initialize() 
 {
    //socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
-   drawAllAssets(mainLayer); 		
+   drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
    keyHandler(socket, user);
@@ -163,7 +159,7 @@ function drawShipInfo(initPosX, initPosY, user)
 
    $("#user_avartar").append(
       "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 
-      + userId + "</div>"
+      + user['name'] + "</div>"
    );
    $("#user_name").text("" + user['name'] + "");
 	
@@ -190,8 +186,8 @@ function autoFocus(divId)
    var offset = $("#" + divId).offset();
 
    $("html, body").animate({
-      scrollLeft: offset.left - (curWinWidth / 2), 
-      scrollTop: offset.top - (curWinHeight / 2)  
+      scrollLeft: offset.left - ($(window).width() / 2), 
+      scrollTop: offset.top - ($(window).height() / 2)  
    }, 1000);
 }
 	
