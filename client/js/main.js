@@ -148,6 +148,7 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
 function drawShipInfo(initPosX, initPosY, user) 
 {
+   var userId = user['name'];
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
    var mineral = $("#mineral");
    var gas = $("#gas");
@@ -158,18 +159,18 @@ function drawShipInfo(initPosX, initPosY, user)
    unknown.text("" + user['unknown'] + "");
 
    $("#user_avartar").append(
-      "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 
+      "<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" 
       + user['name'] + "</div>"
    );
-   $("#user_name").text("" + user['name'] + "");
+   $("#user_name").text("" + userId + "");
 	
-   $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
-   $("#" + user['name']).append(
+   $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
+   $("#" + userId).append(
       "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-      + user['name'] + "</div>"
+      + userId + "</div>"
    );
 
-   $("#" + user['name']).css({
+   $("#" + userId).css({
       "backgroundImage" : imgUrl,
       "width"  : "64px",
       "height" : "64px",
@@ -178,7 +179,7 @@ function drawShipInfo(initPosX, initPosY, user)
       top: initPosY
    });
 
-   autoFocus(user['name']);
+   autoFocus(userId);
 }
 
 function autoFocus(divId) 
@@ -212,7 +213,8 @@ function keyHandler(socket, user)
    });
 }
 
-function btnControl(ev, user, curPosX, curPosY) {
+function btnControl(ev, user, curPosX, curPosY) 
+{
    var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 
        BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
@@ -286,8 +288,7 @@ var keyController = function(ev, divId, curPosX, curPosY) {
 */
 
 // Move x, y coordinate position with posX and posY 
-var posX = function(divId, position) 
-{
+var posX = function(divId, position) {
    if(position) 
    {
       return parseInt($("#" + divId).css("left", position));
@@ -298,8 +299,7 @@ var posX = function(divId, position)
    }
 }
 
-var posY = function(divId, position) 
-{ 
+var posY = function(divId, position) { 
    if(position) 
    {
       return parseInt($("#" + divId).css("top", position));
@@ -355,7 +355,7 @@ function buttonSet(user)
 
 function logout(user, lastPosX, lastPosY) 
 {
-   var userId = user.name;
+   var userId = user['name'];
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
    var indexPageUrl = serverUrl + ":8000";
 
