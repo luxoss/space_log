@@ -1,7 +1,7 @@
 /**
    ** File name: main.js
-   ** Writer: luxoss
-   ** File-explanation: Control main html page with javascript	
+   ** File explanation: Control main html page with javascript	
+   ** Author: luxoss
 */
 
 var serverUrl =  "http://203.237.179.21" 					

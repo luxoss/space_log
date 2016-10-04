@@ -1,7 +1,7 @@
 /**
-	**File-name: index.js
-	**Writer: luxoss 
-	**File-explanation: Contorl index html page with javascript
+	** File-name: index.js
+	** File-explanation: Contorl index html page with javascript
+	** Author: luxoss 
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    var userInfoSocket = io.connect('http://203.237.179.21:5001');  

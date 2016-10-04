@@ -1,7 +1,7 @@
 /**
-	**File name: planet_ui.js
-	**File-explanation: Control planet user interface with javascript
-	**Writer: luxoss
+	** File name: planet_ui.js
+	** File explanation: Control planet user interface with javascript
+	** Author: luxoss
 */
 
 function planetViewLayer(planetSocket)

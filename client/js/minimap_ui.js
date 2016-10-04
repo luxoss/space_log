@@ -1,7 +1,7 @@
 /**
-	File name: Minimap UI
-	Writer: YONG-RYUL WON
-	File explanation: Control minimap canvas
+	** File name: minimap_ui.js
+	** File explanation: Control minimap canvas
+   ** Author: luxoss
 */
 
 // 행성 위치에 관한 목록을 소캣으로 받는다.

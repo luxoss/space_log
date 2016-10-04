@@ -1,7 +1,7 @@
 /**
-	**File name: battleShipUi.js
-	**Writer: luxoss
-	**File-explanation: Control battle ship user interface with javascript
+	** File name: battle_ship_ui.js
+	** File explanation: Control battle ship user interface with javascript
+   ** Author: luxoss
 */
 
 // 함선 매뉴를 제어하기 위한 함수 선언

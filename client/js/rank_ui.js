@@ -1,7 +1,7 @@
 /**
-	**File name: rankUi.js
-	**Writer: luxoss
-	**File-explanation: Control rank user interface with javascript 
+	** File name: rankUi.js
+	** File explanation: Control rank user interface with javascript 
+   ** Author: luxoss
 */
 
 // 랭크 메뉴 정보를 제어하기 위한 함수 
