@@ -4,32 +4,6 @@
    ** File-explanation: Control main html page with javascript	
 */
 
-/*
-   var size = {
-      mainLayer : {
-         width : 5000,
-         height : 5000
-      }
-   };
-
-   var sound = {
-      open : new Audio(),
-      close : new Audio(),
-      insert : new Audio(),
-      remove : new Audio(),
-      ignite : new Audio()
-   };
-
-   // object oriented programming with javascript
-   var class = function() {
-      this.name = name;
-      this.grade = grade;
-      this.state = state;
-   };
-
-   class.prototype.speed = function() { // create method
-   };
-*/
 var serverUrl =  "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
 var socket = {
@@ -53,11 +27,34 @@ var user = {
 //      level : parseInt(localStorage.getItem('level')) 
    }
 };
+var background = {
+   x : function(divId, position) {
+      if(position) 
+      {
+         return parseInt($("#" + divId).css("left", position));
+      }
+      else 
+      {
+         return parseInt($("#" + divId).css("left"));
+      }
+   },
+
+   y : function(divId, position) {
+      if(position) 
+      {
+         return parseInt($("#" + divId).css("top", position));
+      }
+      else 
+      {
+         return parseInt($("#" + divId).css("top"));
+      }
+   }
+};
 var curWinWidth = $(window).width(), curWinHeight = $(window).height();   
 var mainLayer = "main_layer";
 var mainWidth = 5000, mainHeight = 5000;		// Main display width and height size 
 var userId = localStorage.getItem("username");				
-var fps = 30, speed = 5;			
+var fps = 30, speed = 8;			
 var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
@@ -67,20 +64,10 @@ var missile = new Object();		// Create missile image object
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
 var fire = new Audio();
 var discovered = new Audio();
-/*
-var open = new Audio();
-var close = new Audio();
-var insert = new Audio();
-var remove = new Audio();
-var ignite = new Audio(); 
-missile.url = serverUrl + ":8000/res/img/misile1.png";
-missile.speed = 10;
-missile.posArray = function(initPosX, initPosY){}; 
-*/
+
 fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
-// Ready document that is game loop 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    //TODO: Request to server initialize value. (PROBLEM: At first, didn't displayed other spaceship image.
    initialize();
@@ -88,16 +75,13 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function initialize() 
 {
-   //After init, update and display
-   //update();
-   //display();
-   socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
+   //socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
    drawAllAssets(mainLayer); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
    keyHandler(socket, user);
    buttonSet(user);
-   userPosUpdate(); 
+   userPosUpdate(speed, background); 
 }	
 
 function drawAllAssets(mainLayer) 
@@ -260,7 +244,7 @@ function btnControl(ev, user, curPosX, curPosY) {
       rankViewLayer();
    }
 }
-
+/*
 var keyController = function(ev, divId, curPosX, curPosY) {
    var keyState = ev.keyCode;
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
@@ -303,9 +287,10 @@ var keyController = function(ev, divId, curPosX, curPosY) {
    }
 
 }
+*/
 
-// x좌표에 관한 셋팅을 위함(아무런 값이 들어오지 않을 시 현재 좌표 반환)  
-function posX(divId, position) 
+// Move x, y coordinate position with posX and posY 
+var posX = function(divId, position) 
 {
    if(position) 
    {
@@ -317,7 +302,7 @@ function posX(divId, position)
    }
 }
 
-function posY(divId, position) 
+var posY = function(divId, position) 
 { 
    if(position) 
    {
@@ -410,10 +395,11 @@ function logout(user, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate()//btnControl
+function userPosUpdate(speed, background)
 {
+   var posX = background.x;
+   var posY = background.y;
    var playUserId = localStorage.getItem('username');
- //  var keyCotroller = btnControl();
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
@@ -445,6 +431,8 @@ function userPosUpdate()//btnControl
          switch(keyPressVal)
          {
             case LEFT:
+               posX("main_layer", posX("main_layer") + speed);
+
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
                
@@ -453,10 +441,11 @@ function userPosUpdate()//btnControl
  		            left: curPosX, 
 		            top: curPosY
 	            });
-	            // keyContoller(keyPressVal, mainLayer, curPosX, curPosY);
 	            break;
 
  	         case RIGHT:
+               posX("main_layer", posX("main_layer") - speed);
+
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
 
@@ -465,10 +454,11 @@ function userPosUpdate()//btnControl
  	 	            left: curPosX, 
 	               top: curPosY
 	            });		
-	            //  keyController(keyPressVal, mainLayer, curPosX, curPosY);
 	            break;
 				
 	         case UP:
+               posY("main_layer", posY("main_layer") + speed);
+
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
 	
@@ -477,10 +467,11 @@ function userPosUpdate()//btnControl
 		            left: curPosX, 
 		            top: curPosY
 	            });		
-	            //  keyController(keyPressVal, mainLayer, curPosX, curPosY);
-	            break;
+              	break;
 				
 	         case DOWN:
+               posY("main_layer", posY("main_layer") - speed);
+
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
 	
@@ -489,8 +480,7 @@ function userPosUpdate()//btnControl
 		            left: curPosX, 
 		            top: curPosY
 	            });	
-	            //  keyController(keyPressVal, mainLayer, curPosX, curPosY);
-	            break;
+               break;
 				
             default:
 	            break;
@@ -672,6 +662,30 @@ function isNumber(str)
       'background-image', 
       "url(http://203.237.179.21:8000/res/img/space_ship1_left.svg"
    ); 				
+   var size = {
+      mainLayer : {
+         width : 5000,
+         height : 5000
+      }
+   };
+
+   var sound = {
+      open : new Audio(),
+      close : new Audio(),
+      insert : new Audio(),
+      remove : new Audio(),
+      ignite : new Audio()
+   };
+
+   // object oriented programming with javascript
+   var class = function() {
+      this.name = name;
+      this.grade = grade;
+      this.state = state;
+   };
+
+   class.prototype.speed = function() { // create method
+   };
 */
 
 
