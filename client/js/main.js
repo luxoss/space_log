@@ -49,7 +49,7 @@ var background = {
       }
    }
 };
-var fps = 30, speed = 8;			
+var fps = 30, speed = 2;			
 var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
@@ -246,7 +246,15 @@ function btnControl(ev, user, curPosX, curPosY)
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
    {
-      logout(user, lastPosX, lastPosY);
+      if(user['name'] != null) 
+      {
+         logout(user, lastPosX, lastPosY);
+      }
+      else 
+      {
+         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+         $(location).attr('href', indexPageUrl);	
+      }
    }
 
    if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
@@ -376,7 +384,7 @@ function logout(user, lastPosX, lastPosY)
       socket.userInit.emit('logout_msg', { username: userId }); 
 
       socket.userInit.on('logout_res', function(data) {
-
+          
          if(data.response == 'true') 
          {
             socket.userInfo.emit('lpos', {
@@ -395,11 +403,7 @@ function logout(user, lastPosX, lastPosY)
          {
             alert('Logout error.');
          }
-     });
-   }
-   else 
-   {
-      if(user.name == null) { return false; }
+      });
    }
 }
 

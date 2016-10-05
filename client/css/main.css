@@ -101,7 +101,7 @@ body {
 }
 
 #m_icon {
-   background-image: url('http://203.237.179.21:8000/client/res/img/icon/minerals.svg');
+   background-image: url('http://203.237.179.21:8000/client/res/img/icon/minerals.png');
    width: 30px;
    height: 35px;
    left: 0px;
@@ -122,7 +122,7 @@ body {
 }
 
 #g_icon {
-   background-image: url('http://203.237.179.21:8000/client/res/img/icon/gas.svg');
+   background-image: url('http://203.237.179.21:8000/client/res/img/icon/gas.png');
    width: 30px;
    height: 35px;
    left: 100px;
@@ -143,7 +143,7 @@ body {
 }
 
 #u_icon {
-   background-image: url('http://203.237.179.21:8000/client/res/img/icon/unknown.svg');
+   background-image: url('http://203.237.179.21:8000/client/res/img/icon/unknown.png');
    width: 30px;
    height: 35px;
    left: 200px;
