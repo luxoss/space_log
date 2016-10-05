@@ -266,8 +266,6 @@ body {
   	transition: all 0.3s ease-in-out; 
 }
 
-
-
 #rank_btn:hover { 
 	-webkit-transform: rotate(360deg); 
 	-moz-transform: rotate(360deg); 
