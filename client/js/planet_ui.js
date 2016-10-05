@@ -16,33 +16,33 @@ function planetViewLayer(planetSocket)
       planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       planetSocket.on('planet_res', function(data){
-         console.log('socket is alive.');
-	 var planet = {
-	    name : data._id,
-	    gas : data.gas,
-	    mineral : data.mineral, 
+         var planet = {
+            name : data._id,
+            gas : data.gas,
+            mineral : data.mineral, 
             unknown : data.unknown,
-	    //discover : "false",
-	    grade : data.create_spd
-	 };
-			
-	 console.log("planet: ", "gas: ", "mineral: ", "unknown: ", "grade: ",
-                      planet.name, planet.gas, planet.mineral, planet.unknown, planet.grade);
+            grade : data.create_spd
+            //discover : "false",
+         };
+         console.log(
+            "planet: ", "gas: ", "mineral: ", "unknown: ", "grade: ",
+            planet.name, planet.gas, planet.mineral, planet.unknown, planet.grade
+         );
 
-	 $("#planet_name").append(
-            "<div id ='" + planet.name + "' style='position: absolute;'></div>"
-	 );
+         $("#planet_name").append( 
+            "<div id ='" + planet.name + "' style='position: absolute;'>" + planet['name'] + "</div>"
+         );
 
-	 $("#planet_resource").append(
-	    "<div id='" + planet.gas + "'style='position:absolute;'></div>"	
-	    + "<div id='" + planet.mineral + "'style='position:absolute;'></div>" 
-	    + "<div id='" + planet.unknown + "'style='position:absolute;'></div>"
-	 );
+         $("#planet_resource").append(
+            "<div id='" + planet.gas + "'style='position:absolute;'></div>"	
+            + "<div id='" + planet.mineral + "'style='position:absolute;'></div>" 
+            + "<div id='" + planet.unknown + "'style='position:absolute;'></div>"
+         );
 
-	 //$("#planet_discovered").append(planet.discover);
-	 $("#planet_grade").append(
-	    "<div id='" + planet.grade + "'style='position:absolute;'></div>"
-	 ); 
+	      //$("#planet_discovered").append(planet.discover);
+	      $("#planet_grade").append(
+	         "<div id='" + planet.grade + "'style='position:absolute;'></div>"
+	      ); 
       });
    }
    else 
