@@ -65,11 +65,31 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    //TODO: Request to server initialize value. (PROBLEM: At first, didn't displayed other spaceship image.
-   initialize();
+   initialize(user);
 });
 
-function initialize() 
+function initialize(user) 
 {
+   socket.userInit.emit('update_pos_req', {
+      'username' : user['name'], 
+      'location_x' : user['x'], 
+      'location_y' : user['y']
+   });
+
+   socket.userInit.on('update_pos_req', function(data) {
+      if(data['username'] != user['name']) 
+      {
+         $("#main_layer").append(
+            "<div id='" + data['username'] + "' style='potiion: absolute;'></div>"
+         );
+         $("#" + data['username']).css({
+            "backgroundImage" : url('http://203.237.179.21:8000/res/img/space_ship1_up.svg'),
+            left: enemyPosX,
+            top: enemyPosY
+         });
+      }
+   });
+
    drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
