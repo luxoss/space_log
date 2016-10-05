@@ -57,8 +57,7 @@ io.on('connection', function (socket) {
 					console.log(err);
 					socket.emit('login_res', {response : 'false'});
 				} else if(findres){
-					console.log("Find Success!!!!!!!!!!!!!!");
-					
+										
 					if(findres.password == password && findres.accessing == "false"){
 						console.log("Match the password!!!! findres.password : " + findres.password);
 						member.update({"username" : username},{$set : {"accessing" : "true"}});
@@ -78,24 +77,9 @@ io.on('connection', function (socket) {
 								"gold" 		: userinfo.gold
 							}	
 							socket.emit('user_info', sendinfo);
-						
-
-					//	
-					});
+												
+						});
 					
-					//socket.emit('user_info', sendinfo);
-						
-						/*
-						//Find user's information to MEM_INFO
-						db.collection("MEM_INFO").findOne({"username" : username}, function(err, doc){
-							if(err){
-							
-							} else if (doc != null){
-								// Send the user's information to client
-								socket.emit('myinfo', doc);
-							}
-						
-						});*/
 					} else{
 						console.log("No match the password T-T.... " + findres.password);
 						socket.emit('login_res', {response : 'false'});
@@ -125,8 +109,6 @@ io.on('connection', function (socket) {
 		console.log(username + ', ' + password + ', ' + email);
 
 		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-
-			//console.log(err);
 
 			var adminDB = db.admin(); 
 			adminDB.listDatabases(function(err, databases){ 
@@ -192,8 +174,6 @@ io.on('connection', function (socket) {
 			adminDB.listDatabases(function(err, databases){
 				if(err){
 					console.log('Mongodb admin Error T0T..........');
-				} else{
-					console.log('admin is success');
 				}
 			});
 			var chckByUsrname = {"username" : username};
@@ -203,7 +183,7 @@ io.on('connection', function (socket) {
 					console.log("logout err. Maybe there are no username");
 					socket.emit('logout_res', {response : 'false'});
 				} else{
-					console.log("logout success!!!!!!!!!!");
+					
 					socket.emit('logout_res', {response : 'true'});
 					socket.leave('playing');//leave the playing group
 				}

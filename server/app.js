@@ -13,6 +13,8 @@ var login = require('./routes/loginForm');//New add(Login)
 var createPlanet = require('./routes/createPlanet');
 //new : send Planet
 var sendPlanet = require('./routes/sendPlanet');
+///new : develope the planet
+var devPlanet = require('./routes/devPlanet');
 //new : improve Planet
 var improvePlanet = require('./routes/improvePlanet');
 //new : users' last position
