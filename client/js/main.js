@@ -78,7 +78,7 @@ function initialize()
    });
 
    drawAllAssets("main_layer"); 		
-   drawShipInfo(initPosX, initPosY, user); 
+   drawShipInfo(user, initPosX, initPosY); 
    viewPort();
    keyHandler(socket, user);
    userPosUpdate(speed, background); 
@@ -142,18 +142,18 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
 }
 
 // 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(initPosX, initPosY, user) 
+function drawShipInfo(user, initPosX, initPosY) 
 {
    var userId = user['name'];
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
-   var mineral = $("#mineral");
-   var gas = $("#gas");
-   var unknown = $("#unknown");
-
-   mineral.text("" + user['mineral']+ "");
-   gas.text("" + user['gas'] + "");     
-   unknown.text("" + user['unknown'] + "");
-
+   var mineral = user.resource['mineral'];
+   var gas = user.resource['gas'];
+   var unknown = user.resource['unknown'];
+/*
+   $("input #mineral").val(toString(mineral));
+   $("input #gas").val(toString(gas));     
+   $("input #unknown").val(toString(unknown));
+*/
    $("#user_avartar").append(
       "<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" 
       + user['name'] + "</div>"
