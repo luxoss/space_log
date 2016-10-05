@@ -78,16 +78,12 @@ io.on('connection', function (socket) {
 								"gold" 		: userinfo.gold
 							}	
 							socket.emit('user_info', sendinfo);
-							console.log('SENDINFO object : ');
-								console.log(sendinfo.username);
+						
+
 					//	
 					});
+					
 					//socket.emit('user_info', sendinfo);
-
-					console.log('+++++++++++++++++++++++++++++++');
-					console.log(sendinfo.username);
-					console.log('+++++++++++++++++++++++++++++++');
-
 						
 						/*
 						//Find user's information to MEM_INFO
@@ -109,6 +105,15 @@ io.on('connection', function (socket) {
 			});			
 		});		
   	});// socket.on('login_msg', function(){}); end
+
+	socket.on('init_display', function(data){
+		if(data.state == 'on'){
+			socket.emit('init_display', {"display" : "true"});
+			console.log("======================== display : state is on +++++++++++++++++++++++++");
+		}		
+			
+	});
+	
 
 	//Join part start
   	socket.on('join_msg', function (data){
@@ -147,7 +152,7 @@ io.on('connection', function (socket) {
 				else{
 					console.log("findOne() is ok");
 					console.log("chckres value is : " + chckres);
-
+ 
 					if(chckres == null){
 						console.log('Ther is no data of matching username. Save the data');
 						collection.insert({"username" : username, "password" : password , "email" : email, "accessing" : "false"},  function(err, insertres){

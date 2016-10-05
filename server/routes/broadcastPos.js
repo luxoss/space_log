@@ -13,7 +13,7 @@ var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 UsersPio.on('connection', function(socket){
 	
 	socket.on('press_key', function(data){
-	
+			
 		console.log("Client press arrow key");
 		console.log(data.ready);
 		username=data.username;
