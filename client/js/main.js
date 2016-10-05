@@ -23,7 +23,6 @@ var user = {
    state : {
         exp : parseInt(localStorage.getItem('exp'))
 //        hp : parseInt(localStorage.getItem('hp')),
-//      level : parseInt(localStorage.getItem('level')) 
    }
 };
 var background = {
@@ -54,7 +53,7 @@ var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		    
-var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
+var enemyPosX, enemyPosY;	// Create enemy x, y position
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
 var fire = new Audio();
@@ -70,26 +69,55 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function initialize(user) 
 {
-   socket.userInit.emit('update_pos_req', {
+   var ENTER = 13;
+   var clientUserId = user['name'];
+   var image = {
+      me : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
+   };
+
+   socket.userPos.emit('press_key', {
       'username' : user['name'], 
       'location_x' : user['x'], 
-      'location_y' : user['y']
+      'location_y' : user['y'],
+      'key_val' : ENTER
    });
 
-   socket.userInit.on('update_pos_req', function(data) {
-      if(data['username'] != user['name']) 
+   socket.userPos.on('init_mv', function(data) {
+      console.log("At first socket.userInit");
+      if(data.username == clientUserId)
       {
+         console.log("username: ", data.username, "x: ", data.location_x, "y: ", data.location_y); 
+         initPosX = parseInt(data.location_x);
+         initPosY = parseInt(data.location_y);
+
          $("#main_layer").append(
-            "<div id='" + data['username'] + "' style='potiion: absolute;'></div>"
+            "<div id='" + clientUserId + "' style='potiion: absolute;'></div>"
          );
          $("#" + data['username']).css({
-            "backgroundImage" : url('http://203.237.179.21:8000/res/img/space_ship1_up.svg'),
+            "backgroundImage" : image.me,           
+            left: initPosX,
+            top: initPosY
+         });
+      }
+      else
+      {
+         console.log("Another");
+         console.log("username: ", data.username, "x: ", data.location_x, "y: ", data.location_y);
+         
+         enemyPosX = parseInt(data.location_x);
+         enemyPosY = parseInt(data.location_y);
+
+         $("#main_layer").append(
+            "<div ='" + data.username + "' style='position: absolute;'></div>"
+         );
+         $("#" + data.username).css({
+            "backgroundImage" : image.enemy,
             left: enemyPosX,
             top: enemyPosY
          });
       }
    });
-
    drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
@@ -139,13 +167,6 @@ function drawAllAssets(mainLayer)
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
       }
    });		
-/*
-   socket.userPos.on({'mv', function(data) {
-      for(var users in data) {
-         // draw all spaceship image sprite 
-      }
-   });
-*/
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
@@ -384,10 +405,11 @@ function logout(user, lastPosX, lastPosY)
    var userId = user['name'];
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
    var indexPageUrl = serverUrl + ":8000";
+   var LOGOUT = 81;
 
    if(logoutMsg == true) 
    {
-      socket.userInit.emit('logout_msg', { username: userId }); 
+      socket.userInit.emit('logout_msg', { 'username': userId, 'key_val' : LOGOUT }); 
 
       socket.userInit.on('logout_res', function(data) {
           
@@ -401,7 +423,7 @@ function logout(user, lastPosX, lastPosY)
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
 
-      //	   $("#" + user.name).remove();
+            $("#" + user['name']).remove();
             localStorage.removeItem('username');
             $(location).attr('href', indexPageUrl);
          }
