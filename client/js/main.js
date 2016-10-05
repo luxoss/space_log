@@ -68,6 +68,15 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function initialize() 
 {
+   var UP = 38;
+
+   socket.userPos.emit('press_key', {
+         'username': user['name'], 
+         'key_val' : UP, 
+         'location_x' : curPosX,
+         'location_y' : curPosY
+   });
+
    drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
@@ -369,17 +378,23 @@ function logout(user, lastPosX, lastPosY)
                'lastPosX': lastPosX, 
                'lastPosY': lastPosY
             }); 
+           
+            $("#" + userId).remove();
+
+            localStorage.removeItem('username');
+            localStorage.removeItem('exp');
+            localStorage.removeItem('mineral');
+            localStorage.removeItem('gas');
+            localStorage.removeItem('unknown');
+            localStorage.removeItem('x');
+            localStorage.removeItem('y');
+            
+            console.log(userId, " is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
-
-            $("#" + user['name']).remove();
-            localStorage.removeItem('username');
             $(location).attr('href', indexPageUrl);
          }
-         else if(data.response == 'false') 
-         {
-            alert('Logout error.');
-         }
+         alert('Logout error.');
       });
    }
 }
