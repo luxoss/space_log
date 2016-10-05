@@ -70,20 +70,6 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function initialize() 
 {
-   /*
-   socket.userInit.emit('init_display', {'state' : 'on'});
-   socket.userInit.on('init_display', function(data) {
-      if(data['display'] == true)
-      {
-         // TODO: Display init battleship image
-      }
-      else
-      {
-         // TODO: ERROR
-         console.log("Error Connection"); 
-      }
-   });
-   */
    drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
@@ -432,13 +418,13 @@ function userPosUpdate(speed, background)
       var keyPressVal = data.key_val;
 
       console.log(data.username, data.location_x, data.location_y, data.key_val);
-
+      // TODO: Remind this code line. because of overlap tagging
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
       $("#" + data.username).append(
          "<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>"
       );
 
-      if(data.username == playUserId) 
+      if(data.username == playUserId)  
       {
          switch(keyPressVal)
          {

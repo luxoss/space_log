@@ -139,7 +139,7 @@ x1=Math.floor(Math.random()*770);
    $("#" + user.name).css('transform', 'rotate(180deg)');
 
    var size = {
-      mainLayer : {                                                                                                                                                        width : 5000,
+      mainLayer : {                                                                                                width : 5000,
          height: 5000
       }
    };
@@ -151,5 +151,29 @@ x1=Math.floor(Math.random()*770);
       remove : new Audio(),
       ignite : new Audio()
    };
-*/
 
+   socket.userInit.on('user_info', function(data) {
+      console.log("====================Received user's information message");
+
+      if(data['username'] == user['name']) 
+      {
+         console.log("This is my user information message");
+         console.log(user['name']);
+      }
+   });
+
+   socket.userInit.emit('users_info', {'state' : 'on'});
+   socket.userInit.on('users_info', function(data) {
+      if(data.username != user['name'])
+      {
+         $("#main_layer".append(
+            "<div id='" + data['username'] + "' style='position: absolute;'></div>"
+         );
+
+         $("#' + data['username']).css({
+            "backgroundImage" : url('http://203.237.179.21:8000/res/img/space_ship1_up.svg'),
+            left: enemyPosX,
+            top: enemyPosY
+         });
+   });
+*/
