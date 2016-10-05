@@ -71,8 +71,8 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 function initialize() 
 {
    /*
-   socket.userPos.emit('press_key', {'socket' : 'on'});
-   socket.userPos.on('press_key', function(data) {
+   socket.userInit.emit('init_display', {'state' : 'on'});
+   socket.userInit.on('init_display', function(data) {
       // TODO: Display initialized client battleship image
    });
    */
