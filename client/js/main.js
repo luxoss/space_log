@@ -81,7 +81,6 @@ function initialize()
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
    keyHandler(socket, user);
-   buttonSet(user);
    userPosUpdate(speed, background); 
 }	
 
@@ -208,16 +207,40 @@ function keyHandler(socket, user)
    $(document).keyup(function(ev) {
       //isKeyDown[ev.keyCode] = false;
    });
+   
+   $('#logout_btn').on('click', function(){	
+      if(user['name'] != null) 
+      {
+         logout(user, lastPosX, lastPosY);
+      }
+      else 
+      {
+         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+         $(location).attr('href', indexPageUrl);	
+      }
+   });	
+
+   $('#planet_btn').on('click', function(){
+      planetViewLayer(socket['planet']);
+   });
+
+   $('#battle_ship_btn').on('click', function(){
+      battleShipViewLayer();
+   });
+
+   $('#rank_btn').on('click', function(){
+      rankViewLayer();
+   });
 }
 
-function btnControl(ev, user, curPosX, curPosY) 
+function btnControl(ev, user/*, curPosX, curPosY*/) 
 {
    var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 
-       BATTLESHIP_BTN = 66, PLANET_BTN = 80, RANK_BTN = 82, LOGOUT_BTN = 81;
+       BATTLESHIP_BTN = 66, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
 
-   lastPosX = curPosX;
-   lastPosY = curPosY;
+ //  lastPosX = curPosX;
+ //  lastPosY = curPosY;
 
    if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
    {
@@ -227,6 +250,11 @@ function btnControl(ev, user, curPosX, curPosY)
    if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
    {
       planetViewLayer(socket['planet']);
+   }
+
+   if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
+   {
+      rankViewLayer();
    }
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
@@ -241,56 +269,7 @@ function btnControl(ev, user, curPosX, curPosY)
          $(location).attr('href', indexPageUrl);	
       }
    }
-
-   if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
-   {
-      rankViewLayer();
-   }
 }
-/*
-var keyController = function(ev, divId, curPosX, curPosY) {
-   var keyState = ev.keyCode;
-   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
-   var mainLayer = divId;
-   //var user.name = divId1;
-
-   if(keyState == LEFT)// Left, isKeyDown[37]
-   {      
-      posX(mainLayer, posX(mainLayer) + speed);   
-   }
-	
-   if(keyState == RIGHT) // Right, isKeyDown[39]
-   {
-      posX(mainLayer, posX(mainLayer) - speed);
-   }
-
-   if(keyState == UP) // Up, iskeyDown[38]
-   {
-      posY(mainLayer, posY(mainLayer) + speed);
-   }
-
-   if(keyState == DOWN) // Down, isKeyDown[40]
-   {
-      posY(mainLayer, posY(mainLayer) - speed);
-   }
-
-   if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
-   {
-      fire.play();
-      console.log('fire!');
-      fire.currentTime = 0;
-      //shoot(curPosX, curPosY);	
-   }
-
-   if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
-   {
-      discovered.play();
-      console.log('got a planet');
-      discovered.currentTime = 0;
-   }
-
-}
-*/
 
 // Move x, y coordinate position with posX and posY 
 var posX = function(divId, position) {
@@ -329,33 +308,6 @@ function viewPort()
       });
 
    }).resize();
-}
-
-function buttonSet(user) 
-{	
-   $('#logout_btn').on('click', function(){	
-      if(user['name'] != null) 
-      {
-         logout(user, lastPosX, lastPosY);
-      }
-      else 
-      {
-         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         $(location).attr('href', indexPageUrl);	
-      }
-   });	
-
-   $('#planet_btn').on('click', function(){
-      planetViewLayer();
-   });
-
-   $('#battle_ship_btn').on('click', function(){
-      battleShipViewLayer();
-   });
-
-   $('#rank_btn').on('click', function(){
-      rankViewLayer();
-   });
 }
 
 function logout(user, lastPosX, lastPosY) 
@@ -556,5 +508,51 @@ function userPosUpdate(speed, background)
       }
    });		
 }
+
+/*
+var keyController = function(ev, divId, curPosX, curPosY) {
+   var keyState = ev.keyCode;
+   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
+   var mainLayer = divId;
+   //var user.name = divId1;
+
+   if(keyState == LEFT)// Left, isKeyDown[37]
+   {      
+      posX(mainLayer, posX(mainLayer) + speed);   
+   }
+	
+   if(keyState == RIGHT) // Right, isKeyDown[39]
+   {
+      posX(mainLayer, posX(mainLayer) - speed);
+   }
+
+   if(keyState == UP) // Up, iskeyDown[38]
+   {
+      posY(mainLayer, posY(mainLayer) + speed);
+   }
+
+   if(keyState == DOWN) // Down, isKeyDown[40]
+   {
+      posY(mainLayer, posY(mainLayer) - speed);
+   }
+
+   if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
+   {
+      fire.play();
+      console.log('fire!');
+      fire.currentTime = 0;
+      //shoot(curPosX, curPosY);	
+   }
+
+   if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
+   {
+      discovered.play();
+      console.log('got a planet');
+      discovered.currentTime = 0;
+   }
+
+}
+*/
+
 
 

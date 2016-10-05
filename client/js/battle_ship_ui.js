@@ -26,7 +26,5 @@ function battleShipViewLayer()
 		});
 
 	}).resize();
-
-	return ;
 };
 

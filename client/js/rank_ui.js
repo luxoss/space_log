@@ -24,7 +24,5 @@ function rankViewLayer()
 			top: ($(window).height() - $('.rank_ui').outerHeight()) / 2
 		});
 	}).resize();
-
-	return ; 
 }
 	
