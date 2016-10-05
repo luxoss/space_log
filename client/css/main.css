@@ -29,14 +29,6 @@ body {
 	z-index: 3;
 }
 
-#battle_ship {
-	background-image: url('http://203.237.179.21:8000/res/img/space_ship.png');
-	width: 100px;
-	height: 100px;
-	position: absolute;
-	z-index: 2;
-}
-
 .user_info_ui {
 	background: transparent;
   	width: 400px;
@@ -101,7 +93,7 @@ body {
 }
 
 #m_icon {
-   background-image: url('http://203.237.179.21:8000/client/res/img/icon/minerals.png');
+   background-image: url('../res/img/icon/minerals.png');
    width: 30px;
    height: 35px;
    left: 0px;
@@ -122,7 +114,7 @@ body {
 }
 
 #g_icon {
-   background-image: url('http://203.237.179.21:8000/client/res/img/icon/gas.png');
+   background-image: url('../res/img/icon/gas.png');
    width: 30px;
    height: 35px;
    left: 100px;
@@ -143,7 +135,7 @@ body {
 }
 
 #u_icon {
-   background-image: url('http://203.237.179.21:8000/client/res/img/icon/unknown.png');
+   background-image: url('../res/img/icon/unknown.png');
    width: 30px;
    height: 35px;
    left: 200px;
