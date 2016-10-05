@@ -73,7 +73,7 @@ function initialize()
    /*
    socket.userInit.emit('init_display', {'state' : 'on'});
    socket.userInit.on('init_display', function(data) {
-      if(data.display == true)
+      if(data['display'] == true)
       {
          // TODO: Display init battleship image
       }
