@@ -114,6 +114,10 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 	      });
       }	
    });
+/*
+   $("#sound_control").on('click', function(){
+   });
+*/
 });
 
 function mainDisplayResize() 
