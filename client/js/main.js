@@ -70,7 +70,12 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function initialize() 
 {
-   //socket.userPos.emit('press_key', {'ready' : "update all user's pos"});
+   /*
+   socket.userPos.emit('press_key', {'socket' : 'on'});
+   socket.userPos.on('press_key', function(data) {
+      // TODO: Display initialized client battleship image
+   });
+   */
    drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
