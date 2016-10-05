@@ -176,4 +176,57 @@ x1=Math.floor(Math.random()*770);
             top: enemyPosY
          });
    });
-*/
+   
+   var ENTER = 13;
+   var clientUserId = user['name'];
+   var image = {
+      me : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg'),
+      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')
+   };
+
+   socket.userPos.emit('press_key', {
+      'username' : user['name'],
+      'location_x' : user['x'],
+      'location_y' : user['y'],
+      'key_val' : ENTER
+   });
+
+   socket.userPos.on('init_mv', function(data) {
+      console.log("At first socket.userInit");
+
+      if(data.username == clientUsesrId) 
+      {
+         console.log("username: ", data.username, "x: ", data.location_x, "y: ", data.location_y);
+
+         initPosX = parseInt(data.location_x);
+         initPOsY = parseInt(data.location_y);
+
+         $("#main_layer").append(
+            "<div id='" + clientUserId + "' style='position: absolute;'></div>"
+            );
+
+         $("#" + data.username).css({
+            "backgroundImage"  : image.me,
+            left : initPosX,
+            top : initPosY
+         });
+
+      }
+      else
+      {
+         console.log(Another");
+         
+         enemyPosX = parseInt(data.location_x);
+         enemyPosY = parseInt(data.location_y);
+
+         $("#main_layer").append(
+            "<div ='" + data.username + "' style='position: absolute;'></div>
+            );
+         $("#" + data.username).css({
+            "backgroundImage" : image.enemy,
+            left : enemyPosX,
+            top : enemyPosY
+         });
+
+      }
+   });

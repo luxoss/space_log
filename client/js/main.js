@@ -52,7 +52,7 @@ var fps = 30, speed = 2;
 var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
-    lastPosX = 0, lastPosY = 0;		    
+    lastPosX = undefined, lastPosY = undefined;		    
 var enemyPosX, enemyPosY;	// Create enemy x, y position
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
@@ -63,61 +63,11 @@ fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
-   //TODO: Request to server initialize value. (PROBLEM: At first, didn't displayed other spaceship image.
-   initialize(user);
+   initialize();
 });
 
-function initialize(user) 
+function initialize() 
 {
-   var ENTER = 13;
-   var clientUserId = user['name'];
-   var image = {
-      me : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
-   };
-
-   socket.userPos.emit('press_key', {
-      'username' : user['name'], 
-      'location_x' : user['x'], 
-      'location_y' : user['y'],
-      'key_val' : ENTER
-   });
-
-   socket.userPos.on('init_mv', function(data) {
-      console.log("At first socket.userInit");
-      if(data.username == clientUserId)
-      {
-         console.log("username: ", data.username, "x: ", data.location_x, "y: ", data.location_y); 
-         initPosX = parseInt(data.location_x);
-         initPosY = parseInt(data.location_y);
-
-         $("#main_layer").append(
-            "<div id='" + clientUserId + "' style='potiion: absolute;'></div>"
-         );
-         $("#" + data['username']).css({
-            "backgroundImage" : image.me,           
-            left: initPosX,
-            top: initPosY
-         });
-      }
-      else
-      {
-         console.log("Another");
-         console.log("username: ", data.username, "x: ", data.location_x, "y: ", data.location_y);
-         
-         enemyPosX = parseInt(data.location_x);
-         enemyPosY = parseInt(data.location_y);
-
-         $("#main_layer").append(
-            "<div ='" + data.username + "' style='position: absolute;'></div>"
-         );
-         $("#" + data.username).css({
-            "backgroundImage" : image.enemy,
-            left: enemyPosX,
-            top: enemyPosY
-         });
-      }
-   });
    drawAllAssets("main_layer"); 		
    drawShipInfo(initPosX, initPosY, user); 
    viewPort();
@@ -131,7 +81,6 @@ function drawAllAssets(mainLayer)
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
    socket.planet.on('planet_res', function(data) {
-      //var mainLayer = $("#main_layer");
       var planetInfo = {
          id : data._id,
          x  : data.location_x,
