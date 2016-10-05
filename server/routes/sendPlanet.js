@@ -12,9 +12,9 @@ io.on('connection', function(socket){
 					console.log('Finding to array documents is error');
 					console.log(err);
 				} else{
-					console.log('Planet doucment is.....');
+					//console.log('Planet doucment is.....');
 					for(var i=0; i< Pdocs.length; i++){
-						console.log(Pdocs[i]._id);
+					//	console.log(Pdocs[i]._id);
 
 						socket.emit('planet_res', Pdocs[i]);
 						//socket.emit('planet_res', {_id : Pdocs[i]._id, mineral : Pdocs[i].mineral, gas : Pdocs[i].gas , unknown : Pdocs[i].unknown, location_x : Pdocs[i].location_x, location_y : Pdocs[i].location_y, create_spd : Pdocs[i].create_spd});

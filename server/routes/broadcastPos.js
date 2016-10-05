@@ -1,6 +1,9 @@
 
 var UsersPio = require('socket.io').listen(5006);
-var MongoClient = require('mongodb').MongoClient;
+//var MongoClient = require('mongodb').MongoClient;
+
+var getMongoClient = require('./loginForm');
+
 
 var fs = require('fs');
 var file = 'space_log.txt';
@@ -13,7 +16,16 @@ var LEFT=37, UP=38, RIGHT=39, DOWN=40;
 UsersPio.on('connection', function(socket){
 	
 	socket.on('press_key', function(data){
-			
+	/*
+			getMongoClient.MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+				console.log("====================+_=-=-=-=--CONNECT!!!!! _--=-++_++_-===-=");
+				
+				var member = db.collection("MEMBER");
+				member.findone();
+
+			});
+	*/
+
 		console.log("Client press arrow key");
 		console.log(data.ready);
 		username=data.username;

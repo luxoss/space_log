@@ -6,7 +6,8 @@ var router = express.Router();
 
 var username="", password="", email="";
 
-var sendinfo={};
+//var sendinfo={};
+//var openinfo={};
 
 var MongoClient = require('mongodb').MongoClient;
 
@@ -66,7 +67,7 @@ io.on('connection', function (socket) {
 						socket.join('playing');//this socket binding at playing group(room)
 						
 						mem_info.findOne(findByUsrname, function(err, userinfo){
-							sendinfo = {
+							var sendinfo = {
 								"username" 	: userinfo.username, 
 								"exp" 		: userinfo.exp, 
 								"mineral" 	: userinfo.mineral, 
@@ -77,6 +78,13 @@ io.on('connection', function (socket) {
 								"gold" 		: userinfo.gold
 							}	
 							socket.emit('user_info', sendinfo);
+							var openinfo ={
+								"username"   : userinfo.username,
+								"location_x" : userinfo.location_x,
+								"location_y" : userinfo.location_y
+							};
+							io.emit('users_info', openinfo);
+							
 												
 						});
 					
@@ -89,15 +97,19 @@ io.on('connection', function (socket) {
 			});			
 		});		
   	});// socket.on('login_msg', function(){}); end
-
+/*
 	socket.on('init_display', function(data){
 		if(data.state == 'on'){
 			socket.emit('init_display', {"display" : "true"});
 			console.log("======================== display : state is on +++++++++++++++++++++++++");
+			MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+				var mem_info
+			});
+			io.emit('playing_mem', {"username" :});
 		}		
 			
 	});
-	
+*/	
 
 	//Join part start
   	socket.on('join_msg', function (data){
