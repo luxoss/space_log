@@ -101,6 +101,7 @@ body {
 }
 
 #m_icon {
+/*   background-image: url('http://203.237.179.21:8000/client/res/img/minerals.png');*/
    width: 30px;
    height: 35px;
    left: 0px;
@@ -121,6 +122,7 @@ body {
 }
 
 #g_icon {
+/*   background-image: url('http://203.237.179.21:8000/client/res/img/gas.png');*/
    width: 30px;
    height: 35px;
    left: 100px;
@@ -141,6 +143,7 @@ body {
 }
 
 #u_icon {
+/*   background-image: url('http://203.237.179.21:8000/client/res/img/unknown.png');*/
    width: 30px;
    height: 35px;
    left: 200px;
