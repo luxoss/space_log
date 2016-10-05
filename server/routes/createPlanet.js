@@ -17,10 +17,7 @@ function create_p(){
 			} else{
 				date = new Date();
 				get_time = date.getTime();	
-				console.log('get Time : ' + get_time);
-
-
-				
+			
 				var ran = parseInt(Math.random() % 999) + 1;
 				var t = get_time%999 + 1;
 				source_q = (100 + t)*(t%level_p +1);

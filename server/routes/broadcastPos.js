@@ -20,9 +20,9 @@ UsersPio.on('connection', function(socket){
 		x=data.location_x;
 		y=data.location_y;
 		key_val=data.key_val
-		console.log("username : " + username + "  x : " + x + "  Y : " + y);
+//		console.log("username : " + username + "  x : " + x + "  Y : " + y);
 		
-		console.log('=============== key_val : ' + key_val +"============");
+//		console.log('=============== key_val : ' + key_val +"============");
 		
 		if(key_val == LEFT){
 		//	objects[socket.id].status.x -= 10;
@@ -54,18 +54,6 @@ UsersPio.on('connection', function(socket){
 	});
 
 });
-
-
-/*
-function UserObj(){
-	
-	this.status = {};
-	this.status.x = 0;
-	this.status.y = 0;
-	this.status.username = "";
-	this.keypress = [];
-}
-*/
 
 console.log('broadcastPos.js : http://203.237.179.21:5006');
 

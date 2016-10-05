@@ -6,7 +6,6 @@ var username="", x=0 , y=0;
 
 
 LastPio.on('connection', function(socket){
-	console.log('ㅎㅎㅎㅎㅎlastposition.js file');
 	socket.on('lpos', function(data){
 		console.log('I get a request saving user\'s last position');
 		username = data.username;
@@ -15,8 +14,8 @@ LastPio.on('connection', function(socket){
 
 		MongoClient.connect("mongodb://localhost/space_log",function(err, db){
 			var collection = db.collection("MEM_INFO");
-			console.log("LASTPOSITION :: USERNAME" + username);
-			console.log("!!!!!!!" + x + "!!!!!!!!!" + y +"!!!!");
+		//	console.log("LASTPOSITION :: USERNAME" + username);
+		//	console.log("!!!!!!!" + x + "!!!!!!!!!" + y +"!!!!");
 
 			collection.update({"username" : username}, {$set : {"location_x" : x, "location_y" : y}}, function(err, Pdocs){
 				if(err){
@@ -24,8 +23,6 @@ LastPio.on('connection', function(socket){
 				} else if(Pdocs != null){
 					
 				}
-			
-			
 			});
 			
 		});

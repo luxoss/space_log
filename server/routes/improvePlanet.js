@@ -15,8 +15,6 @@ function improve_p(){
 //				console.log('............................' + planet + '..................................')
 				for(var i =0; i<planet.length; i++){
 					improve_q = (planet[i].create_spd+1) * level_p *100;				
-
-					
 					collection.update({_id : planet[i]._id}, {$set : {mineral : planet[i].mineral +improve_q, gas : planet[i].gas + improve_q, unknown : planet[i].unknown + improve_q}});
 
 					/*
