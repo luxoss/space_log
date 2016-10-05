@@ -29,6 +29,7 @@ function planetViewLayer(planetSocket)
             planet.name, planet.gas, planet.mineral, planet.unknown, planet.grade
          );
 
+         // Not a div apped, try list and table tag. e.g) <table></table> or <li></li> or <ul></ul>
          $("#planet_name").append( 
             "<div id ='" + planet.name + "' style='position: absolute;'>" + planet['name'] + "</div>"
          );
