@@ -48,7 +48,7 @@ var background = {
       }
    }
 };
-var fps = 30, speed = 2;			
+var fps = 30, speed = 5;			
 var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
