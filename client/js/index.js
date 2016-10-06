@@ -145,9 +145,8 @@ function getUserItems(userInfoSocket, userInitInfo)
          {
 
                userInitInfo.name = data.username;
-         //    userInitInfo.level = data.level;
                userInitInfo.exp = data.exp;
-         //    userInitInfo.hp = data.hp;
+               userInitInfo.hp = data.hp;
                userInitInfo.mineral = data.mineral;
                userInitInfo.gas = data.gas;
                userInitInfo.unknown = data.unknown;
@@ -156,6 +155,7 @@ function getUserItems(userInfoSocket, userInitInfo)
 
                localStorage.setItem('username', userInitInfo.name); 
                localStorage.setItem('exp', userInitInfo.exp);
+               localStorage.setItem('hp', userInitInfo.hp);
                localStorage.setItem('mineral', userInitInfo.mineral);
                localStorage.setItem('gas', userInitInfo.gas);
                localStorage.setItem('unknown', userInitInfo.unknown);
@@ -164,7 +164,7 @@ function getUserItems(userInfoSocket, userInitInfo)
          }
          else
          {
-            alert('ERROR: This socket is not available. please, try again and check this code line.');
+            alert("ERROR: This socket is not available. please, try again and check this code line.");
          }
       });
    }

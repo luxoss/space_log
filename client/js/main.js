@@ -21,8 +21,8 @@ var user = {
       unknown : parseInt(localStorage.getItem('unknown'))
    },
    state : {
-        exp : parseInt(localStorage.getItem('exp'))
-//        hp : parseInt(localStorage.getItem('hp')),
+        exp : parseInt(localStorage.getItem('exp')),
+        hp : parseInt(localStorage.getItem('hp'))
    }
 };
 var background = {
@@ -53,7 +53,7 @@ var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),
     initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
     lastPosX = undefined, lastPosY = undefined;		    
-var enemyPosX, enemyPosY;	// Create enemy x, y position
+var enemyPosX, enemyPosY;	      // Create enemy x, y position
 var missile = new Object();		// Create missile image object 
 var isKeyDown = new Array();		// Create key state array to keyboard polling  
 var fire = new Audio();
@@ -68,6 +68,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
 function initialize() 
 {
+/*
    var UP = 38;
 
    socket.userPos.emit('press_key', {
@@ -76,7 +77,7 @@ function initialize()
          'location_x' : curPosX,
          'location_y' : curPosY
    });
-
+*/
    drawAllAssets("main_layer"); 		
    drawShipInfo(user, initPosX, initPosY); 
    viewPort();
@@ -209,9 +210,9 @@ function keyHandler(socket, user)
    });
    
    $('#logout_btn').on('click', function(){	
-      if(user['name'] != null) 
+      if(userId != null) 
       {
-         logout(user, lastPosX, lastPosY);
+         logout(userId, lastPosX, lastPosY);
       }
       else 
       {
@@ -233,14 +234,15 @@ function keyHandler(socket, user)
    });
 }
 
-function btnControl(ev, user/*, curPosX, curPosY*/) 
+function btnControl(ev, user, curPosX, curPosY) 
 {
    var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 
        BATTLESHIP_BTN = 66, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
-
- //  lastPosX = curPosX;
- //  lastPosY = curPosY;
+   var userId = user['name'];
+ 
+   lastPosX = curPosX;
+   lastPosY = curPosY;
 
    if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
    {
@@ -259,9 +261,9 @@ function btnControl(ev, user/*, curPosX, curPosY*/)
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
    {
-      if(user['name'] != null) 
+      if(userId != null) 
       {
-         logout(user, lastPosX, lastPosY);
+         logout(userId, lastPosX, lastPosY);
       }
       else 
       {
@@ -310,9 +312,8 @@ function viewPort()
    }).resize();
 }
 
-function logout(user, lastPosX, lastPosY) 
+function logout(userId, lastPosX, lastPosY) 
 {
-   var userId = user['name'];
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
    var indexPageUrl = serverUrl + ":8000";
    var LOGOUT = 81;
@@ -346,7 +347,10 @@ function logout(user, lastPosX, lastPosY)
             alert(userId + '님께서 로그아웃 되셨습니다.');
             $(location).attr('href', indexPageUrl);
          }
-         alert('Logout error.');
+         else
+         {
+            alert('Logout error.');
+         }
       });
    }
 }
