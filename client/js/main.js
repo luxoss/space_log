@@ -59,7 +59,7 @@ var isKeyDown = new Array();		// Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 
-fire.src = serverUrl + ":8000/res/sound/effect/shoot.mp3";
+fire.src = serverUrl + ":8000/res/sound/effect/shoot.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
@@ -300,15 +300,14 @@ function viewPort()
 {	
    $(window).resize(function() {
       $("#view_layer").css({
-         width: ($(window).width() - 200), // 1368px
-         height: ($(window).height() - 100) // 768px
+         width: ($(window).width() - 200), 
+         height: ($(window).height() - 100) 
       });
 
       $('#view_layer').css({
          left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
          top: ($(window).height() - $('#view_layer').outerHeight()) / 2
       });
-
    }).resize();
 }
 
