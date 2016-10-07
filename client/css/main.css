@@ -100,7 +100,7 @@ body {
 
 #mineral {
    text-align: right;
-   color: white;
+   color: rgba(255, 2555, 255, 0.7);;
    font-size: 20pt;
    background-color: rgba(29, 66, 107, 0.7);
    border: 0px;
@@ -121,7 +121,7 @@ body {
 }
 
 #gas {
-   color: white;
+   color: rgba(255, 255, 255, 0.7);
    font-size: 20pt;
    text-align: right;
    background-color: rgba(26, 61, 19, 0.7);
@@ -143,7 +143,7 @@ body {
 }
 
 #unknown {
-   color: white;
+   color: rgba(255, 255, 255, 0.7);
    font-size: 20pt;
    text-align: right;
    background-color: rgba(28, 21, 28, 0.7);
