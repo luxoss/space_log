@@ -266,14 +266,20 @@ function keyHandler(user, socket)
    });	
 
    $('#planet_btn').on('click', function(){
+      menuSelection.play();
+      menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
    });
 
    $('#battle_ship_btn').on('click', function(){
+      menuSelection.play();
+      menuSelection.currentTime = 0;
       battleShipViewLayer();
    });
 
    $('#rank_btn').on('click', function(){
+      menuSelection.play();
+      menuSelection.currentTime = 0;
       rankViewLayer();
    });
 }
