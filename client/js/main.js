@@ -38,7 +38,7 @@ var isKeyDown = [];		         // Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 
-fire.src = serverUrl + ":8000/res/sound/effect/shoot.wav";
+fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
