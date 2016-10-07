@@ -42,7 +42,7 @@ fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
-$(function() {  // Same to $(document).ready(function()) that is 'onload' 
+$(document).ready(function(){ // onload document 
    var ENTER = 13;
    var image = {
       curClientImg : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
@@ -116,7 +116,7 @@ function drawAllAssets(mainLayer, user, socket)
       else
       {
          console.log(
-            "[Client log] Another user's position socket is received by server taht mongoDB"
+            "[Client log]", data.username, "'s position socket is received by server taht mongoDB"
          );
          
          enemyPosX = parseInt(data.location_x);
@@ -135,7 +135,7 @@ function drawAllAssets(mainLayer, user, socket)
    });
 */
 
-   socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
+   socket.planet.emit('planet_req', {'ready' : 'Ready to draw planets'});
 
    socket.planet.on('planet_res', function(data) {
       var planetInfo = {
@@ -169,15 +169,16 @@ function drawAllAssets(mainLayer, user, socket)
    });		
         
 
-   $("#mineral").val("" + mineral + "");
-   $("#gas").val("" + gas + "");
-   $("#unknown").val("" + unknown + "");
+   $("#mineral").text(mineral);
+   $("#gas").text(gas);
+   $("#unknown").text(unknown);
+   //$("#hp_progress_bar").text(hp);
 
    $("#user_avartar").append(
       "<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" 
       + user['name'] + "</div>"
    );
-   $("#user_name").text("" + userId + "");
+   $("#user_name").text(userId);
 	
    $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
    $("#" + userId).append(
@@ -318,7 +319,7 @@ function btnControl(ev, user, curPosX, curPosY)
       else 
       {
          alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         $(location).attr('href', indexPageUrl);	
+         $(location).attr('href', 'http://game.smuc.ac.kr:8000');	
       }
    }
 }
@@ -326,7 +327,6 @@ function btnControl(ev, user, curPosX, curPosY)
 function logout(userId, lastPosX, lastPosY) 
 {
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
-   var indexPageUrl = serverUrl + ":8000";
    var LOGOUT = 81;
 
    if(logoutMsg == true) 
@@ -347,11 +347,11 @@ function logout(userId, lastPosX, lastPosY)
             console.log(userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
-            $(location).attr('href', indexPageUrl);
+            $(location).attr('href', 'http://game.smuc.ac.kr:8000');
          }
          else
          {
-            alert('Logout error.');
+            console.log("[ERROR] LOGOUT.");
          }
       });
    }
@@ -380,7 +380,7 @@ function userPosUpdate(user, speed)
       var keyPressVal = data.key_val;
 
       console.log(
-         "[client log] ", data['username'],
+         "[Client log] ", data['username'],
          ",x: ", data['location_x'], ",y: ", data['location_y'],
          ",key_value: ", data['key_val']
       );

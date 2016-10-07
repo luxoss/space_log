@@ -99,7 +99,9 @@ body {
 }
 
 #mineral {
+   text-align: right;
    color: white;
+   font-size: 20pt;
    background-color: rgba(29, 66, 107, 0.7);
    border: 0px;
    padding: 0px;
@@ -108,7 +110,6 @@ body {
    height: 35px;
    left: 30px;
    position: absolute;
-   text-align: center;
 }
 
 #g_icon {
@@ -121,6 +122,8 @@ body {
 
 #gas {
    color: white;
+   font-size: 20pt;
+   text-align: right;
    background-color: rgba(26, 61, 19, 0.7);
    border: 0px;
    padding: 0px;
@@ -129,7 +132,6 @@ body {
    height: 35px;
    left: 130px;
    position: absolute;
-   text-align: center;
 }
 
 #u_icon {
@@ -142,6 +144,8 @@ body {
 
 #unknown {
    color: white;
+   font-size: 20pt;
+   text-align: right;
    background-color: rgba(28, 21, 28, 0.7);
    border: 0px;
    padding: 0px;
@@ -150,7 +154,6 @@ body {
    height: 35px;
    left: 230px;
    position: absolute;
-   text-align: center;
 }
 
 .minimap_ui {
