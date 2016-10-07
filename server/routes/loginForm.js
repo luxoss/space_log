@@ -6,8 +6,10 @@ var router = express.Router();
 
 var username="", password="", email="";
 
-//var sendinfo={};
-//var openinfo={};
+var x=0, y=0, obj={};
+
+var sendinfo={};
+var openinfo={};
 
 var MongoClient = require('mongodb').MongoClient;
 
@@ -67,7 +69,7 @@ io.on('connection', function (socket) {
 						socket.join('playing');//this socket binding at playing group(room)
 						
 						mem_info.findOne(findByUsrname, function(err, userinfo){
-							var sendinfo = {
+							sendinfo = {
 								"username" 	: userinfo.username, 
 								"exp" 		: userinfo.exp, 
 								"mineral" 	: userinfo.mineral, 
@@ -78,13 +80,17 @@ io.on('connection', function (socket) {
 								"gold" 		: userinfo.gold
 							}	
 							socket.emit('user_info', sendinfo);
-							var openinfo ={
+
+							
+
+
+						/*	openinfo ={
 								"username"   : userinfo.username,
 								"location_x" : userinfo.location_x,
 								"location_y" : userinfo.location_y
 							};
 							io.emit('users_info', openinfo);
-							
+						*/	
 												
 						});
 					
@@ -97,6 +103,24 @@ io.on('connection', function (socket) {
 			});			
 		});		
   	});// socket.on('login_msg', function(){}); end
+	
+	/*
+	socket.on('update_pos_req', function(data){
+		console.log('======= I got update_pos_req============================');
+
+		x = data.location_x;	
+		y = data.location_y;
+		username = data.username;
+		obj = {"username": username, "location_x" : x, "location_y" : y};
+	
+	});
+	setInterval(function(){
+		io.emit('update_pos_res', obj);
+	
+	}, 1000);
+*/
+
+
 /*
 	socket.on('init_display', function(data){
 		if(data.state == 'on'){
@@ -203,8 +227,18 @@ io.on('connection', function (socket) {
 		});
 		
 	});//lsocket.on('logout_msg', function(){}); end
+/*
+	function sendPosInterval(){
+		console.log('//////////////////////////////');
+		console.log(sendinfo.username);
+		socket.emit('user_info', sendinfo);
+	}	
+
+	setInterval(sendPosInterval,1000);
+	*/
 
 });
+
 
 console.log('loginForm.js : http://203.237.179.21:5001');
 
