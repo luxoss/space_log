@@ -622,6 +622,29 @@ var posX = function(divId) {
 var posY = function(divId, position) { 
       return parseInt($("#" + divId).css("top"));
 }
+
+function Missile(x, y, img) 
+{
+   this.x = x;
+   this.y = y;
+   this.img = img;
+
+   this.LEFT = function() {
+   };
+
+   this.RIGHT = function() {
+   };
+
+   this.UP = function() {
+   };
+
+   this.DOWN = function() {
+   };
+}
+
+var laser = new Missile(curPosX, curPosY, img);
+laser.prototype.left = function() {
+      
 */
 
 
