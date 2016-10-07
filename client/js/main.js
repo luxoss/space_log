@@ -49,9 +49,9 @@ var background = {
    }
 };
 var fps = 30, speed = 5;			
-var initPosX = user.x,  //Math.floor(Math.random() * mainWidth - 100),     
-    initPosY = user.y   //Math.floor(Math.random() * mainHeight - 100);  
-var curPosX = initPosX, curPosY = initPosY,
+var initPosX = user.x, // Math.floor(Math.random() * mainWidth - 100),     
+    initPosY = user.y  // Math.floor(Math.random() * mainHeight - 100);  
+var curPosX = user.x, curPosY = user.y,
     lastPosX = undefined, lastPosY = undefined;		    
 var enemyPosX, enemyPosY;	      // Create enemy x, y position
 var missile = new Object();		// Create missile image object 
@@ -69,24 +69,39 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 function initialize() 
 {
 /*
-   var UP = 38;
+   var ENTER = 0;
 
    socket.userPos.emit('press_key', {
          'username': user['name'], 
-         'key_val' : UP, 
+         'key_val' : ENTER, 
          'location_x' : curPosX,
          'location_y' : curPosY
    });
 */
-   drawAllAssets("main_layer"); 		
-   drawShipInfo(user, initPosX, initPosY); 
+   drawAllAssets("main_layer", user); 		
    viewPort();
    keyHandler(socket, user);
    userPosUpdate(speed, background); 
 }	
 
-function drawAllAssets(mainLayer) 
+function drawAllAssets(mainLayer, user) 
 {
+   var userId = user['name'];
+   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
+   var hp = user.state.['hp'];
+   var exp = user.state.['exp'];
+   var mineral = user.resource['mineral'];
+   var gas = user.resource['gas'];
+   var unknown = user.resource['unknown'];
+
+   localStorage.removeItem('username');
+   localStorage.removeItem('exp');
+   localStorage.removeItem('mineral');
+   localStorage.removeItem('gas');
+   localStorage.removeItem('unknown');
+   localStorage.removeItem('x');
+   localStorage.removeItem('y'); 
+   
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
    socket.planet.on('planet_res', function(data) {
@@ -125,31 +140,7 @@ function drawAllAssets(mainLayer)
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
       }
    });		
-}
-
-// 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
-{
-   $("#" + mainLayer).append(
-      "<div id='" + divId + "' style='position: absolute; top: " 
-      + x + "px" + "; left:" + y + "px" + ";'></div>"
-   );	
-
-   $("#" + divId).css({
-      "backgroundImage" : planetImgUrl,
-      "width"  : "100px",
-      "height" : "100px"
-   });
-}
-
-// 유저 정보(유저명, 함선 이미지)를 메인 화면에 뿌릴 함수
-function drawShipInfo(user, initPosX, initPosY) 
-{
-   var userId = user['name'];
-   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
-   var mineral = user.resource['mineral'];
-   var gas = user.resource['gas'];
-   var unknown = user.resource['unknown'];
+        
 /*
    $("input #mineral").val(toString(mineral));
    $("input #gas").val(toString(gas));     
@@ -177,6 +168,21 @@ function drawShipInfo(user, initPosX, initPosY)
    });
 
    autoFocus(userId);
+}
+
+// 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
+function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
+{
+   $("#" + mainLayer).append(
+      "<div id='" + divId + "' style='position: absolute; top: " 
+      + x + "px" + "; left:" + y + "px" + ";'></div>"
+   );	
+
+   $("#" + divId).css({
+      "backgroundImage" : planetImgUrl,
+      "width"  : "100px",
+      "height" : "100px"
+   });
 }
 
 function autoFocus(divId) 
@@ -332,15 +338,6 @@ function logout(userId, lastPosX, lastPosY)
             }); 
            
             $("#" + userId).remove();
-
-            localStorage.removeItem('username');
-            localStorage.removeItem('exp');
-            localStorage.removeItem('mineral');
-            localStorage.removeItem('gas');
-            localStorage.removeItem('unknown');
-            localStorage.removeItem('x');
-            localStorage.removeItem('y');
-            
             console.log(userId, " is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
