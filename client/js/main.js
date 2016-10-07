@@ -5,7 +5,7 @@
 */
 
 //TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr' 
-var serverUrl = "http://203.237.179.21" 					
+var serverUrl = "http://game.smuc.ac.kr" 					
 var indexPageUrl = serverUrl + ":8000";
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
@@ -45,8 +45,8 @@ menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 $(document).ready(function(){ // onload document 
    var ENTER = 13;
    var image = {
-      curClientImg : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
+      curClientImg : "url(http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
+      enemy : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
    };
    initialize();
 });
@@ -62,7 +62,7 @@ function initialize()
 function drawAllAssets(mainLayer, user, socket) 
 {
    var userId = user['name'];
-   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
+   var imgUrl = "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')";
    var hp = user.state['hp'];
    var exp = user.state['exp'];
    var mineral = user.resource['mineral'];
@@ -128,11 +128,11 @@ function drawAllAssets(mainLayer, user, socket)
          y  : data.location_y,
          grade : data.create_spd,
          image : { 
-            1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-            2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-            3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-            4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-            5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+            1 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_5.png')",
+            2 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_7.png')",
+            3 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_9.png')",
+            4 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_11.png')",
+            5 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_12.png')"
          }
       };
 	
@@ -168,6 +168,9 @@ function drawAllAssets(mainLayer, user, socket)
    $("#" + userId).append(
       "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
       + userId + "</div>"
+   );
+   $("#" + userId).append(
+      "<div id='" + userId + "_laser" + "' style='position:absolute;'></div>"
    );
 
    $("#" + userId).css({
@@ -272,6 +275,7 @@ function keyHandler(user, socket)
 var keyController = function(ev, divId, user) {
    var keyState = ev.keyCode;
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
+   var laserX = 0, laserY = 0;
 
    if(keyState == LEFT)// Left, isKeyDown[37]
    {      
@@ -308,8 +312,66 @@ var keyController = function(ev, divId, user) {
       discovered.currentTime = 0;
    }
 }
+/*
+var shoot = function(curPosX, curPosY) {
+   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
+   var laserId = $("#" + user['name'] + "_laser");
+   var laserX = laserId.css("left");
+   var laserY = laserId.css("top");
+   var laserImg = {
+       LEFT : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_left.svg')",
+      RIGHT : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_right.svg')",
+         UP : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_up.svg')",
+       DOWN : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_down.svg')"
+   };
 
+   laserX = curPosX;
+   laserY = curPosY;
 
+   // If this key is pressed, save position image in user's laser division
+   if(key_state == LEFT) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.LEFT,
+         left : laserX,
+         top : leserY
+      });
+     // After code is executed, wrtie below to the code lines.
+     // Change current position x and leave y position that current y position 
+   }
+     
+   if(key_state == RIGHT) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.LEFT,
+         left : laserX,
+         top : leserY
+      });
+   }
+
+   if(key_state == UP) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.UP,
+         left : laserX,
+         top : leserY
+      });
+   }
+
+   if(key_state == DOWN) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.DOWN,
+         left : laserX,
+         top : leserY
+      });
+   }
+};
+*/
 function btnControl(ev, user, curPosX, curPosY) 
 {
    var keyState = ev.keyCode;
@@ -384,7 +446,7 @@ function logout(userId, lastPosX, lastPosY)
             localStorage.removeItem('x');
             localStorage.removeItem('y'); 
 
-            console.log(userId, "is logout!"); 
+            console.log("[Client log]", userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
             $(location).attr('href', 'http://game.smuc.ac.kr:8000');
@@ -402,16 +464,16 @@ function userPosUpdate(user, speed)
    var userId = user['name'];
    var imgSprite = {
       player : { 
-         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
-         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
-         UP   : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')"
+         LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_left.svg')",
+         RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_right.svg')",
+         UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
+         DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_down.svg')"
       },
       others : {
-         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship2_left.svg')",
-         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship2_right.svg')",
-         UP   : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')",
-         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship2_down.svg')"
+         LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_left.svg')",
+         RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
+         UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
+         DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_down.svg')"
      } 
    }; 
 
@@ -550,6 +612,8 @@ function userPosUpdate(user, speed)
       }
    });		
 }
+
+/*
 // Move x, y coordinate position with posX and posY 
 var posX = function(divId) {
       return parseInt($("#" + divId).css("left"));
@@ -558,7 +622,7 @@ var posX = function(divId) {
 var posY = function(divId, position) { 
       return parseInt($("#" + divId).css("top"));
 }
-
+*/
 
 
 
