@@ -49,7 +49,42 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       curClientImg : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
       enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
+   initialize();
+});
 
+function initialize() 
+{
+   drawAllAssets("main_layer", user, socket); 		
+   viewPort();
+   keyHandler(user, socket);
+   userPosUpdate(user, speed); 
+}	
+
+function drawAllAssets(mainLayer, user, socket) 
+{
+   var userId = user['name'];
+   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
+   var hp = user.state['hp'];
+   var exp = user.state['exp'];
+   var mineral = user.resource['mineral'];
+   var gas = user.resource['gas'];
+   var unknown = user.resource['unknown'];
+/*
+   // Remove all localStorage items in client 
+   localStorage.removeItem('username');
+   localStorage.removeItem('exp');
+   localStorage.removeItem('mineral');
+   localStorage.removeItem('gas');
+   localStorage.removeItem('unknown');
+   localStorage.removeItem('x');
+   localStorage.removeItem('y'); 
+   var state = {
+      1 : pause image,
+      2 : move, {1, 2, 3, 4, up, down, left, right}
+      3 : logout
+   }
+*/ 
+  
    socket.userPos.emit('init_press_key', {
       'username' : user['name'],
       'location_x' : user['x'],
@@ -100,36 +135,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
    });
 */
-   initialize();
-});
 
-function initialize() 
-{
-   drawAllAssets("main_layer", user, socket); 		
-   viewPort();
-   keyHandler(user, socket);
-   userPosUpdate(user, speed); 
-}	
-
-function drawAllAssets(mainLayer, user, socket) 
-{
-   var userId = user['name'];
-   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
-   var hp = user.state['hp'];
-   var exp = user.state['exp'];
-   var mineral = user.resource['mineral'];
-   var gas = user.resource['gas'];
-   var unknown = user.resource['unknown'];
-/*
-   // Remove all localStorage items in client 
-   localStorage.removeItem('username');
-   localStorage.removeItem('exp');
-   localStorage.removeItem('mineral');
-   localStorage.removeItem('gas');
-   localStorage.removeItem('unknown');
-   localStorage.removeItem('x');
-   localStorage.removeItem('y'); 
-*/   
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
    socket.planet.on('planet_res', function(data) {
