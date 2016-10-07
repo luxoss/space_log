@@ -27,37 +27,14 @@ var user = {
         hp : parseInt(localStorage.getItem('hp'))
    }
 };
-var background = {
-   x : function(divId, position) {
-      if(position) 
-      {
-         return parseInt($("#" + divId).css("left", position));
-      }
-      else 
-      {
-         return parseInt($("#" + divId).css("left"));
-      }
-   },
-
-   y : function(divId, position) {
-      if(position) 
-      {
-         return parseInt($("#" + divId).css("top", position));
-      }
-      else 
-      {
-         return parseInt($("#" + divId).css("top"));
-      }
-   }
-};
 var fps = 30, speed = 2;			
 var initPosX = user.x, // Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y  // Math.floor(Math.random() * mainHeight - 100);  
 var curPosX = initPosX, curPosY = initPosY,
     lastPosX = undefined, lastPosY = undefined;		    
 var enemyPosX, enemyPosY;	      // Create enemy x, y position
-var missile = {};		// Create missile image object 
-var isKeyDown = [];		// Create key state array to keyboard polling  
+var missile = {};		            // Create missile image object 
+var isKeyDown = [];		         // Create key state array to keyboard polling  
 var fire = new Audio();
 var discovered = new Audio();
 
@@ -129,7 +106,7 @@ function initialize()
    drawAllAssets("main_layer", user, socket); 		
    viewPort();
    keyHandler(user, socket);
-   userPosUpdate(user, speed, background); 
+   userPosUpdate(user, speed); 
 }	
 
 function drawAllAssets(mainLayer, user, socket) 
@@ -272,7 +249,7 @@ function keyHandler(user, socket)
       });
       btnControl(ev, user, curPosX, curPosY);
       //isKeyDown[ev.keyCode] = true;
-      //keyController(ev, mainLayer, curPosX, curPosY);
+      keyController(ev, "main_layer", curPosX, curPosY);
    });
 
    $(document).keyup(function(ev) {
@@ -343,29 +320,6 @@ function btnControl(ev, user, curPosX, curPosY)
    }
 }
 
-// Move x, y coordinate position with posX and posY 
-var posX = function(divId, position) {
-   if(position) 
-   {
-      return parseInt($("#" + divId).css("left", position));
-   }
-   else 
-   {
-      return parseInt($("#" + divId).css("left"));
-   }
-}
-
-var posY = function(divId, position) { 
-   if(position) 
-   {
-      return parseInt($("#" + divId).css("top", position));
-   }
-   else 
-   {
-      return parseInt($("#" + divId).css("top"));
-   }
-}
-
 function logout(userId, lastPosX, lastPosY) 
 {
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
@@ -400,11 +354,9 @@ function logout(userId, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate(user, speed, background)
+function userPosUpdate(user, speed)
 {
-   var posX = background['x'];
-   var posY = background['y'];
-   var playUserId = user['name'];
+   var userId = user['name'];
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
@@ -437,13 +389,11 @@ function userPosUpdate(user, speed, background)
       );
       */
      
-      if(data.username == playUserId)  
+      if(data.username == userId)  
       {
          switch(keyPressVal)
          {
             case LEFT:
-               posX("main_layer", posX("main_layer") + speed);
-
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
                
@@ -455,8 +405,6 @@ function userPosUpdate(user, speed, background)
 	            break;
 
  	         case RIGHT:
-               posX("main_layer", posX("main_layer") - speed);
-
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
 
@@ -468,8 +416,6 @@ function userPosUpdate(user, speed, background)
 	            break;
 				
 	         case UP:
-               posY("main_layer", posY("main_layer") + speed);
-
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
 	
@@ -481,8 +427,6 @@ function userPosUpdate(user, speed, background)
               	break;
 				
 	         case DOWN:
-               posY("main_layer", posY("main_layer") - speed);
-
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
 	
@@ -564,31 +508,29 @@ function userPosUpdate(user, speed, background)
    });		
 }
 
-/*
 var keyController = function(ev, divId, curPosX, curPosY) {
    var keyState = ev.keyCode;
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
-   var mainLayer = divId;
-   //var user.name = divId1;
+   var background = divId;
 
    if(keyState == LEFT)// Left, isKeyDown[37]
    {      
-      posX(mainLayer, posX(mainLayer) + speed);   
+      posX(background) + speed;   
    }
 	
    if(keyState == RIGHT) // Right, isKeyDown[39]
    {
-      posX(mainLayer, posX(mainLayer) - speed);
+      posX(background) - speed;
    }
 
    if(keyState == UP) // Up, iskeyDown[38]
    {
-      posY(mainLayer, posY(mainLayer) + speed);
+      posY(background) + speed;
    }
 
    if(keyState == DOWN) // Down, isKeyDown[40]
    {
-      posY(mainLayer, posY(mainLayer) - speed);
+      posY(background) - speed;
    }
 
    if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
@@ -605,9 +547,18 @@ var keyController = function(ev, divId, curPosX, curPosY) {
       console.log('got a planet');
       discovered.currentTime = 0;
    }
-
 }
-*/
+
+// Move x, y coordinate position with posX and posY 
+var posX = function(divId) {
+      return parseInt($("#" + divId).css("left"));
+}
+
+var posY = function(divId, position) { 
+      return parseInt($("#" + divId).css("top"));
+}
+
+
 
 
 
