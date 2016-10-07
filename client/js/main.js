@@ -195,7 +195,13 @@ function drawAllAssets(mainLayer, user, socket)
       top: initPosY
    });
 
-   autoFocus(userId);
+   // Auto focus user's battleship
+   var offset = $("#" + userId).offset();
+
+   $("html, body").animate({
+      scrollLeft: offset.left - ($(window).width() / 2), 
+      scrollTop: offset.top - ($(window).height() / 2)  
+   }, 1000);
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
@@ -228,16 +234,6 @@ function viewPort()
    }).resize();
 }
 
-function autoFocus(divId) 
-{
-   var offset = $("#" + divId).offset();
-
-   $("html, body").animate({
-      scrollLeft: offset.left - ($(window).width() / 2), 
-      scrollTop: offset.top - ($(window).height() / 2)  
-   }, 1000);
-}
-	
 function keyHandler(user, socket) 
 {
    var userId = user['name'];
