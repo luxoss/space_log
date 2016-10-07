@@ -507,6 +507,18 @@ function userPosUpdate(user, speed)
  		            left: curPosX, 
 		            top: curPosY
 	            });
+               /*
+               if(curPosX < 0) 
+               {
+                  curPosX = 0;
+                  curPosY = parseInt(data.location_y);
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.LEFT,
+ 		              left: curPosX, 
+		              top: curPosY
+	               }); 
+               }
+               */
 	            break;
 
  	         case RIGHT:
@@ -517,7 +529,19 @@ function userPosUpdate(user, speed)
 	               "backgroundImage" : imgSprite.player.RIGHT,
  	 	            left: curPosX, 
 	               top: curPosY
-	            });		
+	            });
+               /*		
+               if(curPosX > 5000) 
+               {
+                  curPosX = 5000;
+                  curPosY = parseInt(data.location_y);
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.RIGHT,
+ 		              left: curPosX, 
+		              top: curPosY
+	               }); 
+               }
+               */
 	            break;
 				
 	         case UP:
@@ -528,7 +552,19 @@ function userPosUpdate(user, speed)
 	               "backgroundImage" : imgSprite.player.UP,
 		            left: curPosX, 
 		            top: curPosY
-	            });		
+	            });
+               /*		
+               if(curPosY < 0) 
+               {
+                  curPosX = parseInt(data.location_x);
+                  curPosY = 0
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.UP,
+ 		              left: curPosX, 
+		              top: curPosY
+	               }); 
+               }
+               */
               	break;
 				
 	         case DOWN:
@@ -539,7 +575,19 @@ function userPosUpdate(user, speed)
 	               "backgroundImage" : imgSprite.player.DOWN,
 		            left: curPosX, 
 		            top: curPosY
-	            });	
+	            });
+               /*	
+               if(curPosY > 5000) 
+               {
+                  curPosX = parseInt(data.location_x);
+                  curPosY = 5000;
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.DOWN,
+ 		              left: curPosX, 
+		              top: curPosY
+	               }); 
+               }
+               */
                break;
 				
             default:
