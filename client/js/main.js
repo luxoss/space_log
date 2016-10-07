@@ -1,9 +1,11 @@
 /**
    ** File name: main.js
-   ** File explanation: Control main html page with javascript	
+   ** File explanation: Control main html page with javascript and Jquery	
    ** Author: luxoss
 */
-var serverUrl =  "http://203.237.179.21" 					
+
+//TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr' 
+var serverUrl = "http://203.237.179.21" 					
 var indexPageUrl = serverUrl + ":8000";
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
@@ -54,8 +56,8 @@ var initPosX = user.x, // Math.floor(Math.random() * mainWidth - 100),
 var curPosX = user.x, curPosY = user.y,
     lastPosX = undefined, lastPosY = undefined;		    
 var enemyPosX, enemyPosY;	      // Create enemy x, y position
-var missile = new Object();		// Create missile image object 
-var isKeyDown = new Array();		// Create key state array to keyboard polling  
+var missile = {};		// Create missile image object 
+var isKeyDown = [];		// Create key state array to keyboard polling  
 var fire = new Audio();
 var discovered = new Audio();
 
@@ -88,12 +90,13 @@ function drawAllAssets(mainLayer, user)
 {
    var userId = user['name'];
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
-   var hp = user.state.['hp'];
-   var exp = user.state.['exp'];
+   var hp = user.state['hp'];
+   var exp = user.state['exp'];
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
 
+   // Remove all localStorage items in client 
    localStorage.removeItem('username');
    localStorage.removeItem('exp');
    localStorage.removeItem('mineral');
@@ -101,7 +104,7 @@ function drawAllAssets(mainLayer, user)
    localStorage.removeItem('unknown');
    localStorage.removeItem('x');
    localStorage.removeItem('y'); 
-   
+ 
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
    socket.planet.on('planet_res', function(data) {
@@ -183,6 +186,21 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
       "width"  : "100px",
       "height" : "100px"
    });
+}
+
+function viewPort() 
+{	
+   $(window).resize(function() {
+      $("#view_layer").css({
+         width: ($(window).width() - 200), 
+         height: ($(window).height() - 100) 
+      });
+
+      $('#view_layer').css({
+         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
+         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
+      });
+   }).resize();
 }
 
 function autoFocus(divId) 
@@ -300,21 +318,6 @@ var posY = function(divId, position) {
    {
       return parseInt($("#" + divId).css("top"));
    }
-}
-
-function viewPort() 
-{	
-   $(window).resize(function() {
-      $("#view_layer").css({
-         width: ($(window).width() - 200), 
-         height: ($(window).height() - 100) 
-      });
-
-      $('#view_layer').css({
-         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
-         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
-      });
-   }).resize();
 }
 
 function logout(userId, lastPosX, lastPosY) 
