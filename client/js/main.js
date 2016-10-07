@@ -94,7 +94,6 @@ function drawAllAssets(mainLayer, user, socket)
       console.log("[Client log] At first, user position socket is received by server");
 
       if(data.username == user['name'])
-      {
          console.log(
             "[Client log :: Code line 86] username: ", data.username,
             ",x: ", data.location_x, ",y: ", data.location_y
@@ -245,9 +244,9 @@ function keyHandler(user, socket)
          'location_x' : curPosX,
          'location_y' : curPosY
       });
+      keyController(ev, "main_layer", user);
       btnControl(ev, user, curPosX, curPosY);
       //isKeyDown[ev.keyCode] = true;
-      keyController(ev, "main_layer", curPosX, curPosY);
    });
 
    $(document).keyup(function(ev) {
@@ -278,6 +277,47 @@ function keyHandler(user, socket)
       rankViewLayer();
    });
 }
+
+var keyController = function(ev, divId, user) {
+   var keyState = ev.keyCode;
+   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
+
+   if(keyState == LEFT)// Left, isKeyDown[37]
+   {      
+       parseInt($("#" + divId).css("left")) + speed;   
+   }
+	
+   if(keyState == RIGHT) // Right, isKeyDown[39]
+   {
+      parseInt($("#" + divId).css("left")) - speed;   
+   }
+
+   if(keyState == UP) // Up, iskeyDown[38]
+   {
+      parseInt(("#" + divId).css("top")) + speed;
+   }
+
+   if(keyState == DOWN) // Down, isKeyDown[40]
+   {
+      parseInt(("#" + divId).css("top")) - speed;
+   }
+
+   if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
+   {
+      fire.play();
+      console.log('fire!');
+      fire.currentTime = 0;
+      //shoot(curPosX, curPosY);	
+   }
+
+   if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
+   {
+      discovered.play();
+      console.log('got a planet');
+      discovered.currentTime = 0;
+   }
+}
+
 
 function btnControl(ev, user, curPosX, curPosY) 
 {
@@ -510,48 +550,6 @@ function userPosUpdate(user, speed)
       }
    });		
 }
-
-var keyController = function(ev, divId, curPosX, curPosY) {
-   var keyState = ev.keyCode;
-   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
-   var background = divId;
-
-   if(keyState == LEFT)// Left, isKeyDown[37]
-   {      
-      posX(background) + speed;   
-   }
-	
-   if(keyState == RIGHT) // Right, isKeyDown[39]
-   {
-      posX(background) - speed;
-   }
-
-   if(keyState == UP) // Up, iskeyDown[38]
-   {
-      posY(background) + speed;
-   }
-
-   if(keyState == DOWN) // Down, isKeyDown[40]
-   {
-      posY(background) - speed;
-   }
-
-   if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
-   {
-      fire.play();
-      console.log('fire!');
-      fire.currentTime = 0;
-      //shoot(curPosX, curPosY);	
-   }
-
-   if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
-   {
-      discovered.play();
-      console.log('got a planet');
-      discovered.currentTime = 0;
-   }
-}
-
 // Move x, y coordinate position with posX and posY 
 var posX = function(divId) {
       return parseInt($("#" + divId).css("left"));
