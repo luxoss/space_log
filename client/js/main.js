@@ -430,7 +430,6 @@ function userPosUpdate(user, speed, background)
          ",key_value: ", data['key_val']
       );
 
-      // TODO: Remind this code line. because of overlap tagging
       /*
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
       $("#" + data.username).append(
