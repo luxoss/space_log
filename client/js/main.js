@@ -68,21 +68,6 @@ function drawAllAssets(mainLayer, user, socket)
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
-/*
-   // Remove all localStorage items in client 
-   localStorage.removeItem('username');
-   localStorage.removeItem('exp');
-   localStorage.removeItem('mineral');
-   localStorage.removeItem('gas');
-   localStorage.removeItem('unknown');
-   localStorage.removeItem('x');
-   localStorage.removeItem('y'); 
-   var state = {
-      1 : pause image,
-      2 : move, {1, 2, 3, 4, up, down, left, right}
-      3 : logout
-   }
-*/ 
   
    socket.userPos.emit('init_press_key', {
       'username' : user['name'],
@@ -390,6 +375,15 @@ function logout(userId, lastPosX, lastPosY)
             }); 
            
             $("#" + userId).remove();
+           
+            localStorage.removeItem('username');
+            localStorage.removeItem('exp');
+            localStorage.removeItem('mineral');
+            localStorage.removeItem('gas');
+            localStorage.removeItem('unknown');
+            localStorage.removeItem('x');
+            localStorage.removeItem('y'); 
+
             console.log(userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
