@@ -11,7 +11,6 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
    };
 
    mainDisplayResize();
-   //audioControl();
 
    $("#join_btn").on('click', function(userInitInfo){
 
@@ -52,9 +51,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 
       userInitInfo.username = $('#username').val();
       userInitInfo.password = $('#password').val();
-      			
-      alert('loading...');
-
+ 
       userInfoSocket.emit('login_msg', {
          username: userInitInfo.username, 
          password: userInitInfo.password
@@ -65,8 +62,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
          if(data.response == "true") 
          {
             alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다.");
-            getUserItems(userInitInfo);
-		
+            getUserItems(userInitInfo);		
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -83,7 +79,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			
       if(keyCode == 13) 
       {
-         var userInitInfo = {}; // Create user information obj		
+         var userInitInfo = {}; 		
          var username = $('#username').val();
          var password = $('#password').val();
          var mainPageUrl = "./main.html";
@@ -132,7 +128,6 @@ function mainDisplayResize()
 
 function getUserItems(userInfoSocket, userInitInfo) 
 {
-
    if(!localStorage) 
    {
       alert("This browser isn't support localStorage.");
@@ -143,7 +138,6 @@ function getUserItems(userInfoSocket, userInitInfo)
 	      		
          if(data.username == userInitInfo['username'])
          {
-
                userInitInfo.name = data.username;
                userInitInfo.exp = data.exp;
                userInitInfo.hp = data.hp;
@@ -186,15 +180,6 @@ function pwdCheck()
 	}
 }
 
-function audioControl() 
-{
-   var audioSelector = $("#audio_control");
-   var backgroundSound = new audio();
-   
-   audioSelector.click(function(audioSelector) {
-      audioSelector.val();
-   });
-}
 
 
 	
