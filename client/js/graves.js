@@ -210,14 +210,13 @@ x1=Math.floor(Math.random()*770);
             left : initPosX,
             top : initPosY
          });
-
       }
       else
       {
          console.log(Another");
          
          enemyPosX = parseInt(data.location_x);
-         enemyPosY = parseInt(data.location_y);
+         ene}myPosY = parseInt(data.location_y);
 
          $("#main_layer").append(
             "<div ='" + data.username + "' style='position: absolute;'></div>

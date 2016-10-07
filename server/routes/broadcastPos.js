@@ -8,7 +8,7 @@ var MongoClient = require('mongodb').MongoClient;
 var fs = require('fs');
 var file = 'space_log.txt';
 
-var speed = 6;
+var speed = 10;
 
 var objects = {};
 var mv_obj={};
@@ -17,25 +17,18 @@ var LEFT=37, UP=38, RIGHT=39, DOWN=40, ENTER=13;
 
 UsersPio.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+		var mem_info = db.collection("MEM_INFO");
+		var member = db.collection("MEMBER");
+
 		socket.on('press_key', function(data){
 			console.log("Client press arrow key");
-	
 			console.log(data.ready);
-			var mem_info = db.collection("MEM_INFO");
-
-			console.log('////////////////////////////////////////////check');
-			console.log(data.location_x);
-
+//			var mem_info = db.collection("MEM_INFO");
+//			var member = db.collection("MEMBER");			
 			username=data.username;
 			x=data.location_x;
 			y=data.location_y;
 			key_val=data.key_val;
-
-			
-
-//		console.log("username : " + username + "  x : " + x + "  Y : " + y);
-		
-//		console.log('=============== key_val : ' + key_val +"============");
 
 			if(key_val == LEFT){
 			//	mv_obj.x -= speed;
@@ -72,14 +65,32 @@ UsersPio.on('connection', function(socket){
 				}
 			});
 
-
 			UsersPio.emit('mv', mv_obj);
 			
-			if(key_val == ENTER){
-				UsersPio.emit('init_mv', mv_obj);
-			}
-			UsersPio.emit('init_mv', mv_obj);
+	
+		//	UsersPio.emit('init_mv', mv_obj);
+			
+		//	UsersPio.emit('init_mv', mv_obj);
+		});
+		socket.on('init_press_key', function(data){
+			console.log("akldsjflasjdlkfj;asdf/");
+			console.log(key_val);
+			username = data.username;
+			x = data.location_x;
+			y = data.location_y;
+			key_val = data.key_val;
 
+
+			if(key_val == ENTER){
+				console.log("sample press enter");
+				member.find({"accessing" : "true"}).toArray(function(err, results){
+					if(err){
+					
+					} else if(res_obj){
+						console.log(results);
+					}
+				});				
+			}
 		});
 
 	});

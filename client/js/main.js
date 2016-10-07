@@ -53,7 +53,7 @@ var background = {
 var fps = 30, speed = 5;			
 var initPosX = user.x, // Math.floor(Math.random() * mainWidth - 100),     
     initPosY = user.y  // Math.floor(Math.random() * mainHeight - 100);  
-var curPosX = user.x, curPosY = user.y,
+var curPosX = initPosX, curPosY = initPosY,
     lastPosX = undefined, lastPosY = undefined;		    
 var enemyPosX, enemyPosY;	      // Create enemy x, y position
 var missile = {};		// Create missile image object 
@@ -65,28 +65,69 @@ fire.src = serverUrl + ":8000/res/sound/effect/shoot.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
+   var ENTER = 13;
+   var image = {
+      curClientImg : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
+   };
+
+   socket.userPos.emit('init_press_key', {
+      'username' : user['name'],
+      'location_x' : user['x'],
+      'location_y' : user['y']
+   });
+
+   socket.userPos.on('init_mv', function(data) {
+      console.log("At first user position socket is received by server that mongoDB");
+
+      if(data.username == user['name'])
+      {
+         console.log("username: " + data.username + "x: " + data.location_x + "y: " + data.location_y);
+
+         initPosX = parseInt(data.location_x);
+         initPosY = parseInt(data.location_y);
+
+         $("#main_layer").append(
+            "<div id='" + user['name'] + "' style='position: absolute;'></div>"
+         );
+
+         $("#" + data['name']).css({
+            "backgroundImage" : image.curClientImg,
+            left : initPosX,
+            top : initPosY
+         });
+      }
+      else
+      {
+         console.log("Another user's position socket is received by server taht mongoDB");
+         
+         enemyPosX = parseInt(data.location_x);
+         enemyPosy = parseInt(data.location_y);
+
+         $("#main_layer").append(
+            "<div id='" + data.username + "' style='position: absolute;'></div>
+         );
+
+         $("#" + data.username).css({
+            "backgroundImage" : image.enemy,
+            left : enemyPosX,
+            top : enemyPosy
+         });
+      }
+   });
+
    initialize();
 });
 
 function initialize() 
 {
-/*
-   var ENTER = 0;
-
-   socket.userPos.emit('press_key', {
-         'username': user['name'], 
-         'key_val' : ENTER, 
-         'location_x' : curPosX,
-         'location_y' : curPosY
-   });
-*/
-   drawAllAssets("main_layer", user); 		
+   drawAllAssets("main_layer", user, socket); 		
    viewPort();
-   keyHandler(socket, user);
-   userPosUpdate(speed, background); 
+   keyHandler(user, socket);
+   userPosUpdate(user, speed, background); 
 }	
 
-function drawAllAssets(mainLayer, user) 
+function drawAllAssets(mainLayer, user, socket) 
 {
    var userId = user['name'];
    var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
@@ -95,7 +136,7 @@ function drawAllAssets(mainLayer, user)
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
-
+/*
    // Remove all localStorage items in client 
    localStorage.removeItem('username');
    localStorage.removeItem('exp');
@@ -104,7 +145,7 @@ function drawAllAssets(mainLayer, user)
    localStorage.removeItem('unknown');
    localStorage.removeItem('x');
    localStorage.removeItem('y'); 
- 
+*/   
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw all assets'});
 
    socket.planet.on('planet_res', function(data) {
@@ -177,7 +218,7 @@ function drawAllAssets(mainLayer, user)
 function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
 {
    $("#" + mainLayer).append(
-      "<div id='" + divId + "' style='position: absolute; top: " 
+      "<div id='" + divId + "' style='position: absolute; top:" 
       + x + "px" + "; left:" + y + "px" + ";'></div>"
    );	
 
@@ -213,7 +254,7 @@ function autoFocus(divId)
    }, 1000);
 }
 	
-function keyHandler(socket, user) 
+function keyHandler(user, socket) 
 {
    var userId = user['name'];
 
@@ -354,11 +395,11 @@ function logout(userId, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate(speed, background)
+function userPosUpdate(user, speed, background)
 {
-   var posX = background.x;
-   var posY = background.y;
-   var playUserId = localStorage.getItem('username');
+   var posX = background['x'];
+   var posY = background['x'];
+   var playUserId = user['name'];
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
@@ -380,11 +421,12 @@ function userPosUpdate(speed, background)
 
       console.log(data.username, data.location_x, data.location_y, data.key_val);
       // TODO: Remind this code line. because of overlap tagging
+      /*
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
       $("#" + data.username).append(
          "<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>"
       );
-
+      */
       if(data.username == playUserId)  
       {
          switch(keyPressVal)
