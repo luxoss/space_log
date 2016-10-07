@@ -78,11 +78,14 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
    });
 /*
    socket.userPos.on('init_mv', function(data) {
-      console.log("At first user position socket is received by server that mongoDB");
+      console.log("[Client log] At first, user position socket is received by server");
 
       if(data.username == user['name'])
       {
-         console.log("username: " + data.username + "x: " + data.location_x + "y: " + data.location_y);
+         console.log(
+            "[Client log :: Code line 86] username: ", data.username,
+            ",x: ", data.location_x, ",y: ", data.location_y
+         );
 
          initPosX = parseInt(data.location_x);
          initPosY = parseInt(data.location_y);
@@ -99,7 +102,9 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
       else
       {
-         console.log("Another user's position socket is received by server taht mongoDB");
+         console.log(
+            "[Client log] Another user's position socket is received by server taht mongoDB"
+         );
          
          enemyPosX = parseInt(data.location_x);
          enemyPosy = parseInt(data.location_y);
