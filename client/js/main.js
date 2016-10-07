@@ -37,9 +37,11 @@ var missile = {};		            // Create missile image object
 var isKeyDown = [];		         // Create key state array to keyboard polling  
 var fire = new Audio();
 var discovered = new Audio();
+var menuSelection = new Audio();
 
 fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
+menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    var ENTER = 13;
@@ -293,16 +295,22 @@ function btnControl(ev, user, curPosX, curPosY)
 
    if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
    {
-      battleShipViewLayer(); 	  
+      menuSelection.play();
+      menuSelection.currentTime = 0; 	  
+      battleShipViewLayer();
    }
 
    if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
    {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
    }
 
    if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
    {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
       rankViewLayer();
    }
 
