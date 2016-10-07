@@ -76,7 +76,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       'location_x' : user['x'],
       'location_y' : user['y']
    });
-
+/*
    socket.userPos.on('init_mv', function(data) {
       console.log("At first user position socket is received by server that mongoDB");
 
@@ -115,7 +115,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
          });
       }
    });
-
+*/
    initialize();
 });
 
@@ -382,7 +382,7 @@ function logout(userId, lastPosX, lastPosY)
             }); 
            
             $("#" + userId).remove();
-            console.log(userId, " is logout!"); 
+            console.log(userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
             $(location).attr('href', indexPageUrl);
@@ -419,7 +419,12 @@ function userPosUpdate(user, speed, background)
       var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
       var keyPressVal = data.key_val;
 
-      console.log(data.username, data.location_x, data.location_y, data.key_val);
+      console.log(
+         "[client log] ", data['username'],
+         ",x: ", data['location_x'], ",y: ", data['location_y'],
+         ",key_value: ", data['key_val']
+      );
+
       // TODO: Remind this code line. because of overlap tagging
       /*
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
@@ -427,6 +432,7 @@ function userPosUpdate(user, speed, background)
          "<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>"
       );
       */
+     
       if(data.username == playUserId)  
       {
          switch(keyPressVal)
