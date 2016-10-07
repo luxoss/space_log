@@ -28,10 +28,9 @@ var user = {
    }
 };
 var fps = 30, speed = 2;			
-var initPosX = user.x, // Math.floor(Math.random() * mainWidth - 100),     
-    initPosY = user.y  // Math.floor(Math.random() * mainHeight - 100);  
-var curPosX = initPosX, curPosY = initPosY,
-    lastPosX = undefined, lastPosY = undefined;		    
+var initPosX = user.x, initPosY = user.y,
+    curPosX = initPosX, curPosY = initPosY,
+    lastPosX = 0, lastPosY = 0;		    
 var enemyPosX, enemyPosY;	      // Create enemy x, y position
 var missile = {};		            // Create missile image object 
 var isKeyDown = [];		         // Create key state array to keyboard polling  
@@ -154,32 +153,26 @@ function drawAllAssets(mainLayer, user, socket)
       };
 	
       if(planetInfo.grade == 1) 
-      {
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
-      }
-      else if(planetInfo.grade == 2) 
-      {
+      
+      if(planetInfo.grade == 2) 
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
-      }
-      else if(planetInfo.grade == 3) 
-      {
+      
+      if(planetInfo.grade == 3) 
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
-      }
-      else if(planetInfo.grade == 4) 
-      {
+      
+      if(planetInfo.grade == 4) 
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
-      }
-      else 
-      {
+      
+      if(planetInfo.grade == 5) 
          drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
-      }
    });		
         
-/*
-   $("input #mineral").val(toString(mineral));
-   $("input #gas").val(toString(gas));     
-   $("input #unknown").val(toString(unknown));
-*/
+
+   $("#mineral").val("" + mineral + "");
+   $("#gas").val("" + gas + "");
+   $("#unknown").val("" + unknown + "");
+
    $("#user_avartar").append(
       "<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" 
       + user['name'] + "</div>"

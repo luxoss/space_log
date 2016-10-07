@@ -108,7 +108,7 @@ body {
    height: 35px;
    left: 30px;
    position: absolute;
-   text-align: right;
+   text-align: center;
 }
 
 #g_icon {
@@ -129,7 +129,7 @@ body {
    height: 35px;
    left: 130px;
    position: absolute;
-   text-align: right;
+   text-align: center;
 }
 
 #u_icon {
@@ -150,7 +150,7 @@ body {
    height: 35px;
    left: 230px;
    position: absolute;
-   text-align: right;
+   text-align: center;
 }
 
 .minimap_ui {
