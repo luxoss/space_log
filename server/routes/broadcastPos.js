@@ -33,10 +33,6 @@ UsersPio.on('connection', function(socket){
 
 			
 
-			if(key_val == ENTER){
-				UsersPio.emit('init_mv', mv_obj);
-			}
-			UsersPio.emit('init_mv', mv_obj);
 //		console.log("username : " + username + "  x : " + x + "  Y : " + y);
 		
 //		console.log('=============== key_val : ' + key_val +"============");
@@ -61,17 +57,28 @@ UsersPio.on('connection', function(socket){
 			mem_info.update({"username":username}, {$set : {"location_x":x,"location_y":y, "key_val":key_val}});
 			
 			mem_info.findOne({"username":username}, function(err, res_info){
-				mv_obj = {
-					"username" 	: res_info.username,
-					"location_x" 	: res_info.location_x,
-					"location_y" 	: res_info.location_y,
-					"key_val" 	: res_info.key_val
-				};
+				if(err){
+					 console.log('branch if : err');
+					 console.log(err);
+				} else if (res_info){
+					mv_obj = {
+						"username" 	: res_info.username,
+						"location_x" 	: res_info.location_x,
+						"location_y" 	: res_info.location_y,
+						"key_val" 	: res_info.key_val
+					};
+				} else{
+					console.log('branch else');
+				}
 			});
 
 
 			UsersPio.emit('mv', mv_obj);
-
+			
+			if(key_val == ENTER){
+				UsersPio.emit('init_mv', mv_obj);
+			}
+			UsersPio.emit('init_mv', mv_obj);
 
 		});
 
