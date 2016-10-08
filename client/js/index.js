@@ -155,8 +155,10 @@ function getUserItems(userInfoSocket, userInitInfo)
             localStorage.setItem('x', userInitInfo.x);
             localStorage.setItem('y', userInitInfo.y);
          }
-         
-         console.log("[Client log] Socket isn't available.");
+         else
+         {
+            console.log("[Client log] Socket isn't available.");
+         }
       });
    }
 }
