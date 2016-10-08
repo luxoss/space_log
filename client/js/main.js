@@ -201,8 +201,7 @@ function drawAllAssets(mainLayer, user, socket)
 function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
 {
    $("#" + mainLayer).append(
-      "<div id='" + divId + "' style='position: absolute; top:" 
-      + x + "px" + "; left:" + y + "px" + ";'></div>"
+      "<div id='" + divId + "' style='position: absolute; top:" + x + "px" + "; left:" + y + "px" + ";'></div>"
    );	
 
    $("#" + divId).css({
