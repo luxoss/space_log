@@ -187,19 +187,6 @@ body {
   	height: 50px;
 	border: 1px solid yellow;
   	border-radius: 5px;
-	-webkit-transition: all 0.3s ease-in-out;
- 	-moz-transition: all 0.3s ease-in-out; 
-  	-o-transition: all 0.3s ease-in-out; 
-  	-ms-transition: all 0.3s ease-in-out; 
-  	transition: all 0.3s ease-in-out; 
-}
-
-#logout_btn:hover { 
-	-webkit-transform: rotate(360deg); 
-	-moz-transform: rotate(360deg); 
-	-o-transform: rotate(360deg);
-	-ms-transform: rotate(360deg);
-	transform: rotate(360deg);
 }
 
 #planet_btn {
@@ -208,41 +195,14 @@ body {
   	height: 50px;
 	border: 1px solid yellow;
 	border-radius: 5px;
-	-webkit-transition: all 0.3s ease-in-out;
- 	-moz-transition: all 0.3s ease-in-out; 
-  	-o-transition: all 0.3s ease-in-out; 
-  	-ms-transition: all 0.3s ease-in-out; 
-  	transition: all 0.3s ease-in-out; 
-}
-
-#planet_btn:hover { 
-	-webkit-transform: rotate(360deg); 
-	-moz-transform: rotate(360deg); 
-	-o-transform: rotate(360deg);
-	-ms-transform: rotate(360deg);
-	transform: rotate(360deg);
 }
 
 #battle_ship_btn {
   	background-image: url('../res/img/icon/button_design2.png');
-  	/*opacity: 0.7;*/
   	width: 50px;
   	height: 50px;
 	border: 1px solid yellow;
 	border-radius: 5px;
-	-webkit-transition: all 0.3s ease-in-out;
- 	-moz-transition: all 0.3s ease-in-out; 
-  	-o-transition: all 0.3s ease-in-out; 
-  	-ms-transition: all 0.3s ease-in-out; 
-  	transition: all 0.3s ease-in-out; 
-}
-
-#battle_ship_btn:hover { 
-	-webkit-transform: rotate(360deg); 
-	-moz-transform: rotate(360deg); 
-	-o-transform: rotate(360deg);
-	-ms-transform: rotate(360deg);
-	transform: rotate(360deg);
 }
 
 .rank_ui { 
@@ -262,19 +222,6 @@ body {
 	height: 50px;
 	border: 1px solid yellow;
 	border-radius: 5px;
-	-webkit-transition: all 0.3s ease-in-out;
- 	-moz-transition: all 0.3s ease-in-out; 
-  	-o-transition: all 0.3s ease-in-out; 
-  	-ms-transition: all 0.3s ease-in-out; 
-  	transition: all 0.3s ease-in-out; 
-}
-
-#rank_btn:hover { 
-	-webkit-transform: rotate(360deg); 
-	-moz-transform: rotate(360deg); 
-	-o-transform: rotate(360deg);
-	-ms-transform: rotate(360deg);
-	transform: rotate(360deg);
 }
 
 .planet_ui {
@@ -289,12 +236,17 @@ body {
 }
 
 #planet_info {
+   color: rgba(255, 255, 255, 0.7);
+   font-size: 24pt;
 	background-color: rgba(43, 100, 31, 0.7);
 	width: 900px;
 	height: 100px;
-	border: 1px solid rgba(255, 255, 255, 0.7);
+	border: 0px;
+   padding: 0px;
+   margin: 0px;
 	left: 0px;
 	position: absolute;
+   text-align: center;
 }
 
 .battle_ship_ui {

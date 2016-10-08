@@ -5,7 +5,7 @@
 */
 
 //TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr' 
-var serverUrl = "http://game.smuc.ac.kr" 					
+var serverUrl = "http://203.237.179.21";
 var indexPageUrl = serverUrl + ":8000";
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
@@ -27,8 +27,7 @@ var user = {
         hp : parseInt(localStorage.getItem('hp'))
    }
 };
-var curPosX = user.x, curPosY = user.y,
-    lastPosX = 0, lastPosY = 0;		    
+var lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var isKeyDown = [];		            // Create key state array to keyboard polling  
 var fire = new Audio();
@@ -40,21 +39,31 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // onload document 
-    initialize();
-});
-
-function initialize() 
-{
-   drawAllAssets("main_layer", user, socket); 		
    viewPort();
+   drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
-}	
+});
+
+function viewPort() 
+{	
+   $(window).resize(function() {
+      $("#view_layer").css({
+         width: ($(window).width() - 200), 
+         height: ($(window).height() - 100) 
+      });
+
+      $('#view_layer').css({
+         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
+         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
+      });
+   }).resize();
+}
 
 function drawAllAssets(mainLayer, user, socket) 
 {
    var userId = user['name'];
-   var imgUrl = "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')";
+   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
    var hp = user.state['hp'];
    var exp = user.state['exp'];
    var mineral = user.resource['mineral'];
@@ -62,8 +71,8 @@ function drawAllAssets(mainLayer, user, socket)
    var unknown = user.resource['unknown'];
    var ENTER = 13;
    var image = {
-      curClientImg : "url(http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
-      enemy : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
+      curClientImg : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
 /*
    socket.userPos.emit('init_press_key', {
@@ -89,8 +98,8 @@ function drawAllAssets(mainLayer, user, socket)
 
          $("#" + data['name']).css({
             "backgroundImage" : image.curClientImg,
-            left : initPosX,
-            top : initPosY
+            left : user['x'],
+            top : user['y']
          });
       }
       else
@@ -124,11 +133,11 @@ function drawAllAssets(mainLayer, user, socket)
          y  : data.location_y,
          grade : data.create_spd,
          image : { 
-            1 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_5.png')",
-            2 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_7.png')",
-            3 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_9.png')",
-            4 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_11.png')",
-            5 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_12.png')"
+            1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+            2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+            3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
+            4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+            5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
          }
       };
 	
@@ -174,8 +183,8 @@ function drawAllAssets(mainLayer, user, socket)
       "width"  : "64px",
       "height" : "64px",
       "zIndex" : "2",
-      left: curPosX, 
-      top: curPosY
+      left: user['x'], 
+      top: user['y']
    });
 
    // Auto focus user's battleship
@@ -210,21 +219,6 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
    });
 }
 
-function viewPort() 
-{	
-   $(window).resize(function() {
-      $("#view_layer").css({
-         width: ($(window).width() - 200), 
-         height: ($(window).height() - 100) 
-      });
-
-      $('#view_layer').css({
-         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
-         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
-      });
-   }).resize();
-}
-
 function keyHandler(user, socket) 
 {
    var userId = user['name'];
@@ -234,11 +228,11 @@ function keyHandler(user, socket)
       socket.userPos.emit('press_key', {
          'username': userId, 
          'key_val' : ev.keyCode, 
-         'location_x' : curPosX,
-         'location_y' : curPosY
+         'location_x' : user['x'],
+         'location_y' : user['y']
       });
       keyController(ev, user);
-      btnControl(ev, user, curPosX, curPosY);
+      btnControl(ev, user);
       //isKeyDown[ev.keyCode] = true;
    });
 
@@ -307,10 +301,10 @@ var shoot = function(curPosX, curPosY) {
    var laserX = laserId.css("left");
    var laserY = laserId.css("top");
    var laserImg = {
-       LEFT : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_left.svg')",
-      RIGHT : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_right.svg')",
-         UP : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_up.svg')",
-       DOWN : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_down.svg')"
+       LEFT : "url('http://203.237.179.21:8000/res/img/missile/laser_left.svg')",
+      RIGHT : "url('http://203.237.179.21:8000/res/img/missile/laser_right.svg')",
+         UP : "url('http://203.237.179.21:8000/res/img/missile/laser_up.svg')",
+       DOWN : "url('http://203.237.179.21:8000/res/img/missile/laser_down.svg')"
    };
 
    laserX = curPosX;
@@ -360,15 +354,15 @@ var shoot = function(curPosX, curPosY) {
    }
 };
 */
-function btnControl(ev, user, curPosX, curPosY) 
+function btnControl(ev, user) 
 {
    var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 
        BATTLESHIP_BTN = 66, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
    var userId = user['name'];
  
-   lastPosX = curPosX;
-   lastPosY = curPosY;
+   lastPosX = user['x'];
+   lastPosY = user['y'];
 
    if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
    {
@@ -400,7 +394,7 @@ function btnControl(ev, user, curPosX, curPosY)
       else 
       {
          alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         $(location).attr('href', 'http://game.smuc.ac.kr:8000');	
+         $(location).attr('href', 'http://203.237.179.21:8000');	
       }
    }
 }
@@ -428,7 +422,7 @@ function logout(userId, lastPosX, lastPosY)
             console.log("[Client log]", userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
-            $(location).attr('href', 'http://game.smuc.ac.kr:8000');
+            $(location).attr('href', 'http://203.237.179.21:8000');
          }
          else
          {
@@ -443,43 +437,43 @@ function userPosUpdate(user)
    var userId = user['name'];
    var imgSprite = {
       player : { 
-         LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_left.svg')",
-         RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_right.svg')",
-         UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
-         DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_down.svg')"
+         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
+         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
+         UP   : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')"
       },
       others : {
-         LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_left.svg')",
-         RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
-         UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
-         DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_down.svg')"
+         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship2_left.svg')",
+         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship2_right.svg')",
+         UP   : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')",
+         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship2_down.svg')"
      } 
    }; 
 
    socket.userPos.on('mv', function(data) { // userStatus is 'object type'
-      var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
-      var swapX = 0, swapY = 0;
+      var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; 
       var keyValue = data.key_val;
      
       if(userId === data['username'])  
       {
          console.log(
-            "[Client log :: code line 496] ", data['username'],
+            "[Client log] ", data['username'],
             ",x: ", data['location_x'], ",y: ", data['location_y'],
             ",key_value: ", data['key_val']
          );
 
          switch(keyValue)
          {
-            case LEFT: 
-	            curPosX = parseInt(data.location_x);
-	            curPosY = parseInt(data.location_y);
-               
+            case LEFT: 	           
                $("#" + data.username).css({
 	               "backgroundImage" : imgSprite.player.LEFT,
- 		            left: curPosX, 
-		            top: curPosY
+ 		            left: user['x'], 
+		            top: user['y']
 	            });
+
+               user['x'] = parseInt(data.location_x);
+	            user['y'] = parseInt(data.location_y);
+              
                /*
                if(curPosX < 0) 
                {
@@ -495,14 +489,14 @@ function userPosUpdate(user)
 	            break;
 
  	         case RIGHT:
-	            curPosX = parseInt(data.location_x);
-	            curPosY = parseInt(data.location_y);
-
 	            $("#" + data.username).css({
 	               "backgroundImage" : imgSprite.player.RIGHT,
- 	 	            left: curPosX, 
-	               top: curPosY
+ 	 	            left: user['x'], 
+	               top: user['y']
 	            });
+
+	            user['x'] = parseInt(data.location_x);
+	            user['y'] = parseInt(data.location_y);
                /*		
                if(curPosX > 5000) 
                {
@@ -518,14 +512,13 @@ function userPosUpdate(user)
 	            break;
 				
 	         case UP:
-	            curPosX = parseInt(data.location_x);
-	            curPosY = parseInt(data.location_y);
-	
 	            $("#" + data.username).css({
 	               "backgroundImage" : imgSprite.player.UP,
-		            left: curPosX, 
-		            top: curPosY
+		            left: user['x'], 
+		            top: user['y']
 	            });
+	            user['x'] = parseInt(data.location_x);
+	            user['y'] = parseInt(data.location_y);
                /*		
                if(curPosY < 0) 
                {
@@ -541,14 +534,14 @@ function userPosUpdate(user)
               	break;
 				
 	         case DOWN:
-	            curPosX = parseInt(data.location_x);
-	            curPosY = parseInt(data.location_y);
-	
 	            $("#" + data.username).css({
 	               "backgroundImage" : imgSprite.player.DOWN,
-		            left: curPosX, 
-		            top: curPosY
+		            left: user['x'], 
+		            top: user['y']
 	            });
+
+               user['x'] = parseInt(data.location_x);
+	            user['y'] = parseInt(data.location_y);
                /*	
                if(curPosY > 5000) 
                {
