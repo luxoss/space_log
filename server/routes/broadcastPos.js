@@ -30,22 +30,20 @@ UsersPio.on('connection', function(socket){
 			y=data.location_y;
 			key_val=data.key_val;
 
-			if(key_val == LEFT){
-			//	mv_obj.x -= speed;
-				x -= speed;
-
-			} else if(key_val == UP){
-			//	mv_obj.y -= speed;
-				y -= speed;
-			} else if(key_val == RIGHT){
-			//	mv_obj.x += speed;
-				x += speed;
-			} else if(key_val == DOWN){
-			//	mv_obj.y += speed;
-				y += speed;
-			} else{
-				//nothing
-			}
+         if(key_val == LEFT) {
+            //my_obj.x -= speed;
+            x -= speed;
+         }else if(key_val == UP) {
+            //my_obj.y -= speed;
+            y -= speed;
+         }else if(key_val == RIGHT) {
+            //my_obj.x += speed;
+            x += speed;
+         }else if(key_val == DOWN) {
+            //my_obj.y += speed;
+            y += speed;
+         }else {
+         }
 
 			mem_info.update({"username":username}, {$set : {"location_x":x,"location_y":y, "key_val":key_val}});
 			
