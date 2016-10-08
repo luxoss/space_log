@@ -30,9 +30,8 @@ var user = {
 var initPosX = user.x, initPosY = user.y,
     curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		    
-var enemyPosX, enemyPosY;	      // Create enemy x, y position
-var missile = {};		            // Create missile image object 
-var isKeyDown = [];		         // Create key state array to keyboard polling  
+var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
+var isKeyDown = [];		            // Create key state array to keyboard polling  
 var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
@@ -67,13 +66,12 @@ function drawAllAssets(mainLayer, user, socket)
       curClientImg : "url(http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
       enemy : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
    };
-
+/*
    socket.userPos.emit('init_press_key', {
       'username' : user['name'],
       'location_x' : curPosX,
       'location_y' : curPosY
    });
-/*
    socket.userPos.on('init_mv', function(data) {
       console.log("[Client log] At first, user position socket is received by server");
 
@@ -188,6 +186,15 @@ function drawAllAssets(mainLayer, user, socket)
       scrollLeft: offset.left - ($(window).width() / 2), 
       scrollTop: offset.top - ($(window).height() / 2)  
    }, 1000);
+
+   localStorage.removeItem('username');
+   localStorage.removeItem('exp');
+   localStorage.removeItem('hp');
+   localStorage.removeItem('mineral');
+   localStorage.removeItem('gas');
+   localStorage.removeItem('unknown');
+   localStorage.removeItem('x');
+   localStorage.removeItem('y'); 
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
@@ -441,15 +448,6 @@ function logout(userId, lastPosX, lastPosY)
             }); 
            
             $("#" + userId).remove();
-           
-            localStorage.removeItem('username');
-            localStorage.removeItem('exp');
-            localStorage.removeItem('mineral');
-            localStorage.removeItem('gas');
-            localStorage.removeItem('unknown');
-            localStorage.removeItem('x');
-            localStorage.removeItem('y'); 
-
             console.log("[Client log]", userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
@@ -483,14 +481,8 @@ function userPosUpdate(user)
 
    socket.userPos.on('mv', function(data) { // userStatus is 'object type'
       var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
-      var keyPressVal = data.key_val;
-
-            /*
-      $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
-      $("#" + data.username).append(
-         "<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>"
-      );
-      */
+      var swapX = 0, swapY = 0;
+      var keyValue = data.key_val;
      
       if(data.username == userId)  
       {
@@ -500,9 +492,9 @@ function userPosUpdate(user)
             ",key_value: ", data['key_val']
          );
 
-         switch(keyPressVal)
+         switch(keyValue)
          {
-            case LEFT:
+            case LEFT: 
 	            curPosX = parseInt(data.location_x);
 	            curPosY = parseInt(data.location_y);
                
@@ -606,7 +598,7 @@ function userPosUpdate(user)
                ",key_value: ", data['key_val']
          );
 
-         switch(keyPressVal)
+         switch(keyValue)
          {
             case LEFT:
 	            enemyPosX = parseInt(data.location_x);

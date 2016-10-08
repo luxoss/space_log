@@ -11,7 +11,7 @@ body {
 }
 
 #main_layer {
-/*background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');*/
+   background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
   	width:  5000px;
   	height: 5000px; 
 	border: 1px solid white;

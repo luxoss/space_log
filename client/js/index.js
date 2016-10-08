@@ -94,8 +94,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
             password: userInitInfo.password
          });
          
-         userInfoSocket.on('login_res', function(data){
-                       
+         userInfoSocket.on('login_res', function(data){                       
             if(data.response == "true") 
             {
                alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다!!");	       
@@ -138,28 +137,26 @@ function getUserItems(userInfoSocket, userInitInfo)
 	      		
          if(data.username == userInitInfo['username'])
          {
-               userInitInfo.name = data.username;
-               userInitInfo.exp = data.exp;
-               userInitInfo.hp = data.hp;
-               userInitInfo.mineral = data.mineral;
-               userInitInfo.gas = data.gas;
-               userInitInfo.unknown = data.unknown;
-               userInitInfo.x = data.location_x;
-               userInitInfo.y = data.location_y;
+            userInitInfo.name = data.username;
+            userInitInfo.exp = data.exp;
+            userInitInfo.hp = data.hp;
+            userInitInfo.mineral = data.mineral;
+            userInitInfo.gas = data.gas;
+            userInitInfo.unknown = data.unknown;
+            userInitInfo.x = data.location_x;
+            userInitInfo.y = data.location_y;
 
-               localStorage.setItem('username', userInitInfo.name); 
-               localStorage.setItem('exp', userInitInfo.exp);
-               localStorage.setItem('hp', userInitInfo.hp);
-               localStorage.setItem('mineral', userInitInfo.mineral);
-               localStorage.setItem('gas', userInitInfo.gas);
-               localStorage.setItem('unknown', userInitInfo.unknown);
-               localStorage.setItem('x', userInitInfo.x);
-               localStorage.setItem('y', userInitInfo.y);
+            localStorage.setItem('username', userInitInfo.name); 
+            localStorage.setItem('exp', userInitInfo.exp);
+            localStorage.setItem('hp', userInitInfo.hp);
+            localStorage.setItem('mineral', userInitInfo.mineral);
+            localStorage.setItem('gas', userInitInfo.gas);
+            localStorage.setItem('unknown', userInitInfo.unknown);
+            localStorage.setItem('x', userInitInfo.x);
+            localStorage.setItem('y', userInitInfo.y);
          }
-         else
-         {
-            alert("ERROR: This socket is not available. please, try again and check this code line.");
-         }
+         
+         console.log("[Client log] Socket isn't available.");
       });
    }
 }
