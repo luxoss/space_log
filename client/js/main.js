@@ -27,8 +27,7 @@ var user = {
         hp : parseInt(localStorage.getItem('hp'))
    }
 };
-var initPosX = user.x, initPosY = user.y,
-    curPosX = initPosX, curPosY = initPosY,
+var curPosX = user.x, curPosY = user.y,
     lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var isKeyDown = [];		            // Create key state array to keyboard polling  
@@ -175,8 +174,8 @@ function drawAllAssets(mainLayer, user, socket)
       "width"  : "64px",
       "height" : "64px",
       "zIndex" : "2",
-      left: initPosX, 
-      top: initPosY
+      left: curPosX, 
+      top: curPosY
    });
 
    // Auto focus user's battleship
@@ -229,7 +228,6 @@ function viewPort()
 function keyHandler(user, socket) 
 {
    var userId = user['name'];
-   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
    var backgroundSpeed = 5;
 
    $(document).keydown(function(ev) {  
@@ -239,27 +237,6 @@ function keyHandler(user, socket)
          'location_x' : curPosX,
          'location_y' : curPosY
       });
-
-      if(ev.keyCode == LEFT)// Left, isKeyDown[37]
-      {      
-         $("#main_layer").css("left") + backgroundSpeed;
-      }
-	
-      if(ev.keyCode == RIGHT) // Right, isKeyDown[39]
-      {
-         $("#main_layer").css("left") - backgroundSpeed;
-      }
-
-      if(ev.keyCode == UP) // Up, iskeyDown[38]
-      {
-         $("#main_layer").css("top") + backgroundSpeed;
-      }
-
-      if(ev.keyCode == DOWN) // Down, isKeyDown[40]
-      {
-         $("#main_layer").css("top") - backgroundSpeed;
-      }
-
       keyController(ev, user);
       btnControl(ev, user, curPosX, curPosY);
       //isKeyDown[ev.keyCode] = true;
@@ -303,9 +280,10 @@ function keyHandler(user, socket)
 function keyController(ev, divId, user) 
 {
    var keyState = ev.keyCode;
-   var background = divId;
+   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; 
    var SHOOT = 83, GOT_PLANET = 32;
-//   var laserX = 0, laserY = 0;
+   var background = divId;
+   //var laserX = 0, laserY = 0;
 
    if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
    {
@@ -483,7 +461,7 @@ function userPosUpdate(user)
       var swapX = 0, swapY = 0;
       var keyValue = data.key_val;
      
-      if(data.username == userId)  
+      if(userId === data['username'])  
       {
          console.log(
             "[Client log :: code line 496] ", data['username'],
@@ -662,30 +640,6 @@ function userPosUpdate(user)
    });		
 }
 
-/*
-function Missile(x, y, img) 
-{
-   this.x = x;
-   this.y = y;
-   this.img = img;
-
-   this.LEFT = function() {
-   };
-
-   this.RIGHT = function() {
-   };
-
-   this.UP = function() {
-   };
-
-   this.DOWN = function() {
-   };
-}
-
-var laser = new Missile(curPosX, curPosY, img);
-laser.prototype.left = function() {
-      
-*/
 
 
 
