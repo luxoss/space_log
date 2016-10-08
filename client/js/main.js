@@ -27,7 +27,6 @@ var user = {
         hp : parseInt(localStorage.getItem('hp'))
    }
 };
-var fps = 30, speed = 2;			
 var initPosX = user.x, initPosY = user.y,
     curPosX = initPosX, curPosY = initPosY,
     lastPosX = 0, lastPosY = 0;		    
@@ -43,12 +42,7 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // onload document 
-   var ENTER = 13;
-   var image = {
-      curClientImg : "url(http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
-      enemy : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
-   };
-   initialize();
+    initialize();
 });
 
 function initialize() 
@@ -56,7 +50,7 @@ function initialize()
    drawAllAssets("main_layer", user, socket); 		
    viewPort();
    keyHandler(user, socket);
-   userPosUpdate(user, speed); 
+   userPosUpdate(user); 
 }	
 
 function drawAllAssets(mainLayer, user, socket) 
@@ -68,11 +62,16 @@ function drawAllAssets(mainLayer, user, socket)
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
-  
+   var ENTER = 13;
+   var image = {
+      curClientImg : "url(http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
+      enemy : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
+   };
+
    socket.userPos.emit('init_press_key', {
       'username' : user['name'],
-      'location_x' : user['x'],
-      'location_y' : user['y']
+      'location_x' : curPosX,
+      'location_y' : curPosY
    });
 /*
    socket.userPos.on('init_mv', function(data) {
@@ -224,6 +223,8 @@ function viewPort()
 function keyHandler(user, socket) 
 {
    var userId = user['name'];
+   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
+   var backgroundSpeed = 5;
 
    $(document).keydown(function(ev) {  
       socket.userPos.emit('press_key', {
@@ -232,7 +233,28 @@ function keyHandler(user, socket)
          'location_x' : curPosX,
          'location_y' : curPosY
       });
-      keyController(ev, "main_layer", user);
+
+      if(ev.keyCode == LEFT)// Left, isKeyDown[37]
+      {      
+         $("#main_layer").css("left") + backgroundSpeed;
+      }
+	
+      if(ev.keyCode == RIGHT) // Right, isKeyDown[39]
+      {
+         $("#main_layer").css("left") - backgroundSpeed;
+      }
+
+      if(ev.keyCode == UP) // Up, iskeyDown[38]
+      {
+         $("#main_layer").css("top") + backgroundSpeed;
+      }
+
+      if(ev.keyCode == DOWN) // Down, isKeyDown[40]
+      {
+         $("#main_layer").css("top") - backgroundSpeed;
+      }
+
+      keyController(ev, user);
       btnControl(ev, user, curPosX, curPosY);
       //isKeyDown[ev.keyCode] = true;
    });
@@ -272,30 +294,12 @@ function keyHandler(user, socket)
    });
 }
 
-var keyController = function(ev, divId, user) {
+function keyController(ev, divId, user) 
+{
    var keyState = ev.keyCode;
-   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40, SHOOT = 83, GOT_PLANET = 32;
-   var laserX = 0, laserY = 0;
-
-   if(keyState == LEFT)// Left, isKeyDown[37]
-   {      
-       parseInt($("#" + divId).css("left")) + speed;   
-   }
-	
-   if(keyState == RIGHT) // Right, isKeyDown[39]
-   {
-      parseInt($("#" + divId).css("left")) - speed;   
-   }
-
-   if(keyState == UP) // Up, iskeyDown[38]
-   {
-      parseInt(("#" + divId).css("top")) + speed;
-   }
-
-   if(keyState == DOWN) // Down, isKeyDown[40]
-   {
-      parseInt(("#" + divId).css("top")) - speed;
-   }
+   var background = divId;
+   var SHOOT = 83, GOT_PLANET = 32;
+//   var laserX = 0, laserY = 0;
 
    if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
    {
@@ -459,7 +463,7 @@ function logout(userId, lastPosX, lastPosY)
    }
 }
 
-function userPosUpdate(user, speed)
+function userPosUpdate(user)
 {
    var userId = user['name'];
    var imgSprite = {
@@ -481,13 +485,7 @@ function userPosUpdate(user, speed)
       var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40; 
       var keyPressVal = data.key_val;
 
-      console.log(
-         "[Client log] ", data['username'],
-         ",x: ", data['location_x'], ",y: ", data['location_y'],
-         ",key_value: ", data['key_val']
-      );
-
-      /*
+            /*
       $("#main_layer").append("<div id='" + data.username + "' style='position:absolute;'></div>");
       $("#" + data.username).append(
          "<div style='position:absolute; bottom: 0px; color: white;'>" + data.username + "</div>"
@@ -496,6 +494,12 @@ function userPosUpdate(user, speed)
      
       if(data.username == userId)  
       {
+         console.log(
+            "[Client log :: code line 496] ", data['username'],
+            ",x: ", data['location_x'], ",y: ", data['location_y'],
+            ",key_value: ", data['key_val']
+         );
+
          switch(keyPressVal)
          {
             case LEFT:
@@ -596,6 +600,12 @@ function userPosUpdate(user, speed)
       }
       else 
       {
+         console.log(
+               "[Client log :: Code line 602] ", data['username'],
+               ",x: ", data['location_x'], ",y: ", data['location_y'],
+               ",key_value: ", data['key_val']
+         );
+
          switch(keyPressVal)
          {
             case LEFT:
@@ -662,15 +672,6 @@ function userPosUpdate(user, speed)
 }
 
 /*
-// Move x, y coordinate position with posX and posY 
-var posX = function(divId) {
-      return parseInt($("#" + divId).css("left"));
-}
-
-var posY = function(divId, position) { 
-      return parseInt($("#" + divId).css("top"));
-}
-
 function Missile(x, y, img) 
 {
    this.x = x;
