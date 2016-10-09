@@ -8,8 +8,15 @@
 // 유저 위치에 관한 목록을 소캣으로 받는다. 
 
 // 각각의 유저 요소와 행성요소를 그려주기위한 함수  
-function drawMinimap()
+function drawMinimap(socket)
 {
+   var minimap = getElementById('minimap_canvas');
+   socket.planet.emit('ready', {'ready to draw minimap'});
+   socket.planet.on('planet_res', function(data) {
+      var planetPos = []; 
+      var playerPos = [];
+   });
+      
 	// 만약 행성이라면, 빨간색 원 모양으로 그리기
 	// 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
 }

@@ -135,37 +135,9 @@ function drawAllAssets(mainLayer, user, socket)
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw planets'});
 
    socket.planet.on('planet_res', function(data) {
-      var planetInfo = {
-         id : data.p_id,
-         x  : data.location_x,
-         y  : data.location_y,
-         grade : data.create_spd,
-         image : { 
-            1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-            2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-            3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-            4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-            5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
-         }
-      };
-	
-      if(planetInfo.grade == 1) 
-         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['1']);
-      
-      if(planetInfo.grade == 2) 
-         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['2']);
-      
-      if(planetInfo.grade == 3) 
-         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['3']);
-      
-      if(planetInfo.grade == 4) 
-         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['4']);
-      
-      if(planetInfo.grade == 5) 
-         drawPlanetImg(mainLayer, planetInfo.id, planetInfo.x, planetInfo.y, planetInfo.image['5']);
+      drawPlanetImg(mainLayer, data);
    });		
         
-
    $("#mineral").text(mineral);
    $("#gas").text(gas);
    $("#unknown").text(unknown);
@@ -215,17 +187,94 @@ function drawAllAssets(mainLayer, user, socket)
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl) 
+function drawPlanetImg(mainLayer, data) 
 {
-   $("#" + mainLayer).append(
-      "<div id='" + divId + "' style='position: absolute; top:" + x + "px" + "; left:" + y + "px" + ";'></div>"
-   );	
+   var planet = {
+      id : "planet" + data.p_id,
+      x  : data.location_x,
+      y  : data.location_y,
+      grade : data.create_spd,
+      mineral : data.mineral,
+      gas : data.gas,
+      unknown : data.unknown,
+      image : { 
+         1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
+         2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
+         3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
+         4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
+         5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+      }
+   };
+	
+   if(planet.grade == 1)
+   {
+      $("#" + mainLayer).append(
+         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
+         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
+      );	
 
-   $("#" + divId).css({
-      "backgroundImage" : planetImgUrl,
-      "width"  : "100px",
-      "height" : "100px"
-   });
+      $("#" + planet['id']).css({
+         "backgroundImage" : planet.image['1'],
+         "width"  : "100px",
+         "height" : "100px"
+      });
+   }
+   
+   if(planet.grade == 2) 
+   {
+      $("#" + mainLayer).append(
+         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
+         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
+      );	
+
+      $("#" + planet['id']).css({
+         "backgroundImage" : planet.image['2'],
+         "width"  : "100px",
+         "height" : "100px"
+      });
+   }
+   
+   if(planet.grade == 3) 
+   {
+      $("#" + mainLayer).append(
+         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
+         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
+      );	
+
+      $("#" + planet['id']).css({
+         "backgroundImage" : planet.image['3'],
+         "width"  : "100px",
+         "height" : "100px"
+      });
+   }
+   
+   if(planet.grade == 4)
+   {
+      $("#" + mainLayer).append(
+         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
+         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
+      );	
+
+      $("#" + planet['id']).css({
+         "backgroundImage" : planet.image['4'],
+         "width"  : "100px",
+         "height" : "100px"
+      });
+   }
+   
+   if(planet.grade == 5) 
+   {
+      $("#" + mainLayer).append(
+         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
+         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
+      );	
+
+      $("#" + planet['id']).css({
+         "backgroundImage" : planet.image['5'],
+         "width"  : "100px",
+         "height" : "100px"
+      });
+   }
 }
 
 function keyHandler(user, socket) 
@@ -424,6 +473,7 @@ var shoot = function(curPosX, curPosY) {
    }
 };
 */
+
 function btnControl(ev, user) 
 {
    var keyState = ev.keyCode;
@@ -523,6 +573,12 @@ function userPosUpdate(user)
    socket.userPos.on('mv', function(data) { // userStatus is 'object type'
       var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; 
       var keyValue = data.key_val;
+      
+      // TODO:  여기서 실행하면 키 입력 값을 받을 때 마다 appendChild를 하므로 같은 테그들이 생겨남
+      //        따라서 초기화 시에 접속한 모든 사람의 데이터를 받아 appendChild를 한 번 해주고 
+      //        위치 변경 시 각각의 css style만 바꿔야 함.
+      //        (참고 : 최초 접속 시 현재 접속해 있는 모든 유저들의 이름, 위치 정보만을 DB에서 불러온다.
+      //                그리고 위치 이동의 경우에는 키 이벤트를 이용한 통신을 한다.)
       $("#main_layer").append(
          "<div id='" + data['username'] + "' style='position: absolute;'></div>"
       );
