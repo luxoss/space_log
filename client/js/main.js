@@ -135,7 +135,7 @@ function drawAllAssets(mainLayer, user, socket)
 
    socket.planet.on('planet_res', function(data) {
       var planetInfo = {
-         id : data._id,
+         id : data.p_id,
          x  : data.location_x,
          y  : data.location_y,
          grade : data.create_spd,
@@ -230,12 +230,35 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
 function keyHandler(user, socket) 
 {
    var userId = user['name'];
-   var backgroundSpeed = 5;
+   var speed = 5;
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+   var bg = {
+      x : function(divId, position) {
+         if(position) 
+         {
+            return $("#" + divId).css("left", position);
+         }
+         else
+         {
+            return parseInt($("#" + divId).css("left"));
+         }
+      },
+      y : function(divId, positiion) {
+         if(position)
+         {
+            return $("#" + divId).css("top", position);
+         }
+         else
+         {
+            return parseInt($("#" + divId).css("top"));
+         }
+      }
+   };
 
    $(document).keydown(function(ev) {  
       if(ev.keyCode == LEFT)
       {
+         bg.x("main_layer", bg.x("main_layer") + speed);
          socket.userPos.emit('press_key', {
             'username': userId, 
             'key_val' : LEFT, 
@@ -246,6 +269,7 @@ function keyHandler(user, socket)
 
       if(ev.keyCode == UP)
       {
+         bg.y("main_layer", bg.y("main_layer") + speed);
          socket.userPos.emit('press_key', {
             'username': userId, 
             'key_val' : UP, 
@@ -256,6 +280,7 @@ function keyHandler(user, socket)
 
       if(ev.keyCode == RIGHT)
       {
+         bg.x("main_layer", bg.x("main_layer") - speed);
          socket.userPos.emit('press_key', {
             'username': userId, 
             'key_val' : RIGHT, 
@@ -266,6 +291,7 @@ function keyHandler(user, socket)
 
       if(ev.keyCode == DOWN)
       {
+         bg.y("main_layer", bg.y("main_layer") - speed);
          socket.userPos.emit('press_key', {
             'username': userId, 
             'key_val' : DOWN, 
