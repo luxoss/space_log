@@ -71,33 +71,36 @@ function drawAllAssets(mainLayer, user, socket)
    var unknown = user.resource['unknown'];
    var ENTER = 13;
    var image = {
-      curClientImg : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
+      clnt  : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+      other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
-/*
+/* 
    socket.userPos.emit('init_press_key', {
       'username' : user['name'],
-      'location_x' : curPosX,
-      'location_y' : curPosY
+      'location_x' : user['x'],
+      'location_y' : user['y'],
+      'key_val' : ENTER
    });
+ 
    socket.userPos.on('init_mv', function(data) {
       console.log("[Client log] At first, user position socket is received by server");
 
       if(data.username == user['name'])
+      {
          console.log(
             "[Client log :: Code line 86] username: ", data.username,
             ",x: ", data.location_x, ",y: ", data.location_y
          );
 
-         initPosX = parseInt(data.location_x);
-         initPosY = parseInt(data.location_y);
+         user['x'] = parseInt(data.location_x);
+         user['y'] = parseInt(data.location_y);
 
          $("#main_layer").append(
             "<div id='" + user['name'] + "' style='position: absolute;'></div>"
          );
 
          $("#" + data['name']).css({
-            "backgroundImage" : image.curClientImg,
+            "backgroundImage" : image.clnt,
             left : user['x'],
             top : user['y']
          });
@@ -105,25 +108,24 @@ function drawAllAssets(mainLayer, user, socket)
       else
       {
          console.log(
-            "[Client log]", data.username, "'s position socket is received by server taht mongoDB"
+            "[Client log]", data.username, "'s login."
          );
          
          enemyPosX = parseInt(data.location_x);
          enemyPosy = parseInt(data.location_y);
 
          $("#main_layer").append(
-            "<div id='" + data.username + "' style='position: absolute;'></div>
+            "<div id='" + data.username + "' style='position: absolute;'></div>"
          );
 
          $("#" + data.username).css({
-            "backgroundImage" : image.enemy,
+            "backgroundImage" : image.other,
             left : enemyPosX,
             top : enemyPosy
          });
       }
    });
 */
-
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw planets'});
 
    socket.planet.on('planet_res', function(data) {
@@ -223,14 +225,56 @@ function keyHandler(user, socket)
 {
    var userId = user['name'];
    var backgroundSpeed = 5;
+   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
 
    $(document).keydown(function(ev) {  
+     /*  
       socket.userPos.emit('press_key', {
-         'username': userId, 
-         'key_val' : ev.keyCode, 
-         'location_x' : user['x'],
-         'location_y' : user['y']
+           'username': userId, 
+           'key_val' : ev.keyCode, 
+           'location_x' : user['x'],
+           'location_y' : user['y']
       });
+     */
+      if(ev.keyCode == LEFT)
+      {
+         socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : LEFT, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+      }
+
+      if(ev.keyCode == UP)
+      {
+         socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : UP, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+      }
+
+      if(ev.keyCode == RIGHT)
+      {
+         socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : RIGHT, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+      }
+
+      if(ev.keyCode == DOWN)
+      {
+         socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : DOWN, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+      }
       keyController(ev, user);
       btnControl(ev, user);
       //isKeyDown[ev.keyCode] = true;
@@ -284,6 +328,7 @@ function keyController(ev, divId, user)
       fire.play();
       console.log('fire!');
       fire.currentTime = 0;
+      socket.
       //shoot(curPosX, curPosY);	
    }
 
