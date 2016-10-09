@@ -578,9 +578,9 @@ function userPosUpdate(user)
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               if(user['x'] >= 4910) 
+               if(user['x'] >= 3490) 
                {
-                  user['x'] = 4910;
+                  user['x'] = 3490;
                   user['y'] = parseInt(data.location_y);
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.RIGHT,
@@ -622,10 +622,10 @@ function userPosUpdate(user)
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               if(user['y'] >= 4910) 
+               if(user['y'] >= 3490) 
                {
                   user['x'] = parseInt(data.location_x);
-                  user['y'] = 4910;
+                  user['y'] = 3490;
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.DOWN,
  		              left: user['x'], 
