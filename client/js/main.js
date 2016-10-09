@@ -63,7 +63,6 @@ function viewPort()
 function drawAllAssets(mainLayer, user, socket) 
 {
    var userId = user['name'];
-   var imgUrl = "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')";
    var hp = user.state['hp'];
    var exp = user.state['exp'];
    var mineral = user.resource['mineral'];
@@ -74,6 +73,12 @@ function drawAllAssets(mainLayer, user, socket)
       clnt  : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
+   console.log("[CLIENT LOG]", userId, "is login.");
+   console.log(
+      "[CLIENT LOG] username:", userId, 
+      "hp:", hp, "exp:", exp, 
+      "mineral:", mineral, "gas:", gas, "unknown:", unknown
+   );                
 /* 
    socket.userPos.emit('init_press_key', {
       'username' : user['name'],
@@ -196,7 +201,7 @@ function drawAllAssets(mainLayer, user, socket)
       scrollLeft: offset.left - ($(window).width() / 2), 
       scrollTop: offset.top - ($(window).height() / 2)  
    }, 1000);
-
+/*
    localStorage.removeItem('username');
    localStorage.removeItem('exp');
    localStorage.removeItem('hp');
@@ -205,6 +210,7 @@ function drawAllAssets(mainLayer, user, socket)
    localStorage.removeItem('unknown');
    localStorage.removeItem('x');
    localStorage.removeItem('y'); 
+*/
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
@@ -228,14 +234,6 @@ function keyHandler(user, socket)
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
 
    $(document).keydown(function(ev) {  
-     /*  
-      socket.userPos.emit('press_key', {
-           'username': userId, 
-           'key_val' : ev.keyCode, 
-           'location_x' : user['x'],
-           'location_y' : user['y']
-      });
-     */
       if(ev.keyCode == LEFT)
       {
          socket.userPos.emit('press_key', {
