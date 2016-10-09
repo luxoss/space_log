@@ -73,6 +73,7 @@ function drawAllAssets(mainLayer, user, socket)
       clnt  : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
+   
    console.log("[CLIENT LOG]", userId, "is login.");
    console.log(
       "[CLIENT LOG] username:", userId, 
@@ -117,7 +118,7 @@ function drawAllAssets(mainLayer, user, socket)
          );
          
          enemyPosX = parseInt(data.location_x);
-         enemyPosy = parseInt(data.location_y);
+         enemyPosY = parseInt(data.location_y);
 
          $("#main_layer").append(
             "<div id='" + data.username + "' style='position: absolute;'></div>"
@@ -230,7 +231,7 @@ function drawPlanetImg(mainLayer, divId, x, y, planetImgUrl)
 function keyHandler(user, socket) 
 {
    var userId = user['name'];
-   var speed = 5;
+   var speed = 4;
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
    var bg = {
       x : function(divId, position) {
@@ -555,7 +556,7 @@ function userPosUpdate(user)
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
               
-               if(user['x'] =< 0) 
+               if(user['x'] <= 0) 
                {
                   user['x'] = 0;
                   user['y'] = parseInt(data.location_y);
@@ -577,9 +578,9 @@ function userPosUpdate(user)
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               if(user['x'] >= 4900) 
+               if(user['x'] >= 4910) 
                {
-                  user['x'] = 4900;
+                  user['x'] = 4910;
                   user['y'] = parseInt(data.location_y);
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.RIGHT,
@@ -599,7 +600,7 @@ function userPosUpdate(user)
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               if(user['y'] =< 0) 
+               if(user['y'] <= 0) 
                {
                   user['x'] = parseInt(data.location_x);
                   user['y'] = 0
@@ -621,10 +622,10 @@ function userPosUpdate(user)
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               if(user['y'] >= 4900) 
+               if(user['y'] >= 4910) 
                {
                   user['x'] = parseInt(data.location_x);
-                  user['y'] = 4900;
+                  user['y'] = 4910;
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.DOWN,
  		              left: user['x'], 
@@ -660,6 +661,17 @@ function userPosUpdate(user)
 
                enemyPosX = parseInt(data.location_x);
 	            enemyPosY = parseInt(data.location_y);
+
+               if(enemyPosX <= 0) 
+               {
+                  enemyPosX = 0;
+                  enemyPosY = parseInt(data.location_y);
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.LEFT,
+ 		              left: enemyPosX, 
+		              top: enemyPosY
+	               }); 
+               }
 	            break;
 
 	         case RIGHT:	            
@@ -674,6 +686,17 @@ function userPosUpdate(user)
                		
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
+
+               if(enemyPosX >= 4910) 
+               {
+                  enemyPosX = 4910;
+                  enemyPosY = parseInt(data.location_y);
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.RIGHT,
+ 		              left: enemyPosX, 
+		              top: enemyPosY
+	               }); 
+               }
 		         break;
 				
 	         case UP:	
@@ -688,6 +711,17 @@ function userPosUpdate(user)
                		
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
+
+               if(enemyPosY <= 0) 
+               {
+                  enemyPosX = parseInt(data.location_x);
+                  enemyPosY = 0
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.UP,
+ 		              left: enemyPosX, 
+		              top: enemyPosY
+	               }); 
+               }
 		         break;
 				
 	         case DOWN:	
@@ -702,6 +736,17 @@ function userPosUpdate(user)
                	
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
+
+               if(enemyPosY >= 4910) 
+               {
+                  enemyPosX = parseInt(data.location_x);
+                  enemyPosY = 4910;
+                  $("#" + data.username).css({
+	                 "backgroundImage" : imgSprite.player.DOWN,
+ 		              left: enemyPosX, 
+		              top: enemyPosY 
+	               }); 
+               }
 		         break;
 		
             default:
