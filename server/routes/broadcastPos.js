@@ -20,104 +20,43 @@ UsersPio.on('connection', function(socket){
 		var mem_info = db.collection("MEM_INFO");
 		var member = db.collection("MEMBER");
 
-		socket.on('press_key', function(data){
-
-//			var mem_info = db.collection("MEM_INFO");
-//			var member = db.collection("MEMBER");			
+		socket.on('press_key', function(data){	
 			username = data.username;
 			x = data.location_x;
 			y = data.location_y;
 			key_val = data.key_val;
-			console.log("========== x  ::::::  " + x + "    y :::::::: " + y + "  =============");
-					mv_obj = {
-						"username" 	: username,
-						"location_x" 	: x,
-						"location_y" 	: y,
-						"key_val" 	: key_val
-					};
 
-
-
-			mem_info.findOne({"username":username}, function(err, res_info){
-
-				if(err){
-					 console.log("[SERVER LOG] Branch if : err");
-					 console.log(err);
-				} else if (res_info){
-					console.log("set mv_obj");
-				/*	mv_obj = {
-						"username" 	: username,
-						"location_x" 	: x,
-						"location_y" 	: y,
-						"key_val" 	: key_val
-					};*/
-				} else{
-					console.log("[SERVER LOG] Branch else");
-				}
-			});
+			mv_obj = {
+				"username" 	: username,
+				"location_x" 	: x,
+				"location_y" 	: y,
+				"key_val" 	: key_val
+			};
 
 			switch(mv_obj.key_val){
 			case LEFT:
 		
 				mv_obj.location_x -= speed;
-				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.key_val }});
-				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
-				UsersPio.emit('mv', mv_obj);
-
 				break;
 			case UP:
 				
 				mv_obj.location_y -= speed;
-				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.ikey_val }});
-				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
-
-
-				UsersPio.emit('mv', mv_obj);
-
 				break;
 			case RIGHT:
 				
 				mv_obj.location_x += speed;
-				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.key_val }});
-				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
-
-
-				UsersPio.emit('mv', mv_obj);
-	
 				break;
 			case DOWN:
 				
 				mv_obj.location_y += speed;
-				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : key_val }});
-				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
-
-
-				UsersPio.emit('mv', mv_obj);
-
 				break;
 			default : 
-			
-			//	continue;
 			}
+		
+			mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.key_val }});
+			UsersPio.emit('mv', mv_obj);
 
 
-			/*
-			if(key_val == LEFT) {
-				//my_obj.x -= speed;
-				x -= speed;
-			}else if(key_val == UP) {
-				//my_obj.y -= speed;
-				y -= speed;
-			}else if(key_val == RIGHT) {
-				//my_obj.x += speed;
-				x += speed;
-			}else if(key_val == DOWN) {
-            			//my_obj.y += speed;
-            			y += speed;
-         		}else {
-
-         		}
-			*/
 		//	mem_info.update({"username":username}, {$set : { "location_x" : x, "location_y" : y, "key_val" : key_val }});
 			
 /*			mem_info.findOne({"username":username}, function(err, res_info){
@@ -140,7 +79,7 @@ UsersPio.on('connection', function(socket){
 		//	UsersPio.emit('mv', mv_obj);
 		   //UsersPio.emit('init_mv', mv_obj);	
 		});
-/*
+
 		socket.on('init_press_key', function(data){
 			console.log("[SERVER LOG] Init press key.");
 			console.log(key_val);
@@ -150,8 +89,7 @@ UsersPio.on('connection', function(socket){
 			y = data.location_y;
 			key_val = data.key_val;
 
-			if(key_val == ENTER)
-         {
+			if(key_val == ENTERi){
 				console.log("[SERVER LOG] Sample press enter.");
 
 				member.find({"accessing" : "true"}).toArray(function(err, results){
@@ -162,7 +100,7 @@ UsersPio.on('connection', function(socket){
 					}
 				});				
 			}
-		});      */
+		});      
 	});
 });
 
