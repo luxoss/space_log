@@ -21,33 +21,106 @@ UsersPio.on('connection', function(socket){
 		var member = db.collection("MEMBER");
 
 		socket.on('press_key', function(data){
-			console.log("[SERVER LOG] Arrow key is pressd by", data.username, "client");
-			console.log(data.ready);
+
 //			var mem_info = db.collection("MEM_INFO");
 //			var member = db.collection("MEMBER");			
 			username = data.username;
 			x = data.location_x;
 			y = data.location_y;
 			key_val = data.key_val;
+			console.log("========== x  ::::::  " + x + "    y :::::::: " + y + "  =============");
+					mv_obj = {
+						"username" 	: username,
+						"location_x" 	: x,
+						"location_y" 	: y,
+						"key_val" 	: key_val
+					};
 
-         if(key_val == LEFT) {
-            //my_obj.x -= speed;
-            x -= speed;
-         }else if(key_val == UP) {
-            //my_obj.y -= speed;
-            y -= speed;
-         }else if(key_val == RIGHT) {
-            //my_obj.x += speed;
-            x += speed;
-         }else if(key_val == DOWN) {
-            //my_obj.y += speed;
-            y += speed;
-         }else {
-         }
 
-			mem_info.update({"username":username}, {$set : { "location_x" : x, "location_y" : y, "key_val" : key_val }});
-			
+
 			mem_info.findOne({"username":username}, function(err, res_info){
+
+				if(err){
+					 console.log("[SERVER LOG] Branch if : err");
+					 console.log(err);
+				} else if (res_info){
+					console.log("set mv_obj");
+				/*	mv_obj = {
+						"username" 	: username,
+						"location_x" 	: x,
+						"location_y" 	: y,
+						"key_val" 	: key_val
+					};*/
+				} else{
+					console.log("[SERVER LOG] Branch else");
+				}
+			});
+
+			switch(mv_obj.key_val){
+			case LEFT:
+		
+				mv_obj.location_x -= speed;
+				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.key_val }});
+				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
+				UsersPio.emit('mv', mv_obj);
+
+				break;
+			case UP:
+				
+				mv_obj.location_y -= speed;
+				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.ikey_val }});
+				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
+
+
+				UsersPio.emit('mv', mv_obj);
+
+				break;
+			case RIGHT:
+				
+				mv_obj.location_x += speed;
+				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.key_val }});
+				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
+
+
+				UsersPio.emit('mv', mv_obj);
+	
+				break;
+			case DOWN:
+				
+				mv_obj.location_y += speed;
+				mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : key_val }});
+				console.log("=  mv_obj.location_x ::::::::::::::: " + mv_obj.location_x + " mv_obj.location_y ::::::: " + mv_obj.location_y + "  =");
+
+
+				UsersPio.emit('mv', mv_obj);
+
+				break;
+			default : 
+			
+			//	continue;
+			}
+
+
+			/*
+			if(key_val == LEFT) {
+				//my_obj.x -= speed;
+				x -= speed;
+			}else if(key_val == UP) {
+				//my_obj.y -= speed;
+				y -= speed;
+			}else if(key_val == RIGHT) {
+				//my_obj.x += speed;
+				x += speed;
+			}else if(key_val == DOWN) {
+            			//my_obj.y += speed;
+            			y += speed;
+         		}else {
+
+         		}
+			*/
+		//	mem_info.update({"username":username}, {$set : { "location_x" : x, "location_y" : y, "key_val" : key_val }});
+			
+/*			mem_info.findOne({"username":username}, function(err, res_info){
 
 				if(err){
 					 console.log("[SERVER LOG] Branch if : err");
@@ -63,11 +136,11 @@ UsersPio.on('connection', function(socket){
 					console.log("[SERVER LOG] Branch else");
 				}
 			});
-
-			UsersPio.emit('mv', mv_obj);
+*/
+		//	UsersPio.emit('mv', mv_obj);
 		   //UsersPio.emit('init_mv', mv_obj);	
 		});
-
+/*
 		socket.on('init_press_key', function(data){
 			console.log("[SERVER LOG] Init press key.");
 			console.log(key_val);
@@ -89,9 +162,9 @@ UsersPio.on('connection', function(socket){
 					}
 				});				
 			}
-		});      
+		});      */
 	});
 });
 
-console.log("[SERVER LOG] broadcastPos.js : http://203.237.179.21:5006");
+console.log("broadcastPos.js : http://203.237.179.21:5006");
 

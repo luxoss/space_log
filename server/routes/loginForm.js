@@ -104,36 +104,7 @@ io.on('connection', function (socket) {
 		});		
   	});// socket.on('login_msg', function(){}); end
 	
-	/*
-	socket.on('update_pos_req', function(data){
-		console.log('======= I got update_pos_req============================');
-
-		x = data.location_x;	
-		y = data.location_y;
-		username = data.username;
-		obj = {"username": username, "location_x" : x, "location_y" : y};
 	
-	});
-	setInterval(function(){
-		io.emit('update_pos_res', obj);
-	
-	}, 1000);
-*/
-
-
-/*
-	socket.on('init_display', function(data){
-		if(data.state == 'on'){
-			socket.emit('init_display', {"display" : "true"});
-			console.log("======================== display : state is on +++++++++++++++++++++++++");
-			MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-				var mem_info
-			});
-			io.emit('playing_mem', {"username" :});
-		}		
-			
-	});
-*/	
 
 	//Join part start
   	socket.on('join_msg', function (data){

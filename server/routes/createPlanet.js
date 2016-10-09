@@ -25,8 +25,8 @@ function create_p(){
 				//y = (t+level_p)*(100-t)-(level_p-ran);
 				spd = t%level_p;
 				
-				x = Math.floor(Math.random()*5000-1);
-				y = Math.floor(Math.random()*5000-1);
+				x = Math.floor(Math.random()*3500-1);
+				y = Math.floor(Math.random()*3500-1);
 
 				collection.findOne({location_x : x, location_y : y},  function(err, doc){
 					if(err){
