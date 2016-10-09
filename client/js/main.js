@@ -243,7 +243,7 @@ function keyHandler(user, socket)
             return parseInt($("#" + divId).css("left"));
          }
       },
-      y : function(divId, positiion) {
+      y : function(divId, position) {
          if(position)
          {
             return $("#" + divId).css("top", position);
@@ -555,18 +555,16 @@ function userPosUpdate(user)
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
               
-               /*
-               if(curPosX < 0) 
+               if(user['x'] =< 0) 
                {
-                  curPosX = 0;
-                  curPosY = parseInt(data.location_y);
+                  user['x'] = 0;
+                  user['y'] = parseInt(data.location_y);
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.LEFT,
- 		              left: curPosX, 
-		              top: curPosY
+ 		              left: user['x'], 
+		              top: user['y']
 	               }); 
                }
-               */
 	            break;
 
  	         case RIGHT:
@@ -578,18 +576,17 @@ function userPosUpdate(user)
 
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
-               /*		
-               if(curPosX > 5000) 
+
+               if(user['x'] >= 4900) 
                {
-                  curPosX = 5000;
-                  curPosY = parseInt(data.location_y);
+                  user['x'] = 4900;
+                  user['y'] = parseInt(data.location_y);
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.RIGHT,
- 		              left: curPosX, 
-		              top: curPosY
+ 		              left: user['x'], 
+		              top: user['y']
 	               }); 
                }
-               */
 	            break;
 				
 	         case UP:
@@ -598,20 +595,20 @@ function userPosUpdate(user)
 		            left: user['x'], 
 		            top: user['y']
 	            });
+
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
-               /*		
-               if(curPosY < 0) 
+
+               if(user['y'] =< 0) 
                {
-                  curPosX = parseInt(data.location_x);
-                  curPosY = 0
+                  user['x'] = parseInt(data.location_x);
+                  user['y'] = 0
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.UP,
- 		              left: curPosX, 
-		              top: curPosY
+ 		              left: user['x'], 
+		              top: user['y']
 	               }); 
                }
-               */
               	break;
 				
 	         case DOWN:
@@ -623,18 +620,17 @@ function userPosUpdate(user)
 
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
-               /*	
-               if(curPosY > 5000) 
+
+               if(user['y'] >= 4900) 
                {
-                  curPosX = parseInt(data.location_x);
-                  curPosY = 5000;
+                  user['x'] = parseInt(data.location_x);
+                  user['y'] = 4900;
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.DOWN,
- 		              left: curPosX, 
-		              top: curPosY
+ 		              left: user['x'], 
+		              top: user['y']
 	               }); 
                }
-               */
                break;
 				
             default:
