@@ -10,222 +10,140 @@
 =====================================================*/
 /*
 //아이템과 캐릭터 충돌처리 한재선 xml 게임 코드 일부
-mgWhite=document.getElementById("white");
-imgWhite.src="white.png";
+var imgWhite = document.getElementById("white");
+
+imgWhite.src = "white.png";
 context.drawImage(imgWhite, x1, y1);
 
 //흰공 먹었을때 점수올리기
-if(y1+25>=chary && y1<=(chary+112)){
-if(x1+25>=charx && x1<=(charx+95)){
-score_cur += score_whiteBall;
-gauge += gauge_whiteBall;
-context.beginPath();
-context.font="bold 25pt Batang";
-context.strokeStyle="white";
-context.lineWidth=2;
-context.strokeText("SCORE: "+ score_cur, 20, 80);
-context.closePath();	
+if (y1+25 >= chary && y1 <= (chary+112))
+{
+   if(x1+25>=charx && x1<=(charx+95))
+   {
+      score_cur += score_whiteBall;
+      gauge += gauge_whiteBall;
 
-y1=35;	
-x1=Math.floor(Math.random()*770);
+      context.beginPath();
+      context.font="bold 25pt Batang";
+      context.strokeStyle="white";
+      context.lineWidth=2;
+      context.strokeText("SCORE: "+ score_cur, 20, 80);
+      context.closePath();	
 
+      y1 = 35;	
+      x1 = Math.floor(Math.random()*770);
+   }
 }
-}*/
 
-/*
-   //Code's GRAVE
-   //TODO: Some code lines 
-   function isCollision(otherObj, player) 
+function isCollision(otherObj, player) 
+{
+   return (otherObj.x < player.x + player.width) && (otherObj.x + otherObj.width > player.x) && 
+          (otherObj.y < player.y + player.height) && (otherObj.y + otherObj.height > player.y);
+}
+
+function boxModel(x, y, width, height) 
+{
+   this.x = x;
+   this.y = y;
+   this.width = width;
+   this.height = height;
+}
+
+var shoot = function() {
+   var dx = 0.0;
+   var dy = 0.0;
+   var angle = 0.0, _angle = 0;
+   var launcharX = ship's x position;
+   var launcharY = ship's y position;
+    
+   if(!isShoot) { return ; }
+
+   if(angle < 0) 
    {
-      return (otherObj.x < player.x + player.width) && (otherObj.x + otherObj.width > player.x) && 
-             (otherObj.y < player.y + player.height) && (otherObj.y + otherObj.height > player.y);
+       _angle = 100 + angle - 90;
+       dy = Math.sin(_angle * Math.PI / 180);
+       dx = -Math.cos(_angle * Math.PI / 180);
    }
-   function boxModel(x, y, width, height) {
-      this.x = x;
-      this.y = y;
-      this.width = width;
-      this.height = height;
-   }
-   var shoot = function() {
-      var dx = 0.0;
-      var dy = 0.0;
-      var angle = 0.0, _angle = 0;
-      var launcharX = ship's x position;
-      var launcharY = ship's y position;
-       
-      if(!isShoot) { return ; }
-      if(angle < 0) 
-      {
-          _angle = 100 + angle - 90;
-          dy = Math.sin(_angle * Math.PI / 180);
-          dx = -Math.cos(_angle * Math.PI / 180);
-      }
-      else 
-      {
-          _angle = angle - 90;
-          dy = -Math.sin(_angle * Math.PI / 180);
-          dx = Math.cos(_angle * Math.PI / 180);
-      }
-      dx *= speed;
-      dy *= speed;
-      
-      //translate css(bulletX += dx, bulletY -= dy);
-      //rotate(angle * Math.PI / 180);
-      
-      if(bulletX && bulletY < 0) { isFire = false; }
-                                                
-      bulletX = launcherX;
-      bulletY = launcherY;
-                                                         
-      isFire = true;
-   };
-   // 키 입력 상태를 서버에 전송하기 위한 코드
-   $('body').on('keydown', function(ev){
-         socket.userPos.emit('keydown', ev.keycode);
-   });
-   $('body').on('keyup', function(ev){
-         socket.userPos.emit('keyup', ev.keycode);
-   });
-   // 마우스 위치 확인하기 위한 코드 
-   $(document).mousemove(function(e){
-         console.log(e.pageX + ',' + e.pageY);
-   });
-   // 숫자 타입인지 아닌지 체크하기 위한 함수 
-   function isNumber(str) 
+   else 
    {
-      str += '';             // 문자열 타입으로 변환 
-      str = str.replace(/^\s*|\s*$/g, ''); // 좌우 공백 제거 
-      
-      if (str == '' || isNaN(str)) { return false };
-      
-      return true;
+       _angle = angle - 90;
+       dy = -Math.sin(_angle * Math.PI / 180);
+       dx = Math.cos(_angle * Math.PI / 180);
    }
+
+   dx *= speed;
+   dy *= speed;
    
-   // Move a diagonal line 
-   if(isKeyDown[38] && isKeyDown[37]) 
-   { 
-      $("#" + divId1).css('transform', 'rotate(-45deg)');
-   }
+   translate css(bulletX += dx, bulletY -= dy);
+   rotate(angle * Math.PI / 180);
    
-   if(isKeyDown[38] && isKeyDown[39]) 
-   {
-      $("#" + divId1).css('transform', 'rotate(45deg)');
-   }
+   if(bulletX && bulletY < 0) { isFire = false; }
+                                             
+   bulletX = launcherX;
+   bulletY = launcherY;
+                                                      
+   isFire = true;
+};
+
+// 키 입력 상태를 서버에 전송하기 위한 코드
+$('body').on('keydown', function(ev){
+      socket.userPos.emit('keydown', ev.keycode);
+});
+$('body').on('keyup', function(ev){
+      socket.userPos.emit('keyup', ev.keycode);
+});
+
+// 마우스 위치 확인하기 위한 코드 
+$(document).mousemove(function(e){
+      console.log(e.pageX + ',' + e.pageY);
+});
+
+// 숫자 타입인지 아닌지 체크하기 위한 함수 
+function isNumber(str) 
+{
+   str += '';             // 문자열 타입으로 변환 
+   str = str.replace(/^\s*|\s*$/g, ''); // 좌우 공백 제거 
    
-   if(isKeyDown[40] && isKeyDown[37]) 
-   {
-      $("#" + divId1).css('transform', 'rotate(-135deg)');
-   }
+   if (str == '' || isNaN(str)) { return false };
    
-   if(isKeyDown[40] && isKeyDown[39]) 
-   {
-      $("#" + divId1).css('transform', 'rotate(135deg)');
-   }  
-   
-   // get a current div offset
-   lastPosX = parseInt($("#" + user.name).offset().left);
-   lastPosY = parseInt($("#" + user.name).offset().top); 
-                                                                                          
-   posX(divId1, posX(divId1) - speed); 
-   $("#" + user.name).css('transform', 'rotate(-90deg)');
-   
-   posX(divId1, posX(divId1) + speed);
-   $("#" + user.name).css('transform', 'rotate(90deg)');   
-                                                                                                                                                                 
-   posY(divId1, posY(divId1) - speed);
-   $("#" + user.name).css('transform', 'rotate(0deg)');
-   
-   posY(divId1, posY(divId1) + speed);
-   $("#" + user.name).css('transform', 'rotate(180deg)');
+   return true;
+}
 
-   var size = {
-      mainLayer : {                                                                                                width : 5000,
-         height: 5000
-      }
-   };
+// Move a diagonal line 
+if(isKeyDown[38] && isKeyDown[37]) 
+{ 
+   $("#" + divId1).css('transform', 'rotate(-45deg)');
+}
 
-   var sound = {
-      open : new Audio(),
-      close : new Audio(),
-      insert : new Audio(),
-      remove : new Audio(),
-      ignite : new Audio()
-   };
+if(isKeyDown[38] && isKeyDown[39]) 
+{
+   $("#" + divId1).css('transform', 'rotate(45deg)');
+}
 
-   socket.userInit.on('user_info', function(data) {
-      console.log("====================Received user's information message");
+if(isKeyDown[40] && isKeyDown[37]) 
+{
+   $("#" + divId1).css('transform', 'rotate(-135deg)');
+}
 
-      if(data['username'] == user['name']) 
-      {
-         console.log("This is my user information message");
-         console.log(user['name']);
-      }
-   });
+if(isKeyDown[40] && isKeyDown[39]) 
+{
+   $("#" + divId1).css('transform', 'rotate(135deg)');
+}  
 
-   socket.userInit.emit('users_info', {'state' : 'on'});
-   socket.userInit.on('users_info', function(data) {
-      if(data.username != user['name'])
-      {
-         $("#main_layer".append(
-            "<div id='" + data['username'] + "' style='position: absolute;'></div>"
-         );
+// get a current div offset
+lastPosX = parseInt($("#" + user.name).offset().left);
+lastPosY = parseInt($("#" + user.name).offset().top); 
+                                                                                       
+posX(divId1, posX(divId1) - speed); 
+$("#" + user.name).css('transform', 'rotate(-90deg)');
 
-         $("#' + data['username']).css({
-            "backgroundImage" : url('http://203.237.179.21:8000/res/img/space_ship1_up.svg'),
-            left: enemyPosX,
-            top: enemyPosY
-         });
-   });
-   
-   var ENTER = 13;
-   var clientUserId = user['name'];
-   var image = {
-      me : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg'),
-      enemy : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')
-   };
+posX(divId1, posX(divId1) + speed);
+$("#" + user.name).css('transform', 'rotate(90deg)');   
+                                                                                                                                                              
+posY(divId1, posY(divId1) - speed);
+$("#" + user.name).css('transform', 'rotate(0deg)');
 
-   socket.userPos.emit('press_key', {
-      'username' : user['name'],
-      'location_x' : user['x'],
-      'location_y' : user['y'],
-      'key_val' : ENTER
-   });
+posY(divId1, posY(divId1) + speed);
+$("#" + user.name).css('transform', 'rotate(180deg)');
 
-   socket.userPos.on('init_mv', function(data) {
-      console.log("At first socket.userInit");
 
-      if(data.username == clientUsesrId) 
-      {
-         console.log("username: ", data.username, "x: ", data.location_x, "y: ", data.location_y);
-
-         initPosX = parseInt(data.location_x);
-         initPOsY = parseInt(data.location_y);
-
-         $("#main_layer").append(
-            "<div id='" + clientUserId + "' style='position: absolute;'></div>"
-            );
-
-         $("#" + data.username).css({
-            "backgroundImage"  : image.me,
-            left : initPosX,
-            top : initPosY
-         });
-      }
-      else
-      {
-         console.log(Another");
-         
-         enemyPosX = parseInt(data.location_x);
-         ene}myPosY = parseInt(data.location_y);
-
-         $("#main_layer").append(
-            "<div ='" + data.username + "' style='position: absolute;'></div>
-            );
-         $("#" + data.username).css({
-            "backgroundImage" : image.enemy,
-            left : enemyPosX,
-            top : enemyPosY
-         });
-
-      }
-   });
