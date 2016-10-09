@@ -70,7 +70,7 @@ function drawAllAssets(mainLayer, user, socket)
    var unknown = user.resource['unknown'];
    var ENTER = 13;
    var image = {
-      clnt  : "url(http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
+      clnt  : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
    console.log("[CLIENT LOG]", userId, "is login.");
@@ -186,7 +186,7 @@ function drawAllAssets(mainLayer, user, socket)
    );
 
    $("#" + userId).css({
-      "backgroundImage" : imgUrl,
+      "backgroundImage" : image['clnt'],
       "width"  : "64px",
       "height" : "64px",
       "zIndex" : "2",
@@ -326,7 +326,7 @@ function keyController(ev, divId, user)
       fire.play();
       console.log('fire!');
       fire.currentTime = 0;
-      socket.
+//      socket.
       //shoot(curPosX, curPosY);	
    }
 
@@ -496,6 +496,18 @@ function userPosUpdate(user)
    socket.userPos.on('mv', function(data) { // userStatus is 'object type'
       var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; 
       var keyValue = data.key_val;
+      $("#main_layer").append(
+         "<div id='" + data['username'] + "' style='position: absolute;'></div>"
+      );
+
+      $("#" + data['username']).append(
+         "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+         + data['username'] + "</div>"
+      );
+
+      $("#" + data['username']).append(
+         "<div id='" + data['username'] + "_laser" + "' style='position:absolute;'></div>"
+      );
      
       if(userId === data['username'])  
       {
@@ -605,18 +617,16 @@ function userPosUpdate(user)
       }
       else 
       {
+         console.log("[CLIENT LOG]", data['username'], "is login."); 
          console.log(
-               "[Client log :: Code line 602] ", data['username'],
+               "[CLIENT LOG] ", data['username'],
                ",x: ", data['location_x'], ",y: ", data['location_y'],
                ",key_value: ", data['key_val']
          );
 
          switch(keyValue)
          {
-            case LEFT:
-	            enemyPosX = parseInt(data.location_x);
-	            enemyPosY = parseInt(data.location_y);
-	
+            case LEFT:	      
 	            $("#" + data.username).css({
 	               "backgroundImage" : imgSprite.others.LEFT,
 		            "width"  : "64px",
@@ -625,12 +635,12 @@ function userPosUpdate(user)
 		            left: enemyPosX, 
 		            top: enemyPosY
 	            });
+
+               enemyPosX = parseInt(data.location_x);
+	            enemyPosY = parseInt(data.location_y);
 	            break;
 
-	         case RIGHT:
-	            enemyPosX = parseInt(data.location_x);
-		         enemyPosY = parseInt(data.location_y);
-
+	         case RIGHT:	            
 		         $("#" + data.username).css({
 		            "backgroundImage" : imgSprite.others.RIGHT,
 		            "width"  : "64px",
@@ -638,13 +648,13 @@ function userPosUpdate(user)
 		            "zIndex" : "2",
 		            left: enemyPosX, 
 		            top: enemyPosY
-		         });		
-		         break;
-				
-	        case UP:
+		         });
+               		
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
-	
+		         break;
+				
+	         case UP:	
 		         $("#" + data.username).css({
 			         "backgroundImage" : imgSprite.others.UP,
 			         "width"  : "64px",
@@ -652,13 +662,13 @@ function userPosUpdate(user)
 			         "zIndex" : "2",
 			         left: enemyPosX, 
 			         top: enemyPosY
-		         });		
+		         });
+               		
+               enemyPosX = parseInt(data.location_x);
+		         enemyPosY = parseInt(data.location_y);
 		         break;
 				
-	        case DOWN:
-		         enemyPosX = parseInt(data.location_x);
-		         enemyPosY = parseInt(data.location_y);
-	
+	         case DOWN:	
 		         $("#" + data.username).css({
 		            "backgroundImage" : imgSprite.others.DOWN,
 		            "width"  : "64px",
@@ -666,10 +676,13 @@ function userPosUpdate(user)
 		            "zIndex" : "2",
 		            left: enemyPosX, 
 		            top: enemyPosY
-		         });	
+		         });
+               	
+               enemyPosX = parseInt(data.location_x);
+		         enemyPosY = parseInt(data.location_y);
 		         break;
 		
-         default:
+            default:
                 break;
          }
       }
