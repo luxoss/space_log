@@ -36,10 +36,11 @@ if (y1+25 >= chary && y1 <= (chary+112))
 }
 
 // Use 2d collistion detection model that AABB(Axis Align Bounding Box) Algorithm.
-function isCollision(otherObj, player) 
+var isCollision = function(otherObj, player) 
 {
    return (otherObj.x < player.x + player.width) && (otherObj.x + otherObj.width > player.x) && 
           (otherObj.y < player.y + player.height) && (otherObj.y + otherObj.height > player.y);
+   // Result : bool type(true/false)
 }
 
 function boxModel(x, y, width, height) 
