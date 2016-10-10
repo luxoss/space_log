@@ -141,6 +141,8 @@ function drawAllAssets(mainLayer, user, socket)
    $("#mineral").text(mineral);
    $("#gas").text(gas);
    $("#unknown").text(unknown);
+   $("#position_x").text(user['x']);
+   $("#position_y").text(user['y']);
    //$("#hp_progress_bar").text(hp);
 
    $("#user_avartar").append(
@@ -621,6 +623,9 @@ function userPosUpdate(user)
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
               
+               $("#position_x").text(user['x']);
+               $("#position_y").text(user['y']);
+
                if(user['x'] <= 0) 
                {
                   user['x'] = 0;
@@ -642,6 +647,9 @@ function userPosUpdate(user)
 
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
+               
+               $("#position_x").text(user['x']);
+               $("#position_y").text(user['y']);
 
                if(user['x'] >= 3430) 
                {
@@ -665,6 +673,9 @@ function userPosUpdate(user)
 	            user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
+               $("#position_x").text(user['x']);
+               $("#position_y").text(user['y']);
+
                if(user['y'] <= 0) 
                {
                   user['x'] = parseInt(data.location_x);
@@ -686,6 +697,10 @@ function userPosUpdate(user)
 
                user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
+
+               $("#position_x").text(user['x']);
+               $("#position_y").text(user['y']);
+
 
                if(user['y'] >= 3430) 
                {
