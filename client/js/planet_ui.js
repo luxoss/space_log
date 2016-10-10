@@ -17,7 +17,7 @@ function planetViewLayer(planetSocket)
 
       planetSocket.on('planet_res', function(data){
          var planet = {
-            name : data._id,
+            name : data.p_id,
             gas : data.gas,
             mineral : data.mineral, 
             unknown : data.unknown,

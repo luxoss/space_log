@@ -10,15 +10,27 @@
 // 각각의 유저 요소와 행성요소를 그려주기위한 함수  
 function drawMinimap(socket)
 {
-   var minimap = getElementById('minimap_canvas');
-   socket.planet.emit('ready', {'ready to draw minimap'});
-   socket.planet.on('planet_res', function(data) {
-      var planetPos = []; 
-      var playerPos = [];
-   });
-      
-	// 만약 행성이라면, 빨간색 원 모양으로 그리기
-	// 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
+   var state = $('.minimap_ui').css('display');
+   var minimap = document.getElementById('minimap_canvas');
+
+   if(state == 'none')
+   {
+      // 만약 행성이라면, 빨간색 원 모양으로 그리기
+	   // 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
+      $('.minimap_ui').show();
+/*
+      socket.planet.emit('ready', {'ready to draw minimap'});
+
+      socket.planet.on('planet_res', function(data) {
+         var planetPos = []; 
+         var playerPos = [];
+      });
+*/
+   }
+   else
+   {
+      $('.minimap_ui').hide();
+   }
 }
 
 

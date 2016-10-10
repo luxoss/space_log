@@ -370,23 +370,27 @@ function keyHandler(user, socket)
       }
    });	
 
-   $('#planet_btn').on('click', function(){
+   $('#planet_btn').on('click', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
    });
 
-   $('#battle_ship_btn').on('click', function(){
+   $('#battle_ship_btn').on('click', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       battleShipViewLayer();
    });
 
-   $('#rank_btn').on('click', function(){
+   $('#rank_btn').on('click', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
    });
+/*
+   $('#minimap_btn').on('click', function() {      
+   });
+*/
 }
 
 function keyController(ev, divId, user) 
@@ -478,7 +482,7 @@ function btnControl(ev, user)
 {
    var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 
-       BATTLESHIP_BTN = 66, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
+       BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
    var userId = user['name'];
  
    lastPosX = user['x'];
@@ -503,6 +507,11 @@ function btnControl(ev, user)
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
+   }
+
+   if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
+   {
+      drawMinimap(socket);
    }
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]

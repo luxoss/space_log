@@ -205,17 +205,6 @@ body {
 	border-radius: 5px;
 }
 
-.rank_ui { 
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 500px;
-	height: 600px;
-	display: none;
-	overflow-y: scroll;
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	position: fixed;
-	z-index: 100;
-}
-
 #rank_btn {
  	background-image: url('../res/img/icon/button_design3.png');
   	width: 50px;
@@ -224,12 +213,61 @@ body {
 	border-radius: 5px;
 }
 
+.rank_ui { 
+	background-color: rgba(255, 255, 255, 0.5);
+	width: 500px;
+	height: 600px;
+	display: none;
+   overflow-x: hidden;
+	overflow-y: scroll;
+	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position: fixed;
+	z-index: 100;
+}
+
+#rank_title {
+   background-color: rgba(43, 100, 31, 0.7);
+   width: 500px;
+   height: 100px;
+   left: 0px;
+   position: absolute;
+}
+
+#user_rank {
+   color: rgba(255, 255, 255, 0.7);
+	background-color: rgba(255, 0, 0, 0.3);
+	width: 100px;
+	height: 100px;
+	left: 0px;
+	position: absolute;
+}
+
+#user_id {
+   color: rgba(255, 255, 255, 0.7);
+	background-color: rgba(0, 255, 0, 0.3);
+	width: 200px;
+	height: 100px;
+	left: 100px;
+	position: absolute;
+}
+
+#user_planets {
+   color: rgba(255, 255, 255, 0.7);
+	background-color: rgba(0, 0, 255, 0.3);
+	width: 200px;
+	height: 100px;
+	right: 0px;
+	position: absolute;
+}
+
 .planet_ui {
 	background-color: rgba(255, 255, 255, 0.5);
-	width: 900px;
+	width: 980px;
 	height: 700px;
 	display: none;
+   overflow-x: hidden;
 	overflow-y: scroll;
+   border-radius: 5px;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
 	position: fixed;
 	z-index: 100;
@@ -237,64 +275,58 @@ body {
 
 #planet_info {
 	background-color: rgba(43, 100, 31, 0.7);
-	width: 900px;
+	width: 980px;
 	height: 100px;
 	border: 0px;
-   padding: 0px;
-   margin: 0px;
 	left: 0px;
 	position: absolute;
 }
 
 #planet_name {
+   background-color: rgba(255, 0, 0, 0.3);
    color : rgba(255, 255, 255, 0.7);
-   font-size: 24pt;
-   width: 300px;
+   font-size: 20pt;
+   width: 200px;
    height: 100px;
-   border: 1px solid rgba(255, 255, 255, 0.7);
-   padding: 0px;
-   margin : 0px;
+   border: 0px;
    left : 0px;
    position: absolute;
    text-align: center;
 }
 
 #planet_resource {
+   background-color: rgba(0, 255, 255, 0.3);
    color : rgba(255, 255, 255, 0.7);
-   font-size: 24pt;
-   width: 300px;
+   font-size: 20pt;
+   width: 390px;
    height: 100px;
-   border: 1px solid rgba(255, 255, 255, 0.7);
-   padding: 0px;
-   margin : 0px;
-   left : 300px;
+   border: 0px;
+   left : 200px;
    position: absolute;
    text-align: center;
 }
 
 #planet_discover {
+   background-color: rgba(0, 0, 255, 0.3);
    color : rgba(255, 255, 255, 0.7);
-   font-size: 24pt;
+   font-size: 20pt;
    width: 200px;
    height: 100px;
-   border: 1px solid rgba(255, 255, 255, 0.7);
-   padding: 0px;
-   margin : 0px;
-   right : 100px;
+   border: 0px;
+   left : 590px;
    position: absolute;
    text-align: center;
 }
 
 #planet_grade {
+   background-color: rgba(255, 0, 255, 0.3);
    color : rgba(255, 255, 255, 0.7);
-   font-size: 24pt;
-   width: 100px;
+   font-size: 20pt;
+   width: 200px;
    height: 100px;
-   border: 1px solid rgba(255, 255, 255, 0.7);
-   padding: 0px;
-   margin : 0px;
-   right : 0px;
-   position: absolute;
+   border: 0px;
+   left: 790px;
+   position: absolute;   
    text-align: center;
 }
 
@@ -365,31 +397,6 @@ body {
 	bottom: 0px;
 	position: absolute;
 }
-
-#user_ranking {
-	background-color: rgb(255, 0, 0);
-	width: 100px;
-	height: 100px;
-	left: 0px;
-	position: absolute;
-}
-
-#user_id {
-	background-color: rgb(0, 255, 0);
-	width: 200px;
-	height: 100px;
-	left: 100px;
-	position: absolute;
-}
-
-#user_planet_number {
-	background-color: rgb(0, 0, 255);
-	width: 200px;
-	height: 100px;
-	right: 0px;
-	position: absolute;
-}
-
 /*
 // I thinnk that user got by misile and cube information 
 #misile01_slot {
