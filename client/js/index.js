@@ -5,21 +5,23 @@
 */
 $(function() {  // Same to $(document).ready(function()) that is 'onload' 
    var userInfoSocket = io.connect('http://203.237.179.21:5001');  
-   var userInitInfo = {
-      username : null,
-      password : null, 
-   };
 
-   mainDisplayResize();
+   $(window).resize(function(){
+      $('#main_container').css({position:'absolute'}).css({
+	      left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
+	      top: ($(window).height() - $('#main_container').outerHeight()) / 2
+      });
+   }).resize();		
 
-   $("#join_btn").on('click', function(userInitInfo){
+   $("#join_btn").on('click', function(){
+      var user = {};
 
-      userInitInfo.username = $("#username").val();
-      userInitInfo.password = $("#password").val();
+      user.username = $("#username").val();
+      user.password = $("#password").val();
 			
       alert("Loading...");
 
-      if((userInitInfo['username'] == "" ) || (userInitInfo['password'] == "")) 
+      if((user['username'] == "" ) || (user['password'] == "")) 
       {
          alert("아이디와 비밀번호를 입력해주세요.");
          window.location.reload();
@@ -27,8 +29,8 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       else 
       {
          userInfoSocket.emit('join_msg', {    
-            username: userInitInfo.username, 
-            password: userInitInfo.password 
+            username: user.username, 
+            password: user.password 
          }); 
 
 	      userInfoSocket.on('join_res', function(data){		
@@ -46,23 +48,24 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
    });
 
-   $("#login_btn").on('click', function(userInitInfo){ 
-      var mainPageUrl = "./main.html";
+   $("#login_btn").on('click', function(){ 
+      var user = {};
+      var mainPageUrl = './main.html';
 
-      userInitInfo.username = $('#username').val();
-      userInitInfo.password = $('#password').val();
+      user['username'] = $('#username').val();
+      user['password'] = $('#password').val();
  
       userInfoSocket.emit('login_msg', {
-         username: userInitInfo.username, 
-         password: userInitInfo.password
+         username: user['username'], 
+         password: user['password']
       });
 
       userInfoSocket.on('login_res', function(data){
          
-         if(data.response == "true") 
+         if(data['response'] == "true") 
          {
-            alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다.");
-            getUserItems(userInitInfo);		
+            alert(user['username'] + "님 space_log 세계에 오신 것을 환영합니다.");
+            getUserItems(UserInfoSocket, user);		
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -79,26 +82,25 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 			
       if(keyCode == 13) 
       {
-         var userInitInfo = {}; 		
-         var username = $('#username').val();
+         var user = {}; 		
          var password = $('#password').val();
-         var mainPageUrl = "./main.html";
+         var mainPageUrl = './main.html';
         
-		   userInitInfo.username = username;
-	      userInitInfo.password = password;
+		   user['username'] = $("#username").val();
+	      user['password'] = $("#password").val();
 			
 	      alert('loading...');
 
 	      userInfoSocket.emit('login_msg', {
-            username: userInitInfo.username, 
-            password: userInitInfo.password
+            username: user['username'], 
+            password: user['password']
          });
          
          userInfoSocket.on('login_res', function(data){                       
             if(data.response == "true") 
             {
-               alert(userInitInfo.username + "님 space_log 세계에 오신 것을 환영합니다!!");	       
-               getUserItems(userInfoSocket, userInitInfo);
+               alert(user.username + "님 space_log 세계에 오신 것을 환영합니다!!");	       
+               getUserItems(userInfoSocket, user);
                $(location).attr('href', mainPageUrl);
 	         }
             else 
@@ -111,17 +113,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
    });
 });
 
-function mainDisplayResize() 
-{
-   $(window).resize(function(){
-      $('#main_container').css({position:'absolute'}).css({
-	      left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
-	      top: ($(window).height() - $('#main_container').outerHeight()) / 2
-      });
-   }).resize();		
-}
-
-function getUserItems(userInfoSocket, userInitInfo) 
+function getUserItems(userInfoSocket, user) 
 {
    if(!localStorage) 
    {
@@ -131,29 +123,29 @@ function getUserItems(userInfoSocket, userInitInfo)
    {	
       userInfoSocket.on('user_info', function(data) {
 	      		
-         if(data.username == userInitInfo['username'])
+         if(data.username == user['username'])
          {
-            userInitInfo.name = data.username;
-            userInitInfo.exp = data.exp;
-            userInitInfo.hp = data.hp;
-            userInitInfo.mineral = data.mineral;
-            userInitInfo.gas = data.gas;
-            userInitInfo.unknown = data.unknown;
-            userInitInfo.x = data.location_x;
-            userInitInfo.y = data.location_y;
+            user['username'] = data.username;
+            user['exp'] = data.exp;
+            user['hp'] = data.hp;
+            user['mineral'] = data.mineral;
+            user['gas'] = data.gas;
+            user['unknown'] = data.unknown;
+            user['x'] = data.location_x;
+            user['y'] = data.location_y;
 
-            localStorage.setItem('username', userInitInfo.name); 
-            localStorage.setItem('exp', userInitInfo.exp);
-            localStorage.setItem('hp', userInitInfo.hp);
-            localStorage.setItem('mineral', userInitInfo.mineral);
-            localStorage.setItem('gas', userInitInfo.gas);
-            localStorage.setItem('unknown', userInitInfo.unknown);
-            localStorage.setItem('x', userInitInfo.x);
-            localStorage.setItem('y', userInitInfo.y);
+            localStorage.setItem('username', user['username']); 
+            localStorage.setItem('exp', user['exp']);
+            localStorage.setItem('hp', user['hp']);
+            localStorage.setItem('mineral', user['mineral']);
+            localStorage.setItem('gas', user['gas']);
+            localStorage.setItem('unknown', user['unknown']);
+            localStorage.setItem('x', user['x']);
+            localStorage.setItem('y', user['y']);
          }
          else
          {
-            console.log("[Client log] Socket isn't available.");
+            console.log("[Client log] UserInfoSocket isn't available.");
          }
       });
    }

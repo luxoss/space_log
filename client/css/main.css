@@ -251,12 +251,12 @@ body {
    font-size: 24pt;
    width: 300px;
    height: 100px;
-   border: 0px;
+   border: 1px solid rgba(255, 255, 255, 0.7);
    padding: 0px;
    margin : 0px;
    left : 0px;
    position: absolute;
-   vertical-align: middle;
+   text-align: center;
 }
 
 #planet_resource {
@@ -264,12 +264,12 @@ body {
    font-size: 24pt;
    width: 300px;
    height: 100px;
-   border: 0px;
+   border: 1px solid rgba(255, 255, 255, 0.7);
    padding: 0px;
    margin : 0px;
    left : 300px;
    position: absolute;
-   vertical-align: middle;
+   text-align: center;
 }
 
 #planet_discover {
@@ -277,12 +277,12 @@ body {
    font-size: 24pt;
    width: 200px;
    height: 100px;
-   border: 0px;
+   border: 1px solid rgba(255, 255, 255, 0.7);
    padding: 0px;
    margin : 0px;
-   left : 600px;
+   right : 100px;
    position: absolute;
-   vertical-align: middle;
+   text-align: center;
 }
 
 #planet_grade {
@@ -290,14 +290,13 @@ body {
    font-size: 24pt;
    width: 100px;
    height: 100px;
-   border: 0px;
+   border: 1px solid rgba(255, 255, 255, 0.7);
    padding: 0px;
    margin : 0px;
-   left : 800px;
+   right : 0px;
    position: absolute;
-   vertical-align: middle;
+   text-align: center;
 }
-
 
 .battle_ship_ui {
 	background-color: rgba(255, 255, 255, 0.5);
