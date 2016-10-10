@@ -235,29 +235,38 @@ body {
 
 #user_rank {
    color: rgba(255, 255, 255, 0.7);
+   font-size: 20pt;
 	background-color: rgba(255, 0, 0, 0.3);
 	width: 100px;
 	height: 100px;
 	left: 0px;
 	position: absolute;
+   text-align: center;
+   line-height: 100px;
 }
 
 #user_id {
    color: rgba(255, 255, 255, 0.7);
+   font-size: 20pt;
 	background-color: rgba(0, 255, 0, 0.3);
 	width: 200px;
 	height: 100px;
 	left: 100px;
 	position: absolute;
+   text-align: center;
+   line-height: 100px;
 }
 
 #user_planets {
    color: rgba(255, 255, 255, 0.7);
+   font-size: 20pt;
 	background-color: rgba(0, 0, 255, 0.3);
 	width: 200px;
 	height: 100px;
 	right: 0px;
 	position: absolute;
+   text-align: center;
+   line-height: 100px;
 }
 
 .planet_ui {
@@ -292,6 +301,7 @@ body {
    left : 0px;
    position: absolute;
    text-align: center;
+   line-height: 100px;
 }
 
 #planet_resource {
@@ -304,6 +314,7 @@ body {
    left : 200px;
    position: absolute;
    text-align: center;
+   line-height: 100px;
 }
 
 #planet_discover {
@@ -316,6 +327,7 @@ body {
    left : 590px;
    position: absolute;
    text-align: center;
+   line-height: 100px;
 }
 
 #planet_grade {
@@ -328,6 +340,7 @@ body {
    left: 790px;
    position: absolute;   
    text-align: center;
+   line-height: 100px;
 }
 
 .battle_ship_ui {
