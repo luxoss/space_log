@@ -441,8 +441,7 @@ function keyController(ev, divId, user)
    {
       fire.play();
       console.log('fire!');
-      fire.currentTime = 0;
-//      socket.
+      fire.currentTime = 0;      
       //shoot(curPosX, curPosY);	
    }
 
