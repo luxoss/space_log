@@ -63,7 +63,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
          if(data.response == "true") 
          {
             alert(user['name'] + "님 space_log 세계에 오신 것을 환영합니다.");
-            getUserItems(UserInfoSocket, user);		
+            getUserItems(userInfoSocket, user);		
             $(location).attr('href', mainPageUrl);
 	      } 
          else 
@@ -120,7 +120,7 @@ function getUserItems(userInfoSocket, user)
    {	
       userInfoSocket.on('user_info', function(data) {
 	      		
-         if(data.username == user['username'])
+         if(data.username == user['name'])
          {
             user['name'] = data.username;
             user['exp'] = data.exp;

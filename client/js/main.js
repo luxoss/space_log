@@ -621,21 +621,6 @@ function userPosUpdate(user)
       // TODO:  여기서 실행하면 키 입력 값을 받을 때 마다 appendChild를 하므로 같은 테그들이 생겨남
       //        따라서 초기화 시에 접속한 모든 사람의 데이터를 받아 appendChild를 한 번 해주고 
       //        위치 변경 시 각각의 css style만 바꿔야 함.
-      //        (참고 : 최초 접속 시 현재 접속해 있는 모든 유저들의 이름, 위치 정보만을 DB에서 불러온다.
-      //                그리고 위치 이동의 경우에는 키 이벤트를 이용한 통신을 한다.)
-      $("#main_layer").append(
-         "<div id='" + data['username'] + "' style='position: absolute;'></div>"
-      );
-
-      $("#" + data['username']).append(
-         "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-         + data['username'] + "</div>"
-      );
-
-      $("#" + data['username']).append(
-         "<div id='" + data['username'] + "_laser" + "' style='position:absolute;'></div>"
-      );
-     
       if(userId === data['username'])  
       {
          console.log(
@@ -760,6 +745,19 @@ function userPosUpdate(user)
                ",key_value: ", data['key_val']
          );
 
+         $("#main_layer").append(
+            "<div id='" + data['username'] + "' style='position: absolute;'></div>"
+         );
+
+         $("#" + data['username']).append(
+            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+            + data['username'] + "</div>"
+         );
+         /*
+         $("#" + data['username']).append(
+            "<div id='" + data['username'] + "_laser" + "' style='position:absolute;'></div>"
+         );
+         */   
          switch(keyValue)
          {
             case LEFT:	      
@@ -870,7 +868,8 @@ function userPosUpdate(user)
 }
 
 /*
-//TODO: AABB Collision Detection Model
+// TODO: AABB Collision Detection Model
+// Battleship (width: 64, height: 64), Planet (width: 100, height: 100)
 function BoxModel(user, planet, width, height) 
 {
    this.x = user.x;
