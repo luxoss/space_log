@@ -11,7 +11,7 @@
 function drawMinimap(socket)
 {
    // background width: 3500px, height: 3500px
-   // canvas width: 250px = 3500 / x = ?, height: 250px = 3500 / y = ? 
+   // canvas width: 250px = 3500 / x = 12, height: 250px = 3500 / y = 12
    var state = $('.minimap_ui').css('display');
    var minimap = document.getElementById('minimap_canvas');
 
@@ -33,29 +33,33 @@ function drawMinimap(socket)
             y : 0
          };
 
-      socket.planet.emit('ready', {'ready to draw minimap'});
+         socket.planet.emit('ready', {'ready to draw minimap'});
 
-      socket.planet.on('planet_res', function(data) {
-         ctx.fillStyle = "rgb(255, 0, 0)";
-         ctx.beginPath();
-         ctx.arc(x, y, rad, 0 Math.PI * 2, true) // 시계방향으로 그림
-         ctx.closePath();
-         ctx.fill();
-      });
+         socket.planet.on('planet_res', function(data) {
+            planet.x = data.location_x;
+            planet.y = data.location_y;
 
-      socket.userPos.on('mv', function(data) {
-         if(user['name'] == data['username'])
-         {
-            ctx.fillStyle = "rgb(255, 255, 0)";
-            ctx.fillRect(user['x'], user['y'], width, height);
-         }
-         else
-         {
-            ctx.fillStyle = "rgb(0, 0, 0)";
-            ctx.fillRect(data['location_x'], data['location_y'], width, height); 
-         }
-      });
-   */       
+            ctx.fillStyle = "rgb(255, 0, 0)";
+            ctx.beginPath();
+            ctx.arc(parseInt(planet/12), parseInt(planet/12), 2, 0 Math.PI * 2, true) // 시계방향으로 그림
+            ctx.closePath();
+            ctx.fill();
+         });
+
+         socket.userPos.on('mv', function(data) {
+            if(user['name'] == data['username'])
+            {
+               ctx.fillStyle = "rgb(255, 255, 0)";
+               ctx.fillRect(user['x'], user['y'], width, height);
+            }
+            else
+            {
+               ctx.fillStyle = "rgb(0, 0, 0)";
+               ctx.fillRect(data['location_x'], data['location_y'], width, height); 
+            }
+         });
+      }
+      */       
    }
    else
    {
