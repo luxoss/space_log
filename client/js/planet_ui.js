@@ -7,7 +7,7 @@
 function planetViewLayer(planetSocket)
 {
    var state = $('.planet_ui').css('display');
-      console.log(planetSocket);
+   var cnt = 1, posDown = 0;
 
    if(state == 'none') 
    {
@@ -24,27 +24,8 @@ function planetViewLayer(planetSocket)
             grade : data.create_spd
             //discover : "false",
          };
-         console.log(
-            "planet: ", "gas: ", "mineral: ", "unknown: ", "grade: ",
-            planet.name, planet.gas, planet.mineral, planet.unknown, planet.grade
-         );
 
-         // Not a div append, try list and table tag. 
-         // e.g) <table></table> or <li></li> or <ul></ul>
-         $("#planet_name").append( 
-            "<div id ='" + planet.name + "' style='position: absolute;'></div>"
-         );
-
-         $("#planet_resource").append(
-            "<div id='" + planet.gas + "'style='position:absolute;'></div>"	
-            + "<div id='" + planet.mineral + "'style='position:absolute;'></div>" 
-            + "<div id='" + planet.unknown + "'style='position:absolute;'></div>"
-         );
-
-	      //$("#planet_discovered").append(planet.discover);
-	      $("#planet_grade").append(
-	         "<div id='" + planet.grade + "'style='position:absolute;'></div>"
-	      ); 
+         console.log( "planet:", planet.name, "gas:", planet.gas, "mineral:", planet.mineral, "unknown:",  planet.unknown, "grade:", planet.grade);
       });
    }
    else 

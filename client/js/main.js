@@ -176,16 +176,6 @@ function drawAllAssets(mainLayer, user, socket)
       scrollLeft: offset.left - ($(window).width() / 2), 
       scrollTop: offset.top - ($(window).height() / 2)  
    }, 1000);
-/*
-   localStorage.removeItem('username');
-   localStorage.removeItem('exp');
-   localStorage.removeItem('hp');
-   localStorage.removeItem('mineral');
-   localStorage.removeItem('gas');
-   localStorage.removeItem('unknown');
-   localStorage.removeItem('x');
-   localStorage.removeItem('y'); 
-*/
 }
 
 // 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
@@ -583,6 +573,16 @@ function logout(userId, lastPosX, lastPosY)
             }); 
            
             $("#" + userId).remove();
+
+            localStorage.removeItem('username');
+            localStorage.removeItem('exp');
+            localStorage.removeItem('hp');
+            localStorage.removeItem('mineral');
+            localStorage.removeItem('gas');
+            localStorage.removeItem('unknown');
+            localStorage.removeItem('x');
+            localStorage.removeItem('y'); 
+
             console.log("[Client log]", userId, "is logout!"); 
 
             alert(userId + '님께서 로그아웃 되셨습니다.');
