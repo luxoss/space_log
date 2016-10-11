@@ -46,7 +46,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
    });
 
-   $("#login_btn").on('click', function(userInfoSocket){ 
+   $("#login_btn").on('click', function(){ 
       var user = {};
       var mainPageUrl = './main.html';
 
@@ -62,7 +62,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
          
          if(data.response == "true") 
          {
-            alert(user['username'] + "님 space_log 세계에 오신 것을 환영합니다.");
+            alert(user['name'] + "님 space_log 세계에 오신 것을 환영합니다.");
             getUserItems(UserInfoSocket, user);		
             $(location).attr('href', mainPageUrl);
 	      } 
@@ -89,14 +89,14 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
 	      alert('loading...');
 
 	      userInfoSocket.emit('login_msg', {
-            username: user['username'], 
+	         username : user['name'],
             password: user['password']
          });
          
          userInfoSocket.on('login_res', function(data){                       
             if(data.response == "true") 
             {
-               alert(user.username + "님 space_log 세계에 오신 것을 환영합니다!!");	       
+               alert(user.name + "님 space_log 세계에 오신 것을 환영합니다!!");	       
                getUserItems(userInfoSocket, user);
                $(location).attr('href', mainPageUrl);
 	         }
@@ -122,7 +122,7 @@ function getUserItems(userInfoSocket, user)
 	      		
          if(data.username == user['username'])
          {
-            user['username'] = data.username;
+            user['name'] = data.username;
             user['exp'] = data.exp;
             user['hp'] = data.hp;
             user['mineral'] = data.mineral;
@@ -131,7 +131,7 @@ function getUserItems(userInfoSocket, user)
             user['x'] = data.location_x;
             user['y'] = data.location_y;
 
-            localStorage.setItem('username', user['username']); 
+            localStorage.setItem('username', user['name']); 
             localStorage.setItem('exp', user['exp']);
             localStorage.setItem('hp', user['hp']);
             localStorage.setItem('mineral', user['mineral']);

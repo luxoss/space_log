@@ -4,6 +4,7 @@ var new_p_n;
 var level_p=5;
 var source_q=0, x=0, y=0, spd=0;
 var date, get_time;
+var cnt;
 
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
@@ -27,13 +28,17 @@ function create_p(){
 				
 				x = Math.floor(Math.random()*3500-1);
 				y = Math.floor(Math.random()*3500-1);
+				
+				collection.find().count(function(err, count){
+					cnt = count+1;
+				});
 
 				collection.findOne({location_x : x, location_y : y},  function(err, doc){
 					if(err){
 					
 					} else if (doc == null){
 						console.log('There are no planetn\'s location x, y. So insert the documents');
-						collection.insert({mineral : source_q, gas :source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd}, function(err, ins_res){});
+						collection.insert({p_id : cnt, mineral : source_q, gas :source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd, develop :"false"}, function(err, ins_res){});
 					} else{ 
 						console.log('there are already data');
 						var n_dat = new Date();
@@ -44,12 +49,14 @@ function create_p(){
 						x = x + (n_t*n_ran);
 						y = y + (n_t*n_ran);
 						spd = n_t%level_p;
-						
+//						cnt = collection.find().count();
+//						console.log("!^@#&(#*(#**$($*    cnt :::::   !*#*($#*Q@&*&#*#&$(*&    " + cnt);
+
 						collection.findOne({location_x : x, location_y : y},  function(err, rdoc){
 							if(err){
 							
 							}else if(rdoc == null){
-								collection.insert({mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd});
+								collection.insert({p_id : cnt, mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd, develop : "false"});
 							}
 						});
 					}

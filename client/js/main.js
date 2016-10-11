@@ -308,10 +308,19 @@ function keyHandler(user, socket)
    };
 
    $(document).keydown(function(ev) {  
+
       if(ev.keyCode == LEFT)
       {
          bg.x("main_layer", bg.x("main_layer") + speed);
+
          socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : LEFT, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+         socket.userPos.emit('collision_req', {
             'username': userId, 
             'key_val' : LEFT, 
             'location_x' : user['x'],
@@ -322,7 +331,15 @@ function keyHandler(user, socket)
       if(ev.keyCode == UP)
       {
          bg.y("main_layer", bg.y("main_layer") + speed);
+
          socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : UP, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+         socket.userPos.emit('collision_req', {
             'username': userId, 
             'key_val' : UP, 
             'location_x' : user['x'],
@@ -333,7 +350,15 @@ function keyHandler(user, socket)
       if(ev.keyCode == RIGHT)
       {
          bg.x("main_layer", bg.x("main_layer") - speed);
+
          socket.userPos.emit('press_key', {
+            'username': userId, 
+            'key_val' : RIGHT, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+         socket.userPos.emit('collision_req', {
             'username': userId, 
             'key_val' : RIGHT, 
             'location_x' : user['x'],
@@ -344,13 +369,22 @@ function keyHandler(user, socket)
       if(ev.keyCode == DOWN)
       {
          bg.y("main_layer", bg.y("main_layer") - speed);
+
          socket.userPos.emit('press_key', {
             'username': userId, 
             'key_val' : DOWN, 
             'location_x' : user['x'],
             'location_y' : user['y']
          });
+
+         socket.userPos.emit('collision_req', {
+            'username': userId, 
+            'key_val' : DOWN, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
       }
+
       keyController(ev, user);
       btnControl(ev, user);
       //isKeyDown[ev.keyCode] = true;

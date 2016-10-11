@@ -25,7 +25,8 @@ var changeUserInform = require('./routes/changeUserInform');
 var changeUserPlanet = require('./routes/changeUserPlanet');
 //new : Sending all Users' position
 var broadcastPos = require('./routes/broadcastPos');
-
+//new : collision between my ship and planets
+var collisionPlanet = require('./routes/collisionPlanet');
 
 var app = express();
 
