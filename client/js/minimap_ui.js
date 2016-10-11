@@ -20,7 +20,7 @@ function drawMinimap(socket)
       // 만약 행성이라면, 빨간색 원 모양으로 그리기
 	   // 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
       $('.minimap_ui').show();
-      /*
+  
       if(minimap.getContext) 
       {
          var ctx = canvas.getContext('2d');
@@ -32,20 +32,20 @@ function drawMinimap(socket)
             x : 0,
             y : 0
          };
-
+         /*
          socket.planet.emit('ready', {'ready to draw minimap'});
 
          socket.planet.on('planet_res', function(data) {
             planet.x = data.location_x;
             planet.y = data.location_y;
 
-            ctx.fillStyle = "rgb(255, 0, 0)";
+            ctx.fillStyle = "rgba(255, 0, 0, 0.7)";
             ctx.beginPath();
-            ctx.arc(parseInt(planet/12), parseInt(planet/12), 2, 0 Math.PI * 2, true) // 시계방향으로 그림
+            ctx.arc(parseInt(planet/12), parseInt(planet/12), 2, 0 Math.PI * 2, false);
             ctx.closePath();
             ctx.fill();
          });
-
+         
          socket.userPos.on('mv', function(data) {
             if(user['name'] == data['username'])
             {
@@ -58,8 +58,8 @@ function drawMinimap(socket)
                ctx.fillRect(data['location_x'], data['location_y'], width, height); 
             }
          });
-      }
-      */       
+         */
+      }    
    }
    else
    {
