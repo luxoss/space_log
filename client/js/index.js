@@ -48,7 +48,7 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       }
    });
 
-   $("#login_btn").on('click', function(){ 
+   $("#login_btn").on('click', function(userInfoSocket){ 
       var user = {};
       var mainPageUrl = './main.html';
 
