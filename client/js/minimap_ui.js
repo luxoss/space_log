@@ -38,14 +38,15 @@ function drawMinimap(socket)
       socket.planet.on('planet_res', function(data) {
          ctx.fillStyle = "rgb(255, 0, 0)";
          ctx.beginPath();
-         ctx.arc(x, y, rad, 0 Math.PI, true) // 시계방향으로 그림
-         ctx.stroke();
+         ctx.arc(x, y, rad, 0 Math.PI * 2, true) // 시계방향으로 그림
+         ctx.closePath();
+         ctx.fill();
       });
 
       socket.userPos.on('mv', function(data) {
          if(user['name'] == data['username'])
          {
-            ctx.fillStyle = "yellow";
+            ctx.fillStyle = "rgb(255, 255, 0)";
             ctx.fillRect(user['x'], user['y'], width, height);
          }
          else

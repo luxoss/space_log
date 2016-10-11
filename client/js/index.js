@@ -16,12 +16,10 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
    $("#join_btn").on('click', function(){
       var user = {};
 
-      user.username = $("#username").val();
-      user.password = $("#password").val();
-			
-      alert("Loading...");
+      user['name'] = $.trim($("#username").val());
+      user['password'] = $.trim($("#password").val());
 
-      if((user['username'] == "" ) || (user['password'] == "")) 
+      if((user.name == '' ) || (user.password == '')) 
       {
          alert("아이디와 비밀번호를 입력해주세요.");
          window.location.reload();
@@ -29,8 +27,8 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       else 
       {
          userInfoSocket.emit('join_msg', {    
-            username: user.username, 
-            password: user.password 
+            username: user.name, 
+            password: user.password
          }); 
 
 	      userInfoSocket.on('join_res', function(data){		
@@ -52,17 +50,17 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       var user = {};
       var mainPageUrl = './main.html';
 
-      user['username'] = $('#username').val();
-      user['password'] = $('#password').val();
+      user.name = $.trim($('#username').val());
+      user.password = $.trim($('#password').val());
  
       userInfoSocket.emit('login_msg', {
-         username: user['username'], 
-         password: user['password']
+         username: user.name, 
+         password: user.password
       });
 
       userInfoSocket.on('login_res', function(data){
          
-         if(data['response'] == "true") 
+         if(data.response == "true") 
          {
             alert(user['username'] + "님 space_log 세계에 오신 것을 환영합니다.");
             getUserItems(UserInfoSocket, user);		
@@ -83,11 +81,10 @@ $(function() {  // Same to $(document).ready(function()) that is 'onload'
       if(keyCode == 13) 
       {
          var user = {}; 		
-         var password = $('#password').val();
          var mainPageUrl = './main.html';
         
-		   user['username'] = $("#username").val();
-	      user['password'] = $("#password").val();
+		   user.name = $.trim($("#username").val());
+	      user.password = $.trim($("#password").val());
 			
 	      alert('loading...');
 
@@ -154,16 +151,18 @@ function getUserItems(userInfoSocket, user)
 //TODO: Check 'join form '
 function pwdCheck() 
 {
-	var pwd = $('#password').val();
-	var check_pwd = $('#check_password').val();
+	var pwd = $.trim($('#password').val());
+	var check_pwd = $.trim($('#check_password').val());
 
-	if(pwd == check_pwd) 
+	if(pwd === check_pwd) 
    {
 		alert("회원가입이 완료되었습니다.");
+      return true;
 	}
    else 
    {
 		alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
+      return false;
 	}
 }
 
