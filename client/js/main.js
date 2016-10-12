@@ -151,7 +151,7 @@ function drawAllAssets(mainLayer, user, socket)
    $("#unknown").text(unknown);
    $("#position_x").text(user['x']);
    $("#position_y").text(user['y']);
-   //$("#hp_progress_bar").text(hp);
+   $("#hp_progress_bar").text(hp + " / 300");
 
    $("#user_avartar").append(
       "<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" 
