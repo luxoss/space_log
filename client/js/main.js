@@ -330,7 +330,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == LEFT)
       {
          bg.x("main_layer", bg.x("main_layer") + speed);
-//         bg.x("view_layer", bg.x("view_layer") - speed);
+         //bg.x("view_layer", bg.x("view_layer") - speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -343,7 +343,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == UP)
       {
          bg.y("main_layer", bg.y("main_layer") + speed);
-//         bg.y("view_layer", bg.y("view_layer") - speed);
+         //bg.y("view_layer", bg.y("view_layer") - speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -356,7 +356,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == RIGHT)
       {
          bg.x("main_layer", bg.x("main_layer") - speed);
-//         bg.x("view_layer", bg.x("view_layer") + speed);
+         //bg.x("view_layer", bg.x("view_layer") + speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -369,7 +369,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == DOWN)
       {
          bg.y("main_layer", bg.y("main_layer") - speed);
-//         bg.y("view_layer", bg.y("view_layer") + speed);
+         //bg.y("view_layer", bg.y("view_layer") + speed);
 
 
          socket.userPos.emit('press_key', {
@@ -617,6 +617,8 @@ function userPosUpdate(user)
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
+               //bg.x("main_layer", bg.x("main_layer") + 10);
+
                if(user['x'] <= 0) 
                {
                   user['x'] = 0;
@@ -641,6 +643,8 @@ function userPosUpdate(user)
                
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
+
+               //bg.x("main_layer", bg.x("main_layer") - 10);
 
                if(user['x'] >= 3430) 
                {
@@ -667,6 +671,8 @@ function userPosUpdate(user)
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
+               //bg.y("main_layer", bg.y("main_layer") + 10);
+
                if(user['y'] <= 0) 
                {
                   user['x'] = parseInt(data.location_x);
@@ -692,6 +698,7 @@ function userPosUpdate(user)
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
+               //bg.y("main_layer", bg.y("main_layer") - 10);
 
                if(user['y'] >= 3430) 
                {
