@@ -12,6 +12,8 @@ var speed = 10;
 
 var objects = {};
 var mv_obj={};
+var getP = {};
+
 var username="", key_val=0, x, y;
 var LEFT=37, UP=38, RIGHT=39, DOWN=40, ENTER=13;
 var p_size = 100, s_size = 64;
@@ -53,10 +55,13 @@ UsersPio.on('connection', function(socket){
 				break;
 			default : 
 			}
-		
 			mem_info.update({"username":username}, {$set : { "location_x" : mv_obj.location_x, "location_y" : mv_obj.location_y, "key_val" : mv_obj.key_val }});
 
+
+			UsersPio.emit('mv', mv_obj);
+/*
 			planet.find().toArray(function(err, results){
+
 				if(err){
 					console.log("Planet Find Error : ");
 					console.log(err);
@@ -64,40 +69,48 @@ UsersPio.on('connection', function(socket){
 					for(var i =0; i< results.length; i++){
 						if((((results[i].location_x <= mv_obj.location_x) && (results[i].location_x >= (mv_obj.location_x-100))) || ((results[i].location_x >= (mv_obj.location_x+64-100)) && (results[i].location_x <= mv_obj.location_x+64)) ) && (((results[i].location_y <= mv_obj.location_y) && (results[i].location_y >= (mv_obj.location_y -100))) || ((results[i].location_y >= (mv_obj.location_y+64-100)) && (results[i].location_y <= (mv_obj.location_y+64)))   )   ){
 							//collision
-							console.log(results[i]);
-						
+							getP = results[i];
+							console.log(getP);
+							break;
 						}
 					}
+
 				} else{
 				
 				}
-			});
 
-			/*  this is last version
-			planet.find({$or: [{location_x:{$lte:mv_obj.location_x, $gte:mv_obj.location_x-100}}, {location_x:{$lte:mv_obj.location_x+64, $gte:mv_obj.location_x+64-100}}]}).toArray(function(err, results){
-			
-				if (err){
-					console.log("err/////////////////////////");
+			});
+*/
+		});
+		socket.on('collision_req', function(data){
+			console.log("request!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+
+			planet.find().toArray(function(err, results){
+
+				if(err){
+					console.log("Planet Find Error : ");
 					console.log(err);
 				} else if(results){
-					console.log("get the results ..... /////");
-					//console.log(results[0])
-					console.log(results.length);
-					for (var i =0; i<results.length; i++){
-						
-						if(((results[i].location_y <= mv_obj.location_y)&& (results[i].location_y >= (mv_obj.location_y -100))) || ((results[i].location_y >= mv_obj.location_y +64-100) && (results[i].location_y+64))){
-							console.log(results[i]);
+					for(var i =0; i< results.length; i++){
+						if((((results[i].location_x <= mv_obj.location_x) && (results[i].location_x >= (mv_obj.location_x-100))) || ((results[i].location_x >= (mv_obj.location_x+64-100)) && (results[i].location_x <= mv_obj.location_x+64)) ) && (((results[i].location_y <= mv_obj.location_y) && (results[i].location_y >= (mv_obj.location_y -100))) || ((results[i].location_y >= (mv_obj.location_y+64-100)) && (results[i].location_y <= (mv_obj.location_y+64)))   )   ){
+							//collision
+							getP = results[i];
+							console.log(getP);
+							break;
 						}
 					}
 
 				} else{
 				
 				}
-			});*/
 
+			});
 
+			socket.emit('collision_res',  getP);
 
+	
 		});
+	
 /*
 		socket.on('init_press_key', function(data){
 			console.log("[SERVER LOG] Init press key.");
