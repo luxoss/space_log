@@ -22,10 +22,14 @@ function planetViewLayer(planetSocket)
             mineral : data.mineral, 
             unknown : data.unknown,
             grade : data.create_spd
-            //discover : "false",
+            //develop : data.develop,
          };
 
-         console.log( "planet:", planet.name, "gas:", planet.gas, "mineral:", planet.mineral, "unknown:",  planet.unknown, "grade:", planet.grade);
+         console.log( 
+            "planet:", planet.name, 
+            "gas:", planet.gas, "mineral:", planet.mineral, "unknown:",  planet.unknown, 
+            "grade:", planet.grade
+         );
       });
    }
    else 
@@ -36,7 +40,7 @@ function planetViewLayer(planetSocket)
    $(window).resize(function(){
       $('.planet_ui').css({
          left: ($(window).width() - $('.planet_ui').outerWidth()) / 2,
-	 top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
+	      top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
       });
    }).resize();		
 }

@@ -23,7 +23,7 @@ function drawMinimap(socket)
   
       if(minimap.getContext) 
       {
-         var ctx = canvas.getContext('2d');
+         var ctx = minimap.getContext('2d');
          var planet = {  // width: 64px, height: 64px
             x : 0,
             y : 0

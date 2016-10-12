@@ -198,74 +198,94 @@ function drawPlanetImg(mainLayer, data)
       }
    };
 	
-   if(planet.grade == 1)
+   if(planet.grade == 0)
    {
-      $("#" + mainLayer).append(
-         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
-         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
-      );	
+      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>");	
 
       $("#" + planet['id']).css({
          "backgroundImage" : planet.image['1'],
          "width"  : "100px",
-         "height" : "100px"
+         "height" : "100px",
+         left: planet['x'],
+         top: planet['y']
       });
+      
+      $("#" + planet['id']).append(
+         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         + planet['id'] + "</div>"
+      );
    }
    
-   if(planet.grade == 2) 
+   if(planet.grade == 1) 
    {
-      $("#" + mainLayer).append(
-         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
-         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
-      );	
+      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
 
       $("#" + planet['id']).css({
          "backgroundImage" : planet.image['2'],
          "width"  : "100px",
-         "height" : "100px"
+         "height" : "100px",
+         left: planet['x'],
+         top: planet['y']
       });
+
+      $("#" + planet['id']).append(
+         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         + planet['id'] + "</div>"
+      );
    }
    
-   if(planet.grade == 3) 
+   if(planet.grade == 2) 
    {
-      $("#" + mainLayer).append(
-         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
-         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
-      );	
+      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
 
       $("#" + planet['id']).css({
          "backgroundImage" : planet.image['3'],
          "width"  : "100px",
-         "height" : "100px"
+         "height" : "100px",
+         left: planet['x'],
+         top: planet['y']
       });
+
+      $("#" + planet['id']).append(
+         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         + planet['id'] + "</div>"
+      );
    }
    
-   if(planet.grade == 4)
+   if(planet.grade == 3)
    {
-      $("#" + mainLayer).append(
-         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
-         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
-      );	
+      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
 
       $("#" + planet['id']).css({
          "backgroundImage" : planet.image['4'],
          "width"  : "100px",
-         "height" : "100px"
+         "height" : "100px",
+         left: planet['x'],
+         top: planet['y']
       });
+
+      $("#" + planet['id']).append(
+         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         + planet['id'] + "</div>"
+      );
    }
    
-   if(planet.grade == 5) 
+   if(planet.grade == 4) 
    {
-      $("#" + mainLayer).append(
-         "<div id='" + planet['id'] + "' style='position: absolute; top:" 
-         + planet['x'] + "px" + "; left:" + planet['y'] + "px" + ";'></div>"
-      );	
+      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>");	
 
       $("#" + planet['id']).css({
          "backgroundImage" : planet.image['5'],
          "width"  : "100px",
-         "height" : "100px"
+         "height" : "100px",
+         left: planet['x'],
+         top: planet['y']
       });
+
+      $("#" + planet['id']).append(
+         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         + planet['id'] + "</div>"
+      );
    }
 }
 
@@ -309,13 +329,6 @@ function keyHandler(user, socket)
             'location_x' : user['x'],
             'location_y' : user['y']
          });
-
-         socket.userPos.emit('collision_req', {
-            'username': userId, 
-            'key_val' : LEFT, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
       }
 
       if(ev.keyCode == UP)
@@ -323,13 +336,6 @@ function keyHandler(user, socket)
          bg.y("main_layer", bg.y("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
-            'username': userId, 
-            'key_val' : UP, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
-
-         socket.userPos.emit('collision_req', {
             'username': userId, 
             'key_val' : UP, 
             'location_x' : user['x'],
@@ -347,13 +353,6 @@ function keyHandler(user, socket)
             'location_x' : user['x'],
             'location_y' : user['y']
          });
-
-         socket.userPos.emit('collision_req', {
-            'username': userId, 
-            'key_val' : RIGHT, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
       }
 
       if(ev.keyCode == DOWN)
@@ -366,16 +365,9 @@ function keyHandler(user, socket)
             'location_x' : user['x'],
             'location_y' : user['y']
          });
-
-         socket.userPos.emit('collision_req', {
-            'username': userId, 
-            'key_val' : DOWN, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
       }
 
-      keyController(ev, user);
+      keyController(ev, user, socket);
       btnControl(ev, user);
       //isKeyDown[ev.keyCode] = true;
    });
@@ -419,12 +411,10 @@ function keyHandler(user, socket)
 */
 }
 
-function keyController(ev, divId, user) 
+function keyController(ev, user, socket) 
 {
    var keyState = ev.keyCode;
-   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; 
    var SHOOT = 83, GOT_PLANET = 32;
-   var background = divId;
    //var laserX = 0, laserY = 0;
 
    if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
@@ -437,71 +427,34 @@ function keyController(ev, divId, user)
 
    if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
    {
+      // 함선이 행성과 충돌하지 않을 시에는 스페이스 바를 비활성화 시킨다.
+      // 함선이 행성과 충돌하였을 시에 스페이스 바를 활성화 시킨다.
       discovered.play();
-      console.log('got a planet');
       discovered.currentTime = 0;
+
+      console.log('got a planet');
+
+      socket.userPos.emit('collision_req', {'ready' : 'ready to develop planet!'});
+
+      socket.userPos.on('collision_res', function(data) {
+         if(data.develop == 'false')
+         {
+            console.log(
+               "planet id:", data.p_id, "x:", data.location_x, "y:", data.location_y, 
+               "develop:", data.develop
+            );
+/*
+            $(window).resize(function() {
+               $("#develop_planet_ui").css({
+                  left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2,
+                  top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
+               });
+            }).resize();
+*/            
+         }
+      });
    }
 }
-/*
-var shoot = function(curPosX, curPosY) {
-   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
-   var laserId = $("#" + user['name'] + "_laser");
-   var laserX = laserId.css("left");
-   var laserY = laserId.css("top");
-   var laserImg = {
-       LEFT : "url('http://203.237.179.21:8000/res/img/missile/laser_left.svg')",
-      RIGHT : "url('http://203.237.179.21:8000/res/img/missile/laser_right.svg')",
-         UP : "url('http://203.237.179.21:8000/res/img/missile/laser_up.svg')",
-       DOWN : "url('http://203.237.179.21:8000/res/img/missile/laser_down.svg')"
-   };
-
-   laserX = curPosX;
-   laserY = curPosY;
-
-   // If this key is pressed, save position image in user's laser division
-   if(key_state == LEFT) 
-   {
-      // Continueous minus X position that max => 64 * 5 
-      laserId.css({
-         "backgroundImage" : laserImg.LEFT,
-         left : laserX,
-         top : leserY
-      });
-     // After code is executed, wrtie below to the code lines.
-     // Change current position x and leave y position that current y position 
-   }
-     
-   if(key_state == RIGHT) 
-   {
-      // Continueous minus X position that max => 64 * 5 
-      laserId.css({
-         "backgroundImage" : laserImg.LEFT,
-         left : laserX,
-         top : leserY
-      });
-   }
-
-   if(key_state == UP) 
-   {
-      // Continueous minus X position that max => 64 * 5 
-      laserId.css({
-         "backgroundImage" : laserImg.UP,
-         left : laserX,
-         top : leserY
-      });
-   }
-
-   if(key_state == DOWN) 
-   {
-      // Continueous minus X position that max => 64 * 5 
-      laserId.css({
-         "backgroundImage" : laserImg.DOWN,
-         left : laserX,
-         top : leserY
-      });
-   }
-};
-*/
 
 function btnControl(ev, user) 
 {
@@ -890,7 +843,68 @@ boxModel.prototype.isCollision(user, planet) {
    }
    return false;
 }
+
+var shoot = function(curPosX, curPosY) {
+   var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
+   var laserId = $("#" + user['name'] + "_laser");
+   var laserX = laserId.css("left");
+   var laserY = laserId.css("top");
+   var laserImg = {
+       LEFT : "url('http://203.237.179.21:8000/res/img/missile/laser_left.svg')",
+      RIGHT : "url('http://203.237.179.21:8000/res/img/missile/laser_right.svg')",
+         UP : "url('http://203.237.179.21:8000/res/img/missile/laser_up.svg')",
+       DOWN : "url('http://203.237.179.21:8000/res/img/missile/laser_down.svg')"
+   };
+
+   laserX = curPosX;
+   laserY = curPosY;
+
+   // If this key is pressed, save position image in user's laser division
+   if(key_state == LEFT) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.LEFT,
+         left : laserX,
+         top : leserY
+      });
+     // After code is executed, wrtie below to the code lines.
+     // Change current position x and leave y position that current y position 
+   }
+     
+   if(key_state == RIGHT) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.LEFT,
+         left : laserX,
+         top : leserY
+      });
+   }
+
+   if(key_state == UP) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.UP,
+         left : laserX,
+         top : leserY
+      });
+   }
+
+   if(key_state == DOWN) 
+   {
+      // Continueous minus X position that max => 64 * 5 
+      laserId.css({
+         "backgroundImage" : laserImg.DOWN,
+         left : laserX,
+         top : leserY
+      });
+   }
+};
 */
+
+
 
 
 
