@@ -167,6 +167,7 @@ body {
   	bottom: 50px;
   	position: absolute;
 	z-index: 3;
+   display: none;
 }
 
 #position_navigator {

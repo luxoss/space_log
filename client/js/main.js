@@ -376,7 +376,7 @@ function keyHandler(user, socket)
       }
 
       keyController(ev, user, socket);
-      btnControl(ev, user);
+      btnControl(ev, user, socket);
       //isKeyDown[ev.keyCode] = true;
    });
 
@@ -464,7 +464,7 @@ function keyController(ev, user, socket)
    }
 }
 
-function btnControl(ev, user) 
+function btnControl(ev, user, socket) 
 {
    var keyState = ev.keyCode;
    var SHOOT = 83, GOT_PLANET = 32, 

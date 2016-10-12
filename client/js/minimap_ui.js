@@ -32,8 +32,7 @@ function drawMinimap(socket)
             x : 0,
             y : 0
          };
-         /*
-         socket.planet.emit('ready', {'ready to draw minimap'});
+         socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
          socket.planet.on('planet_res', function(data) {
             planet.x = data.location_x;
@@ -41,11 +40,12 @@ function drawMinimap(socket)
 
             ctx.fillStyle = "rgba(255, 0, 0, 0.7)";
             ctx.beginPath();
-            ctx.arc(parseInt(planet/12), parseInt(planet/12), 2, 0 Math.PI * 2, false);
+            //TODO: Diff result that between minimap planet arc and main_display
+            ctx.arc(parseInt((planet['x']/12)), parseInt((planet['y']/12)), 2, 0, Math.PI * 2, false);
             ctx.closePath();
             ctx.fill();
          });
-         
+        /* 
          socket.userPos.on('mv', function(data) {
             if(user['name'] == data['username'])
             {
