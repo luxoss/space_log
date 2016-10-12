@@ -330,6 +330,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == LEFT)
       {
          bg.x("main_layer", bg.x("main_layer") + speed);
+//         bg.x("view_layer", bg.x("view_layer") - speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -342,6 +343,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == UP)
       {
          bg.y("main_layer", bg.y("main_layer") + speed);
+//         bg.y("view_layer", bg.y("view_layer") - speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -354,6 +356,7 @@ function keyHandler(user, socket)
       if(ev.keyCode == RIGHT)
       {
          bg.x("main_layer", bg.x("main_layer") - speed);
+//         bg.x("view_layer", bg.x("view_layer") + speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -366,6 +369,8 @@ function keyHandler(user, socket)
       if(ev.keyCode == DOWN)
       {
          bg.y("main_layer", bg.y("main_layer") - speed);
+//         bg.y("view_layer", bg.y("view_layer") + speed);
+
 
          socket.userPos.emit('press_key', {
             'username': userId, 
