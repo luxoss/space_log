@@ -11,6 +11,13 @@ function planetViewLayer(planetSocket)
 
    if(state == 'none') 
    {
+      $(window).resize(function(){
+         $('.planet_ui').css({
+            left: ($(window).width() - $('.planet_ui').outerWidth()) / 2,
+	         top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
+         });
+      }).resize();		
+
       $('.planet_ui').show();
 
       planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
@@ -25,24 +32,14 @@ function planetViewLayer(planetSocket)
             //develop : data.develop,
          };
 
-         console.log( 
-            "planet:", planet.name, 
-            "gas:", planet.gas, "mineral:", planet.mineral, "unknown:",  planet.unknown, 
-            "grade:", planet.grade
-         );
+         // TODO: 1. All planets display
+         // TODO: 2. Own user's planets display that is developed. 
       });
    }
    else 
    {
       $('.planet_ui').hide();
    }
-
-   $(window).resize(function(){
-      $('.planet_ui').css({
-         left: ($(window).width() - $('.planet_ui').outerWidth()) / 2,
-	      top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
-      });
-   }).resize();		
 }
 
 
