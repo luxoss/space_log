@@ -422,7 +422,7 @@ function keyHandler(user, socket)
 function keyController(ev, user, socket) 
 {
    var keyState = ev.keyCode;
-   var SHOOT = 83, GOT_PLANET = 32;
+   var SHOOT = 83, DEVELOP_PLANET = 32;
    //var laserX = 0, laserY = 0;
 
    if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
@@ -433,7 +433,7 @@ function keyController(ev, user, socket)
       //shoot(curPosX, curPosY);	
    }
 
-   if(keyState == GOT_PLANET) // press space key, isKeyDown[32]
+   if(keyState == DEVELOP_PLANET) // press space key, isKeyDown[32]
    {
       // 함선이 행성과 충돌하지 않을 시에는 스페이스 바를 비활성화 시킨다.
       // 함선이 행성과 충돌하였을 시에 스페이스 바를 활성화 시킨다.
@@ -451,6 +451,7 @@ function keyController(ev, user, socket)
                "planet id:", data.p_id, "x:", data.location_x, "y:", data.location_y, 
                "develop:", data.develop
             );
+         }
 /*
             $(window).resize(function() {
                $("#develop_planet_ui").css({
@@ -458,8 +459,14 @@ function keyController(ev, user, socket)
                   top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
                });
             }).resize();
-*/            
+         
+
+         if(data.develop == 'true')
+         {
+            // 함선에 관한 정보와 개발할 것인지 아닌지를 묻는 창을 띄우고 개발하면
+            // 그 데이터를 서버에 보내고 내 자원 정보를 갱신한다.
          }
+*/
       });
    }
 }
