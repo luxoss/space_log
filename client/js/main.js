@@ -452,6 +452,8 @@ function keyController(ev, user, socket)
       socket.userPos.on('collision_res', function(data) {
          if(data.develop == 'false')
          {
+            //아래 함수 안에서 해당 뷰에 관한 컨트롤 및 개발 / 취소 버튼을 눌렀을 시의 이벤트 처리
+            //planetInfoView();
             console.log(
                "planet id:", data.p_id, "x:", data.location_x, "y:", data.location_y, 
                "develop:", data.develop
