@@ -47,6 +47,14 @@ $(document).ready(function(){ // onload document
 
 function viewPort() 
 {	
+   /*
+   $(window).resize(function() {
+      $("#main_layer").css({
+         left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
+         top : ($(window).height() - $("#main_layer").outerHeight()) / 2
+      });
+   }).resize();
+   */
    $(window).resize(function() {
       $("#view_layer").css({
          width: ($(window).width() - 200), 
