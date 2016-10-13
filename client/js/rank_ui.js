@@ -11,18 +11,20 @@ function rankViewLayer()
 
 	if(state == 'none')
 	{
+      $(window).resize(function(){
+         $('.rank_ui').css({
+            left: ($(window).width() - $('.rank_ui').outerWidth()) / 2,
+            top: ($(window).height() - $('.rank_ui').outerHeight()) / 2
+         });
+      }).resize();
+
+      $("#rank_btn").css("background-color", "rgba(255, 47, 77, 0.7)");
 		$('.rank_ui').show();
 	}
 	else
 	{
+      $("#rank_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
 		$('.rank_ui').hide();
 	}
-	
-	$(window).resize(function(){
-		$('.rank_ui').css({
-			left: ($(window).width() - $('.rank_ui').outerWidth()) / 2,
-			top: ($(window).height() - $('.rank_ui').outerHeight()) / 2
-		});
-	}).resize();
 }
 	

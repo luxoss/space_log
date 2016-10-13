@@ -297,7 +297,7 @@ body {
 
 #battle_ship_btn {
   	background-image: url('../res/img/icon/space_ship.svg');
-   background-color: rgba(255, 0, 0, 0.7);
+   background-color: rgba(0, 0, 0, 0.7);
   	width: 64px;
   	height: 64px;
    border: 0px;

@@ -17,7 +17,8 @@ function planetViewLayer(planetSocket)
 	         top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
          });
       }).resize();		
-
+      
+      $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('.planet_ui').show();
 
       planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
@@ -38,6 +39,7 @@ function planetViewLayer(planetSocket)
    }
    else 
    {
+      $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $('.planet_ui').hide();
    }
 }
