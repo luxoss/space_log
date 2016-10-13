@@ -376,6 +376,7 @@ body {
 #user_list {
    width: 500px;
    height: 500px;
+   top: 100px;
    position: absolute;
    overflow-y: scroll;
 }
