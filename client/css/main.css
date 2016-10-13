@@ -324,8 +324,6 @@ body {
 	width: 500px;
 	height: 600px;
 	display: none;
-   overflow-x: hidden;
-	overflow-y: scroll;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
 	position: fixed;
 	z-index: 100;
@@ -373,6 +371,13 @@ body {
 	position: absolute;
    text-align: center;
    line-height: 100px;
+}
+
+#user_list {
+   width: 500px;
+   height: 500px;
+   position: absolute;
+   overflow-y: scroll;
 }
 
 .planet_ui {
@@ -453,7 +458,7 @@ body {
    width: 980px;
    height: 600px;
    position: absolute;
-   overflow-x: scroll;
+   overflow-y: scroll;
 }
 
 .battle_ship_ui {
