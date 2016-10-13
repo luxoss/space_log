@@ -11,11 +11,13 @@ function battleShipViewLayer()
 
 	if(state == 'none')
 	{
-		$('.battle_ship_ui').show();
+      $("#battle_ship_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
+		$(".battle_ship_ui").show();
 	}
 	else
 	{
-		$('.battle_ship_ui').hide();
+      $("#battle_ship_btn").css('background-color', 'rgba(0, 0, 0, 0.7)');
+		$(".battle_ship_ui").hide();
 	}
 	
 	$(window).resize(function(){

@@ -277,28 +277,33 @@ body {
   	background-image: url('../res/img/icon/logout.svg');
   	width: 64px;
   	height: 64px;
-   border: 1px solid rgba(0, 255, 255, 0.7);
-   border-style: dotted;
+   border: 0px;
+   background-color: rgba(0, 0, 0, 0.7);
    left: 0px;
    position: absolute;
+   opacity: 0.7;
 }
 
 #planet_btn {
   	background-image: url('../res/img/icon/planet.svg');
+   background-color: rgba(0, 0, 0, 0.7);
   	width: 64px;
   	height: 64px;
    border: 0px;
    left: 64px;
    position: absolute;
+   opacity: 0.7;
 }
 
 #battle_ship_btn {
   	background-image: url('../res/img/icon/space_ship.svg');
+   background-color: rgba(255, 0, 0, 0.7);
   	width: 64px;
   	height: 64px;
    border: 0px;
    left: 128px;
    position: absolute;
+   opacity: 0.7;
 }
 
 #rank_btn {
@@ -306,8 +311,8 @@ body {
    background-color: rgba(0, 0, 0, 0.7);
   	width: 64px;
 	height: 64px;
-   border: 1px solid rgba(255, 0, 255, 0.7);
-   border-style: dotted;
+   border: 0px;
+   /*border-style: dotted;*/
    border-radius: 0px 15px 0px 0px;
    left: 192px;
    position: absolute;
