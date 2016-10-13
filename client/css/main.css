@@ -190,8 +190,8 @@ body {
 }
 
 #position_navigator {
-   width: 300px;
-   height: 50px;
+   width: 328px;
+   height: 64px;
    border: 2px solid rgba(255, 255, 255, 0.7);
    border-style: dotted;
    border-radius: 15px 15px 0px 0px;
@@ -207,14 +207,14 @@ body {
    color: rgba(255, 255, 255, 0.8);
    font-size: 14pt;
    font-weight: bold;
-   width: 50px;
-   height: 50px;
+   width: 64px;
+   height: 64px;
    border: 0px;
    border-radius: 15px 0px 0px 0px;
    left: 0px;
    position: absolute;
    text-align: center;
-   line-height: 50px;
+   line-height: 64px;
 }
 
 #icon_y {
@@ -222,14 +222,14 @@ body {
    color: rgba(255, 255, 255, 0.8);
    font-size: 14pt;
    font-weight: bold;
-   width: 50px;
-   height: 50px;
+   width: 64px;
+   height: 64px;
    border: 0px;
    border-radius: 0px 0px 0px 0px;
-   left: 150px;
+   left: 164px;
    position: absolute;
    text-align: center;
-   line-height: 50px;
+   line-height: 64px;
 }
 
 #position_x {
@@ -238,12 +238,12 @@ body {
    font-size: 14pt;
    font-weight: bold;
    width: 100px;
-   height: 50px;
+   height: 64px;
    border: 0px;
-   left: 50px;
+   left: 64px;
    position: absolute;
    text-align: center;
-   line-height: 50px;
+   line-height: 64px;
 }
 
 #position_y {
@@ -252,12 +252,12 @@ body {
    font-size: 14pt;
    font-weight: bold;
    width: 100px;
-   height: 50px;
+   height: 64px;
    border: 0px;
-   left: 200px;
+   left: 228px;
    position: absolute;
    text-align: center;
-   line-height: 50px;
+   line-height: 64px;
 }
 
 .menu_buttons_ui {
@@ -377,11 +377,9 @@ body {
 
 .planet_ui {
 	background-color: rgba(255, 255, 255, 0.5);
-	width: 980px;
+	width: 990px;
 	height: 700px;
 	display: none;
-   overflow-x: hidden;
-	overflow-y: scroll;
    border-radius: 5px;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
 	position: fixed;
@@ -390,7 +388,7 @@ body {
 
 #planet_info {
 	background-color: rgba(43, 100, 31, 0.7);
-	width: 980px;
+	width: 990px;
 	height: 100px;
 	border: 0px;
 	left: 0px;
@@ -403,8 +401,9 @@ body {
    font-size: 20pt;
    width: 200px;
    height: 100px;
-   border: 0px;
+   border: 5px 0px 0px 0px;
    left : 0px;
+   top: 0px;
    position: absolute;
    text-align: center;
    line-height: 100px;
@@ -443,10 +442,18 @@ body {
    width: 200px;
    height: 100px;
    border: 0px;
+   border-radius: 0px 5px 0px 0px;
    left: 790px;
    position: absolute;   
    text-align: center;
    line-height: 100px;
+}
+
+#planet_list {
+   width: 980px;
+   height: 600px;
+   position: absolute;
+   overflow-x: scroll;
 }
 
 .battle_ship_ui {
