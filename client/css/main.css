@@ -261,9 +261,9 @@ body {
 }
 
 .menu_buttons_ui {
-  	width: 230px;
-  	height: 50px;
-  	bottom: 20px;
+  	width: 260px;
+  	height: 64px;
+  	bottom: 0px;
   	left: 0px;
 	bottom: 0px;
 	position: absolute;
@@ -271,35 +271,43 @@ body {
 }
 
 #logout_btn {
-  	background-image: url('../res/img/icon/button_design0.png');
-  	width: 50px;
-  	height: 50px;
+  	background-image: url('../res/img/icon/logout.svg');
+  	width: 64px;
+  	height: 64px;
 	border: 1px solid yellow;
   	border-radius: 5px;
+   left: 0px;
+   position: absolute;
 }
 
 #planet_btn {
-  	background-image: url('../res/img/icon/button_design1.png');
-  	width: 50px;
-  	height: 50px;
+  	background-image: url('../res/img/icon/planet.svg');
+  	width: 64px;
+  	height: 64px;
 	border: 1px solid yellow;
 	border-radius: 5px;
+   left: 64px;
+   position: absolute;
 }
 
 #battle_ship_btn {
-  	background-image: url('../res/img/icon/button_design2.png');
-  	width: 50px;
-  	height: 50px;
+  	background-image: url('../res/img/icon/space_ship.svg');
+  	width: 64px;
+  	height: 64px;
 	border: 1px solid yellow;
 	border-radius: 5px;
+   left: 128px;
+   position: absolute;
 }
 
 #rank_btn {
- 	background-image: url('../res/img/icon/button_design3.png');
-  	width: 50px;
-	height: 50px;
+ 	background-image: url('../res/img/icon/rank.svg');
+  	width: 64px;
+	height: 64px;
 	border: 1px solid yellow;
 	border-radius: 5px;
+   left: 192px;
+   position: absolute;
 }
 
 .rank_ui { 
