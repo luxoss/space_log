@@ -8,8 +8,7 @@ body {
 	background-color: rgb(0, 0, 0);
 	overflow: hidden; 
    width: 7000px;
-   height: 7000px;
-   
+   height: 7000px;   
 }
 
 #main_layer {
@@ -24,8 +23,10 @@ body {
 
 #view_layer {
 	box-shadow: rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
-	border: 2px solid rgba(144, 32, 53, 0.7);
-	border-radius: 5px;
+   /*border: 2px solid rgba(144, 32, 53, 0.7);*/
+   border: 2px solid rgba(255, 255, 255, 0.7);
+   border-style: dotted;
+	border-radius: 15px;
 	position: fixed;
 	z-index: 3;
 }
@@ -34,7 +35,7 @@ body {
 	background: transparent;
   	width: 400px;
   	height: 100px;
-	border-radius: 10px;
+	border-radius: 0px 0px 15px 0px;
   	top: 0px;
   	left: 0px;	
   	position: absolute;
@@ -46,8 +47,8 @@ body {
 	background-color: rgba(255, 128, 255, 0.7);
 	width: 100px;
 	height: 100px;
-	border: 1px solid yellow;
-	border-radius: 10px 0px 0px 10px;
+	border: 1px solid rgba(255, 255, 255, 0.3);
+	border-radius: 15px 0px 0px 0px;
 	top: 0px;
 	left: 0px;
 	position: absolute;
@@ -70,7 +71,8 @@ body {
 	background-color: rgba(207, 47, 77, 0.7);
 	width: 300px;
 	height: 35px;
-	border: 1px solid rgb(207, 47, 77);
+	border: 2px solid rgba(207, 47, 77, 0.7);
+   border-style: dotted;
 	top: 0px; 
 	left: 102px;
 	position: absolute;
@@ -82,7 +84,8 @@ body {
    background-color : rgba(208, 196, 76, 0.7);
 	width: 300px;
 	height: 25px;
-	border: 1px solid rgb(208, 196, 76);
+	border: 2px solid rgba(208, 196, 76, 0.7);
+   border-style: dotted;
 	top: 38px;
 	left: 102px;
 	position: absolute;
@@ -91,7 +94,9 @@ body {
 #resource {
 	width: 300px;
 	height: 35px;
-	border: 1px solid rgb(83, 80, 44);
+	border: 2px solid rgba(83, 80, 44, 0.7);
+   border-style: dotted;
+   border-radius: 0px 0px 15px 0px; /* up-left up-right down-right down-left */
 	top: 65px;
 	left: 102px;	
 	position: absolute;
@@ -117,6 +122,8 @@ body {
    height: 35px;
    left: 30px;
    position: absolute;
+   text-align: center;
+   line-height: 35px;
 }
 
 #g_icon {
@@ -139,6 +146,8 @@ body {
    height: 35px;
    left: 130px;
    position: absolute;
+   text-align: center;
+   line-height: 35px;
 }
 
 #u_icon {
@@ -155,47 +164,53 @@ body {
    text-align: right;
    background-color: rgba(28, 21, 28, 0.7);
    border: 0px;
+   border-radius: 0px 0px 15px 0px;
    padding: 0px;
    margin: 0px;
    width: 70px;
    height: 35px;
    left: 230px;
    position: absolute;
+   text-align: center;
+   line-height: 35px;
 }
 
 .minimap_ui {
-  	background-color: rgba(102, 153, 255, 0.7);
+   background-color: rgba(255, 0, 255, 0.1);
   	width: 300px;
   	height: 300px; 
-  	border: 1px solid;
-  	border-color: rgba(102, 153, 255, 1);
-	border-radius: 10px;
+  	border: 3px solid rgba(255, 255, 255, 0.7);;
+   border-style: dotted;
+	border-radius: 15px 0px 0px 0px;
  	right: 0px;
-  	bottom: 50px;
+  	bottom: 0px;
   	position: absolute;
 	z-index: 3;
    display: none;
 }
 
 #position_navigator {
-   background-color: rgba(102, 153, 255, 0.7);
    width: 300px;
    height: 50px;
-   border: 1px solid rgba(255, 255, 255, 0.7);
-   right: 0px;
+   border: 2px solid rgba(255, 255, 255, 0.7);
+   border-style: dotted;
+   border-radius: 15px 15px 0px 0px;
+   left: 50%;
    bottom: 0px;
+   transform: translateX(-50%);
    position: absolute;
    z-index: 3;
 }
 
 #icon_x {
+   background-color: rgba(255, 0, 0, 0.3);
    color: rgba(255, 255, 255, 0.7);
    font-size: 14pt;
    font-weight: bold;
-   background-color: rgba(255, 0, 0, 0.3);
    width: 50px;
    height: 50px;
-   border 0px;
+   border: 0px;
+   border-radius: 15px;
    left: 0px;
    position: absolute;
    text-align: center;
@@ -203,13 +218,14 @@ body {
 }
 
 #icon_y {
+   background-color: rgba(0, 0, 255, 0.3);
    color: rgba(255, 255, 255, 0.7);
    font-size: 14pt;
    font-weight: bold;
-   background-color: rgba(0, 0, 255, 0.3);
    width: 50px;
    height: 50px;
    border: 0px;
+   border-radius: 15px;
    left: 150px;
    position: absolute;
    text-align: center;
@@ -217,9 +233,10 @@ body {
 }
 
 #position_x {
+/*   background-color: rgba(255, 255, 255, 0.3);*/
    color: rgba(255, 255, 255, 0.7);
    font-size: 14pt;
-   background-color rgba(0, 0, 0, 0.3);
+   font-weight: bold;
    width: 100px;
    height: 50px;
    border: 0px;
@@ -230,9 +247,10 @@ body {
 }
 
 #position_y {
+/*   background-color: rgba(255, 255, 255, 0.3);*/
    color: rgba(255, 255, 255, 0.7);
    font-size: 14pt;
-   background-color: rgba(0, 0, 0, 0.3);
+   font-weight: bold;
    width: 100px;
    height: 50px;
    border: 0px;
