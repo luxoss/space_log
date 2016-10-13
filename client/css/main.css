@@ -204,13 +204,13 @@ body {
 
 #icon_x {
    background-color: rgba(255, 0, 0, 0.3);
-   color: rgba(255, 255, 255, 0.7);
+   color: rgba(255, 255, 255, 0.8);
    font-size: 14pt;
    font-weight: bold;
    width: 50px;
    height: 50px;
    border: 0px;
-   border-radius: 15px;
+   border-radius: 15px 0px 0px 0px;
    left: 0px;
    position: absolute;
    text-align: center;
@@ -219,13 +219,13 @@ body {
 
 #icon_y {
    background-color: rgba(0, 0, 255, 0.3);
-   color: rgba(255, 255, 255, 0.7);
+   color: rgba(255, 255, 255, 0.8);
    font-size: 14pt;
    font-weight: bold;
    width: 50px;
    height: 50px;
    border: 0px;
-   border-radius: 15px;
+   border-radius: 0px 0px 0px 0px;
    left: 150px;
    position: absolute;
    text-align: center;
