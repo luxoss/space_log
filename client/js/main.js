@@ -39,34 +39,10 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // onload document 
-   viewPort();
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
 });
-
-function viewPort() 
-{	
-   /*
-   $(window).resize(function() {
-      $("#main_layer").css({
-         left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
-         top : ($(window).height() - $("#main_layer").outerHeight()) / 2
-      });
-   }).resize();
-   */
-   $(window).resize(function() {
-      $("#view_layer").css({
-         width: ($(window).width() - 200), 
-         height: ($(window).height() - 100) 
-      });
-
-      $('#view_layer').css({
-         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
-         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
-      });
-   }).resize();
-}
 
 function drawAllAssets(mainLayer, user, socket) 
 {
@@ -82,6 +58,25 @@ function drawAllAssets(mainLayer, user, socket)
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
    
+   $(window).resize(function() {
+      $("#main_layer").css({
+         left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
+         top : ($(window).height() - $("#main_layer").outerHeight()) / 2
+      });
+   }).resize();
+  
+   $(window).resize(function() {
+      $("#view_layer").css({
+         width: ($(window).width() - 200), 
+         height: ($(window).height() - 100) 
+      });
+
+      $('#view_layer').css({
+         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
+         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
+      });
+   }).resize();
+
    console.log("[CLIENT LOG]", userId, "is login.");
    console.log(
       "[CLIENT LOG] username:", userId, 

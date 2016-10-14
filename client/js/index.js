@@ -3,14 +3,17 @@
 	** File-explanation: Contorl index html page with javascript
 	** Author: luxoss 
 */
-$(function() {  // Same to $(document).ready(function()) that is 'onload' 
+$(document).ready(function() {
+
    var userInfoSocket = io.connect('http://203.237.179.21:5001');  
 
    $(window).resize(function(){
-      $('#main_container').css({position:'absolute'}).css({
+      
+      $('#main_container')..css({
 	      left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
 	      top: ($(window).height() - $('#main_container').outerHeight()) / 2
       });
+      
    }).resize();		
 
    $("#join_btn").on('click', function(){

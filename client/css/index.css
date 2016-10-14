@@ -1,8 +1,9 @@
 /**
-	**File-name: index.css
-	**Writer: luxoss
-	**File-explanation: Decorate index html page with cascading style sheet
+   ** File-name        : index.css
+	** Author           : luxoss
+	** File-explanation : Decorate index html page with cascading style sheet
 */	
+
 body {
    background-image: url('http://203.237.179.21:8000/res/img/galaxy_box.png');
    background-size: cover;
@@ -39,8 +40,8 @@ input {
    background: transparent;
    width: 450px;
    height: 500px; 
-   margin: 0px auto;
    border-radius: 10px;
+   position: absolute;
 }
 
 #header {
