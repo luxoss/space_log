@@ -59,28 +59,7 @@ UsersPio.on('connection', function(socket){
 
 
 			UsersPio.emit('mv', mv_obj);
-/*
-			planet.find().toArray(function(err, results){
 
-				if(err){
-					console.log("Planet Find Error : ");
-					console.log(err);
-				} else if(results){
-					for(var i =0; i< results.length; i++){
-						if((((results[i].location_x <= mv_obj.location_x) && (results[i].location_x >= (mv_obj.location_x-100))) || ((results[i].location_x >= (mv_obj.location_x+64-100)) && (results[i].location_x <= mv_obj.location_x+64)) ) && (((results[i].location_y <= mv_obj.location_y) && (results[i].location_y >= (mv_obj.location_y -100))) || ((results[i].location_y >= (mv_obj.location_y+64-100)) && (results[i].location_y <= (mv_obj.location_y+64)))   )   ){
-							//collision
-							getP = results[i];
-							console.log(getP);
-							break;
-						}
-					}
-
-				} else{
-				
-				}
-
-			});
-*/
 		});
 		socket.on('collision_req', function(data){
 			console.log("request!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
