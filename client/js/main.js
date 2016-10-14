@@ -299,7 +299,9 @@ function drawPlanetImg(mainLayer, data)
 
 function keyHandler(user, socket) 
 {
+   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
    var userId = user['name'];
+   var speed = 4;
    var bg = {
       x : function(divId, position) {
          if(position) 
@@ -324,60 +326,7 @@ function keyHandler(user, socket)
    };
 
    $(document).keydown(function(ev) {  
-   
-      keyController(ev, user, socket);
-      btnControl(ev, user, socket);
-      //isKeyDown[ev.keyCode] = true;
-   });
-
-   $(document).keyup(function(ev) {
-      //isKeyDown[ev.keyCode] = false;
-   });
-   
-   $('#logout_btn').on('click', function(){	
-      if(userId != null) 
-      {
-         logout(userId, lastPosX, lastPosY);
-      }
-      else 
-      {
-         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         $(location).attr('href', indexPageUrl);	
-      }
-   });	
-
-   $('#planet_btn').on('click', function() {
-      menuSelection.play();
-      menuSelection.currentTime = 0;
-      planetViewLayer(socket['planet']);
-   });
-
-   $('#battle_ship_btn').on('click', function() {
-      menuSelection.play();
-      menuSelection.currentTime = 0;
-      battleShipViewLayer();
-   });
-
-   $('#rank_btn').on('click', function() {
-      menuSelection.play();
-      menuSelection.currentTime = 0;
-      rankViewLayer();
-   });
-/*
-   $('#minimap_btn').on('click', function() {      
-   });
-*/
-}
-
-function keyController(ev, user, socket) 
-{
-   var speed = 4;
-   var keyState = ev.keyCode;
-   var SHOOT = 83, DEVELOP_PLANET = 32;
-   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
-   //var laserX = 0, laserY = 0;
-
-   if(ev.keyCode == LEFT)
+     if(ev.keyCode == LEFT)
       {
          bg.x("main_layer", bg.x("main_layer") + speed);
          //bg.x("view_layer", bg.x("view_layer") - speed);
@@ -429,7 +378,55 @@ function keyController(ev, user, socket)
             'location_y' : user['y']
          });
       }
+      keyController(ev, user, socket);
+      btnControl(ev, user, socket);
+      //isKeyDown[ev.keyCode] = true;
+   });
 
+   $(document).keyup(function(ev) {
+      //isKeyDown[ev.keyCode] = false;
+   });
+   
+   $('#logout_btn').on('click', function(){	
+      if(userId != null) 
+      {
+         logout(userId, lastPosX, lastPosY);
+      }
+      else 
+      {
+         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+         $(location).attr('href', indexPageUrl);	
+      }
+   });	
+
+   $('#planet_btn').on('click', function() {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+      planetViewLayer(socket['planet']);
+   });
+
+   $('#battle_ship_btn').on('click', function() {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+      battleShipViewLayer();
+   });
+
+   $('#rank_btn').on('click', function() {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+      rankViewLayer();
+   });
+/*
+   $('#minimap_btn').on('click', function() {      
+   });
+*/
+}
+
+function keyController(ev, user, socket) 
+{
+   var keyState = ev.keyCode;
+   var SHOOT = 83, DEVELOP_PLANET = 32;
+   //var laserX = 0, laserY = 0;
 
    if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
    {
