@@ -148,4 +148,28 @@ $("#" + user.name).css('transform', 'rotate(0deg)');
 posY(divId1, posY(divId1) + speed);
 $("#" + user.name).css('transform', 'rotate(180deg)');
 
+/ TODO: AABB Collision Detection Model
+// Battleship (width: 64, height: 64), Planet (width: 100, height: 100)
+function BoxModel(user, planet, width, height) 
+{
+   this.x = user.x;
+   this.y = user.y;
+   this.x1 = planet.x;
+   this.y1 = planet.y;
+   this.width = width; 
+   this.height = height;
+}
 
+var boxModel = new BoxModel(user, planet, width, height);
+ 
+boxModel.prototype.isCollision(user, planet) {
+   if((planet.x < user.x + user.width) && 
+      (planet.x + planet.width > user.x) && 
+      (planet.y < user.y + user.height) && 
+      (planet.y + planet.height > user.y)) 
+      {
+         return true;
+      }
+      return false;
+}
+*/
