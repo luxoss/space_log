@@ -38,10 +38,11 @@ body {
 .user_info_ui {
 	background: transparent;
   	width: 400px;
-  	height: 100px;
-	border-radius: 0px 0px 15px 0px;
-  	top: 0px;
+  	height: 128px;
+	border-radius: 0px 15px 0px 0px;
+   /* before : top: 0px; */
   	left: 0px;	
+   bottom: 0px;
   	position: absolute;
 	z-index: 3;
 }
@@ -50,9 +51,10 @@ body {
 	background-image: url('../res/img/astronaut.png');
 	background-color: rgba(255, 128, 255, 0.7);
 	width: 100px;
-	height: 100px;
+	height: 128px;
 	border: 1px solid rgba(255, 255, 255, 0.3);
-	border-radius: 15px 0px 0px 0px;
+   border-style: dotted;
+	border-radius: 0px 0px 0px 15px;
 	top: 0px;
 	left: 0px;
 	position: absolute;
@@ -64,7 +66,7 @@ body {
 	height: 20px;
 	font-weight: bold;
 	text-align: center;
-	border-radius: 0px 0px 0px 10px;
+	border-radius: 0px 0px 0px 15px;
 	bottom: 0px;
 	position: absolute;	
 }
@@ -74,10 +76,11 @@ body {
    font-size: 20pt;
 	background-color: rgba(207, 47, 77, 0.7);
 	width: 300px;
-	height: 35px;
-	border: 2px solid rgba(207, 47, 77, 0.7);
+	height: 45px;
+	border: 2px solid rgba(256, 47, 77, 0.7);
+   border-radius: 0px 10px 0px 0px;
    border-style: dotted;
-	top: 0px; 
+	top: 0x; /* before : 0px */
 	left: 102px;
 	position: absolute;
    text-align: center;
@@ -87,21 +90,21 @@ body {
 #exp_stats {
    background-color : rgba(208, 196, 76, 0.7);
 	width: 300px;
-	height: 25px;
+	height: 45px;
 	border: 2px solid rgba(208, 196, 76, 0.7);
    border-style: dotted;
-	top: 38px;
+	top: 46px; /* before : 38px */
 	left: 102px;
 	position: absolute;
 }
 
 #resource {
 	width: 300px;
-	height: 35px;
+	height: 35px; /* 35 + 28 = 63 */
 	border: 2px solid rgba(83, 80, 44, 0.7);
    border-style: dotted;
-   border-radius: 0px 0px 15px 0px; /* up-left up-right down-right down-left */
-	top: 65px;
+   border-radius: 0px 0px 0px 0px; /* up-left up-right down-right down-left */
+	top: 93px; /* before : 65px */
 	left: 102px;	
 	position: absolute;
 }
@@ -270,9 +273,12 @@ body {
   	height: 64px;
    border: 2px solid rgba(255, 255, 255, 0.7);
    border-style: dotted;
-   border-radius: 0px 15px 0px 15px;
-  	left: 0px;
-	bottom: 0px;
+   border-radius: 15px 15px 0px 0px;
+  	left: 50%;
+	bottom: 67px;
+   -ms-transform: translateX(-50%);
+   -webkit-transform: translateX(-50%);
+   transform: translateX(-50%);
 	position: absolute;
 	z-index: 3;
 }
@@ -325,8 +331,10 @@ body {
 
 .rank_ui { 
 	background-color: rgba(255, 255, 255, 0.5);
-	width: 500px;
-	height: 600px;
+	width: 600px;
+	height: 500px;
+   border: 0px;
+   border-radius: 5px 5px 0px 0px;
 	display: none;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
 	position: fixed;
@@ -335,8 +343,10 @@ body {
 
 #rank_title {
    background-color: rgba(43, 100, 31, 0.7);
-   width: 500px;
+   width: 600px;
    height: 100px;
+   border: 0px;
+   border-radius: 5px 5px 0px 0px;
    left: 0px;
    position: absolute;
 }
@@ -347,7 +357,9 @@ body {
 	background-color: rgba(255, 0, 0, 0.3);
 	width: 100px;
 	height: 100px;
-	left: 0px;
+   border: 1px solid white;
+   border-style: dotted;
+	left: 10px;
 	position: absolute;
    text-align: center;
    line-height: 100px;
@@ -357,9 +369,11 @@ body {
    color: rgba(255, 255, 255, 0.7);
    font-size: 20pt;
 	background-color: rgba(0, 255, 0, 0.3);
-	width: 200px;
+	width: 285px;
 	height: 100px;
-	left: 100px;
+   border: 1px solid white;
+   border-style: dotted;
+	left: 110px;
 	position: absolute;
    text-align: center;
    line-height: 100px;
@@ -369,17 +383,19 @@ body {
    color: rgba(255, 255, 255, 0.7);
    font-size: 20pt;
 	background-color: rgba(0, 0, 255, 0.3);
-	width: 200px;
+	width: 187px;
 	height: 100px;
-	right: 0px;
+   border: 1px solid white;
+   border-style: dotted;
+	right: 15px;
 	position: absolute;
    text-align: center;
    line-height: 100px;
 }
 
 #user_list {
-   width: 500px;
-   height: 500px;
+   width: 600px;
+   height: 400px;
    top: 100px;
    position: absolute;
    overflow-y: scroll;
@@ -387,8 +403,8 @@ body {
 
 .planet_ui {
 	background-color: rgba(255, 255, 255, 0.5);
-	width: 990px;
-	height: 700px;
+	width: 1000px;
+	height: 500px;
 	display: none;
    border-radius: 5px;
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
@@ -397,10 +413,11 @@ body {
 }
 
 #planet_info {
-	background-color: rgba(43, 100, 31, 0.7);
-	width: 990px;
+	background-color: rgba(43, 100, 31, 0.9);
+	width: 1000px;
 	height: 100px;
 	border: 0px;
+   border-radius: 5px 5px 0px 0px;
 	left: 0px;
 	position: absolute;
 }
@@ -411,8 +428,9 @@ body {
    font-size: 20pt;
    width: 200px;
    height: 100px;
-   border: 5px 0px 0px 0px;
-   left : 0px;
+   border: 1px solid white;
+   border-style: dotted;
+   left : 10px;
    top: 0px;
    position: absolute;
    text-align: center;
@@ -423,10 +441,11 @@ body {
    background-color: rgba(0, 255, 255, 0.3);
    color : rgba(255, 255, 255, 0.7);
    font-size: 20pt;
-   width: 390px;
+   width: 380px;
    height: 100px;
-   border: 0px;
-   left : 200px;
+   border: 1px solid white;
+   border-style: dotted;
+   left : 210px;
    position: absolute;
    text-align: center;
    line-height: 100px;
@@ -438,7 +457,8 @@ body {
    font-size: 20pt;
    width: 200px;
    height: 100px;
-   border: 0px;
+   border: 1px solid white;
+   border-style: dotted;
    left : 590px;
    position: absolute;
    text-align: center;
@@ -449,10 +469,10 @@ body {
    background-color: rgba(255, 0, 255, 0.3);
    color : rgba(255, 255, 255, 0.7);
    font-size: 20pt;
-   width: 200px;
+   width: 193px;
    height: 100px;
-   border: 0px;
-   border-radius: 0px 5px 0px 0px;
+   border: 1px solid white;
+   border-style: dotted;
    left: 790px;
    position: absolute;   
    text-align: center;
@@ -460,8 +480,9 @@ body {
 }
 
 #planet_list {
-   width: 980px;
-   height: 600px;
+   width: 1000px;
+   height: 400px;
+   top: 100px;
    position: absolute;
    overflow-y: scroll;
 }
