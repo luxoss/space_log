@@ -9,7 +9,7 @@ $(document).ready(function() {
 
    $(window).resize(function(){
       
-      $('#main_container')..css({
+      $('#main_container').css({
 	      left: ($(window).width() - $('#main_container').outerWidth()) / 2, 
 	      top: ($(window).height() - $('#main_container').outerHeight()) / 2
       });
