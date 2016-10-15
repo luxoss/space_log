@@ -36,6 +36,14 @@ input {
    position: relative;
 }
 
+#login_btn:focus {
+   background-color : rgba(255, 0, 0, 0.3);
+}
+
+#join_btn:focus {
+   background-color : rgba(255, 0, 0, 0.3);
+}
+
 #main_container {
    background: transparent;
    width: 450px;
