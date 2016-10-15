@@ -387,7 +387,7 @@ function keyHandler(user, socket)
       //isKeyDown[ev.keyCode] = false;
    });
    
-   $('#logout_btn').on('click', function(){	
+   $("#logout_btn").on('click', function(){	
       if(user['name'] != null) 
       {
          logout(user);
@@ -399,19 +399,19 @@ function keyHandler(user, socket)
       }
    });	
 
-   $('#planet_btn').on('click', function() {
+   $("#planet_btn").on('click', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
    });
 
-   $('#battle_ship_btn').on('click', function() {
+   $("#battle_ship_btn").on('click', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       battleShipViewLayer();
    });
 
-   $('#rank_btn').on('click', function() {
+   $("#rank_btn").on('click', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
