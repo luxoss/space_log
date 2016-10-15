@@ -294,7 +294,7 @@ function drawPlanetImg(mainLayer, data)
 
 function keyHandler(user, socket) 
 {
-   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40, DEVELOP_PLANET = 32;
    var userId = user['name'];
    var speed = 4;
    var bg = {
@@ -321,10 +321,10 @@ function keyHandler(user, socket)
    };
 
    $(document).keydown(function(ev) {  
-     if(ev.keyCode == LEFT)
+
+      if(ev.keyCode == LEFT)
       {
          bg.x("main_layer", bg.x("main_layer") + speed);
-         //bg.x("view_layer", bg.x("view_layer") - speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -337,7 +337,6 @@ function keyHandler(user, socket)
       if(ev.keyCode == UP)
       {
          bg.y("main_layer", bg.y("main_layer") + speed);
-         //bg.y("view_layer", bg.y("view_layer") - speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -350,7 +349,6 @@ function keyHandler(user, socket)
       if(ev.keyCode == RIGHT)
       {
          bg.x("main_layer", bg.x("main_layer") - speed);
-         //bg.x("view_layer", bg.x("view_layer") + speed);
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -363,8 +361,6 @@ function keyHandler(user, socket)
       if(ev.keyCode == DOWN)
       {
          bg.y("main_layer", bg.y("main_layer") - speed);
-         //bg.y("view_layer", bg.y("view_layer") + speed);
-
 
          socket.userPos.emit('press_key', {
             'username': userId, 
@@ -373,6 +369,7 @@ function keyHandler(user, socket)
             'location_y' : user['y']
          });
       }
+
       keyController(ev, user, socket);
       btnControl(ev, user, socket);
       //isKeyDown[ev.keyCode] = true;
@@ -413,17 +410,17 @@ function keyHandler(user, socket)
    });
 /*
    $('#minimap_btn').on('click', function() {      
+      drawMinimap(socket);
    });
 */
 }
 
 function keyController(ev, user, socket) 
 {
-   var keyState = ev.keyCode;
    var SHOOT = 83, DEVELOP_PLANET = 32;
    //var laserX = 0, laserY = 0;
 
-   if(keyState == SHOOT) // press shoot key(s), iskeyDown[83]
+   if(ev.keyCode == SHOOT) 
    {
       fire.play();
       console.log('fire!');
@@ -431,10 +428,8 @@ function keyController(ev, user, socket)
       //shoot(curPosX, curPosY);	
    }
 
-   if(keyState == DEVELOP_PLANET) // press space key, isKeyDown[32]
+   if(ev.keyCode == DEVELOP_PLANET) 
    {
-      // 함선이 행성과 충돌하지 않을 시에는 스페이스 바를 비활성화 시킨다.
-      // 함선이 행성과 충돌하였을 시에 스페이스 바를 활성화 시킨다.
       discovered.play();
       discovered.currentTime = 0;
 
@@ -443,8 +438,10 @@ function keyController(ev, user, socket)
       socket.userPos.emit('collision_req', {'ready' : 'ready to develop planet!'});
 
       socket.userPos.on('collision_res', function(data) {
+         
          if(data.develop == 'false')
          {
+            isKeyDown[DEVELOP_PLANET] = true;
             //아래 함수 안에서 해당 뷰에 관한 컨트롤 및 개발 / 취소 버튼을 눌렀을 시의 이벤트 처리
             //planetInfoView();
             console.log(
@@ -453,14 +450,13 @@ function keyController(ev, user, socket)
             );
          }
 /*
-            $(window).resize(function() {
-               $("#develop_planet_ui").css({
-                  left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2,
-                  top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
-               });
-            }).resize();
+         $(window).resize(function() {
+            $("#develop_planet_ui").css({
+               left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2,
+               top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
+            });
+         }).resize();
          
-
          if(data.develop == 'true')
          {
             // 함선에 관한 정보와 개발할 것인지 아닌지를 묻는 창을 띄우고 개발하면
@@ -474,8 +470,7 @@ function keyController(ev, user, socket)
 function btnControl(ev, user, socket) 
 {
    var keyState = ev.keyCode;
-   var SHOOT = 83, GOT_PLANET = 32, 
-       BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
+   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
    var userId = user['name'];
  
    lastPosX = user['x'];

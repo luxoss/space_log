@@ -76,7 +76,12 @@ $(document).ready(function() {
          }
       });
    });
-
+/*
+   $("#sound_control").on('click', function() {
+      $("#sound_control").text("SOUND | OFF"); // OFF
+      $("#sound_control").text("SOUND | ON");  // ON
+   });
+*/
    $(document).keydown(function(ev){
 
       var keyCode = ev.keyCode;
@@ -167,6 +172,11 @@ function pwdCheck()
 		alert("비밀번호가 일치하지 않습니다. 다시 확인해주세요.");
       return false;
 	}
+}
+
+function eventOnblur(divId)
+{
+   $("#" + divId).css('background-color', 'rgba(0, 0, 0, 0.3)');
 }
 
 
