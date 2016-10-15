@@ -191,7 +191,7 @@ io.on('connection', function (socket) {
 					socket.emit('logout_res', {response : 'false'});
 				} else{
 					
-					socket.emit('logout_res', {response : 'true'});
+					socket.emit('logout_res', {response : 'true', username: username});
 					socket.leave('playing');//leave the playing group
 				}
 			});
