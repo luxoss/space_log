@@ -17,7 +17,10 @@ $(document).ready(function() {
    }).resize();		
 
    $("#join_btn").on('click', function(){
+
       var user = {};
+
+      $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
 
       user['name'] = $.trim($("#username").val());
       user['password'] = $.trim($("#password").val());
@@ -52,6 +55,8 @@ $(document).ready(function() {
    $("#login_btn").on('click', function(){ 
       var user = {};
       var mainPageUrl = './main.html';
+
+      $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
 
       user.name = $.trim($('#username').val());
       user.password = $.trim($('#password').val());
@@ -116,6 +121,9 @@ $(document).ready(function() {
 	      });
       }	
    });
+   
+   $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+   $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
 });
 
 function getUserItems(userInfoSocket, user) 
@@ -174,10 +182,6 @@ function pwdCheck()
 	}
 }
 
-function eventOnblur(divId)
-{
-   $("#" + divId).css('background-color', 'rgba(0, 0, 0, 0.3)');
-}
 
 
 

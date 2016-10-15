@@ -33,12 +33,19 @@ var isKeyDown = [];		            // Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
+var flag = 0;
 
 fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
+   socket.userInit.on('logout_all', function(data) {
+      console.log(data.username, "logout!");
+      if(data.username != user['name']) {
+         $("#" + data.username).remove(); 
+      } 
+   });
 
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
@@ -79,7 +86,6 @@ function drawAllAssets(mainLayer, user, socket)
       });
    }).resize();
 
-   console.log("[CLIENT LOG]", userId, "is login.");
    console.log(
       "[CLIENT LOG] username:", userId, 
       "hp:", hp, "exp:", exp, 
@@ -297,7 +303,7 @@ function drawPlanetImg(mainLayer, data)
 function keyHandler(user, socket) 
 {
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40, DEVELOP_PLANET = 32;
-//   var userId = user['name'];
+// var userId = user['name'];
    var speed = 4;
    var bg = {
       x : function(divId, position) {
@@ -541,9 +547,9 @@ function logout(user)
                'lastPosX': user['x'],    //lastPosX, 
                'lastPosY': user['y']     //lastPosY
             }); 
-           
-//            $("#" + userId).remove();
-
+/*
+            socket.userInit.on('logout_all_req', {'username' : user['name']});
+*/
             localStorage.removeItem('username');
             localStorage.removeItem('exp');
             localStorage.removeItem('hp');
@@ -556,6 +562,7 @@ function logout(user)
             console.log("[Client log]", user['name'], "is logout!"); 
 
             alert(user['name'] + '님께서 로그아웃 되셨습니다.');
+            socket.userInfo.disconnect();
             $(location).attr('href', 'http://203.237.179.21:8000');
          }
          else
