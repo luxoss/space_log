@@ -38,10 +38,12 @@ fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
-$(document).ready(function(){ // onload document 
+$(document).ready(function(){ // After onload document, execute inner functions
+
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
+
 });
 
 function drawAllAssets(mainLayer, user, socket) 
@@ -295,7 +297,7 @@ function drawPlanetImg(mainLayer, data)
 function keyHandler(user, socket) 
 {
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40, DEVELOP_PLANET = 32;
-   var userId = user['name'];
+//   var userId = user['name'];
    var speed = 4;
    var bg = {
       x : function(divId, position) {
@@ -327,7 +329,7 @@ function keyHandler(user, socket)
          bg.x("main_layer", bg.x("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
-            'username': userId, 
+            'username': user['name'], 
             'key_val' : LEFT, 
             'location_x' : user['x'],
             'location_y' : user['y']
@@ -339,7 +341,7 @@ function keyHandler(user, socket)
          bg.y("main_layer", bg.y("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
-            'username': userId, 
+            'username': user['name'], 
             'key_val' : UP, 
             'location_x' : user['x'],
             'location_y' : user['y']
@@ -351,7 +353,7 @@ function keyHandler(user, socket)
          bg.x("main_layer", bg.x("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
-            'username': userId, 
+            'username': user['name'], 
             'key_val' : RIGHT, 
             'location_x' : user['x'],
             'location_y' : user['y']
@@ -363,7 +365,7 @@ function keyHandler(user, socket)
          bg.y("main_layer", bg.y("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
-            'username': userId, 
+            'username': user['name'], 
             'key_val' : DOWN, 
             'location_x' : user['x'],
             'location_y' : user['y']
@@ -380,9 +382,9 @@ function keyHandler(user, socket)
    });
    
    $('#logout_btn').on('click', function(){	
-      if(userId != null) 
+      if(user['name'] != null) 
       {
-         logout(userId, lastPosX, lastPosY);
+         logout(user);
       }
       else 
       {
@@ -469,11 +471,10 @@ function btnControl(ev, user, socket)
 {
    var keyState = ev.keyCode;
    var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
-   var userId = user['name'];
- 
+   /*
    lastPosX = user['x'];
    lastPosY = user['y'];
-
+   */
    if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
    {
       menuSelection.play();
@@ -502,9 +503,9 @@ function btnControl(ev, user, socket)
 
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
    {
-      if(userId != null) 
+      if(user['name'] != null) 
       {
-         logout(userId, lastPosX, lastPosY);
+         logout(user);
       }
       else 
       {
@@ -514,26 +515,34 @@ function btnControl(ev, user, socket)
    }
 }
 
-function logout(userId, lastPosX, lastPosY) 
+function logout(user) 
 {
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
    var LOGOUT = 81;
 
    if(logoutMsg == true) 
    {
-      socket.userInit.emit('logout_msg', { 'username': userId, 'key_val' : LOGOUT }); 
+      socket.userInit.emit('logout_msg', { 
+         'username' : user['name'],
+          'mineral' : user.resource['mineral'],
+              'gas' : user.resource['gas'],
+          'unknown' : user.resource['unknown'],          
+             'exp'  : user.state['exp'],
+              'hp'  : user.state['hp'],
+         'key_val'  : LOGOUT 
+      }); 
 
       socket.userInit.on('logout_res', function(data) {
           
          if(data.response == 'true') 
          {
             socket.userInfo.emit('lpos', {
-               'username': userId, 
-               'lastPosX': lastPosX, 
-               'lastPosY': lastPosY
+               'username': user['name'], //userId, 
+               'lastPosX': user['x'],    //lastPosX, 
+               'lastPosY': user['y']     //lastPosY
             }); 
            
-            $("#" + userId).remove();
+//            $("#" + userId).remove();
 
             localStorage.removeItem('username');
             localStorage.removeItem('exp');
@@ -544,9 +553,9 @@ function logout(userId, lastPosX, lastPosY)
             localStorage.removeItem('x');
             localStorage.removeItem('y'); 
 
-            console.log("[Client log]", userId, "is logout!"); 
+            console.log("[Client log]", user['name'], "is logout!"); 
 
-            alert(userId + '님께서 로그아웃 되셨습니다.');
+            alert(user['name'] + '님께서 로그아웃 되셨습니다.');
             $(location).attr('href', 'http://203.237.179.21:8000');
          }
          else
