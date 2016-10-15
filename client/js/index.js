@@ -6,6 +6,9 @@
 $(document).ready(function() {
 
    var userInfoSocket = io.connect('http://203.237.179.21:5001');  
+   var selectButton = new Audio();
+
+   selectButton.src = "http://203.237.179.21:8000/res/sound/effect/menu_selection.wav";
 
    $(window).resize(function(){
       
@@ -16,11 +19,29 @@ $(document).ready(function() {
       
    }).resize();		
 
-   $("#join_btn").on('click', function(){
+   $("#login_btn").mouseover(function() {
+      selectButton.play();
+      $("#login_btn").css('background-color', 'rgba(0, 0, 255, 0.3)');
+      selectButton.currentTime = 0;
+   });
+
+   $("#login_btn").mouseout(function() {
+      $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+   });
+
+   $("#join_btn").mouseover(function() {
+      selectButton.play();
+      $("#join_btn").css('background-color', 'rgba(255, 0, 0, 0.3)');
+      selectButton.currentTime = 0;
+   });
+
+   $("#join_btn").mouseout(function() {
+      $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+   });
+
+   $("#join_btn").on('click', function() {
 
       var user = {};
-
-      $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
 
       user['name'] = $.trim($("#username").val());
       user['password'] = $.trim($("#password").val());
@@ -55,8 +76,6 @@ $(document).ready(function() {
    $("#login_btn").on('click', function(){ 
       var user = {};
       var mainPageUrl = './main.html';
-
-      $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
 
       user.name = $.trim($('#username').val());
       user.password = $.trim($('#password').val());
