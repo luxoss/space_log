@@ -77,7 +77,8 @@ io.on('connection', function (socket) {
 								"unknown" 	: userinfo.unknown, 
 								"location_x" 	: userinfo.location_x, 
 								"location_y" 	: userinfo.location_y, 
-								"gold" 		: userinfo.gold
+								"gold" 		: userinfo.gold,
+								"hp"		: userinfo.hp
 							}	
 							socket.emit('user_info', sendinfo);
 
@@ -192,12 +193,21 @@ io.on('connection', function (socket) {
 				} else{
 					
 					socket.emit('logout_res', {response : 'true', username: username});
+					io.emit('logout_all', {response : 'true', username: username});
 					socket.leave('playing');//leave the playing group
 				}
 			});
 		});
 		
 	});//lsocket.on('logout_msg', function(){}); end
+/*
+	socket.on('logout_all_req', function(data){
+		username = data.username;
+		console.log("Logout all Request");
+		console.log(data.username);
+
+		io.emit('logout_all_res', {"username": username});
+	});*/
 /*
 	function sendPosInterval(){
 		console.log('//////////////////////////////');
