@@ -304,7 +304,7 @@ function drawPlanetImg(mainLayer, data)
 function keyHandler(user, socket) 
 {
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
-   var SHOOT = 83;
+   var DEVELOP_PLANET = 32, SHOOT = 83;
    var speed = 4;
    var bg = {
       x : function(divId, position) {
@@ -330,7 +330,7 @@ function keyHandler(user, socket)
    };
 
    $(document).on('keydown', function(ev) {  
-
+   
       if(ev.keyCode == LEFT)
       {
          bg.x("main_layer", bg.x("main_layer") + speed);
@@ -387,8 +387,6 @@ function keyHandler(user, socket)
       }
       
       // command line R key is 'redo' and r key is 'undo'
-      var DEVELOP_PLANET = 32;
-
       if(ev.keyCode == DEVELOP_PLANET) 
       {
          discoverPlanet(user, socket);
