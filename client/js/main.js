@@ -10,6 +10,7 @@ var indexPageUrl = serverUrl + ":8000";
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
    userInfo : io.connect(serverUrl + ":5005"),
+   develop : io.connect(serverUrl + ":5003"),
    userPos : io.connect(serverUrl + ":5006"),
    planet : io.connect(serverUrl + ":5002")
 };
@@ -328,7 +329,7 @@ function keyHandler(user, socket)
       }
    };
 
-   $(document).keydown(function(ev) {  
+   $(document).on('keydown', function(ev) {  
 
       if(ev.keyCode == LEFT)
       {
@@ -384,13 +385,21 @@ function keyHandler(user, socket)
          console.log('fire!');
          fire.currentTime = 0;      
       }
+      
+      // command line R key is 'redo' and r key is 'undo'
+      var DEVELOP_PLANET = 32;
 
-      discoverPlanet(ev, user, socket);
+      if(ev.keyCode == DEVELOP_PLANET) 
+      {
+         discoverPlanet(user, socket);
+         //$(document).off('keydown');
+      }
+      
+      // isKeyDown[ev.keyCode] = true;
       btnControl(ev, user, socket);
-     // isKeyDown[ev.keyCode] = true;
    });
 
-   $(document).keyup(function(ev) {
+   $(document).on('keyup', function(ev) {
       //isKeyDown[ev.keyCode] = false;
    });
    
@@ -430,63 +439,58 @@ function keyHandler(user, socket)
 */
 }
 
-function discoverPlanet(ev, user, socket) 
+function discoverPlanet(user, socket) 
 {
-   // command line R key is 'redo' and r key is 'undo'
-   var DEVELOP_PLANET = 32;
+   socket.userPos.emit('collision_req', {
+      'username' : user['name'], 
+      'location_x' : user['x'],
+      'location_y' : user['y'],
+   });
 
-   if(ev.keyCode == DEVELOP_PLANET) 
-   {
-      socket.userPos.emit('collision_req', {
-         'username' : user['name'], 
-         'location_x' : user['x'],
-         'location_y' : user['y'],
-      });
+   socket.userPos.on('collision_res', function(data) {
 
-      socket.userPos.on('collision_res', function(data) {
-         /*
-            함선에 관한 정보와 개발할 것인지 아닌지를 묻는 창을 띄우고 개발하면
-            그 데이터를 서버에 보내고 내 자원 정보를 갱신한다.
-         */
+/*
+   함선에 관한 정보와 개발할 것인지 아닌지를 묻는 창을 띄우고 개발하면
+   그 데이터를 서버에 보내고 내 자원 정보를 갱신한다.
+*/      
 
-         if(data.collision == 0)
+      if(data.collision == 0)
+      {
+         console.log('[CLIENT LOG] DEVELOP_KEY is off.');
+         //isKeyDown[DEVELOP_PLANET] = false;
+      }
+
+      if(data.collision == 1) 
+      {
+         console.log('[CLIENT LOG] DEVELOP_KEY is on.');
+         //iskeyDown[DEVELOP_PLANET] = true;
+
+         discovered.play();
+         discovered.currentTime = 0;
+
+         // 받은 행성의 데이터 중 개발이 안되었을 시(테스트를 위해 간단히 alert, confirm으로 함)
+         if(data.username == user['name'] && data.develop == 'false') 
          {
-            console.log('[CLIENT LOG] DEVELOP_KEY is off.');
-            //isKeyDown[DEVELOP_PLANET] = false;
-         }
+            alert(
+               "행성 명: planet" + data.p_id +
+               "자원 량: mineral(" + data.mineral + "), gas(" + data.gas + "), unknown("+ data.unknown
+               + ")행성 등급: " + data.create_spd
+            );
 
-         if(data.collision == 1) 
-         {
-            console.log('[CLIENT LOG] DEVELOP_KEY is on.');
-            //iskeyDown[DEVELOP_PLANET] = true;
-
-            discovered.play();
-            discovered.currentTime = 0;
-
-            // 받은 행성의 데이터 중 개발이 안되었을 시(테스트를 위해 간단히 alert, confirm으로 함)
-            if(data.username == user['name'] && data.develop == 'false') 
+            var developPlanet = confirm('이 행성은 개척되지 않았습니다. 개척하시겠습니까?');
+            
+            if(developPlanet == true) 
             {
-               alert(
-                  "행성 명: planet" + data.p_id +
-                  "자원 량: mineral(" + data.mineral + "), gas(" + data.gas + "), unknown("+ data.unknown
-                  + ")행성 등급: " + data.create_spd
-               );
-
-               var developPlanet = confirm('이 행성은 개척되지 않았습니다. 개척하시겠습니까?');
-               
-               if(developPlanet == true) 
-               {
-                  alert('행성 개척을 시작합니다.');
-                  socket.userPos.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-               }
-               else 
-               {
-                  alert('취소 하셨습니다.');   
-               }
+               alert('행성 개척을 시작합니다.');
+               socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
             }
-         }                  
-      });
-   }
+            else 
+            {
+               alert('취소 하셨습니다.');   
+            }
+         }
+      }                  
+   }); 
 }
 
 function btnControl(ev, user, socket) 

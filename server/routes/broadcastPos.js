@@ -14,7 +14,7 @@ var objects = {};
 var mv_obj={};
 var getP = {};
 
-var username="", key_val=0, x, y;
+var username="", key_val=0, x, y, collistion;
 var LEFT=37, UP=38, RIGHT=39, DOWN=40, ENTER=13;
 var p_size = 100, s_size = 64;
 UsersPio.on('connection', function(socket){
@@ -63,7 +63,10 @@ UsersPio.on('connection', function(socket){
 		});
 		socket.on('collision_req', function(data){
 			console.log("request!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-
+			username = data.username;
+//			collision  = data.collistion;
+			x = data.location_x;
+			y = data.location_y;
 			planet.find().toArray(function(err, results){
 
 				if(err){
@@ -71,11 +74,16 @@ UsersPio.on('connection', function(socket){
 					console.log(err);
 				} else if(results){
 					for(var i =0; i< results.length; i++){
-						if((((results[i].location_x <= mv_obj.location_x) && (results[i].location_x >= (mv_obj.location_x-100))) || ((results[i].location_x >= (mv_obj.location_x+64-100)) && (results[i].location_x <= mv_obj.location_x+64)) ) && (((results[i].location_y <= mv_obj.location_y) && (results[i].location_y >= (mv_obj.location_y -100))) || ((results[i].location_y >= (mv_obj.location_y+64-100)) && (results[i].location_y <= (mv_obj.location_y+64)))   )   ){
+						if((((results[i].location_x <= x) && (results[i].location_x >= (x-100))) || ((results[i].location_x >= (x+64-100)) && (results[i].location_x <= x+64)) ) && (((results[i].location_y <= y) && (results[i].location_y >= (y -100))) || ((results[i].location_y >= (y+64-100)) && (results[i].location_y <= (y+64)))   )   ){
 							//collision
 							getP = results[i];
+							getP.collision=1;
+							getP.username=username;
 							console.log(getP);
 							break;
+						}
+						else{
+							getP = {"p_id" : null, "mineral":null, "gas":null, "unknown":null, "location_x" : null, "location_y" : null, "create_spd": null, "develop":null, "username":username, "collision":0}
 						}
 					}
 
@@ -84,7 +92,7 @@ UsersPio.on('connection', function(socket){
 				}
 
 			});
-
+			
 			socket.emit('collision_res',  getP);
 
 	

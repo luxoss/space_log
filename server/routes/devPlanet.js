@@ -41,6 +41,9 @@ devPlntio.on('connection', function(socket){
 });
 
 function dev_p(){
+	
+	
+
 
 }
 
