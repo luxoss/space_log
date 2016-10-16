@@ -43,6 +43,9 @@ menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
    /*
+   if(event.stopImmediatePropagaion) event.stopImmediatePropagation(); // MOZILLA
+   else event.isImmediatePropagationEnabled = false; // IE
+
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
       
