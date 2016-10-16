@@ -8,6 +8,8 @@ devPlntio.on('connection', function(socket){
 			planet = db.collection("PLANET");
 			mem_info = db.collection("MEM_INFO");
 			mem_plan = db.collection("MEM_PLAN");
+
+
 		});
 	});
 	socket.on('rmv_p', function(data){
