@@ -286,7 +286,8 @@ function keyHandler(user, socket)
          }
       }
    };
-
+   
+   // TODO: $("#" + selector).on('keydown', function(ev){});
    $(document).on('keydown', function(ev) {  
    
       if(ev.keyCode == LEFT)
@@ -356,6 +357,7 @@ function keyHandler(user, socket)
       btnControl(ev, user, socket);
    });
 
+   // Before code line is '$(document).on('keyup', function(){});
    $(document).on('keyup', function(ev) {
       //isKeyDown[ev.keyCode] = false;
    });
