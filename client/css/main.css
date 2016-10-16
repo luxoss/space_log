@@ -582,9 +582,160 @@ body {
 }
 */
 
-#develop_planet_ui {
+.develop_planet_ui {
 	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-   background-color: rgba(0, 0, 0, 0.7);
+   background-color: rgba(255, 255, 255, 0.7);
+   border: 1px solid white;
+   border-style: dotted;
+   border-radius: 5px;
    width: 500px;
    height: 600px;
+   display: none;
+   position: absolute;
+   z-index: 3;
+}
+
+#d_name {
+   background-color: rgba(0, 0, 0, 0.3);
+   left: 0px;
+   top: 0px;
+   border: 0px;
+   width: 250px;
+   height: 100px;
+   position: absolute;
+   text-align: right;
+   line-height: 100px;
+}
+
+#p_name {
+   background-color: rgba(0, 0, 0, 0.3);
+   left: 250px;
+   top: 0px;
+   border: 0px;
+   width: 250px;
+   height: 100px;
+   position: absolute;
+   text-align: center;
+   line-height: 100px;
+}
+
+#d_resource {
+   background-color: rgba(0, 0, 0, 0.3);
+   left: 0px;
+   top: 100px;
+   width: 500px;
+   height: 300px;
+   position: absolute;
+}
+
+#d_gas { 
+   width: 250px; 
+   height: 100px; 
+   border: 0px; 
+   text-align: right; 
+   line-height: 100px; 
+   left: 0px;
+   top: 0px;
+   position: absolute;
+}
+
+#d_mineral { 
+   width: 250px; 
+   height: 100px; 
+   border: 0px; 
+   text-align: right; 
+   line-height: 100px; 
+   left: 0px;
+   top: 100px;
+   position: absolute;
+}  
+
+#d_unknown { 
+   width: 250px; 
+   height: 100px; 
+   border: 0px; 
+   text-align: right; 
+   line-height: 100px; 
+   left: 0px; 
+   top: 200px;
+   position: absolute; 
+}
+
+#p_gas { 
+   width: 250px; 
+   height: 100px; 
+   border: 0px; 
+   text-align: center; 
+   line-height: 100px; 
+   left: 250px;
+   top: 0px;
+   position: absolute; 
+}
+
+#p_mineral { 
+   width: 250px; 
+   height: 250px; 
+   border: 0px; 
+   text-align: center; 
+   line-height: 100px; 
+   left: 250px;
+   top: 100px;
+   position: absolute; 
+}
+
+#p_unknwon { 
+   width: 250px; 
+   height: 250px; 
+   border: 0px; 
+   text-align: center; 
+   line-height: 100px; 
+   left: 250px;
+   top: 200px;
+   position: absolute; 
+}
+
+#d_grade { 
+   background-color: rgba(0, 0, 0, 0.3);
+   width: 250px; 
+   height: 100px; 
+   border: 0px; 
+   text-align: right; 
+   line-height: 100px;
+   left: 0px;
+   top: 400px;
+   position: absolute;
+}
+
+#p_grade { 
+   background-color: rgba(0, 0, 0, 0.3);
+   width: 250px; 
+   height: 100px; 
+   border: 0px; 
+   text-align: center; 
+   line-height: 100px;
+   left: 250px;
+   top: 400px;
+   position: absolute;
+}
+
+#develop {
+   width: 250px;
+   height: 100px;
+   border: 100px;
+   text-align: center;
+   line-height: 100px;
+   left: 0px;
+   top: 500px;
+   position: absolute;
+}
+
+#cancel {
+   width: 250px;
+   height: 100px;
+   border: 100px;
+   text-align: center;
+   line-height: 100px;
+   left: 250px;
+   top: 500px;
+   position: absolute;
 }
