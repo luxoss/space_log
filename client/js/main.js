@@ -33,7 +33,6 @@ var isKeyDown = [];		            // Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
-var flag = 0;
 
 fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
@@ -41,7 +40,8 @@ menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
    socket.userInit.on('logout_all', function(data) {
-      console.log(data.username, "logout!");
+      console.log("[CLIENT LOG]", data.username, "is logout!"); 
+
       if(data.username != user['name']) {
          $("#" + data.username).remove(); 
       } 
@@ -66,29 +66,27 @@ function drawAllAssets(mainLayer, user, socket)
       clnt  : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
-   
+  
    $(window).resize(function() {
       $("#main_layer").css({
          left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
          top : ($(window).height() - $("#main_layer").outerHeight()) / 2
       });
-   }).resize();
-  
-   $(window).resize(function() {
+
       $("#view_layer").css({
          width: ($(window).width() - 200), 
          height: ($(window).height() - 100) 
       });
-
+      
       $('#view_layer').css({
          left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
          top: ($(window).height() - $('#view_layer').outerHeight()) / 2
       });
+      
    }).resize();
 
    console.log(
-      "[CLIENT LOG] username:", userId, 
-      "hp:", hp, "exp:", exp, 
+      "[CLIENT LOG] username:", userId, "hp:", hp, "exp:", exp, 
       "mineral:", mineral, "gas:", gas, "unknown:", unknown
    );                
 /* 
@@ -302,8 +300,8 @@ function drawPlanetImg(mainLayer, data)
 
 function keyHandler(user, socket) 
 {
-   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40, DEVELOP_PLANET = 32;
-// var userId = user['name'];
+   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+   var SHOOT = 83;
    var speed = 4;
    var bg = {
       x : function(divId, position) {
@@ -378,9 +376,16 @@ function keyHandler(user, socket)
          });
       }
 
-      keyController(ev, user, socket);
+      if(ev.keyCode == SHOOT) 
+      {
+         fire.play();
+         console.log('fire!');
+         fire.currentTime = 0;      
+      }
+
+      discoverPlanet(ev, user, socket);
       btnControl(ev, user, socket);
-      //isKeyDown[ev.keyCode] = true;
+     // isKeyDown[ev.keyCode] = true;
    });
 
    $(document).keyup(function(ev) {
@@ -423,52 +428,61 @@ function keyHandler(user, socket)
 */
 }
 
-function keyController(ev, user, socket) 
+function discoverPlanet(ev, user, socket) 
 {
-   var SHOOT = 83, DEVELOP_PLANET = 32;
-   //var laserX = 0, laserY = 0;
-
-   if(ev.keyCode == SHOOT) 
-   {
-      fire.play();
-      console.log('fire!');
-      fire.currentTime = 0;      
-      //shoot(curPosX, curPosY);	
-   }
+   // command line R key is 'redo' and r key is 'undo'
+   var DEVELOP_PLANET = 32;
 
    if(ev.keyCode == DEVELOP_PLANET) 
    {
-      discovered.play();
-      discovered.currentTime = 0;
-
-      console.log('got a planet');
-
-      socket.userPos.emit('collision_req', {'ready' : 'ready to develop planet!'});
+      socket.userPos.emit('collision_req', {
+         'username' : user['name'], 
+         'location_x' : user['x'],
+         'location_y' : user['y'],
+      });
 
       socket.userPos.on('collision_res', function(data) {
-         
-         if(data.develop == 'false')
+         /*
+            함선에 관한 정보와 개발할 것인지 아닌지를 묻는 창을 띄우고 개발하면
+            그 데이터를 서버에 보내고 내 자원 정보를 갱신한다.
+         */
+
+         if(data.collision == 0)
          {
-            //아래 함수 안에서 해당 뷰에 관한 컨트롤 및 개발 / 취소 버튼을 눌렀을 시의 이벤트 처리
-            console.log(
-               "planet id:", data.p_id, "x:", data.location_x, "y:", data.location_y, 
-               "develop:", data.develop
-            );
+            console.log('[CLIENT LOG] DEVELOP_KEY is off.');
+            //isKeyDown[DEVELOP_PLANET] = false;
          }
-/*
-         $(window).resize(function() {
-            $("#develop_planet_ui").css({
-               left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2,
-               top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
-            });
-         }).resize();
-         
-         if(data.develop == 'true')
+
+         if(data.collision == 1) 
          {
-            // 함선에 관한 정보와 개발할 것인지 아닌지를 묻는 창을 띄우고 개발하면
-            // 그 데이터를 서버에 보내고 내 자원 정보를 갱신한다.
-         }
-*/
+            console.log('[CLIENT LOG] DEVELOP_KEY is on.');
+            //iskeyDown[DEVELOP_PLANET] = true;
+
+            discovered.play();
+            discovered.currentTime = 0;
+
+            // 받은 행성의 데이터 중 개발이 안되었을 시(테스트를 위해 간단히 alert, confirm으로 함)
+            if(data.username == user['name'] && data.develop == 'false') 
+            {
+               alert(
+                  "행성 명: planet" + data.p_id +
+                  "자원 량: mineral(" + data.mineral + "), gas(" + data.gas + "), unknown("+ data.unknown
+                  + ")행성 등급: " + data.create_spd
+               );
+
+               var developPlanet = confirm('이 행성은 개척되지 않았습니다. 개척하시겠습니까?');
+               
+               if(developPlanet == true) 
+               {
+                  alert('행성 개척을 시작합니다.');
+                  socket.userPos.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+               }
+               else 
+               {
+                  alert('취소 하셨습니다.');   
+               }
+            }
+         }                  
       });
    }
 }
@@ -559,8 +573,6 @@ function logout(user)
             localStorage.removeItem('x');
             localStorage.removeItem('y'); 
 
-            console.log("[Client log]", user['name'], "is logout!"); 
-
             alert(user['name'] + '님께서 로그아웃 되셨습니다.');
             socket.userInfo.disconnect();
             $(location).attr('href', 'http://203.237.179.21:8000');
@@ -575,7 +587,7 @@ function logout(user)
 
 function userPosUpdate(user)
 {
-   var userId = user['name'];
+//   var userId = user['name'];
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
@@ -598,7 +610,7 @@ function userPosUpdate(user)
       // TODO:  여기서 실행하면 키 입력 값을 받을 때 마다 appendChild를 하므로 같은 테그들이 생겨남
       //        따라서 초기화 시에 접속한 모든 사람의 데이터를 받아 appendChild를 한 번 해주고 
       //        위치 변경 시 각각의 css style만 바꿔야 함.
-      if(userId === data['username'])  
+      if(user['name'] == data['username'])  
       {
          console.log(
             "[Client log] ", data['username'],
@@ -850,8 +862,26 @@ function userPosUpdate(user)
       }
    });		
 }
-
 /*
+function developPlanetUi() {
+   var developPlanetInfo = {
+      name : $("#d_name"),
+      resource : {
+         mineral : $("#p_mineral"),
+         gas : $("p_gas"),
+         unknown : $("P_unknown")
+      },
+      grade : $("d_grade"),
+   };
+
+   $("#develop").on('click', function() {
+   });
+
+   $("#develop").on('click', function() {
+      $("#develop_planet_ui").hide();
+   }):
+
+
 var shoot = function(curPosX, curPosY) {
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
    var laserId = $("#" + user['name'] + "_laser");
