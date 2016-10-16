@@ -42,6 +42,15 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
+   /*
+   socket.userInit.on('login_all', function(data) {
+      console.log("[CLIENT LOG]", data.username, 'is login!');
+      
+      if(data.username != user['name']) {
+         $("#main_layer").append("<div id ='" + data.username + "' style='position:absolute;'></div>");
+      }
+   });
+   */
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
@@ -92,58 +101,7 @@ function drawAllAssets(mainLayer, user, socket)
       "[CLIENT LOG] username:", userId, "hp:", hp, "exp:", exp, 
       "mineral:", mineral, "gas:", gas, "unknown:", unknown
    );                
-/* 
-   socket.userPos.emit('init_press_key', {
-      'username' : user['name'],
-      'location_x' : user['x'],
-      'location_y' : user['y'],
-      'key_val' : ENTER
-   });
- 
-   socket.userPos.on('init_mv', function(data) {
-      console.log("[Client log] At first, user position socket is received by server");
 
-      if(data.username == user['name'])
-      {
-         console.log(
-            "[Client log :: Code line 86] username: ", data.username,
-            ",x: ", data.location_x, ",y: ", data.location_y
-         );
-
-         user['x'] = parseInt(data.location_x);
-         user['y'] = parseInt(data.location_y);
-
-         $("#main_layer").append(
-            "<div id='" + user['name'] + "' style='position: absolute;'></div>"
-         );
-
-         $("#" + data['name']).css({
-            "backgroundImage" : image.clnt,
-            left : user['x'],
-            top : user['y']
-         });
-      }
-      else
-      {
-         console.log(
-            "[Client log]", data.username, "'s login."
-         );
-         
-         enemyPosX = parseInt(data.location_x);
-         enemyPosY = parseInt(data.location_y);
-
-         $("#main_layer").append(
-            "<div id='" + data.username + "' style='position: absolute;'></div>"
-         );
-
-         $("#" + data.username).css({
-            "backgroundImage" : image.other,
-            left : enemyPosX,
-            top : enemyPosy
-         });
-      }
-   });
-*/
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw planets'});
 
    socket.planet.on('planet_res', function(data) {
@@ -389,6 +347,7 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(ev.keyCode == DEVELOP_PLANET) 
       {
+         
          discoverPlanet(user, socket);
          //$(document).off('keydown');
       }
