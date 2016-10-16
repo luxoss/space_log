@@ -13,6 +13,7 @@ var socket = {
    userPos : io.connect(serverUrl + ":5006"),
    planet : io.connect(serverUrl + ":5002")
 };
+
 var user = {
        name : localStorage.getItem('username'),
           x : parseInt(localStorage.getItem('x')),
@@ -27,6 +28,7 @@ var user = {
         hp : parseInt(localStorage.getItem('hp'))
    }
 };
+
 var lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var isKeyDown = [];		            // Create key state array to keyboard polling  
