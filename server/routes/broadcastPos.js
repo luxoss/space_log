@@ -17,9 +17,13 @@ var getP = {};
 var username="", key_val=0, x, y, collistion;
 var LEFT=37, UP=38, RIGHT=39, DOWN=40, ENTER=13;
 var p_size = 100, s_size = 64;
+
+var develop;
+
 UsersPio.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 		var mem_info = db.collection("MEM_INFO");
+		var mem_plan = db.collection("MEM_PLAN");
 		var member = db.collection("MEMBER");
 		var planet = db.collection("PLANET");
 
@@ -76,9 +80,22 @@ UsersPio.on('connection', function(socket){
 					for(var i =0; i< results.length; i++){
 						if((((results[i].location_x <= x) && (results[i].location_x >= (x-100))) || ((results[i].location_x >= (x+64-100)) && (results[i].location_x <= x+64)) ) && (((results[i].location_y <= y) && (results[i].location_y >= (y -100))) || ((results[i].location_y >= (y+64-100)) && (results[i].location_y <= (y+64)))   )   ){
 							//collision
+							
+							mem_plan.findOne({p_id: results[i].p_id}, function(err, mem_plan_dev){
+								if(err){
+								
+								} else if(mem_plan_dev){
+									develop = mem_plan_dev.develop;
+									console.log(develop);
+
+								} else{
+								
+								}
+							});
 							getP = results[i];
 							getP.collision=1;
 							getP.username=username;
+							getP.develop=develop;
 							console.log(getP);
 							break;
 						}

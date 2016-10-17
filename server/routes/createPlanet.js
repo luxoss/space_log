@@ -11,7 +11,7 @@ function create_p(){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 
 		var collection = db.collection("PLANET");
-
+		var mem_plan = db.collection("MEM_PLAN");
 		collection.count(function(err, count){
 			if(err){
 
@@ -38,7 +38,9 @@ function create_p(){
 					
 					} else if (doc == null){
 						console.log('There are no planetn\'s location x, y. So insert the documents');
-						collection.insert({p_id : cnt, mineral : source_q, gas :source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd, develop :"false"}, function(err, ins_res){});
+						collection.insert({p_id : cnt, mineral : source_q, gas :source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd}, function(err, ins_res){});
+						
+						mem_plan.insert({p_id : cnt, develop:"false"});
 					} else{ 
 						console.log('there are already data');
 						var n_dat = new Date();
@@ -56,7 +58,8 @@ function create_p(){
 							if(err){
 							
 							}else if(rdoc == null){
-								collection.insert({p_id : cnt, mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd, develop : "false"});
+								collection.insert({p_id : cnt, mineral : source_q, gas : source_q, unknown : source_q, location_x : x, location_y : y, create_spd : spd});
+								mem_plan.insert({p_id : cnt, develop:"false"});
 							}
 						});
 					}
@@ -68,5 +71,5 @@ function create_p(){
 
 setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-//setInterval(create_p, 1000);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 100);//10초단위로 create_p 함수를 실행
 
