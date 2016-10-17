@@ -36,6 +36,7 @@ var isKeyDown = [];		            // Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
+var cnt = 0;
 
 fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
@@ -291,7 +292,8 @@ function keyHandler(user, socket)
    };
    
    // TODO: $("#" + selector).on('keydown', function(ev){});
-   $(document).off('keydown').on('keydown', function(ev) {  
+   $(document).on('keydown', function(ev) {  
+      //var e = ev | window.event;
 
       if(ev.keyCode == LEFT)
       {
@@ -351,9 +353,19 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(ev.keyCode == DEVELOP_PLANET) 
       {
-         isKeyDown[ev.keyCode] = true;
-         discoverPlanet(user, socket);
          //$(document).off('keydown');
+         console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
+         
+         discoverPlanet(user, socket);
+
+         if(ev.keyCode.stopPropagation) 
+         {
+            ev.keyCode.stopPropagation();
+         }
+         else 
+         {
+            ev.keyCode.cancelBubble = true;         
+         }
       }
       
       btnControl(ev, user, socket);
@@ -424,6 +436,7 @@ function discoverPlanet(user, socket)
       {
          console.log("[CLIENT LOG] DEVELOP SOCKET LOOP");
          console.log("PLANET ID:", data.p_id, "USERNAME:",  data.username, "DEVELOP:", data.develop);
+         developDisplay(data);
          /*
          alert(
             "행성 명: planet" + data.p_id +
@@ -823,16 +836,17 @@ function userPosUpdate(user)
    });		
 }
 
-function developDisplay() 
+function developDisplay(data) 
 {
    var developPlanetInfo = {
-      name : $("#p_name"),
+      name : $("#p_name").text("planet" + data.p_id),
       resource : {
-         mineral : $("#p_mineral"),
-         gas : $("p_gas"),
-         unknown : $("P_unknown")
+         mineral : $("#p_mineral").text(data.mineral),
+         gas : $("#p_gas").text(data.gas),
+         unknown : $("#p_unknown").text(data.unknown)
       },
-      grade : $("p_grade"),
+      grade : $("#p_grade").text(data.create_spd),
+      develop : $("#p_develop")
    };
 
    var state = $('.develop_planet_ui').css('display');
@@ -850,15 +864,54 @@ function developDisplay()
    if(state == 'none')
    {
       $(".develop_planet_ui").show();
+
+      developPlanetInfo.name;
+      developPlanetInfo.resource.mineral;
+      developPlanetInfo.resource.gas;
+      developPlanetInfo.resource.unknown;
+      developPlanetInfo.grade;
+      
+      if(data.develop == 'true') 
+      {
+         developPlanetInfo.develop.text("개척"); 
+      }
+      else
+      {
+         developPlanetInfo.develop.text("미개척");
+      }
    }
 
-   $("#cancel").on('click', function() {
+   $("#cancel").mouseover(function() {
+      menuSelection.play();
+      $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
+      menuSelection.currentTime = 0;
+   });
+
+   $("#cancel").mouseout(function() {
+      menuSelection.play();
+      $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
+      menuSelection.currentTime = 0;
+   });
+
+   $("#cancel").on('click', function() { 
       $(".develop_planet_ui").hide();
    });
-   /*
-   $("#develop").on('click', function() {
+
+   $("#develop_planet").mouseover(function() {
+      menuSelection.play();
+      $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
+      menuSelection.currentTime = 0;
    });
-   */
+
+   $("#develop_planet").mouseout(function() {
+      menuSelection.play();
+      $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
+      menuSelection.currentTime = 0;
+   });
+   
+   $("#develop_planet").on('click', function() {
+      socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+   });
 }
 
 /*

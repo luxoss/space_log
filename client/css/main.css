@@ -589,9 +589,9 @@ body {
    border-style: dotted;
    border-radius: 5px;
    width: 500px;
-   height: 600px;
+   height: 700px;
    display: none;
-   position: absolute;
+   position: fixed;
    z-index: 3;
 }
 
@@ -674,7 +674,7 @@ body {
 
 #p_mineral { 
    width: 250px; 
-   height: 250px; 
+   height: 100px; 
    border: 0px; 
    text-align: center; 
    line-height: 100px; 
@@ -683,9 +683,9 @@ body {
    position: absolute; 
 }
 
-#p_unknwon { 
+#p_unknown { 
    width: 250px; 
-   height: 250px; 
+   height: 100px; 
    border: 0px; 
    text-align: center; 
    line-height: 100px; 
@@ -718,24 +718,48 @@ body {
    position: absolute;
 }
 
-#develop {
+#d_develop {
    width: 250px;
    height: 100px;
-   border: 100px;
-   text-align: center;
+   border: 0px;
+   text-align: right;
    line-height: 100px;
    left: 0px;
    top: 500px;
    position: absolute;
 }
 
-#cancel {
+#p_develop {
    width: 250px;
    height: 100px;
-   border: 100px;
+   border: 0px;
    text-align: center;
    line-height: 100px;
    left: 250px;
    top: 500px;
    position: absolute;
+}
+
+#develop_planet {
+   width: 250px;
+   height: 100px;
+   border: 0px;
+   text-align: center;
+   line-height: 100px;
+   left: 0px;
+   top: 600px;
+   position: absolute;
+   cursor: pointer;
+}
+
+#cancel {
+   width: 250px;
+   height: 100px;
+   border: 0px;
+   text-align: center;
+   line-height: 100px;
+   left: 250px;
+   top: 600px;
+   position: absolute;
+   cursor: pointer;
 }
