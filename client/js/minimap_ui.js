@@ -13,12 +13,17 @@ function drawMinimap(socket)
    // background width: 3500px, height: 3500px
    // canvas width: 250px = 3500 / x = 12, height: 250px = 3500 / y = 12
    var state = $('.minimap_ui').css('display');
+   var menuSelectSound = new Audio();
    var minimap = document.getElementById('minimap_canvas');
+
+   menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
    if(state == 'none')
    {
       // 만약 행성이라면, 빨간색 원 모양으로 그리기
 	   // 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
+      menuSelectSound.play();
+      menuSelectSound.currentTime = 0;
       $('.minimap_ui').show();
   
       if(minimap.getContext) 
@@ -63,6 +68,8 @@ function drawMinimap(socket)
    }
    else
    {
+      menuSelectSound.play();
+      menuSelectSound.currentTime = 0;
       $('.minimap_ui').hide();
    }
 }
