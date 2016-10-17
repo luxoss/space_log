@@ -851,8 +851,8 @@ function developDisplay(data)
 
    var state = $('.develop_planet_ui').css('display');
             
-   discovered.play();
-   discovered.currentTime = 0;
+   //discovered.play();
+   //discovered.currentTime = 0;
 
    $(window).resize(function() {
       $('.develop_planet_ui').css({
@@ -894,6 +894,7 @@ function developDisplay(data)
    });
 
    $("#cancel").on('click', function() { 
+      console.log("[CLINET LOG] Canceled.");
       $(".develop_planet_ui").hide();
    });
 
@@ -911,6 +912,8 @@ function developDisplay(data)
    
    $("#develop_planet").on('click', function() {
       socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+      console.log("[CLIENT LOG] Complete develop planet."); 
+      $(".develop_planet_ui").hide();
    });
 }
 
