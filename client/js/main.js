@@ -464,6 +464,7 @@ function btnControl(ev, user, socket)
 {
    var keyState = ev.keyCode;
    var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
+   //var KEYSET_BTN = 73;
    /*
    lastPosX = user['x'];
    lastPosY = user['y'];
@@ -493,7 +494,12 @@ function btnControl(ev, user, socket)
    {
       drawMinimap(socket);
    }
-
+/*
+   if(keyState = KEYSET_BTN) 
+   {
+      keySetDisplay();
+   }
+*/
    if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
    {
       if(user['name'] != null) 
@@ -916,8 +922,34 @@ function developDisplay(data)
       $(".develop_planet_ui").hide();
    });
 }
-
 /*
+function keySetDisplay() 
+{
+   var display_state = $("#key_set").css('display');
+   
+   if(display_state == 'none')
+   {
+      $(window).resize(function() {
+         $('#key_set').css({
+            left: ($(window).width() - $('#key_set').outerWidth()) / 2,
+            top : ($(window).height() - $('#key_set').outerHeight()) / 2
+         });
+      }).resize();
+
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+
+      $("#key_set").show();
+     }
+   else
+   {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+
+      $("#key_set").hide();
+   }
+}
+
 var shoot = function(curPosX, curPosY) {
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
    var laserId = $("#" + user['name'] + "_laser");

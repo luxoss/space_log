@@ -27,7 +27,7 @@ body {
 
 #view_layer {
 	box-shadow: rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
-   /*border: 2px solid rgba(144, 32, 53, 0.7);*/
+   /*border: 1px solid rgba(144, 32, 53, 0.7);*/
    border: 2px solid rgba(255, 255, 255, 0.7);
    border-style: dotted;
 	border-radius: 15px;
@@ -762,4 +762,20 @@ body {
    top: 600px;
    position: absolute;
    cursor: pointer;
+}
+
+#key_set {
+   background-color: rgba(255, 255, 255, 0.7);
+   font-weight: bold;
+   font-size: 20pt;
+   border: 1px solid white;
+   border-style: dotted;
+   border-radius: 5px;
+   width: 500px;
+   height: 500px;
+   text-align: center;
+   line-height: 500px;
+   position: fixed;
+   display: none;
+   z-index: 3;
 }
