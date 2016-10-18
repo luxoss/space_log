@@ -7,6 +7,7 @@
 //TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr' 
 var serverUrl = "http://203.237.179.21";
 var indexPageUrl = serverUrl + ":8000";
+
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
    userInfo : io.connect(serverUrl + ":5005"),
@@ -265,6 +266,8 @@ function drawPlanetImg(mainLayer, data)
 
 function keyHandler(user, socket) 
 {
+   console.log("[CLIENT LOG] KeyHandler is called.");
+
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
    var DEVELOP_PLANET = 32, SHOOT = 83;
    var speed = 4;
@@ -291,73 +294,11 @@ function keyHandler(user, socket)
       }
    };
    
-   // TODO: $("#" + selector).on('keydown', function(ev){});
-   $(document).on('keydown', function(ev) {  
+   // TODO: $("#" + selector :: e.g.document).on('keydown', function(ev){});
+   $('body').off().bind('keydown', function(ev) {  
       //var e = ev | window.event;
-
-      if(ev.keyCode == LEFT)
-      {
-         bg.x("main_layer", bg.x("main_layer") + speed);
-
-         socket.userPos.emit('press_key', {
-            'username': user['name'], 
-            'key_val' : LEFT, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
-      }
-
-      if(ev.keyCode == UP)
-      {
-         bg.y("main_layer", bg.y("main_layer") + speed);
-
-         socket.userPos.emit('press_key', {
-            'username': user['name'], 
-            'key_val' : UP, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
-      }
-
-      if(ev.keyCode == RIGHT)
-      {
-         bg.x("main_layer", bg.x("main_layer") - speed);
-
-         socket.userPos.emit('press_key', {
-            'username': user['name'], 
-            'key_val' : RIGHT, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
-      }
-
-      if(ev.keyCode == DOWN)
-      {
-         bg.y("main_layer", bg.y("main_layer") - speed);
-
-         socket.userPos.emit('press_key', {
-            'username': user['name'], 
-            'key_val' : DOWN, 
-            'location_x' : user['x'],
-            'location_y' : user['y']
-         });
-      }
-
-      if(ev.keyCode == SHOOT) 
-      {
-         fire.play();
-         console.log('fire!');
-         fire.currentTime = 0;      
-      }
-      
-      // command line R key is 'redo' and r key is 'undo'
-      if(ev.keyCode == DEVELOP_PLANET) 
-      {
-         //$(document).off('keydown');
-         console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
-         
-         discoverPlanet(user, socket);
-
+      //ev.stopPropagation(); 
+       /*
          if(ev.keyCode.stopPropagation) 
          {
             ev.keyCode.stopPropagation();
@@ -366,21 +307,197 @@ function keyHandler(user, socket)
          {
             ev.keyCode.cancelBubble = true;         
          }
+      */
+
+      console.log("[CLIENT LOG] Keydown event is called.");
+
+      if(ev.keyCode == LEFT)
+      {
+         console.log("[CLIENT LOG] LEFT KEY LOG", cnt++);
+
+         bg.x("main_layer", bg.x("main_layer") + speed);
+
+         socket.userPos.emit('press_key', {
+            'username': user['name'], 
+            'key_val' : LEFT, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+      }
+
+      if(ev.keyCode == UP)
+      {
+         console.log("[CLIENT LOG] UP KEY LOG", cnt++);
+
+         bg.y("main_layer", bg.y("main_layer") + speed);
+
+         socket.userPos.emit('press_key', {
+            'username': user['name'], 
+            'key_val' : UP, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+      }
+
+      if(ev.keyCode == RIGHT)
+      {
+         console.log("[CLIENT LOG] RIGHT KEY LOG", cnt++);
+
+         bg.x("main_layer", bg.x("main_layer") - speed);
+
+         socket.userPos.emit('press_key', {
+            'username': user['name'], 
+            'key_val' : RIGHT, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+      }
+
+      if(ev.keyCode == DOWN)
+      {
+         console.log("[CLIENT LOG] DOWN KEY LOG", cnt++);
+
+         bg.y("main_layer", bg.y("main_layer") - speed);
+
+         socket.userPos.emit('press_key', {
+            'username': user['name'], 
+            'key_val' : DOWN, 
+            'location_x' : user['x'],
+            'location_y' : user['y']
+         });
+
+      }
+
+      if(ev.keyCode == SHOOT) 
+      {
+         console.log("[CLIENT LOG] SHOOT KEY LOG", cnt++);
+         fire.play();
+         console.log('fire!');
+         fire.currentTime = 0;      
+
       }
       
+      // command line R key is 'redo' and r key is 'undo'
+      if(ev.keyCode == DEVELOP_PLANET) 
+      {        
+         console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
+         
+         socket.userPos.emit('collision_req', {
+            'username' : user['name'], 
+            'location_x' : user['x'],
+            'location_y' : user['y'],
+         });
+
+         socket.userPos.on('collision_res', function(data) {
+            console.log(data);
+
+            if(data.collision == 0)
+            {
+               console.log('[CLIENT LOG] DEVELOP_KEY is off.');
+            }
+
+            // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
+            if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
+            {
+               console.log("[CLIENT LOG] DEVELOP SOCKET LOOP");
+               console.log("PLANET ID:", data.p_id, "USERNAME:",  data.username, "DEVELOP:", data.develop);
+
+               var developPlanetInfo = {
+                  name : $("#p_name").text("planet" + data.p_id),
+                  resource : {
+                     mineral : $("#p_mineral").text(data.mineral),
+                     gas : $("#p_gas").text(data.gas),
+                     unknown : $("#p_unknown").text(data.unknown)
+                  },
+                  grade : $("#p_grade").text(data.create_spd),
+                  develop : $("#p_develop")
+               };
+
+               var state = $('.develop_planet_ui').css('display');
+                        
+               //discovered.play();
+               //discovered.currentTime = 0;
+
+               $('.develop_planet_ui').css({
+                  left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2, 
+                  top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
+               });
+
+               if(state == 'none')
+               {
+                  $(".develop_planet_ui").show();
+
+                  developPlanetInfo.name;
+                  developPlanetInfo.resource.mineral;
+                  developPlanetInfo.resource.gas;
+                  developPlanetInfo.resource.unknown;
+                  developPlanetInfo.grade;
+                  
+                  if(data.develop == 'true') 
+                  {
+                     developPlanetInfo.develop.text("개척"); 
+                  }
+                  else
+                  {
+                     developPlanetInfo.develop.text("미개척");
+                  }
+               }
+
+               $("#cancel").mouseover(function() {
+                  menuSelection.play();
+                  $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#cancel").mouseout(function() {
+                  menuSelection.play();
+                  $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#cancel").on('click.cancel', function() { 
+                  console.log("[CLINET LOG] Canceled.");
+                  $(".develop_planet_ui").hide();
+               });
+
+               $("#develop_planet").mouseover(function() {
+                  menuSelection.play();
+                  $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#develop_planet").mouseout(function() {
+                  menuSelection.play();
+                  $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
+                  menuSelection.currentTime = 0;
+               });
+               
+               $("#develop_planet").on('click.develop_planet', function() {
+                  socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+                  console.log("[CLIENT LOG] Complete develop planet.");      
+                  $(".develop_planet_ui").hide();
+               });
+            }
+         }); 
+      }  
       btnControl(ev, user, socket);
    });
 
    // Before code line is '$(document).on('keyup', function(){});
-   $(document).on('keyup', function(ev) {
-
+   $('body').off().bind('keyup', function(ev) {
+      /*
       if(ev.keyCode == DEVELOP_PLANET)
       {
          isKeyDown[DEVELOP_PLANET] = false;
       }
+      */
+      $('body').clearQueue();
    });
    
-   $("#logout_btn").on('click', function(){	
+   $("#logout_btn").on('click.logout', function(){	
       if(user['name'] != null) 
       {
          logout(user);
@@ -392,72 +509,28 @@ function keyHandler(user, socket)
       }
    });	
 
-   $("#planet_btn").on('click', function() {
+   $("#planet_btn").on('click.planet', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
    });
 
-   $("#battle_ship_btn").on('click', function() {
+   $("#battle_ship_btn").on('click.battle_ship', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       battleShipViewLayer();
    });
 
-   $("#rank_btn").on('click', function() {
+   $("#rank_btn").on('click.rank', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
    });
 /*
-   $('#minimap_btn').on('click', function() {      
+   $('#minimap_btn').on('click.minimap_btn', function() {      
       drawMinimap(socket);
    });
 */
-}
-
-function discoverPlanet(user, socket) 
-{
-   socket.userPos.emit('collision_req', {
-      'username' : user['name'], 
-      'location_x' : user['x'],
-      'location_y' : user['y'],
-   });
-
-   socket.userPos.on('collision_res', function(data) {
-
-      if(data.collision == 0)
-      {
-         console.log('[CLIENT LOG] DEVELOP_KEY is off.');
-      }
-
-      // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
-      if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
-      {
-         console.log("[CLIENT LOG] DEVELOP SOCKET LOOP");
-         console.log("PLANET ID:", data.p_id, "USERNAME:",  data.username, "DEVELOP:", data.develop);
-         developDisplay(data);
-         /*
-         alert(
-            "행성 명: planet" + data.p_id +
-            "자원 량: mineral(" + data.mineral + "), gas(" + data.gas + "), unknown("+ data.unknown
-            + ")행성 등급: " + data.create_spd
-         );
-
-         var developPlanet = confirm('이 행성은 개척되지 않았습니다. 개척하시겠습니까?');
-         
-         if(developPlanet == true) 
-         {
-            alert('행성 개척을 시작합니다.');
-            socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-         }
-         else 
-         {
-            alert('취소 하셨습니다.');   
-         }
-         */
-      }
-   }); 
 }
 
 function btnControl(ev, user, socket) 
@@ -842,86 +915,6 @@ function userPosUpdate(user)
    });		
 }
 
-function developDisplay(data) 
-{
-   var developPlanetInfo = {
-      name : $("#p_name").text("planet" + data.p_id),
-      resource : {
-         mineral : $("#p_mineral").text(data.mineral),
-         gas : $("#p_gas").text(data.gas),
-         unknown : $("#p_unknown").text(data.unknown)
-      },
-      grade : $("#p_grade").text(data.create_spd),
-      develop : $("#p_develop")
-   };
-
-   var state = $('.develop_planet_ui').css('display');
-            
-   //discovered.play();
-   //discovered.currentTime = 0;
-
-   $(window).resize(function() {
-      $('.develop_planet_ui').css({
-         left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2, 
-         top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
-      });
-   }).resize();
-
-   if(state == 'none')
-   {
-      $(".develop_planet_ui").show();
-
-      developPlanetInfo.name;
-      developPlanetInfo.resource.mineral;
-      developPlanetInfo.resource.gas;
-      developPlanetInfo.resource.unknown;
-      developPlanetInfo.grade;
-      
-      if(data.develop == 'true') 
-      {
-         developPlanetInfo.develop.text("개척"); 
-      }
-      else
-      {
-         developPlanetInfo.develop.text("미개척");
-      }
-   }
-
-   $("#cancel").mouseover(function() {
-      menuSelection.play();
-      $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
-      menuSelection.currentTime = 0;
-   });
-
-   $("#cancel").mouseout(function() {
-      menuSelection.play();
-      $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
-      menuSelection.currentTime = 0;
-   });
-
-   $("#cancel").on('click', function() { 
-      console.log("[CLINET LOG] Canceled.");
-      $(".develop_planet_ui").hide();
-   });
-
-   $("#develop_planet").mouseover(function() {
-      menuSelection.play();
-      $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
-      menuSelection.currentTime = 0;
-   });
-
-   $("#develop_planet").mouseout(function() {
-      menuSelection.play();
-      $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
-      menuSelection.currentTime = 0;
-   });
-   
-   $("#develop_planet").on('click', function() {
-      socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-      console.log("[CLIENT LOG] Complete develop planet."); 
-      $(".develop_planet_ui").hide();
-   });
-}
 /*
 function keySetDisplay() 
 {
