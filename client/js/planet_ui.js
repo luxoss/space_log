@@ -4,11 +4,9 @@
 	** Author: luxoss
 */
 
-function planetViewLayer(planetSocket)
-{
+var planetViewLayer = function(planetSocket) {
    var state = $('.planet_ui').css('display');
    var styleTop = 0;
-
 
    if(state == 'none') 
    {
@@ -106,6 +104,6 @@ function planetViewLayer(planetSocket)
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $('.planet_ui').hide();
    }
-}
+};
 
 

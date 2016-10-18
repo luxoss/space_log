@@ -37,7 +37,7 @@ var isKeyDown = [];		            // Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
-var cnt = 0;
+var eventCount = 0;
 
 fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
@@ -321,8 +321,6 @@ function keyHandler(user, socket)
 
       if(keyState == LEFT)
       {
-         console.log("[CLIENT LOG] LEFT KEY LOG", cnt++);
-
          bg.x("main_layer", bg.x("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -336,8 +334,6 @@ function keyHandler(user, socket)
 
       if(keyState == UP)
       {
-         console.log("[CLIENT LOG] UP KEY LOG", cnt++);
-
          bg.y("main_layer", bg.y("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -351,8 +347,6 @@ function keyHandler(user, socket)
 
       if(keyState == RIGHT)
       {
-         console.log("[CLIENT LOG] RIGHT KEY LOG", cnt++);
-
          bg.x("main_layer", bg.x("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -361,13 +355,10 @@ function keyHandler(user, socket)
             'location_x' : user['x'],
             'location_y' : user['y']
          });
-
       }
 
       if(keyState == DOWN)
       {
-         console.log("[CLIENT LOG] DOWN KEY LOG", cnt++);
-
          bg.y("main_layer", bg.y("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -381,11 +372,9 @@ function keyHandler(user, socket)
 
       if(keyState == SHOOT) 
       {
-         console.log("[CLIENT LOG] SHOOT KEY LOG", cnt++);
          fire.play();
          console.log('fire!');
          fire.currentTime = 0;      
-
       }
 
       if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
@@ -513,6 +502,8 @@ function keyHandler(user, socket)
                $("#cancel").on('click.cancel', function() { 
                   console.log("[CLINET LOG] Canceled.");
                   $(".develop_planet_ui").hide();
+
+                  return false;
                });
 
                $("#develop_planet").mouseover(function() {
@@ -529,8 +520,10 @@ function keyHandler(user, socket)
                
                $("#develop_planet").on('click.develop_planet', function() {
                   socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-                  console.log("[CLIENT LOG] Complete develop planet.");      
                   $(".develop_planet_ui").hide();
+                  console.log("[CLIENT LOG] Complete develop planet.");      
+
+                  return false;
                });
             }
          }); 
@@ -561,22 +554,29 @@ function keyHandler(user, socket)
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
+
+      return false;
    });
 
    $("#battle_ship_btn").on('click.battle_ship', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       battleShipViewLayer();
+
+      return false;
    });
 
    $("#rank_btn").on('click.rank', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
+
+      return false;
    });
 /*
    $('#minimap_btn').on('click.minimap_btn', function() {      
       drawMinimap(socket);
+      return false;
    });
 */
 }
