@@ -29,24 +29,32 @@ function drawMinimap(socket)
       if(minimap.getContext) 
       {
          var ctx = minimap.getContext('2d');
+
          var planet = {  // width: 64px, height: 64px
             x : 0,
             y : 0
          };
+
          var player = {  // width: 100px, height: 100px;
             x : 0,
             y : 0
          };
+
+         var enemy = {
+            x : 0,
+            y : 0
+         };
+
          socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
          socket.planet.on('planet_res', function(data) {
             planet.x = data.location_x;
             planet.y = data.location_y;
 
-            ctx.fillStyle = "rgba(255, 0, 0, 0.7)";
+            ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
             ctx.beginPath();
             //TODO: Diff result that between minimap planet arc and main_display
-            ctx.arc(parseInt((planet['x']/12)), parseInt((planet['y']/12)), 2, 0, Math.PI * 2, false);
+            ctx.arc(parseInt((planet['x'] / 12)), parseInt((planet['y'] / 12)), 2, 0, Math.PI * 2, false);
             ctx.closePath();
             ctx.fill();
          });
@@ -54,13 +62,25 @@ function drawMinimap(socket)
          socket.userPos.on('mv', function(data) {
             if(user['name'] == data['username'])
             {
-               ctx.fillStyle = "rgb(255, 255, 0)";
-               ctx.fillRect(user['x'], user['y'], width, height);
+               player.x = data.location_x;
+               player.y = data.location_y;
+
+               ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+
+               ctx.arc(parseInt((player['x'] / 12)), parseInt((player['y'] / 12)), 2, 0, Math.PI * 2, false);
+               ctx.closePath();
+               ctx.fill();
             }
             else
             {
-               ctx.fillStyle = "rgb(0, 0, 0)";
-               ctx.fillRect(data['location_x'], data['location_y'], width, height); 
+               enemy.x = data.location_x;
+               enemy.y = data.location_y;
+
+               ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
+
+               ctx.arc(parseInt((enemy['x'] / 12)), parseInt((enemy['y'] / 12)), 2, 0, Math.PI * 2, false);
+               ctx.closePath();
+               ctx.fill();
             }
          });
          */

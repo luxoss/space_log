@@ -6,7 +6,7 @@
 
 body {
 	background-color: rgb(0, 0, 0);
-	overflow: hidden; 
+	overflow: hidden !important; 
    width: 7700px;
    height: 7700px;   
 }

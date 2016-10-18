@@ -295,7 +295,15 @@ function keyHandler(user, socket)
    };
    
    // TODO: $("#" + selector :: e.g.document).on('keydown', function(ev){});
-   $('body').off().bind('keydown', function(ev) {  
+   $('body').off('keydown').bind('keydown', function(ev) {  
+      var keyState = ev.keyCode;
+      var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
+      //var KEYSET_BTN = 73;
+      /*
+      lastPosX = user['x'];
+      lastPosY = user['y'];
+      */
+
       //var e = ev | window.event;
       //ev.stopPropagation(); 
        /*
@@ -311,7 +319,7 @@ function keyHandler(user, socket)
 
       console.log("[CLIENT LOG] Keydown event is called.");
 
-      if(ev.keyCode == LEFT)
+      if(keyState == LEFT)
       {
          console.log("[CLIENT LOG] LEFT KEY LOG", cnt++);
 
@@ -326,7 +334,7 @@ function keyHandler(user, socket)
 
       }
 
-      if(ev.keyCode == UP)
+      if(keyState == UP)
       {
          console.log("[CLIENT LOG] UP KEY LOG", cnt++);
 
@@ -341,7 +349,7 @@ function keyHandler(user, socket)
 
       }
 
-      if(ev.keyCode == RIGHT)
+      if(keyState == RIGHT)
       {
          console.log("[CLIENT LOG] RIGHT KEY LOG", cnt++);
 
@@ -356,7 +364,7 @@ function keyHandler(user, socket)
 
       }
 
-      if(ev.keyCode == DOWN)
+      if(keyState == DOWN)
       {
          console.log("[CLIENT LOG] DOWN KEY LOG", cnt++);
 
@@ -371,7 +379,7 @@ function keyHandler(user, socket)
 
       }
 
-      if(ev.keyCode == SHOOT) 
+      if(keyState == SHOOT) 
       {
          console.log("[CLIENT LOG] SHOOT KEY LOG", cnt++);
          fire.play();
@@ -379,9 +387,53 @@ function keyHandler(user, socket)
          fire.currentTime = 0;      
 
       }
+
+      if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
+      {
+         menuSelection.play();
+         menuSelection.currentTime = 0; 	  
+         battleShipViewLayer();
+      }
+
+      if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
+      {
+         menuSelection.play();
+         menuSelection.currentTime = 0;
+         planetViewLayer(socket['planet']);
+      }
+
+      if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
+      {
+         menuSelection.play();
+         menuSelection.currentTime = 0;
+         rankViewLayer();
+      }
+
+      if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
+      {
+         drawMinimap(socket);
+      }
+   /*
+      if(keyState = KEYSET_BTN) 
+      {
+         keySetDisplay();
+      }
+   */
+      if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
+      {
+         if(user['name'] != null) 
+         {
+            logout(user);
+         }
+         else 
+         {
+            alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+            $(location).attr('href', 'http://203.237.179.21:8000');	
+         }
+      }
       
       // command line R key is 'redo' and r key is 'undo'
-      if(ev.keyCode == DEVELOP_PLANET) 
+      if(keyState == DEVELOP_PLANET) 
       {        
          console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
          
@@ -482,19 +534,15 @@ function keyHandler(user, socket)
                });
             }
          }); 
-      }  
-      btnControl(ev, user, socket);
+      }
+      //return false;
    });
 
    // Before code line is '$(document).on('keyup', function(){});
-   $('body').off().bind('keyup', function(ev) {
-      /*
-      if(ev.keyCode == DEVELOP_PLANET)
-      {
-         isKeyDown[DEVELOP_PLANET] = false;
-      }
-      */
-      $('body').clearQueue();
+   $('body').off('keyup').bind('keyup', function(ev) {
+      //ev.stopPropagation();
+      //ev.preventDefault();
+      //return false;
    });
    
    $("#logout_btn").on('click.logout', function(){	
@@ -533,60 +581,6 @@ function keyHandler(user, socket)
 */
 }
 
-function btnControl(ev, user, socket) 
-{
-   var keyState = ev.keyCode;
-   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
-   //var KEYSET_BTN = 73;
-   /*
-   lastPosX = user['x'];
-   lastPosY = user['y'];
-   */
-   if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
-   {
-      menuSelection.play();
-      menuSelection.currentTime = 0; 	  
-      battleShipViewLayer();
-   }
-
-   if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
-   {
-      menuSelection.play();
-      menuSelection.currentTime = 0;
-      planetViewLayer(socket['planet']);
-   }
-
-   if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
-   {
-      menuSelection.play();
-      menuSelection.currentTime = 0;
-      rankViewLayer();
-   }
-
-   if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
-   {
-      drawMinimap(socket);
-   }
-/*
-   if(keyState = KEYSET_BTN) 
-   {
-      keySetDisplay();
-   }
-*/
-   if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
-   {
-      if(user['name'] != null) 
-      {
-         logout(user);
-      }
-      else 
-      {
-         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-         $(location).attr('href', 'http://203.237.179.21:8000');	
-      }
-   }
-}
-
 function logout(user) 
 {
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
@@ -613,9 +607,7 @@ function logout(user)
                'lastPosX': user['x'],    //lastPosX, 
                'lastPosY': user['y']     //lastPosY
             }); 
-/*
-            socket.userInit.on('logout_all_req', {'username' : user['name']});
-*/
+
             localStorage.removeItem('username');
             localStorage.removeItem('exp');
             localStorage.removeItem('hp');
@@ -685,8 +677,6 @@ function userPosUpdate(user)
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
-               //bg.x("main_layer", bg.x("main_layer") + 10);
-
                if(user['x'] <= 0) 
                {
                   user['x'] = 0;
@@ -711,8 +701,6 @@ function userPosUpdate(user)
                
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
-
-               //bg.x("main_layer", bg.x("main_layer") - 10);
 
                if(user['x'] >= 3430) 
                {
@@ -739,8 +727,6 @@ function userPosUpdate(user)
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
-               //bg.y("main_layer", bg.y("main_layer") + 10);
-
                if(user['y'] <= 0) 
                {
                   user['x'] = parseInt(data.location_x);
@@ -765,8 +751,6 @@ function userPosUpdate(user)
 
                $("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
-
-               //bg.y("main_layer", bg.y("main_layer") - 10);
 
                if(user['y'] >= 3430) 
                {
