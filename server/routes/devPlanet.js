@@ -37,7 +37,7 @@ devPlntio.on('connection', function(socket){
 					//	result.develop="true";
 					//	mem_plan.save({"p_id" : p_id, "username":username});
 						devPlntio.emit('add_p_result', {"p_id":p_id, "username":username, "develop":"true"});
-					} else if (result.dev_p == "true"){
+					} else if (result.develop == "true"){
 						console.log("resulte.develop : true");	
 					} else {
 						console.log("PLANET Collection's [develop] field value is not true or false. Please check the value");
