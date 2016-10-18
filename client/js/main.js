@@ -269,6 +269,7 @@ function keyHandler(user, socket)
    console.log("[CLIENT LOG] KeyHandler is called.");
 
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
    var DEVELOP_PLANET = 32, SHOOT = 83;
    var speed = 4;
    var bg = {
@@ -295,9 +296,8 @@ function keyHandler(user, socket)
    };
    
    // TODO: $("#" + selector :: e.g.document).on('keydown', function(ev){});
-   $('body').off('keydown').bind('keydown', function(ev) {  
+   $('body').off('keydown').on('keydown', function(ev) {  
       var keyState = ev.keyCode;
-      var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
       //var KEYSET_BTN = 73;
       /*
       lastPosX = user['x'];
@@ -532,7 +532,7 @@ function keyHandler(user, socket)
    });
 
    // Before code line is '$(document).on('keyup', function(){});
-   $('body').off('keyup').bind('keyup', function(ev) {
+   $('body').off('keyup').on('keyup', function(ev) {
       //ev.stopPropagation();
       //ev.preventDefault();
       //return false;
