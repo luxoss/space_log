@@ -19,7 +19,7 @@ input {
 
 .input_text {
    background: transparent;
-   color: rgb(255, 255, 0);
+   color: rgba(255, 255, 0, 0.7);
    font-weight: bold;
    border: 2px solid white;
    border-radius: 10px;

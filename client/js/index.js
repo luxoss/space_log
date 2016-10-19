@@ -19,6 +19,22 @@ $(document).ready(function() {
       
    }).resize();		
 
+   $("#username").mouseover(function() {
+      $("#username").css('border', '2px solid rgba(0, 255, 0, 0.7)');
+   });
+
+   $("#username").mouseout(function() {
+      $("#username").css('border', '2px solid rgba(255, 255, 255, 1)');
+   });
+
+   $("#password").mouseover(function() {
+      $("#password").css('border', '2px solid rgba(0, 255, 0, 0.7)');
+   });
+
+   $("#password").mouseout(function() {
+      $("#password").css('border', '2px solid rgba(255, 255, 255, 1)');
+   });
+
    $("#login_btn").mouseover(function() {
       selectButton.play();
       $("#login_btn").css('background-color', 'rgba(0, 0, 255, 0.3)');
@@ -109,8 +125,9 @@ $(document).ready(function() {
    $(document).keydown(function(ev){
 
       var keyCode = ev.keyCode;
+      var TAB = 9, ENTER = 13;
 			
-      if(keyCode == 13) 
+      if(keyCode == ENTER) 
       {
          var user = {}; 		
          var mainPageUrl = './main.html';
@@ -139,6 +156,8 @@ $(document).ready(function() {
 	         }
 	      });
       }	
+
+      if(keyCode == TAB) { return false; }
    });
    
    $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
