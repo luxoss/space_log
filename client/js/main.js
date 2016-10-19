@@ -44,7 +44,28 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
+   console.log("This browser is online?" + navigator.onLine);
    /*
+   if(navigator.onLine) {
+      localStorage.setItem('username');
+      localStorage.setItem('exp');
+      localStorage.setItem('hp');
+      localStorage.setItem('mineral');
+      localStorage.setItem('gas');
+      localStorage.setItem('unknown');
+      localStorage.setItem('x');
+      localStorage.setItem('y'); 
+   }
+   else{
+      localStorage.removeItem('username');
+      localStorage.removeItem('exp');
+      localStorage.removeItem('hp');
+      localStorage.removeItem('mineral');
+      localStorage.removeItem('gas');
+      localStorage.removeItem('unknown');
+      localStorage.removeItem('x');
+      localStorage.removeItem('y'); 
+   }
    if(event.stopImmediatePropagaion) event.stopImmediatePropagation(); // MOZILLA
    else event.isImmediatePropagationEnabled = false; // IE
 
