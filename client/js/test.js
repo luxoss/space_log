@@ -71,12 +71,11 @@ $(document).ready(function(){ // After onload document, ready event handler and 
    });
 
    drawAllAssets('main_layer', user, socket);
-   keyHandler(user, socket);
    userPosUpdate(user);
 
 });
 
-$('body').on('keydown', keyHandler(ev, user, socket));
+$('body').on('keydown', function(ev){ keyHandler(ev, user, socket) });
 $('body').on('keyup', function(ev) { return false; });
 
 function drawAllAssets(mainLayer, user, socket)
@@ -272,8 +271,7 @@ function drawPlanetImg(mainLayer, data)
    }
 }
 
-function keyHandler(ev, user, socket)
-{
+var keyHandler = function(ev, user, socket) {
    console.log("[CLIENT LOG] KeyHandler is called.");
 
    var keyState = ev.keyCode;
@@ -554,7 +552,7 @@ function keyHandler(ev, user, socket)
       return false;
    });
 */
-}
+};
 
 function logout(user)
 {
