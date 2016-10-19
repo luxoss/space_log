@@ -424,7 +424,7 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(keyState == DEVELOP_PLANET) 
       {        
-         console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
+         console.log("[CLIENT LOG] SPACE KEY LOG");
          
          socket.userPos.emit('collision_req', {
             'username' : user['name'], 
