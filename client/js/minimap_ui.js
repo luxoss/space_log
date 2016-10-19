@@ -29,20 +29,19 @@ function drawMinimap(socket)
       if(minimap.getContext) 
       {
          var ctx = minimap.getContext('2d');
-
-         var planet = {  // width: 64px, height: 64px
-            x : 0,
-            y : 0
-         };
-
-         var player = {  // width: 100px, height: 100px;
-            x : 0,
-            y : 0
-         };
-
-         var enemy = {
-            x : 0,
-            y : 0
+         var assets = {
+            planet : { // { width : 64px, height: 64px }
+               x : 0, 
+               y : 0
+            },
+            player : { // { width : 100px, height: 100px; }
+               x : 0, 
+               y : 0
+            }, 
+            enemy : {
+               x : 0, 
+               y : 0
+            }
          };
 
          socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
@@ -54,7 +53,7 @@ function drawMinimap(socket)
             ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
             ctx.beginPath();
             //TODO: Diff result that between minimap planet arc and main_display
-            ctx.arc(parseInt((planet['x'] / 12)), parseInt((planet['y'] / 12)), 2, 0, Math.PI * 2, false);
+            ctx.arc(parseInt((assets.planet['x'] / 12)), parseInt((assets.planet['y'] / 12)), 2, 0, Math.PI * 2, false);
             ctx.closePath();
             ctx.fill();
          });
@@ -67,7 +66,7 @@ function drawMinimap(socket)
 
                ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
 
-               ctx.arc(parseInt((player['x'] / 12)), parseInt((player['y'] / 12)), 2, 0, Math.PI * 2, false);
+               ctx.arc(parseInt((assets.player['x'] / 12)), parseInt((assets.player['y'] / 12)), 2, 0, Math.PI * 2, false);
                ctx.closePath();
                ctx.fill();
             }
@@ -78,7 +77,7 @@ function drawMinimap(socket)
 
                ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
 
-               ctx.arc(parseInt((enemy['x'] / 12)), parseInt((enemy['y'] / 12)), 2, 0, Math.PI * 2, false);
+               ctx.arc(parseInt((assets.enemy['x'] / 12)), parseInt((assets.enemy['y'] / 12)), 2, 0, Math.PI * 2, false);
                ctx.closePath();
                ctx.fill();
             }
