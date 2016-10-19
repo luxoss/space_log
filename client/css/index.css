@@ -41,7 +41,8 @@ input {
    width: 450px;
    height: 500px; 
    border-radius: 10px;
-   position: absolute;
+   position: fixed;
+   z-index:2;
 }
 
 #header {
@@ -49,12 +50,12 @@ input {
    height: 150px; 
    color: rgb(255, 255, 255);
    font-size: 24pt;
-   text-align: left;
    margin: 0px;
    padding: 0px;
    border-bottom: 2px solid rgb(255, 255, 255);
    top: 0px;
    position: absolute;
+   text-align: left;
 }
 
 #user_info {
@@ -73,7 +74,6 @@ input {
    width: 400px;
    height: 75px;
    color: rgb(255, 255, 255);
-   text-align: right;
    clear: both;
    margin: 0px;
    padding: 0px;
@@ -81,9 +81,53 @@ input {
    top: 425px;
    left: 50px; 
    position: absolute;
+   text-align: right;
 }
 
 #sound_control {
    color: rgba(255, 255, 255, 0.7);
    font-weight: bold;
 }
+
+#index_pop_up_view { 
+   background-color: rgba(128, 0, 128, 0.8);
+   border: 2px solid white;
+   border-radius: 5px;
+   border-style: dotted;
+   width: 500px;
+   height: 100px;
+   position: fixed;
+   z-index: 3;
+   display: none;
+}
+
+#index_pop_up_msg {
+   background: transparent;
+   color: rgba(255, 255, 255, 1);
+   font-weight: bold;
+   font-size: 12pt;
+   width: 400px;
+   height: 100px;
+   text-align: center;
+   line-height: 100px;
+   left: 50px;
+   position: absolute;
+}
+
+#index_pop_up_hide {
+   background-color: rgba(128, 0, 0, 0.5);
+   color: rgba(255, 255, 255, 1);
+   border: 2px solid white;
+   border-style: dotted;
+   text-align: center;
+   line-height: 15px;
+   width: 15px;
+   height: 15px;
+   left: 502px;
+   top: 0px;
+   position: relative;
+   cursor: pointer;   
+}
+
+
+
