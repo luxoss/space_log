@@ -1,7 +1,7 @@
 <!--
    ** File-name: main.html
    ** Wrtier: luxoss
-   ** File-explanation: Display main html page 
+   ** File-explanation: Display main html page
 -->
 <!DOCTYPE html>
 <html>
@@ -15,8 +15,9 @@
       <script type = "text/javascript" src = "http://code.jquery.com/jquery-2.1.0.min.js"></script>
       <script type = "text/javascript" src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
 
-      <!-- Load main control javascript file list -->	
-      <script type = "text/javascript" src = "http://203.237.179.21:8000/js/main.js"></script> 
+      <!-- Load main control javascript file list -->
+      <!--<script type = "text/javascript" src = "http://203.237.179.21:8000/js/main.js"></script> -->
+      <script type = "text/javascript" src = "http://203.237.179.21:8000/js/test.js"></script>
       <script type = "text/javascript" src = "http://203.237.179.21:8000/js/planet_ui.js"></script>
       <script type = "text/javascript" src = "http://203.237.179.21:8000/js/battle_ship_ui.js"></script>
       <script type = "text/javascript" src = "http://203.237.179.21:8000/js/rank_ui.js"></script>
@@ -33,20 +34,20 @@
 
       <div id = "view_layer">
          <!-- Menu icon -->
-         <div class = "menu_buttons_ui">		  
+         <div class = "menu_buttons_ui">
             <input id ="logout_btn" type = "button"/>
 	         <input id = "planet_btn" type = "button" />
 	         <input id = "battle_ship_btn" type = "button" />
 	         <input id = "rank_btn" type = "button" />
 	      </div>
-		
+
 	      <!-- User information UI -->
-	      <div class = "user_info_ui">			
+	      <div class = "user_info_ui">
 	         <div id = "user_avatar">
 	            <div id = "user_name"></div>
 	         </div>
 	         <div id = "hp_progress_bar"></div>
-	         <div id = "exp_stats"></div>	
+	         <div id = "exp_stats"></div>
             <div id = "resource">
                <div id = "m_icon"></div><div id = "mineral" value = "0"></div>
                <div id = "g_icon"></div><div id = "gas" value = "0"></div>
@@ -57,7 +58,7 @@
          <!-- Draw minimap user interface -->
          <div class = "minimap_ui">
             <canvas id = "minimap_canvas"></canvas>
-         </div>	
+         </div>
          <div id = "position_navigator">
             <div id = "icon_x">X</div>
             <div id = "position_x" value = "0"></div>
@@ -76,16 +77,16 @@
          </div>
          <div id = "planet_list"></div>
       </div>
-	
-      <!-- Battle ship information UI -->	
+
+      <!-- Battle ship information UI -->
       <div class = "battle_ship_ui">
          <div id = "battle_ship_info_display">
 	         <div id = "battle_ship_state_img">Battle ship state image</div>
-	
+
 	         <!-- Set four cube slots -->
 	         <div id = "cube01_slot">Insert cube01</div>
 	         <div id = "cube02_slot">Insert cube02</div>
-	         <div id = "cube03_slot">Insert cube03</div>	
+	         <div id = "cube03_slot">Insert cube03</div>
 	         <div id = "cube04_slot">Insert cube04</div>
 	      </div>
 	      <div id = "battle_ship_item_slot">
@@ -107,7 +108,7 @@
 	      </div>
       </div>
 
-      <!-- Users' rank inforamtion UI -->	
+      <!-- Users' rank inforamtion UI -->
       <div class = "rank_ui">
          <div id = "rank_title">
             <div id = "user_rank">RANK</div>
@@ -130,7 +131,7 @@
          <div id = "develop_planet">개척 시작</div>
          <div id = "cancel">개척 취소</div>
       </div>
-      
+
       <div id = "key_set">
          'I' KEY 'KEY SET BUTTON'<br/>
          'P' KEY 'PLANET MENU'<br/>
