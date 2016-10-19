@@ -49,7 +49,7 @@ fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
-$(document).ready(function(){ // After onload document, execute inner functions
+$(document).ready(function(){ // After onload document, ready event handler and inner function
    /*
    if(event.stopImmediatePropagaion) event.stopImmediatePropagation(); // MOZILLA
    else event.isImmediatePropagationEnabled = false; // IE
@@ -70,7 +70,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
       }
    });
 
-   drawAllAssets("main_layer", user, socket);
+   drawAllAssets('main_layer', user, socket);
    keyHandler(user, socket);
    userPosUpdate(user);
 
@@ -354,160 +354,160 @@ function keyHandler(ev, user, socket)
       });
    }
 
-      if(keyState == SHOOT)
-      {
-         fire.play();
-         console.log('fire!');
-         fire.currentTime = 0;
-      }
+   if(keyState == SHOOT)
+   {
+      fire.play();
+      console.log('fire!');
+      fire.currentTime = 0;
+   }
 
-      if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
-      {
-         menuSelection.play();
-         menuSelection.currentTime = 0;
-         battleShipViewLayer();
-      }
+   if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
+   {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+      battleShipViewLayer();
+   }
 
-      if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
-      {
-         menuSelection.play();
-         menuSelection.currentTime = 0;
-         planetViewLayer(socket['planet']);
-      }
+   if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
+   {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+      planetViewLayer(socket['planet']);
+   }
 
-      if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
-      {
-         menuSelection.play();
-         menuSelection.currentTime = 0;
-         rankViewLayer();
-      }
+   if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
+   {
+      menuSelection.play();
+      menuSelection.currentTime = 0;
+      rankViewLayer();
+   }
 
-      if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
+   if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
+   {
+      drawMinimap(socket);
+   }
+/*
+   if(keyState = KEYSET_BTN)
+   {
+      keySetDisplay();
+   }
+*/
+   if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
+   {
+      if(user['name'] != null)
       {
-         drawMinimap(socket);
+         logout(user);
       }
-   /*
-      if(keyState = KEYSET_BTN)
+      else
       {
-         keySetDisplay();
+         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+         $(location).attr('href', 'http://203.237.179.21:8000');
       }
-   */
-      if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
-      {
-         if(user['name'] != null)
+   }
+
+   // command line R key is 'redo' and r key is 'undo'
+   if(keyState == DEVELOP_PLANET)
+   {
+      console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
+
+      socket.userPos.emit('collision_req', {
+         'username' : user['name'],
+         'location_x' : user['x'],
+         'location_y' : user['y'],
+      });
+
+      socket.userPos.on('collision_res', function(data) {
+         console.log(data);
+
+         if(data.collision == 0)
          {
-            logout(user);
+            console.log('[CLIENT LOG] DEVELOP_KEY is off.');
          }
-         else
+
+         // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
+         if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false'))
          {
-            alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-            $(location).attr('href', 'http://203.237.179.21:8000');
-         }
-      }
+            console.log("[CLIENT LOG] DEVELOP SOCKET LOOP");
+            console.log("PLANET ID:", data.p_id, "USERNAME:",  data.username, "DEVELOP:", data.develop);
 
-      // command line R key is 'redo' and r key is 'undo'
-      if(keyState == DEVELOP_PLANET)
-      {
-         console.log("[CLIENT LOG] SPACE KEY LOG", cnt++);
+            var developPlanetInfo = {
+               name : $("#p_name").text("planet" + data.p_id),
+               resource : {
+                  mineral : $("#p_mineral").text(data.mineral),
+                  gas : $("#p_gas").text(data.gas),
+                  unknown : $("#p_unknown").text(data.unknown)
+               },
+               grade : $("#p_grade").text(data.create_spd),
+               develop : $("#p_develop")
+            };
 
-         socket.userPos.emit('collision_req', {
-            'username' : user['name'],
-            'location_x' : user['x'],
-            'location_y' : user['y'],
-         });
+            var state = $('.develop_planet_ui').css('display');
 
-         socket.userPos.on('collision_res', function(data) {
-            console.log(data);
+            //discovered.play();
+            //discovered.currentTime = 0;
 
-            if(data.collision == 0)
+            $('.develop_planet_ui').css({
+               left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2,
+               top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
+            });
+
+            if(state == 'none')
             {
-               console.log('[CLIENT LOG] DEVELOP_KEY is off.');
+               $(".develop_planet_ui").show();
+
+               developPlanetInfo.name;
+               developPlanetInfo.resource.mineral;
+               developPlanetInfo.resource.gas;
+               developPlanetInfo.resource.unknown;
+               developPlanetInfo.grade;
+
+               if(data.develop == 'true')
+               {
+                  developPlanetInfo.develop.text("개척");
+               }
+               else
+               {
+                  developPlanetInfo.develop.text("미개척");
+               }
             }
 
-            // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
-            if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false'))
-            {
-               console.log("[CLIENT LOG] DEVELOP SOCKET LOOP");
-               console.log("PLANET ID:", data.p_id, "USERNAME:",  data.username, "DEVELOP:", data.develop);
+            $("#cancel").mouseover(function() {
+               menuSelection.play();
+               $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
+               menuSelection.currentTime = 0;
+            });
 
-               var developPlanetInfo = {
-                  name : $("#p_name").text("planet" + data.p_id),
-                  resource : {
-                     mineral : $("#p_mineral").text(data.mineral),
-                     gas : $("#p_gas").text(data.gas),
-                     unknown : $("#p_unknown").text(data.unknown)
-                  },
-                  grade : $("#p_grade").text(data.create_spd),
-                  develop : $("#p_develop")
-               };
+            $("#cancel").mouseout(function() {
+               menuSelection.play();
+               $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
+               menuSelection.currentTime = 0;
+            });
 
-               var state = $('.develop_planet_ui').css('display');
+            $("#cancel").on('click.cancel', function() {
+               console.log("[CLINET LOG] Canceled.");
+               $(".develop_planet_ui").hide();
 
-               //discovered.play();
-               //discovered.currentTime = 0;
+               return false;
+            });
 
-               $('.develop_planet_ui').css({
-                  left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2,
-                  top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
-               });
+            $("#develop_planet").mouseover(function() {
+               menuSelection.play();
+               $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
+               menuSelection.currentTime = 0;
+            });
 
-               if(state == 'none')
-               {
-                  $(".develop_planet_ui").show();
+            $("#develop_planet").mouseout(function() {
+               menuSelection.play();
+               $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
+               menuSelection.currentTime = 0;
+            });
 
-                  developPlanetInfo.name;
-                  developPlanetInfo.resource.mineral;
-                  developPlanetInfo.resource.gas;
-                  developPlanetInfo.resource.unknown;
-                  developPlanetInfo.grade;
+            $("#develop_planet").on('click.develop_planet', function() {
+               socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+               $(".develop_planet_ui").hide();
+               console.log("[CLIENT LOG] Complete develop planet.");
 
-                  if(data.develop == 'true')
-                  {
-                     developPlanetInfo.develop.text("개척");
-                  }
-                  else
-                  {
-                     developPlanetInfo.develop.text("미개척");
-                  }
-               }
-
-               $("#cancel").mouseover(function() {
-                  menuSelection.play();
-                  $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#cancel").mouseout(function() {
-                  menuSelection.play();
-                  $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#cancel").on('click.cancel', function() {
-                  console.log("[CLINET LOG] Canceled.");
-                  $(".develop_planet_ui").hide();
-
-                  return false;
-               });
-
-               $("#develop_planet").mouseover(function() {
-                  menuSelection.play();
-                  $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#develop_planet").mouseout(function() {
-                  menuSelection.play();
-                  $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#develop_planet").on('click.develop_planet', function() {
-                  socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-                  $(".develop_planet_ui").hide();
-                  console.log("[CLIENT LOG] Complete develop planet.");
-
-                  return false;
+               return false;
              });
           }
       });
