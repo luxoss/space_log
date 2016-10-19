@@ -927,12 +927,10 @@ function keySetDisplay()
    
    if(display_state == 'none')
    {
-      $(window).resize(function() {
-         $('#key_set').css({
-            left: ($(window).width() - $('#key_set').outerWidth()) / 2,
-            top : ($(window).height() - $('#key_set').outerHeight()) / 2
-         });
-      }).resize();
+      $('#key_set').css({
+         left: ($(window).width() - $('#key_set').outerWidth()) / 2,
+         top : ($(window).height() - $('#key_set').outerHeight()) / 2
+      });
 
       menuSelection.play();
       menuSelection.currentTime = 0;
