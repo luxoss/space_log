@@ -240,7 +240,6 @@ function popUpMsg(msg)
 }
 
 /*
-
 function validate(selector) 
 {
    fail += validateUsername(selector.val());
@@ -257,9 +256,9 @@ function validate(selector)
 function validateUsername(field) 
 {
    if(field == '') { return popUpMsg("유저명을 입력하시오."); }
-   else if(field == '')
+   else if(field.length < 5)
    {
-      return popUpMsg("유저 명은 최소 5길이의 문자열을 필요로 합니다.");
+      return popUpMsg("유저 명은 5~12 길이로 작성 해주세요.");
    }
    else if(/[^a-zA-Z0-9_-]/.test(feild)
    {
@@ -274,7 +273,7 @@ function validatePassword(field)
    if(field == '') { return popUpMsg("비밀번호를 입력하시오."); }
    else if(field.length < 6) 
    {
-      return popUpMsg("비밀번호는 최소 6길이를 필요로 합니다."); 
+      return popUpMsg("비밀번호는6~12 길이로 작성 해주세요."); 
    }
    else if(!/[a-z]/.test(field) || !/[A-Z]/.test(field) || !/[0-9]/.test(field))
    {
