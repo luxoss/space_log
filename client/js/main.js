@@ -946,6 +946,44 @@ function keySetDisplay()
    }
 }
 
+function fire(keyState) 
+{
+   if(keyState == LEFT)
+   {
+      $("#" + user['name']).append($("<div>").addClass("bullet").css(user['x'] + speed, 0));
+   }
+   else if(keyState == RIGHT)
+   {
+      $("#" + user['name']).appned($("<div>").addClass("bullet").css(user['x'] - speed, 0));
+   }
+   else if(keyState == UP)
+   {
+      $("#" + user['name']).append($("<div>").addClass("bullet").css(0, user['y'] - speed));
+   }
+   else if(keyState == DOWN)
+   {
+      $("#" + user['name']).appned($("<div>").addClass("bullet").css(0, user['y'] - speed));
+   }
+   else
+   {
+      console.log("Not a direction key pressed!");
+   }
+}
+//TODO: Not a click. Just if you press key direction button, this lazer is shooted!
+$("input").click(fire);
+
+function update() 
+{
+   //TODO: Change position in bullet
+   $(".bullet").each(function() {
+      var oldLeft = $(this).offset().left;
+      console.log(oldLeft);
+      $(this).css("left", oldLeft + speed);
+   });
+}
+setInterval(update, 200);
+
+// This shoot is canvas style
 var shoot = function(curPosX, curPosY) {
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
    var laserId = $("#" + user['name'] + "_laser");
