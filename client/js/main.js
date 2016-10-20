@@ -947,6 +947,7 @@ function keySetDisplay()
    }
 }
 
+//TODO: SHOOT STYLE 3
 function shooting() 
 {
    $('div[id=' + user['name'] + 'lazser]').each(function(){ // Move Bullets
@@ -995,7 +996,7 @@ function shoot(ev, user)
   }
 } 
 
-//TODO: LATER...
+//TODO: SHOOT STYLE 2
 function fire(keyState) 
 {
    if(keyState == LEFT)
@@ -1033,8 +1034,9 @@ function update()
 }
 setInterval(update, 200);
 
-// This shoot is canvas style
-var shoot = function(curPosX, curPosY) {
+//TODO: SHOOT STYLE 1
+var shoot = function(user) {
+
    var LEFT = 37, RIGHT = 39, UP = 38, DOWN = 40;
    var laserId = $("#" + user['name'] + "_laser");
    var laserX = laserId.css("left");
@@ -1046,8 +1048,8 @@ var shoot = function(curPosX, curPosY) {
        DOWN : "url('http://203.237.179.21:8000/res/img/missile/laser_down.svg')"
    };
 
-   laserX = curPosX;
-   laserY = curPosY;
+   laserX = user['x'];
+   laserY = user['y'];
 
    // If this key is pressed, save position image in user's laser division
    if(key_state == LEFT) 
@@ -1067,7 +1069,7 @@ var shoot = function(curPosX, curPosY) {
       // Continueous minus X position that max => 64 * 5 
       laserId.css({
          "backgroundImage" : laserImg.LEFT,
-         left : laserX,
+         left : laserX + 64,
          top : leserY
       });
    }
@@ -1088,7 +1090,7 @@ var shoot = function(curPosX, curPosY) {
       laserId.css({
          "backgroundImage" : laserImg.DOWN,
          left : laserX,
-         top : leserY
+         top : leserY + 64
       });
    }
 };
