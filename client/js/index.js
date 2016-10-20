@@ -127,10 +127,18 @@ $(document).ready(function() {
    });
 /*
    $("#sound_control").on('click', function() {
-      $("#sound_control").text("SOUND | OFF"); // OFF
-      $("#sound_control").text("SOUND | ON");  // ON
+      var state = document.getElementById('bg_sound');
+
+      if(state.loop == true) {
+         $("#sound_control").text("SOUND | OFF");
+         state.loop = false;
+         state.paused;
+      }
+      
+      $("sound_control").text("SOUND | ON");
+      state.loop = true;
    });
-*/
+*/   
    $(document).keydown(function(ev){
 
       var keyCode = ev.keyCode;
@@ -220,17 +228,64 @@ function popUpMsg(msg)
    {
       $("#index_pop_up_view").show();
       $("#index_pop_up_msg").text(msg);
-      /*
+      
       $(':text:not([id=username])').val('');
-      $(':text:not([id=username])').val('');
-      */
+      $(':text:not([id=password])').val(''); 
    }
    
    $("#index_pop_up_hide").click(function() {
       $("#index_pop_up_view").hide();
+      return false;
    });
 }
 
+/*
+(function(){ // 사운드 지원 포맷 검출.
+   var audio = new Audio();
+   var canPlayOggVorbis = audio.canPlayType('audio/ogg; codecs="vorbis"');
+   var canPlayMP3 = audio.canPlayType('audio/mpeg; codecs="mp3"');
 
+   if(canPlayOggVorbis == 'probably' || (canPlayOggVorbis == "maybe" && canPlayMP3 != "probably"))
+   {
+      sound.ext = ".ogg";
+   }
+   else
+   {
+      sound.ext = ".mp3";
+   }
+})();
+
+var sound = function() {
+   
+   this.preload = function(url) {
+      this.audio = new Audio();
+      this.audio.preload = "auto";
+      this.audio.src = url + sound.txt;
+      this.audio.load();
+   };
+
+   this.isPreloaded = function() {
+      return (this.audio.readyState == 4)
+   }
+   
+   this.play = function(loop) {
+      if(this.audio.loop === undefined) {
+         this.audio.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+         }, false);
+      }
+      else {
+         this.audio.loop = loop;
+      }
+      this.audio.play();
+   };
+
+   this.stop = function() {
+      this.audio.pause();
+      this.audio.currrentTime = 0;
+   };
+};
+*/
 
 	

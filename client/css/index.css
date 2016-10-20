@@ -87,6 +87,7 @@ input {
 #sound_control {
    color: rgba(255, 255, 255, 0.7);
    font-weight: bold;
+   cursor: pointer;
 }
 
 #index_pop_up_view { 
