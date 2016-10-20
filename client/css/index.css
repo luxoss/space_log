@@ -5,129 +5,129 @@
 */	
 
 body {
-   background-image: url('http://203.237.179.21:8000/res/img/galaxy_box.png');
-   background-size: cover;
+   background-image : url('http://203.237.179.21:8000/res/img/galaxy_box.png');
+   background-size  : cover;
 }
 
 input {
-   width: 290px;
-   height: 30px;
-   margin: 0px;
-   padding: 0px;
-   border: 1px solid rgb(255, 255, 255);
+   width   : 290px;
+   height  : 30px;
+   margin  : 0px;
+   padding : 0px;
+   border  : 1px solid rgb(255, 255, 255);
 }
 
 .input_text {
-   background: transparent;
-   color: rgba(255, 255, 0, 0.7);
-   font-weight: bold;
-   border: 2px solid white;
-   border-radius: 10px;
-   position: relative;
+   background    : transparent;
+   color         : rgba(255, 255, 0, 0.7);
+   font-weight   : bold;
+   border        : 2px solid white;
+   border-radius : 10px;
+   position      : relative;
 }	
 
 .input_btn {
-   background-color: rgba(0, 0, 0, 0.3);
-   color: rgb(255, 255, 255);
-   font-size: 16px;
-   font-weight: bold;
-   border: 3px solid white;
-   border-radius: 10px;
-   position: relative;
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgb(255, 255, 255);
+   font-size         : 16px;
+   font-weight       : bold;
+   border            : 3px solid white;
+   border-radius     : 10px;
+   position          : relative;
 }
 
 #main_container {
-   background: transparent;
-   width: 450px;
-   height: 500px; 
-   border-radius: 10px;
-   position: fixed;
-   z-index:2;
+   background    : transparent;
+   width         : 450px;
+   height        : 500px; 
+   border-radius : 10px;
+   position      : fixed;
+   z-index       : 2;
 }
 
 #header {
-   width: 400px;
-   height: 150px; 
-   color: rgb(255, 255, 255);
-   font-size: 24pt;
-   margin: 0px;
-   padding: 0px;
-   border-bottom: 2px solid rgb(255, 255, 255);
-   top: 0px;
-   position: absolute;
-   text-align: left;
+   width         : 400px;
+   height        : 150px; 
+   color         : rgb(255, 255, 255);
+   font-size     : 24pt;
+   margin        : 0px;
+   padding       : 0px;
+   border-bottom : 2px solid rgb(255, 255, 255);
+   top           : 0px;
+   position      : absolute;
+   text-align    : left;
 }
 
 #user_info {
-   background: transparent;
-   width: 449px;
-   height: 275px;
-   margin: 0px;
-   padding: 0px;
-   border: 0px;
-   top: 150px;
-   position: absolute;
+   background : transparent;
+   width      : 449px;
+   height     : 275px;
+   margin     : 0px;
+   padding    : 0px;
+   border     : 0px;
+   top        : 150px;
+   position   : absolute;
 }
 
 #footer {
-   background: transparent;
-   width: 400px;
-   height: 75px;
-   color: rgb(255, 255, 255);
-   clear: both;
-   margin: 0px;
-   padding: 0px;
-   border-top: 2px solid rgb(255, 255, 255);
-   top: 425px;
-   left: 50px; 
-   position: absolute;
-   text-align: right;
+   background  : transparent;
+   width       : 400px;
+   height      : 75px;
+   color       : rgb(255, 255, 255);
+   clear       : both;
+   margin      : 0px;
+   padding     : 0px;
+   border-top  : 2px solid rgb(255, 255, 255);
+   top         : 425px;
+   left        : 50px; 
+   position    : absolute;
+   text-align  : right;
 }
 
 #sound_control {
-   color: rgba(255, 255, 255, 0.7);
-   font-weight: bold;
-   cursor: pointer;
+   color       : rgba(255, 255, 255, 0.7);
+   font-weight : bold;
+   cursor      : pointer;
 }
 
 #index_pop_up_view { 
-   background-color: rgba(128, 0, 128, 0.8);
-   border: 2px solid white;
-   border-radius: 5px;
-   border-style: dotted;
-   width: 500px;
-   height: 100px;
-   position: fixed;
-   z-index: 3;
-   display: none;
+   background-color : rgba(128, 0, 128, 0.8);
+   border           : 2px solid white;
+   border-radius    : 5px;
+   border-style     : dotted;
+   width            : 500px;
+   height           : 100px;
+   position         : fixed;
+   z-index          : 3;
+   display          : none;
 }
 
 #index_pop_up_msg {
-   background: transparent;
-   color: rgba(255, 255, 255, 1);
-   font-weight: bold;
-   font-size: 12pt;
-   width: 400px;
-   height: 100px;
-   text-align: center;
-   line-height: 100px;
-   left: 50px;
-   position: absolute;
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   position    : absolute;
 }
 
 #index_pop_up_hide {
-   background-color: rgba(128, 0, 0, 0.5);
-   color: rgba(255, 255, 255, 1);
-   border: 2px solid white;
-   border-style: dotted;
-   text-align: center;
-   line-height: 15px;
-   width: 15px;
-   height: 15px;
-   left: 502px;
-   top: 0px;
-   position: relative;
-   cursor: pointer;   
+   background-color : rgba(128, 0, 0, 0.5);
+   color            : rgba(255, 255, 255, 1);
+   border           : 2px solid white;
+   border-style     : dotted;
+   text-align       : center;
+   line-height      : 15px;
+   width            : 15px;
+   height           : 15px;
+   left             : 502px;
+   top              : 0px;
+   position         : relative;
+   cursor           : pointer;   
 }
 
 
