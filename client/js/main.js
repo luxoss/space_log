@@ -395,6 +395,7 @@ function keyHandler(user, socket)
       {
          fire.play();
          console.log('fire!');
+         //shoot(ev, user);
          fire.currentTime = 0;      
       }
 
@@ -946,6 +947,55 @@ function keySetDisplay()
    }
 }
 
+function shooting() 
+{
+   $('div[id=' + user['name'] + 'lazser]').each(function(){ // Move Bullets
+      var lazerX = parseInt($(this).css('left')); // get x position
+      var lazerY = parseInt($(this).css('top')); // get y position
+      $(this).css('left', lazerX + speed); // update x
+      $(this).css('top', lazerY + speed);       
+    });
+}
+
+setInterval(shooting, 1000);
+
+function shoot(ev, user) 
+{
+   var x = user['x'];
+   var y = user['y'];
+   var lazer = $("#" + user['name'] + "layer");
+
+   fire.play();
+   fire.currentTime = 0;
+   
+   switch(keyState) 
+   {
+      case LEFT:
+         $("#main_layer").append(lazer);
+         lazer.attr(lazer).css({ left : x - 64, top  : y });
+         break;
+         
+      case RIGHT: 
+         $("#main_layer").append(lazer);
+         lazer.attr(lazer).css({ left : x + 64, top  : y });
+         break;
+
+      case UP:
+         $("#main_layer").append(lazer);
+         lazer.attr(lazer).css({ left : x, top  : y - 64});
+         break;
+         
+      case DOWN: 
+         $("#main_layer").append(lazer);
+         lazer.attr(lazer).css({ left : x, top  : y + 64});
+         break;
+         
+      default:
+         break;
+  }
+} 
+
+//TODO: LATER...
 function fire(keyState) 
 {
    if(keyState == LEFT)
