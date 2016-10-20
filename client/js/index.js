@@ -240,6 +240,51 @@ function popUpMsg(msg)
 }
 
 /*
+
+function validate(selector) 
+{
+   fail += validateUsername(selector.val());
+   fail += validatePassword(selector.val());
+
+   if(fail == '') { return false; }
+   else 
+   { 
+      popUpMsg(fail); 
+      return false;
+   }
+}
+
+function validateUsername(field) 
+{
+   if(field == '') { return popUpMsg("유저명을 입력하시오."); }
+   else if(field == '')
+   {
+      return popUpMsg("유저 명은 최소 5길이의 문자열을 필요로 합니다.");
+   }
+   else if(/[^a-zA-Z0-9_-]/.test(feild)
+   {
+      return popUpMsg("숫자 또는 영문자만을 지원합니다.");
+   }
+
+   return '';
+}
+
+function validatePassword(field) 
+{
+   if(field == '') { return popUpMsg("비밀번호를 입력하시오."); }
+   else if(field.length < 6) 
+   {
+      return popUpMsg("비밀번호는 최소 6길이를 필요로 합니다."); 
+   }
+   else if(!/[a-z]/.test(field) || !/[A-Z]/.test(field) || !/[0-9]/.test(field))
+   {
+      return popUpMsg("비밀번호는 숫자 또는 영문자의 조합을 필요로 합니다.");
+   }
+   
+   return '';
+}
+   
+      
 (function(){ // 사운드 지원 포맷 검출.
    var audio = new Audio();
    var canPlayOggVorbis = audio.canPlayType('audio/ogg; codecs="vorbis"');
@@ -249,10 +294,7 @@ function popUpMsg(msg)
    {
       sound.ext = ".ogg";
    }
-   else
-   {
-      sound.ext = ".mp3";
-   }
+   else { sound.ext = ".mp3"; }
 })();
 
 var sound = function() {
