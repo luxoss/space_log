@@ -113,7 +113,7 @@ $(document).ready(function() {
          
          if(data.response == "true") 
          {
-            alert(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
+            popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
             getUserItems(userInfoSocket, user);		
             $(location).attr('href', mainPageUrl);
 	      } 
@@ -151,8 +151,10 @@ $(document).ready(function() {
         
 		   user.name = $.trim($("#username").val());
 	      user.password = $.trim($("#password").val());
-			
-	      alert('loading...');
+		   
+         // TODO:만약 프리로딩할 데이터가 많아지면 데이터가 모두 프리로딩할 때 까지
+         // 모래시계가 돌아가는 애니메이션 파일을 보여주던지 할 계획. 	
+	      alert("Loading...");
 
 	      userInfoSocket.emit('login_msg', {
 	         username : user['name'],
@@ -162,15 +164,14 @@ $(document).ready(function() {
          userInfoSocket.on('login_res', function(data){                       
             if(data.response == "true") 
             {
-               alert(user.name + "님 space_log 세계에 오신 것을 환영합니다!!");	       
+               popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다!!");	       
                getUserItems(userInfoSocket, user);
                $(location).attr('href', mainPageUrl);
 	         }
             else 
             {
                popUpMsg("해당 아이디가 이미 있거나 비밀번호가 틀립니다.");
-	            //alert("해당 아이디가 이미 있거나 비밀번호가 틀립니다. 다시 시도해 주세요.");
-	            window.location.reload();
+	            //window.location.reload();
 	         }
 	      });
       }	
