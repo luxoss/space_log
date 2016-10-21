@@ -84,14 +84,12 @@ $(document).ready(function() {
 	         if(data.response == 'true') 
             {
                popUpMsg("회원가입이 완료 되었습니다.");
-               //alert();
-	            window.location.reload();
+	            //window.location.reload();
 	         }
             else 
             {
                popUpMsg("해당 아이디가 이미 있습니다."); 
-               //alert();
-               window.location.reload();
+               //window.location.reload();
 	         }
 	      });
       }
@@ -120,8 +118,7 @@ $(document).ready(function() {
          else 
          {
             popUpMsg("해당 아이디가 이미 있거나 틀립니다.");
-            //alert();
-            window.location.reload();
+            //window.location.reload();
          }
       });
    });

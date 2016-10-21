@@ -4,6 +4,10 @@
 	**File-explanation: Decorate main html page with cascading style sheet
 */
 
+html {
+   overflow: hidden !important;
+}
+
 body {
 	background-color: rgb(0, 0, 0);
 	overflow: hidden !important; 
@@ -80,7 +84,7 @@ body {
 	border: 2px solid rgba(256, 47, 77, 0.7);
    border-radius: 0px 10px 0px 0px;
    border-style: dotted;
-	top: 0x; /* before : 0px */
+	top: 0px; /* before : 0px */
 	left: 102px;
 	position: absolute;
    text-align: center;
