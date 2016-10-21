@@ -342,6 +342,7 @@ function keyHandler(user, socket)
 
       if(keyState == LEFT)
       {
+         console.log("[CLIENT LOG] LEFT is called.");
          bg.x("main_layer", bg.x("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -350,11 +351,11 @@ function keyHandler(user, socket)
             'location_x' : user['x'],
             'location_y' : user['y']
          });
-
       }
 
       if(keyState == UP)
       {
+         console.log("[CLIENT LOG] UP is called.");
          bg.y("main_layer", bg.y("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -368,6 +369,7 @@ function keyHandler(user, socket)
 
       if(keyState == RIGHT)
       {
+         console.log("[CLIENT LOG] RIGHT is called.");
          bg.x("main_layer", bg.x("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -380,6 +382,7 @@ function keyHandler(user, socket)
 
       if(keyState == DOWN)
       {
+         console.log("[CLIENT LOG] DOWN is called.");
          bg.y("main_layer", bg.y("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -678,12 +681,9 @@ function userPosUpdate(user)
       //        위치 변경 시 각각의 css style만 바꿔야 함.
       if(user['name'] == data['username'])  
       {
-         console.log(
-            "[Client log] ", data['username'],
-            ",x: ", data['location_x'], ",y: ", data['location_y'],
-            ",key_value: ", data['key_val']
-         );
-
+         /*
+         console.log("[Client log] ", data['username'], ",x: ", data['location_x'], ",y: ", data['location_y'], ",key_value: ", data['key_val']);
+         */
          switch(keyValue)
          {
             case LEFT: 	           
@@ -694,10 +694,10 @@ function userPosUpdate(user)
 	            });
 
                user['x'] = parseInt(data.location_x);
-	            user['y'] = parseInt(data.location_y);
+	            //user['y'] = parseInt(data.location_y);
               
                $("#position_x").text(user['x']);
-               $("#position_y").text(user['y']);
+               //$("#position_y").text(user['y']);
 
                if(user['x'] <= 0) 
                {
@@ -719,10 +719,10 @@ function userPosUpdate(user)
 	            });
 
 	            user['x'] = parseInt(data.location_x);
-	            user['y'] = parseInt(data.location_y);
+	            //user['y'] = parseInt(data.location_y);
                
                $("#position_x").text(user['x']);
-               $("#position_y").text(user['y']);
+               //$("#position_y").text(user['y']);
 
                if(user['x'] >= 3430) 
                {
@@ -743,10 +743,10 @@ function userPosUpdate(user)
 		            top: user['y']
 	            });
 
-	            user['x'] = parseInt(data.location_x);
+	            //user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               $("#position_x").text(user['x']);
+               //$("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
                if(user['y'] <= 0) 
@@ -768,10 +768,10 @@ function userPosUpdate(user)
 		            top: user['y']
 	            });
 
-               user['x'] = parseInt(data.location_x);
+               //user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               $("#position_x").text(user['x']);
+               //$("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
                if(user['y'] >= 3430) 
