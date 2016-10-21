@@ -71,7 +71,6 @@ $(document).ready(function() {
       if((user.name == '' ) || (user.password == '')) 
       {
          popUpMsg("아이디와 비밀번호를 입력해주세요.");
-         //alert();
          //window.location.reload();
       }
       else 
@@ -162,7 +161,7 @@ $(document).ready(function() {
          userInfoSocket.on('login_res', function(data){                       
             if(data.response == "true") 
             {
-               popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다!!");	       
+               //popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다!!");	       
                getUserItems(userInfoSocket, user);
                $(location).attr('href', mainPageUrl);
 	         }
