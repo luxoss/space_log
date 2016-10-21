@@ -45,6 +45,13 @@ menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
    console.log("This browser is online?" + navigator.onLine);
+   
+   $('#main_pop_up_view').css({
+      'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
+      'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
+   });
+
+   popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
    /*
    if(navigator.onLine) {
       localStorage.setItem('username');
@@ -441,7 +448,7 @@ function keyHandler(user, socket)
          }
          else 
          {
-            alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+            popUpMsg('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
             $(location).attr('href', 'http://203.237.179.21:8000');	
          }
       }
@@ -570,7 +577,7 @@ function keyHandler(user, socket)
       }
       else 
       {
-         alert('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
+         popUpMsg('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
          $(location).attr('href', indexPageUrl);	
       }
    });	
@@ -642,7 +649,6 @@ function logout(user)
             localStorage.removeItem('x');
             localStorage.removeItem('y'); 
 
-            alert(user['name'] + '님께서 로그아웃 되셨습니다.');
             socket.userInfo.disconnect();
             $(location).attr('href', 'http://203.237.179.21:8000');
          }
@@ -921,6 +927,23 @@ function userPosUpdate(user)
    });		
 }
 
+//TODO: Test Later...
+function popUpMsg(msg)
+{
+   var state = $("#main_pop_up_view").css('display');
+
+   if(state == 'none') 
+   {
+      $("#main_pop_up_view").show();
+      $("#main_pop_up_msg").text(msg);
+   }
+   
+   $("#main_pop_up_hide").click(function() {
+      $("#main_pop_up_view").hide();
+      return false;
+   });
+}
+
 /*
 function keySetDisplay() 
 {
@@ -945,23 +968,6 @@ function keySetDisplay()
 
       $("#key_set").hide();
    }
-}
-
-//TODO: Test Later...
-function popUpMsg(msg)
-{
-   var state = $("#main_pop_up_view").css('display');
-
-   if(state == 'none') 
-   {
-      $("#main_pop_up_view").show();
-      $("#main_pop_up_msg").text(msg);
-   }
-   
-   $("#main_pop_up_hide").click(function() {
-      $("#main_pop_up_view").hide();
-      return false;
-   });
 }
 */
 

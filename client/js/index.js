@@ -3,6 +3,7 @@
 	** File-explanation: Contorl index html page with javascript
 	** Author: luxoss 
 */
+
 $(document).ready(function() {
 
    var userInfoSocket = io.connect('http://203.237.179.21:5001');  
@@ -111,7 +112,7 @@ $(document).ready(function() {
          
          if(data.response == "true") 
          {
-            popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
+            //popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
             getUserItems(userInfoSocket, user);		
             $(location).attr('href', mainPageUrl);
 	      } 
