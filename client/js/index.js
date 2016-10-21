@@ -226,9 +226,11 @@ function popUpMsg(msg)
    {
       $("#index_pop_up_view").show();
       $("#index_pop_up_msg").text(msg);
-      
-      $(':text:not([id=username])').val('');
-      $(':text:not([id=password])').val(''); 
+     
+      // Before code is ':text:not([id=username])' that cleared except id=username. 
+      // But, it is wrong. so I changed this code lines
+      $("#username").val('');
+      $("#password").val(''); 
    }
    
    $("#index_pop_up_hide").click(function() {
