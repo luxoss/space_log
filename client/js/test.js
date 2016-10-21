@@ -1,13 +1,7 @@
 /**
     * Author : luxoss
     * File name : test.js
-    * File explanation : Code test that main.js
-*/
-
-/**
-   ** File name: main.js
-   ** File explanation: Control main html page with javascript and Jquery
-   ** Author: luxoss
+    * File explanation : Test logic of the main.js
 */
 
 //TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr'
