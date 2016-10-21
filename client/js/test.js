@@ -31,7 +31,6 @@ var user = {
    }
 };
 
-var lastPosX = 0, lastPosY = 0;
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var isKeyDown = [];		            // Create key state array to keyboard polling
 var fire = new Audio();
@@ -63,14 +62,12 @@ $(document).ready(function(){ // After onload document, ready event handler and 
          $("#" + data.username).remove();
       }
    });
-
    drawAllAssets('main_layer', user, socket);
    userPosUpdate(user);
-
 });
 
-$(document).on('keydown', function(ev){ keyHandler(ev, user, socket) });
-$(document).on('keyup', function(ev) { return false; });
+$('html, body').on('keydown', function(ev) { keyHandler(ev, user, socket) }); 
+$('html, body').on('keyup', function(ev) { return false; });
 
 function drawAllAssets(mainLayer, user, socket)
 {
@@ -262,7 +259,8 @@ function drawPlanetImg(mainLayer, data)
    }
 }
 
-var keyHandler = function(ev, user, socket) {
+function keyHandler(ev, user, socket)
+{
    console.log("[CLIENT LOG] KeyHandler is called.");
 
    var keyState = ev.keyCode;
@@ -498,6 +496,7 @@ var keyHandler = function(ev, user, socket) {
                return false;
              });
           }
+          //socket.userPos.disconnect();
       });
    }
 
@@ -536,16 +535,12 @@ var keyHandler = function(ev, user, socket) {
 
       return false;
    });
-/*
-   $('#minimap_btn').on('click.minimap_btn', function() {
-      drawMinimap(socket);
-      return false;
-   });
-*/
+
    ev.preventDefault();
    ev.stopPropagation();
+
    return false;
-};
+}
 
 function logout(user)
 {
@@ -569,9 +564,9 @@ function logout(user)
          if(data.response == 'true')
          {
             socket.userInfo.emit('lpos', {
-               'username': user['name'], //userId,
-               'lastPosX': user['x'],    //lastPosX,
-               'lastPosY': user['y']     //lastPosY
+               'username': user['name'], 
+               'lastPosX': user['x'],    
+               'lastPosY': user['y']     
             });
 
             localStorage.removeItem('username');
