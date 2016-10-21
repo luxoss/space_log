@@ -100,7 +100,6 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
 function drawAllAssets(mainLayer, user, socket) 
 {
-   var userId = user['name'];
    var hp = user.state['hp'];
    var exp = user.state['exp'];
    var mineral = user.resource['mineral'];
@@ -131,7 +130,7 @@ function drawAllAssets(mainLayer, user, socket)
    }).resize();
 
    console.log(
-      "[CLIENT LOG] username:", userId, "hp:", hp, "exp:", exp, 
+      "[CLIENT LOG] username:", user['name'], "hp:", hp, "exp:", exp, 
       "mineral:", mineral, "gas:", gas, "unknown:", unknown
    );                
 
@@ -149,31 +148,32 @@ function drawAllAssets(mainLayer, user, socket)
    $("#hp_progress_bar").text(hp + " / 300");
 
    $("#user_avartar").append(
-      "<div id='" + userId + "'style='position:absolute; bottom:0px; color:white;'>" 
+      "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 
       + user['name'] + "</div>"
    );
-   $("#user_name").text(userId);
+   $("#user_name").text(user['name']);
 	
-   $("#main_layer").append("<div id='" + userId + "' style='position:absolute;'></div>");
-   $("#" + userId).append(
+   $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
+   $("#" + user['name']).append(
       "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-      + userId + "</div>"
+      + user['name'] + "</div>"
    );
-   $("#" + userId).append(
-      "<div id='" + userId + "_laser" + "' style='position:absolute;'></div>"
+   $("#" + user['name']).append(
+      "<div id='" + user['name'] + "_laser" + "' style='position:absolute;'></div>"
    );
 
-   $("#" + userId).css({
+   $("#" + user['name']).css({
       "backgroundImage" : image['clnt'],
       "width"  : "64px",
       "height" : "64px",
+      "border" : "1px solid rgba(255, 255, 0, 0.3)",
       "zIndex" : "2",
       left: user['x'], 
       top: user['y']
    });
 
    // Auto focus user's battleship
-   var offset = $("#" + userId).offset();
+   var offset = $("#" + user['name']).offset();
 
    $("html, body").animate({
       scrollLeft: offset.left - ($(window).width() / 2), 
@@ -209,12 +209,13 @@ function drawPlanetImg(mainLayer, data)
          "backgroundImage" : planet.image['1'],
          "width"  : "100px",
          "height" : "100px",
+         "border" : "1px solid rgba(255, 255, 0, 0.3)",
          left: planet['x'],
          top: planet['y']
       });
       
       $("#" + planet['id']).append(
-         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
          + planet['id'] + "</div>"
       );
    }
@@ -227,12 +228,13 @@ function drawPlanetImg(mainLayer, data)
          "backgroundImage" : planet.image['2'],
          "width"  : "100px",
          "height" : "100px",
+         "border" : "1px solid rgba(255, 255, 0, 0.3)",
          left: planet['x'],
          top: planet['y']
       });
 
       $("#" + planet['id']).append(
-         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
          + planet['id'] + "</div>"
       );
    }
@@ -245,12 +247,13 @@ function drawPlanetImg(mainLayer, data)
          "backgroundImage" : planet.image['3'],
          "width"  : "100px",
          "height" : "100px",
+         "border" : "1px solid rgba(255, 255, 0, 0.3)",
          left: planet['x'],
          top: planet['y']
       });
 
       $("#" + planet['id']).append(
-         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
          + planet['id'] + "</div>"
       );
    }
@@ -263,12 +266,13 @@ function drawPlanetImg(mainLayer, data)
          "backgroundImage" : planet.image['4'],
          "width"  : "100px",
          "height" : "100px",
+         "border" : "1px solid rgba(255, 255, 0, 0.3)",
          left: planet['x'],
          top: planet['y']
       });
 
       $("#" + planet['id']).append(
-         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align:center;'>" 
          + planet['id'] + "</div>"
       );
    }
@@ -281,12 +285,13 @@ function drawPlanetImg(mainLayer, data)
          "backgroundImage" : planet.image['5'],
          "width"  : "100px",
          "height" : "100px",
+         "border" : "1px solid rgba(255, 255, 0, 0.3)",
          left: planet['x'],
          top: planet['y']
       });
 
       $("#" + planet['id']).append(
-         "<div style='position:absolute; bottom:0px; color:yellow; font-weight:bold;'>" 
+         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
          + planet['id'] + "</div>"
       );
    }
