@@ -11,10 +11,10 @@
 function drawMinimap(socket)
 {
    // background width: 3500px, height: 3500px
-   // canvas width: 250px = 3500 / x = 12, height: 250px = 3500 / y = 12
+   // canvas width: 300px = 3500px / x, height: 250px = 3500px / y
    var state = $('.minimap_ui').css('display');
    var menuSelectSound = new Audio();
-   var minimap = document.getElementById('minimap_canvas');
+   //var minimap = document.getElementById('minimap_canvas');
 
    menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
@@ -25,10 +25,11 @@ function drawMinimap(socket)
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
       $('.minimap_ui').show();
-  
+ /* 
       if(minimap.getContext) 
       {
-         var ctx = minimap.getContext('2d');
+         //var ctx = minimap.getContext('2d');
+         */
          var assets = {
             planet : { // { width : 64px, height: 64px }
                x : 0, 
@@ -47,17 +48,22 @@ function drawMinimap(socket)
          socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
          socket.planet.on('planet_res', function(data) {
+            console.log(data.location_x, data.location_y);
             assets.planet.x = data.location_x;
             assets.planet.y = data.location_y;
 
-            ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
+            // Not a received by the same tags.
+            $(".minimap_ui").append("<div style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 255, 0.7); left:" + Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
+         /*
+            ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
             ctx.beginPath();
             //TODO: Diff result that between minimap planet arc and main_display
-            ctx.arc(parseInt((assets.planet['x'] / 12)), parseInt((assets.planet['y'] / 12)), 2, 0, Math.PI * 2, false);
+            ctx.arc(Math.floor((assets.planet['x'] * 300) / 3500), Math.floor((assets.planet['y'] * 300) / 3500), 2, 0, Math.PI * 2, false);
             ctx.closePath();
             ctx.fill();
+         */
          });
-        /* 
+         /*
          socket.userPos.on('mv', function(data) {
             if(user['name'] == data['username'])
             {
@@ -82,8 +88,9 @@ function drawMinimap(socket)
                ctx.fill();
             }
          });
-         */
-      }    
+        
+      } 
+      */   
    }
    else
    {
