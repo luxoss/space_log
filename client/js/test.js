@@ -32,7 +32,6 @@ var user = {
 };
 
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
-var isKeyDown = [];		            // Create key state array to keyboard polling
 var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
@@ -67,7 +66,14 @@ $(document).ready(function(){ // After onload document, ready event handler and 
 });
 
 $('html, body').on('keydown', function(ev) { keyHandler(ev, user, socket) }); 
-$('html, body').on('keyup', function(ev) { return false; });
+$('html, body').on('keyup', function(ev) { 
+   var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
+
+   if(ev.keyCode == LEFT) { return false; }
+   if(ev.keyCode == UP) { return false; }
+   if(ev.keyCode == RIGHT) { return false; }
+   if(ev.keyCode == DOWN) { return false; }
+});
 
 function drawAllAssets(mainLayer, user, socket)
 {
