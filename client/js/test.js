@@ -870,3 +870,21 @@ function userPosUpdate(user)
       }
    });
 }
+
+/*
+function popUpMsg(msg)
+{
+   var state = $("#main_pop_up_view").css('display');
+
+   if(state == 'none') 
+   {
+      $("#main_pop_up_view").show();
+      $("#main_pop_up_msg").text(msg);
+   }
+   
+   $("#main_pop_up_hide").click(function() {
+      $("#main_pop_up_view").hide();
+      return false;
+   });
+}
+*/
