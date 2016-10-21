@@ -47,8 +47,8 @@ function drawMinimap(socket)
          socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
          socket.planet.on('planet_res', function(data) {
-            planet.x = data.location_x;
-            planet.y = data.location_y;
+            assets.planet.x = data.location_x;
+            assets.planet.y = data.location_y;
 
             ctx.fillStyle = "rgba(255, 0, 0, 0.3)";
             ctx.beginPath();
