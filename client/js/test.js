@@ -75,8 +75,8 @@ $(document).ready(function(){ // After onload document, ready event handler and 
 
 });
 
-$('body').on('keydown', function(ev){ keyHandler(ev, user, socket) });
-$('body').on('keyup', function(ev) { return false; });
+$(document).on('keydown', function(ev){ keyHandler(ev, user, socket) });
+$(document).on('keyup', function(ev) { return false; });
 
 function drawAllAssets(mainLayer, user, socket)
 {
@@ -91,23 +91,20 @@ function drawAllAssets(mainLayer, user, socket)
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
 
-   $(window).resize(function() {
-      $("#main_layer").css({
-         left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
-         top : ($(window).height() - $("#main_layer").outerHeight()) / 2
-      });
+   $("#main_layer").css({
+      left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
+      top : ($(window).height() - $("#main_layer").outerHeight()) / 2
+   });
 
-      $("#view_layer").css({
-         width: ($(window).width() - 200),
-         height: ($(window).height() - 100)
-      });
+   $("#view_layer").css({
+      width: ($(window).width() - 200),
+      height: ($(window).height() - 100)
+   });
 
-      $('#view_layer').css({
-         left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
-         top: ($(window).height() - $('#view_layer').outerHeight()) / 2
-      });
-
-   }).resize();
+   $('#view_layer').css({
+      left: ($(window).width() - $('#view_layer').outerWidth()) / 2,
+      top: ($(window).height() - $('#view_layer').outerHeight()) / 2
+   });
 
    console.log(
       "[CLIENT LOG] username:", userId, "hp:", hp, "exp:", exp,
@@ -313,7 +310,6 @@ var keyHandler = function(ev, user, socket) {
         'location_x' : user['x'],
         'location_y' : user['y']
       });
-
    }
 
    if(keyState == UP)
@@ -552,6 +548,9 @@ var keyHandler = function(ev, user, socket) {
       return false;
    });
 */
+   ev.preventDefault();
+   ev.stopPropagation();
+   return false;
 };
 
 function logout(user)
