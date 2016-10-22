@@ -26,8 +26,8 @@ function create_p(){
 				//y = (t+level_p)*(100-t)-(level_p-ran);
 				spd = t%level_p;
 				
-				x = Math.floor(Math.random()*3500-1);
-				y = Math.floor(Math.random()*3500-1);
+				x = Math.floor(Math.random()*3400-1);
+				y = Math.floor(Math.random()*3400-1);
 				
 				collection.find().count(function(err, count){
 					cnt = count+1;
@@ -71,5 +71,5 @@ function create_p(){
 
 setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-//setInterval(create_p, 100);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 1000);//10초단위로 create_p 함수를 실행
 

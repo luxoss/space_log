@@ -54,14 +54,14 @@ devPlntio.on('connection', function(socket){
 	});*/
 
 });
-
+/*
 function dev_p(){
 	
 	
 
 
 }
-
+*/
 //setInterval(dev_p, 600000);
 
 console.log("devPlanet.js : https://203.237.179.21:5003");

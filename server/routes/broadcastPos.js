@@ -72,6 +72,7 @@ UsersPio.on('connection', function(socket){
 			x = data.location_x;
 			y = data.location_y;
 			planet.find().toArray(function(err, results){
+//			var getP = {};
 
 				if(err){
 					console.log("Planet Find Error : ");
@@ -80,23 +81,32 @@ UsersPio.on('connection', function(socket){
 					for(var i =0; i< results.length; i++){
 						if((((results[i].location_x <= x) && (results[i].location_x >= (x-100))) || ((results[i].location_x >= (x+64-100)) && (results[i].location_x <= x+64)) ) && (((results[i].location_y <= y) && (results[i].location_y >= (y -100))) || ((results[i].location_y >= (y+64-100)) && (results[i].location_y <= (y+64)))   )   ){
 							//collision
-							
+
+							getP = results[i];						
 							mem_plan.findOne({p_id: results[i].p_id}, function(err, mem_plan_dev){
 								if(err){
 								
 								} else if(mem_plan_dev){
 									develop = mem_plan_dev.develop;
+									console.log("DEVELOP dksjfalsdjflkajsdkfljaskldjfk");
 									console.log(develop);
+									getP.develop = develop;
+									getP.username = username;
+									getP.collision = 1;
+									console.log(getP);	
+										
+									socket.emit('collision_res',  getP);
+									
 
 								} else{
 								
 								}
 							});
-							getP = results[i];
-							getP.collision=1;
-							getP.username=username;
-							getP.develop=develop;
-							console.log(getP);
+
+						//	getP.collision=1;
+						//	getP.username=username;
+						//	getP.develop=develop;
+						//	console.log(getP);
 							break;
 						}
 						else{
@@ -110,7 +120,7 @@ UsersPio.on('connection', function(socket){
 
 			});
 			
-			socket.emit('collision_res',  getP);
+		//	socket.emit('collision_res',  getP);
 
 	
 		});

@@ -25,7 +25,13 @@ var changeUserInform = require('./routes/changeUserInform');
 var changeUserPlanet = require('./routes/changeUserPlanet');
 //new : Sending all Users' position
 var broadcastPos = require('./routes/broadcastPos');
+//new : Increase user's resource and decrease planet's resource for develop Planet
+var indecreaseRsc = require('./routes/indecreaseRsc.js');
 
+
+
+//test Mongodb
+//var MongoClient = require('mongodb').MongoClient;
 
 
 var app = express();
