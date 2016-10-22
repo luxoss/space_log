@@ -11,9 +11,9 @@ var indexPageUrl = serverUrl + ":8000";
 var socket = {
    userInit : io.connect(serverUrl + ":5001"),
    userInfo : io.connect(serverUrl + ":5005"),
-   develop : io.connect(serverUrl + ":5003"),
-   userPos : io.connect(serverUrl + ":5006"),
-   planet : io.connect(serverUrl + ":5002")
+   userPos  : io.connect(serverUrl + ":5006"),
+   develop  : io.connect(serverUrl + ":5003"),
+   planet   : io.connect(serverUrl + ":5002")
 };
 
 var user = {
@@ -31,7 +31,6 @@ var user = {
    }
 };
 
-var lastPosX = 0, lastPosY = 0;		    
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var isKeyDown = [];		            // Create key state array to keyboard polling  
 var fire = new Audio();
@@ -332,10 +331,6 @@ function keyHandler(user, socket)
    $('body').off('keydown').on('keydown', function(ev) {  
       var keyState = ev.keyCode;
       //var KEYSET_BTN = 73;
-      /*
-      lastPosX = user['x'];
-      lastPosY = user['y'];
-      */
 
       //var e = ev | window.event;
       //ev.stopPropagation(); 
@@ -640,9 +635,9 @@ function logout(user)
          if(data.response == 'true') 
          {
             socket.userInfo.emit('lpos', {
-               'username': user['name'], //userId, 
-               'lastPosX': user['x'],    //lastPosX, 
-               'lastPosY': user['y']     //lastPosY
+               'username': user['name'],  
+               'lastPosX': user['x'],     
+               'lastPosY': user['y']     
             }); 
 
             localStorage.removeItem('username');
@@ -654,8 +649,13 @@ function logout(user)
             localStorage.removeItem('x');
             localStorage.removeItem('y'); 
 
+            socket.userInit.disconnect();
             socket.userInfo.disconnect();
-            $(location).attr('href', 'http://203.237.179.21:8000');
+            socket.userPos.disconnect();
+            socket.develop.disconnect();
+            socket.planet.disconnect();   
+           
+            $(location).attr('href', 'http://game.smuc.ac.kr:8000');
          }
          else
          {
@@ -667,7 +667,7 @@ function logout(user)
 
 function userPosUpdate(user)
 {
-//   var userId = user['name'];
+   //var userId = user['name'];
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
