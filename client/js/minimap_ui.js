@@ -26,20 +26,27 @@ function drawMinimap(socket)
       menuSelectSound.currentTime = 0;
       $('.minimap_ui').show();
 
-         var assets = {
-            planet : { // { width : 64px, height: 64px }
-               x : 0, 
-               y : 0
-            },
-            player : { // { width : 100px, height: 100px; }
-               x : 0, 
-               y : 0
-            }, 
-            enemy : {
-               x : 0, 
-               y : 0
-            }
-         };
+      var assets = {
+         planet : { // { width : 64px, height: 64px }
+            x : 0, 
+            y : 0
+         },
+         player : { // { width : 100px, height: 100px; }
+            x : 0, 
+            y : 0
+         }, 
+         enemy : {
+            x : 0, 
+            y : 0
+         }
+      };
+      
+      // Initialized div tags
+      $(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
+      $("#minimap_" + user['name']).css({
+         'left' : Math.floor((user['x'] * 300) / 3500),
+         'top'  : Math.floor((user['y'] * 300) / 3500) 
+      });
 
       socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
@@ -49,9 +56,10 @@ function drawMinimap(socket)
          assets.planet.y = data.location_y;
 
          // Not a received by the same tags.
-         $(".minimap_ui").append("<div style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 255, 0.7); left:" + Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
+         $(".minimap_ui").append("<div style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" + Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
      
       });
+
       socket.userPos.on('mv', function(data) {
 
          if(user['name'] == data['username'])
@@ -59,8 +67,13 @@ function drawMinimap(socket)
             assets.player.x = data.location_x;
             assets.player.y = data.location_y;
             
+            $("#minimap_" + user['name']).css({
+               'left' : Math.floor((assets.player.x * 300) / 3500),
+               'top'  : Math.floor((assets.player.y * 300) / 3500)
+            });
             // overlab append  => Not a catch tail game.
-            $(".minimap_ui").append("<div style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 0, 0.7); left:" + Math.floor((assets.player['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.player['y'] * 300) / 3500) + "px;'></div>");        
+            //$(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 0, 0.7); left:" + Math.floor((assets.player['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.player['y'] * 300) / 3500) + "px;'></div>");        
+            
          }
          /*
          else
@@ -81,29 +94,28 @@ function drawMinimap(socket)
 
 
 /* 
-   if(minimap.getContext) 
-   {
-         var ctx = minimap.getContext('2d');
+if(minimap.getContext) 
+{
+      var ctx = minimap.getContext('2d');
 
-         //TODO: Create planet with canvas.
-         ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
-         ctx.beginPath();
-         ctx.arc(Math.floor((assets.planet['x'] * 300) / 3500), Math.floor((assets.planet['y'] * 300) / 3500), 2, 0, Math.PI * 2, false);
-         ctx.closePath();
-         ctx.fill();
+      //TODO: Create planet with canvas.
+      ctx.fillStyle = "rgba(255, 255, 255, 0.5)";
+      ctx.beginPath();
+      ctx.arc(Math.floor((assets.planet['x'] * 300) / 3500), Math.floor((assets.planet['y'] * 300) / 3500), 2, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.fill();
 
-         //TODO: Create player with canvas. 
-         ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
-         ctx.arc(parseInt((assets.player['x'] / 12)), parseInt((assets.player['y'] / 12)), 2, 0, Math.PI * 2, false);
-         ctx.closePath();
-         ctx.fill();
+      //TODO: Create player with canvas. 
+      ctx.fillStyle = "rgba(255, 255, 255, 0.7)";
+      ctx.arc(parseInt((assets.player['x'] / 12)), parseInt((assets.player['y'] / 12)), 2, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.fill();
 
-         //TODO: Create enemy with canvas.
-         ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
-         ctx.arc(parseInt((assets.enemy['x'] / 12)), parseInt((assets.enemy['y'] / 12)), 2, 0, Math.PI * 2, false);
-         ctx.closePath();
-         ctx.fill();
-   }
-      
+      //TODO: Create enemy with canvas.
+      ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
+      ctx.arc(parseInt((assets.enemy['x'] / 12)), parseInt((assets.enemy['y'] / 12)), 2, 0, Math.PI * 2, false);
+      ctx.closePath();
+      ctx.fill();
+}      
 */
 
