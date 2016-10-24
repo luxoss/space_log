@@ -562,7 +562,7 @@ function keyHandler(user, socket)
                }
                else if(data.develop == 'true')
                {
-                  popUpMsg("이미 개척된 행성입니다.");
+                  popUpMsg(/*data.username + "께서 이미 개척하신"*/"이미 개척된 행성입니다.");
                }
                else
                {
