@@ -474,88 +474,100 @@ function keyHandler(user, socket)
             // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
             if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
             {
-               console.log("[CLIENT LOG] DEVELOP SOCKET LOOP");
-               console.log("PLANET ID:", data.p_id, "USERNAME:",  data.username, "DEVELOP:", data.develop);
-
-               var developPlanetInfo = {
-                  name : $("#p_name").text("planet" + data.p_id),
-                  resource : {
-                     mineral : $("#p_mineral").text(data.mineral),
-                     gas : $("#p_gas").text(data.gas),
-                     unknown : $("#p_unknown").text(data.unknown)
-                  },
-                  grade : $("#p_grade").text(data.create_spd),
-                  develop : $("#p_develop")
-               };
-
-               var state = $('.develop_planet_ui').css('display');
-                        
-               //discovered.play();
-               //discovered.currentTime = 0;
-
-               $('.develop_planet_ui').css({
-                  left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2, 
-                  top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
-               });
-
-               if(state == 'none')
+               if(data.develop == 'false')
                {
-                  $(".develop_planet_ui").show();
+                  console.log("[CLIENT LOG] Ready to the develop planet.");
 
-                  developPlanetInfo.name;
-                  developPlanetInfo.resource.mineral;
-                  developPlanetInfo.resource.gas;
-                  developPlanetInfo.resource.unknown;
-                  developPlanetInfo.grade;
+                  var developPlanetInfo = {
+                     name : $("#p_name").text("planet" + data.p_id),
+                     resource : {
+                        mineral : $("#p_mineral").text(data.mineral),
+                        gas : $("#p_gas").text(data.gas),
+                        unknown : $("#p_unknown").text(data.unknown)
+                     },
+                     grade : $("#p_grade").text(data.create_spd),
+                     develop : $("#p_develop")
+                  };
+
+                  var state = $('.develop_planet_ui').css('display');
+                           
+                  //discovered.play();
+                  //discovered.currentTime = 0;
+
+                  $('.develop_planet_ui').css({
+                     left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2, 
+                     top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
+                  });
+
+                  if(state == 'none')
+                  {
+                     $(".develop_planet_ui").show();
+
+                     developPlanetInfo.name;
+                     developPlanetInfo.resource.mineral;
+                     developPlanetInfo.resource.gas;
+                     developPlanetInfo.resource.unknown;
+                     developPlanetInfo.grade;
+                     
+                     if(data.develop == 'true') 
+                     {
+                        developPlanetInfo.develop.text("개척"); 
+                     }
+                     else
+                     {
+                        developPlanetInfo.develop.text("미개척");
+                     }
+                  }
+
+                  $("#cancel").mouseover(function() {
+                     menuSelection.play();
+                     $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
+                     menuSelection.currentTime = 0;
+                  });
+
+                  $("#cancel").mouseout(function() {
+                     menuSelection.play();
+                     $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
+                     menuSelection.currentTime = 0;
+                  });
+
+                  $("#cancel").on('click.cancel', function() { 
+                     console.log("[CLINET LOG] Canceled.");
+                     $(".develop_planet_ui").hide();
+
+                     return false;
+                  });
+
+                  $("#develop_planet").mouseover(function() {
+                     menuSelection.play();
+                     $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
+                     menuSelection.currentTime = 0;
+                  });
+
+                  $("#develop_planet").mouseout(function() {
+                     menuSelection.play();
+                     $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
+                     menuSelection.currentTime = 0;
+                  });
                   
-                  if(data.develop == 'true') 
-                  {
-                     developPlanetInfo.develop.text("개척"); 
-                  }
-                  else
-                  {
-                     developPlanetInfo.develop.text("미개척");
-                  }
+                  $("#develop_planet").on('click.develop_planet', function() {
+                     socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+                     $(".develop_planet_ui").hide();
+                     //socket.on('', function(data){});
+                   
+                     popUpMsg("Complete develop planet.");      
+
+                     return false;
+                  });
                }
-
-               $("#cancel").mouseover(function() {
-                  menuSelection.play();
-                  $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#cancel").mouseout(function() {
-                  menuSelection.play();
-                  $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#cancel").on('click.cancel', function() { 
-                  console.log("[CLINET LOG] Canceled.");
-                  $(".develop_planet_ui").hide();
-
-                  return false;
-               });
-
-               $("#develop_planet").mouseover(function() {
-                  menuSelection.play();
-                  $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-
-               $("#develop_planet").mouseout(function() {
-                  menuSelection.play();
-                  $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
-                  menuSelection.currentTime = 0;
-               });
-               
-               $("#develop_planet").on('click.develop_planet', function() {
-                  socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-                  $(".develop_planet_ui").hide();
-                  console.log("[CLIENT LOG] Complete develop planet.");      
-
-                  return false;
-               });
+               else if(data.develop == 'true')
+               {
+                  popUpMsg("이미 개척된 행성입니다.");
+               }
+               else
+               {
+                 popUpMsg("ERROR: Cannot find collision detection!");
+               }
             }
          }); 
       }
