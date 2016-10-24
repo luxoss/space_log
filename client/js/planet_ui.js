@@ -34,15 +34,15 @@ var planetViewLayer = function(planetSocket) {
        
          // TODO: 1. All planets display;
 
-         $("#planet_list").append("<div id='" + planet.name + "name'style = 'position:absolute;'>" + "planet" + data.p_id +  "</div>");
-         $("#planet_list").append("<div id='" + planet.name + "mineral'style = 'position:absolute;'>" + data.mineral + "</div>");
-         $("#planet_list").append("<div id='" + planet.name + "gas'style = 'position:absolute;'>" + data.gas + "</div>");
-         $("#planet_list").append("<div id='" + planet.name + "unknown'style = 'position:absolute;'>" + data.unknown + "</div>");
-         $("#planet_list").append("<div id='" + planet.name + "develop'style = 'position:absolute;'>" + data.develop + "</div>");
-         $("#planet_list").append("<div id='" + planet.name + "grade'style = 'position:absolute;'>" + data.create_spd + "</div>");
+         $("#planet_list").append("<div id='pv_name_" + planet.name + "'style = 'position:absolute;'>" + "planet" + data.p_id +  "</div>");
+         $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style = 'position:absolute;'>" + data.mineral + "</div>");
+         $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style = 'position:absolute;'>" + data.gas + "</div>");
+         $("#planet_list").append("<div id='pv_unknown_" + planet.name + "'style = 'position:absolute;'>" + data.unknown + "</div>");
+         $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style = 'position:absolute;'>" + data.develop + "</div>");
+         $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:absolute;'>" + data.create_spd + "</div>");
          
 
-         $("#" + planet.name + "name").css({
+         $("#pv_name_" + planet.name).css({
             'width': 200,
             'height': 100,
             'text-align': 'center',
@@ -51,7 +51,7 @@ var planetViewLayer = function(planetSocket) {
             top: parseInt(0 + styleTop)
          });
 
-         $("#" + planet.name + "mineral").css({
+         $("#pv_mineral_" + planet.name).css({
             'width': 126,
             'height': 100,
             'text-align': 'center',
@@ -60,7 +60,7 @@ var planetViewLayer = function(planetSocket) {
             top: parseInt(0 + styleTop)
          });
 
-         $("#" + planet.name + "gas").css({
+         $("#pv_gas_" + planet.name).css({
             'width' : 126,
             'height': 100,
             'text-align': 'center',
@@ -69,7 +69,7 @@ var planetViewLayer = function(planetSocket) {
             top: parseInt(0 + styleTop)
          });
 
-         $("#" + planet.name + "unknown").css({
+         $("#pv_unknown_" + planet.name).css({
             'width': 126,
             'height': 100,
             'text-align': 'center',
@@ -78,7 +78,7 @@ var planetViewLayer = function(planetSocket) {
             top: parseInt(0 + styleTop)
          });
 
-         $("#" + planet.name + "develop").css({
+         $("#pv_develop_" + planet.name).css({
             'width': 200,
             'height': 100,
             'text-align': 'center',
@@ -87,7 +87,7 @@ var planetViewLayer = function(planetSocket) {
             top: parseInt(0 + styleTop)
          });
 
-         $("#" + planet.name + "grade").css({
+         $("#pv_grade_" + planet.name).css({
             'width': 193,
             'height': 100,
             'text-align': 'center',
