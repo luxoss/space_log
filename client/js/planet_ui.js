@@ -28,73 +28,88 @@ var planetViewLayer = function(planetSocket) {
             gas : data.gas,
             mineral : data.mineral, 
             unknown : data.unknown,
-            grade : data.create_spd,
-            develop : data.develop
+            develop : data.develop,
+            grade : data.create_spd
          }; 
          
          // TODO: 1. All planets display
-         $("#planet_list").append("<div id='pv_name_" + planet.name + "'style='position:inherit;'>" + "planet" + data.p_id +  "</div>");
-         $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style='position:inherit;'>" + data.mineral + "</div>");
-         $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style='position:inherit;'>" + data.gas + "</div>");
-         $("#planet_list").append("<div id='pv_unknown_" + planet.name + "'style='position:inherit;'>" + data.unknown + "</div>");
-         $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style='position:inherit;'>" + data.develop + "</div>");
-         $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:inherit;'>" + data.create_spd + "</div>");
+         $("#planet_list").append("<div id='pv_name_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_unknown_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:inherit; line-height:100px;'></div>");
+
+         $("#pv_name_" + planet.name).html("planet" + planet['name']);
+         $("#pv_mineral_" + planet.name).html(planet['mineral']);
+         $("#pv_gas_" + planet.name).html(planet['gas']);
+         $("#pv_unknown_" + planet.name).html(planet['unknown']);
+         $("#pv_develop_" + planet.name).html(planet['develop']);
+         $("#pv_grade_" + planet.name).html(planet['grade']);
 
          $("#pv_name_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
             'width': 200,
             'height': 100,
             'text-align': 'center',
-            'line-height': 100,
             left: 10,
             top: Math.floor(0 + styleTop)
          });
 
          $("#pv_mineral_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
             'width': 127,
             'height': 100,
             'text-align': 'center',
-            'line-height': 100,
             left  : 210,
             top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_gas_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
             'width' : 127,
             'height': 100,
             'text-align': 'center',
-            'line-height': 100,
             left  : 337,
             top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_unknown_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
             'width': 127,
             'height': 100,
             'text-align': 'center',
-            'line-height': 100,
             left  : 464,
             top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_develop_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
             'width': 200,
             'height': 100,
             'text-align': 'center',
-            'line-height': 100,
             left  : 591,
             top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_grade_" + planet.name).css({
-            'width': 193,
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width': 190,
             'height': 100,
             'text-align': 'center',
-            'line-height': 100,
+          //  'line-height': 100,
             left  : 791,
             top   : Math.floor(0 + styleTop)
          });
