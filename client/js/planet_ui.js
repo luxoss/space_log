@@ -30,61 +30,64 @@ var planetViewLayer = function(planetSocket) {
             unknown : data.unknown,
             grade : data.create_spd,
             develop : data.develop
-         };
-       
-         // TODO: 1. All planets display;
-
-         $("#planet_list").append("<div id='pv_name_" + planet.name + "'style = 'position:absolute;'>" + "planet" + data.p_id +  "</div>");
-         $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style = 'position:absolute;'>" + data.mineral + "</div>");
-         $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style = 'position:absolute;'>" + data.gas + "</div>");
-         $("#planet_list").append("<div id='pv_unknown_" + planet.name + "'style = 'position:absolute;'>" + data.unknown + "</div>");
-         $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style = 'position:absolute;'>" + data.develop + "</div>");
-         $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:absolute;'>" + data.create_spd + "</div>");
+         }; 
          
+         // TODO: 1. All planets display
+         $("#planet_list").append("<div id='pv_name_" + planet.name + "'style='position:inherit;'>" + "planet" + data.p_id +  "</div>");
+         $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style='position:inherit;'>" + data.mineral + "</div>");
+         $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style='position:inherit;'>" + data.gas + "</div>");
+         $("#planet_list").append("<div id='pv_unknown_" + planet.name + "'style='position:inherit;'>" + data.unknown + "</div>");
+         $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style='position:inherit;'>" + data.develop + "</div>");
+         $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:inherit;'>" + data.create_spd + "</div>");
 
          $("#pv_name_" + planet.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
             'width': 200,
             'height': 100,
             'text-align': 'center',
             'line-height': 100,
             left: 10,
-            top: parseInt(0 + styleTop)
+            top: Math.floor(0 + styleTop)
          });
 
          $("#pv_mineral_" + planet.name).css({
-            'width': 126,
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'width': 127,
             'height': 100,
             'text-align': 'center',
             'line-height': 100,
-            left: 210,
-            top: parseInt(0 + styleTop)
+            left  : 210,
+            top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_gas_" + planet.name).css({
-            'width' : 126,
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'width' : 127,
             'height': 100,
             'text-align': 'center',
             'line-height': 100,
-            left: 336,
-            top: parseInt(0 + styleTop)
+            left  : 337,
+            top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_unknown_" + planet.name).css({
-            'width': 126,
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'width': 127,
             'height': 100,
             'text-align': 'center',
             'line-height': 100,
-            left: 452,
-            top: parseInt(0 + styleTop)
+            left  : 464,
+            top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_develop_" + planet.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
             'width': 200,
             'height': 100,
             'text-align': 'center',
             'line-height': 100,
-            left: 578,
-            top: parseInt(0 + styleTop)
+            left  : 591,
+            top   : Math.floor(0 + styleTop)
          });
 
          $("#pv_grade_" + planet.name).css({
@@ -92,17 +95,16 @@ var planetViewLayer = function(planetSocket) {
             'height': 100,
             'text-align': 'center',
             'line-height': 100,
-            'left': 766,
-            top: parseInt(0 + styleTop)
+            left  : 791,
+            top   : Math.floor(0 + styleTop)
          });
 
-         styleTop += 100;
+         styleTop = Math.floor(styleTop + 100);
          // TODO: 2. Own user's planets display that is developed. 
       });
    }
    else 
    {
-      $("#planet_list").empty();
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $('.planet_ui').hide();
    }

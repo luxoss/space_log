@@ -4,186 +4,176 @@
 	**File-explanation: Decorate main html page with cascading style sheet
 */
 
-html {
-   overflow: hidden !important;
-}
+html { overflow: hidden !important; }
 
 body {
-	background-color: rgb(0, 0, 0);
-	overflow: hidden !important; 
-   width: 7700px;
-   height: 7700px;   
+   background-color : rgb(0, 0, 0);
+	overflow         : hidden !important; 
+   width            : 7700px;
+   height           : 7700px;   
 }
 
 #main_layer {
-   background-image: url('http://203.237.179.21:8000/res/img/space_tile1.png');
-  	width:  3500px;
-  	height: 3500px; 
-   border: 0px;
-  	position: absolute;
-	z-index: 1;
-   /*
-   -ms-transform: translate(-50%, -50%); IE 9 
-   -webkit-transform: translate(-50%, -50%); Safari 
-   transform: translate(-50%, -50%);
-   */
+   background-image : url('http://203.237.179.21:8000/res/img/space_tile1.png');
+  	width            :  3500px;
+  	height           : 3500px; 
+   border           : 0px;
+  	position         : absolute;
+	z-index          : 1;
 }
 
 #view_layer {
-	box-shadow: rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
-   /*border: 1px solid rgba(144, 32, 53, 0.7);*/
-   border: 2px solid rgba(255, 255, 255, 0.7);
-   border-style: dotted;
-	border-radius: 15px;
-	position: fixed;
-	z-index: 3;
+	box-shadow    : rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
+   border        : 2px solid rgba(255, 255, 255, 0.7);
+   border-style  : dotted;
+	border-radius : 15px;
+	position      : fixed;
+	z-index       : 3;
 }
 
 .user_info_ui {
-	background: transparent;
-  	width: 400px;
-  	height: 128px;
-	border-radius: 0px 15px 0px 0px;
-   /* before : top: 0px; */
-  	left: 0px;	
-   bottom: 0px;
-  	position: absolute;
-	z-index: 3;
+	background    : transparent;
+  	width         : 400px;
+  	height        : 128px;
+	border-radius : 0px 15px 0px 0px;
+  	left          : 0px;	
+   bottom        : 0px;
+  	position      : absolute;
+	z-index       : 3;
 }
 
 #user_avatar {
-	background-image: url('../res/img/astronaut.png');
-	background-color: rgba(255, 128, 255, 0.7);
-	width: 100px;
-	height: 128px;
-	border: 1px solid rgba(255, 255, 255, 0.3);
-   border-style: dotted;
-	border-radius: 0px 0px 0px 15px;
-	top: 0px;
-	left: 0px;
-	position: absolute;
+	background-image : url('../res/img/astronaut.png');
+	background-color : rgba(255, 128, 255, 0.7);
+	width            : 100px;
+	height           : 128px;
+	border           : 1px solid rgba(255, 255, 255, 0.3);
+   border-style     : dotted;
+	border-radius    : 0px 0px 0px 15px;
+	top              : 0px;
+	left             : 0px;
+	position         : absolute;
 }
 
 #user_name {
-	background-color: rgba(255, 128, 255, 0.7);
-	width: 100px;
-	height: 20px;
-	font-weight: bold;
-	text-align: center;
-	border-radius: 0px 0px 0px 15px;
-	bottom: 0px;
-	position: absolute;	
+	background-color : rgba(255, 128, 255, 0.7);
+	width            : 100px;
+	height           : 20px;
+	font-weight      : bold;
+	text-align       : center;
+	border-radius    : 0px 0px 0px 15px;
+	bottom           : 0px;
+	position         : absolute;	
 }
 
 #hp_progress_bar {
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-	background-color: rgba(207, 47, 77, 0.7);
-	width: 300px;
-	height: 45px;
-	border: 2px solid rgba(256, 47, 77, 0.7);
-   border-radius: 0px 10px 0px 0px;
-   border-style: dotted;
-	top: 0px; /* before : 0px */
-	left: 102px;
-	position: absolute;
-   text-align: center;
-   line-height: 35px;
+	background-color : rgba(207, 47, 77, 0.7);
+   color            : rgba(255, 255, 255, 0.7);
+   font-size        : 20pt;
+	width            : 300px;
+	height           : 45px;
+	border           : 2px solid rgba(256, 47, 77, 0.7);
+   border-radius    : 0px 10px 0px 0px;
+   border-style     : dotted;
+	top              : 0px; 
+	left             : 102px;
+	position         : absolute;
+   text-align       : center;
+   line-height      : 35px;
 }
 
 #exp_stats {
    background-color : rgba(208, 196, 76, 0.7);
-	width: 300px;
-	height: 45px;
-	border: 2px solid rgba(208, 196, 76, 0.7);
-   border-style: dotted;
-	top: 46px; /* before : 38px */
-	left: 102px;
-	position: absolute;
+	width            : 300px;
+	height           : 45px;
+	border           : 2px solid rgba(208, 196, 76, 0.7);
+   border-style     : dotted;
+	top              : 46px; 
+	left             : 102px;
+	position         : absolute;
 }
 
 #resource {
-	width: 300px;
-	height: 35px; /* 35 + 28 = 63 */
-	border: 2px solid rgba(83, 80, 44, 0.7);
-   border-style: dotted;
-   border-radius: 0px 0px 0px 0px; /* up-left up-right down-right down-left */
-	top: 93px; /* before : 65px */
-	left: 102px;	
-	position: absolute;
+	width          : 300px;
+	height         : 35px; /* 35 + 28 = 63 */
+	border         : 2px solid rgba(83, 80, 44, 0.7);
+   border-style   : dotted;
+   border-radius  : 0px 0px 0px 0px; /* up-left up-right down-right down-left */
+	top            : 93px; 
+	left           : 102px;	
+	position       : absolute;
 }
 
 #m_icon {
-   background-image: url('../res/img/icon/minerals.png');
-   width: 30px;
-   height: 35px;
-   left: 0px;
-   position: absolute;
+   background-image  : url('../res/img/icon/minerals.png');
+   width             : 30px;
+   height            : 35px;
+   left              : 0px;
+   position          : absolute;
 }
 
 #mineral {
-   text-align: right;
-   color: rgba(255, 2555, 255, 0.7);;
-   font-size: 20pt;
-   background-color: rgba(29, 66, 107, 0.7);
-   border: 0px;
-   padding: 0px;
-   margin: 0px;
-   width: 70px;
-   height: 35px;
-   left: 30px;
-   position: absolute;
-   text-align: center;
-   line-height: 35px;
+   background-color  : rgba(29, 66, 107, 0.7);
+   color             : rgba(255, 2555, 255, 0.7);;
+   font-size         : 20pt;
+   border            : 0px;
+   padding           : 0px;
+   margin            : 0px;
+   width             : 70px;
+   height            : 35px;
+   left              : 30px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 35px;
 }
 
 #g_icon {
-   background-image: url('../res/img/icon/gas.png');
-   width: 30px;
-   height: 35px;
-   left: 100px;
-   position: absolute;
+   background-image  : url('../res/img/icon/gas.png');
+   width             : 30px;
+   height            : 35px;
+   left              : 100px;
+   position          : absolute;
 }
 
 #gas {
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-   text-align: right;
-   background-color: rgba(26, 61, 19, 0.7);
-   border: 0px;
-   padding: 0px;
-   margin: 0px;
-   width: 70px;
-   height: 35px;
-   left: 130px;
-   position: absolute;
-   text-align: center;
-   line-height: 35px;
+   background-color  : rgba(26, 61, 19, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   text-align        : right;
+   border            : 0px;
+   padding           : 0px;
+   margin            : 0px;
+   width             : 70px;
+   height            : 35px;
+   left              : 130px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 35px;
 }
 
 #u_icon {
-   background-image: url('../res/img/icon/unknown.png');
-   width: 30px;
-   height: 35px;
-   left: 200px;
-   position: absolute;
+   background-image  : url('../res/img/icon/unknown.png');
+   width             : 30px;
+   height            : 35px;
+   left              : 200px;
+   position          : absolute;
 }
 
 #unknown {
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-   text-align: right;
-   background-color: rgba(28, 21, 28, 0.7);
-   border: 0px;
-   border-radius: 0px 0px 15px 0px;
-   padding: 0px;
-   margin: 0px;
-   width: 70px;
-   height: 35px;
-   left: 230px;
-   position: absolute;
-   text-align: center;
-   line-height: 35px;
+   background-color  : rgba(28, 21, 28, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   text-align        : right;
+   border            : 0px;
+   border-radius     : 0px 0px 15px 0px;
+   padding           : 0px;
+   margin            : 0px;
+   width             : 70px;
+   height            : 35px;
+   left              : 230px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 35px;
 }
 
 .minimap_ui {
