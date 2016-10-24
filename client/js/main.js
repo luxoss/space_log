@@ -72,8 +72,6 @@ $(document).ready(function(){ // After onload document, execute inner functions
       localStorage.removeItem('x');
       localStorage.removeItem('y'); 
    }
-   if(event.stopImmediatePropagaion) event.stopImmediatePropagation(); // MOZILLA
-   else event.isImmediatePropagationEnabled = false; // IE
 
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
@@ -86,7 +84,8 @@ $(document).ready(function(){ // After onload document, execute inner functions
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
-      if(data.username != user['name']) {
+      if(data.username != user['name']) 
+      {
          $("#" + data.username).remove(); 
       } 
    });
