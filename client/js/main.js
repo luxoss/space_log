@@ -640,8 +640,6 @@ function logout(user)
                'lastPosY': user['y']     
             }); 
 
-            popUpMsg("다시 만나길...");
-
             localStorage.removeItem('username');
             localStorage.removeItem('exp');
             localStorage.removeItem('hp');
