@@ -19,7 +19,7 @@ var planetViewLayer = function(planetSocket) {
       
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('.planet_ui').show();
-
+     
       planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       planetSocket.on('planet_res', function(data){
@@ -32,7 +32,8 @@ var planetViewLayer = function(planetSocket) {
             develop : data.develop
          };
        
-         // TODO: 1. All planets display
+         // TODO: 1. All planets display;
+
          $("#planet_list").append("<div id='" + planet.name + "name'style = 'position:absolute;'>" + "planet" + data.p_id +  "</div>");
          $("#planet_list").append("<div id='" + planet.name + "mineral'style = 'position:absolute;'>" + data.mineral + "</div>");
          $("#planet_list").append("<div id='" + planet.name + "gas'style = 'position:absolute;'>" + data.gas + "</div>");
@@ -101,6 +102,7 @@ var planetViewLayer = function(planetSocket) {
    }
    else 
    {
+      $("#planet_list").empty();
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $('.planet_ui').hide();
    }

@@ -42,7 +42,11 @@ function drawMinimap(socket)
       };
       
       // Initialized div tags
+      //$("#minimap_" + user['name']).detach();
+      $(".minimap_ui").empty();
+
       $(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
+      
       $("#minimap_" + user['name']).css({
          'left' : Math.floor((user['x'] * 300) / 3500),
          'top'  : Math.floor((user['y'] * 300) / 3500) 
