@@ -523,12 +523,16 @@ function keyHandler(user, socket)
                      menuSelection.play();
                      $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
                      menuSelection.currentTime = 0;
+
+                     return false;
                   });
 
                   $("#cancel").mouseout(function() {
                      menuSelection.play();
                      $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
                      menuSelection.currentTime = 0;
+
+                     return false;
                   });
 
                   $("#cancel").on('click.cancel', function() { 
