@@ -316,7 +316,7 @@ function keyHandler(user, socket)
    console.log("[CLIENT LOG] KeyHandler is called.");
 
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
-   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82;
+   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82, KEYSET_BTN = 73;
    var DEVELOP_PLANET = 32, SHOOT = 83;
    var speed = 4;
    var bg = {
@@ -344,24 +344,21 @@ function keyHandler(user, socket)
    
    // TODO: $("#" + selector :: e.g.document).on('keydown', function(ev){});
    $('body').off('keydown').on('keydown', function(ev) {  
+      console.log("[CLIENT LOG] Keydown event is called.");
+
       var keyState = ev.keyCode;
-      //var KEYSET_BTN = 73;
 
       //var e = ev | window.event;
       //ev.stopPropagation(); 
-       /*
-         if(ev.keyCode.stopPropagation) 
-         {
-            ev.keyCode.stopPropagation();
-         }
-         else 
-         {
-            ev.keyCode.cancelBubble = true;         
-         }
-      */
-
-      console.log("[CLIENT LOG] Keydown event is called.");
-
+      if(ev.stopPropagation)
+      {
+         ev.stopPropagation();
+      }
+      else
+      {
+         ev.cancelBubble = true; // 이벤트가 외부로 흐르는 것을 방지.
+      }
+     
       if(keyState == LEFT)
       {
          console.log("[CLIENT LOG] LEFT is called.");
@@ -449,12 +446,12 @@ function keyHandler(user, socket)
       {
          drawMinimap(socket);
       }
-   /*
+
       if(keyState = KEYSET_BTN) 
       {
          keySetDisplay();
       }
-   */
+
       if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
       {
          if(user['name'] != null) 
@@ -599,7 +596,34 @@ function keyHandler(user, socket)
       //ev.stopPropagation();
       //ev.preventDefault();
       //return false;
-   });
+
+      switch(ev)
+      {
+         case LEFT:
+               return false;
+         case UP:
+               return false;
+         case RIGHT:
+               return false;
+         case DOWN:
+               return false;
+         case BATTLESHIP_BTN:
+               return false;
+         case MINIMAP_BTN:
+               return false;
+         case PLANET_BTN:
+               return false;
+         case LOGOUT_BTN:
+               return false;
+         case RANK_BTN:
+               return false;
+         case KEYSET_BTN:
+               return false;
+         default:
+            return false;
+            break;
+      }
+    });
    
    $("#logout_btn").on('click.logout', function(){	
       if(user['name'] != null) 
