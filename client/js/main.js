@@ -95,7 +95,23 @@ $(document).ready(function(){ // After onload document, execute inner functions
    userPosUpdate(user); 
 
 });
-
+/*
+// TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
+$(document).mousemove(function(e){
+   if(e.clientY < 0)
+   {
+      socket.userInit.emit('logout_msg', { 
+         'username' : user['name'],
+          'mineral' : user.resource['mineral'],
+              'gas' : user.resource['gas'],
+          'unknown' : user.resource['unknown'],          
+             'exp'  : user.state['exp'],
+              'hp'  : user.state['hp'],
+      });       
+   }
+   //TODO:새로 고침이나 탭 키등 브라우저에 상에 조작을 가할 수 있는 키를 제한 시켜야 함.
+}
+*/
 function drawAllAssets(mainLayer, user, socket) 
 {
    var hp = user.state['hp'];
