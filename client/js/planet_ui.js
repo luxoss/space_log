@@ -40,12 +40,13 @@ var planetViewLayer = function(planetSocket) {
          $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
          $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:inherit; line-height:100px;'></div>");
 
-         $("#pv_name_" + planet.name).html("planet" + planet['name']);
-         $("#pv_mineral_" + planet.name).html(planet['mineral']);
-         $("#pv_gas_" + planet.name).html(planet['gas']);
-         $("#pv_unknown_" + planet.name).html(planet['unknown']);
-         $("#pv_develop_" + planet.name).html(planet['develop']);
-         $("#pv_grade_" + planet.name).html(parseInt(planet['grade'] + 1));
+         // TODO: Change html() -> text()
+         $("#pv_name_" + planet.name).text("planet" + planet['name']);
+         $("#pv_mineral_" + planet.name).text(planet['mineral']);
+         $("#pv_gas_" + planet.name).text(planet['gas']);
+         $("#pv_unknown_" + planet.name).text(planet['unknown']);
+         $("#pv_develop_" + planet.name).text(planet['develop']);
+         $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
 
          $("#pv_name_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
