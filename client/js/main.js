@@ -43,7 +43,7 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
-   console.log("This browser is online?" + navigator.onLine);
+   console.log("This browser is online? " + navigator.onLine);
    
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
@@ -84,7 +84,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
-      if(data.username != user['name']) 
+      if(data.username !== user['name']) 
       {
          $("#" + data.username).remove(); 
       } 
@@ -701,7 +701,7 @@ function userPosUpdate(user)
       // TODO:  여기서 실행하면 키 입력 값을 받을 때 마다 appendChild를 하므로 같은 테그들이 생겨남
       //        따라서 초기화 시에 접속한 모든 사람의 데이터를 받아 appendChild를 한 번 해주고 
       //        위치 변경 시 각각의 css style만 바꿔야 함.
-      if(user['name'] == data['username'])  
+      if(user['name'] === data['username'])  
       {
          /*
          console.log("[Client log] ", data['username'], ",x: ", data['location_x'], ",y: ", data['location_y'], ",key_value: ", data['key_val']);
