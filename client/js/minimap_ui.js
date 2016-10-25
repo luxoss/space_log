@@ -4,9 +4,6 @@
    ** Author: luxoss
 */
 
-// 행성 위치에 관한 목록을 소캣으로 받는다.
-// 유저 위치에 관한 목록을 소캣으로 받는다. 
-
 // 각각의 유저 요소와 행성요소를 그려주기위한 함수  
 function drawMinimap(socket)
 {
@@ -46,6 +43,7 @@ function drawMinimap(socket)
       $(".minimap_ui").empty();
 
       $(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
+//    $(".minimap_ui").appned("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
       
       $("#minimap_" + user['name']).css({
          'left' : Math.floor((user['x'] * 300) / 3500),
@@ -84,6 +82,11 @@ function drawMinimap(socket)
          {
             assets.enemy.x = data.location_x;
             assets.enemy.y = data.location_y;
+            
+            $("minimap_" + data['username']).css({
+               'left' : Math.floor((assets.enemy.x * 300) / 3500),
+               'top'  : Math.floor((assets.enemy.y * 300) / 3500)
+            });
          }
          */
       });
