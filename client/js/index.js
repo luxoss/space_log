@@ -173,7 +173,7 @@ $(document).ready(function() {
 	      });
       }	
 
-      if(keyCode == TAB) { return false; }
+      //if(keyCode == TAB) { return false; }
    });
    
    $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
