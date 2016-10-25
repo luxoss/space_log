@@ -43,8 +43,6 @@ discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
-   console.log("This browser is online? " + navigator.onLine);
-   
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
@@ -108,6 +106,18 @@ $(document).mousemove(function(e){
              'exp'  : user.state['exp'],
               'hp'  : user.state['hp'],
       });       
+   }
+   if(navigator.onLine == false)
+   {
+      console.log("This browser is online? " + navigator.onLine);
+      socket.userInit.emit('logout_msg', { 
+         'username' : user['name'],
+          'mineral' : user.resource['mineral'],
+              'gas' : user.resource['gas'],
+          'unknown' : user.resource['unknown'],          
+             'exp'  : user.state['exp'],
+              'hp'  : user.state['hp'],
+      });  
    }
    //TODO:새로 고침이나 탭 키등 브라우저에 상에 조작을 가할 수 있는 키를 제한 시켜야 함.
 }
