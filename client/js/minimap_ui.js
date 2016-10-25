@@ -43,8 +43,7 @@ function drawMinimap(socket)
       $(".minimap_ui").empty();
 
       $(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
-//    $(".minimap_ui").appned("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
-      
+
       $("#minimap_" + user['name']).css({
          'left' : Math.floor((user['x'] * 300) / 3500),
          'top'  : Math.floor((user['y'] * 300) / 3500) 
@@ -74,12 +73,14 @@ function drawMinimap(socket)
                'top'  : Math.floor((assets.player.y * 300) / 3500)
             });
             // overlab append  => Not a catch tail game.
-            //$(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 0, 0.7); left:" + Math.floor((assets.player['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.player['y'] * 300) / 3500) + "px;'></div>");        
-            
+            //$(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 0, 0.7); left:" + Math.floor((assets.player['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.player['y'] * 300) / 3500) + "px;'></div>");    
          }
-         /*
          else
          {
+            //TODO: 1. 서버에서 값이 들어온다면, 그 값을 확인하여 기존의 값과 같은지 판별한다.
+            //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
+            $(".minimap_ui").appned("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
+      
             assets.enemy.x = data.location_x;
             assets.enemy.y = data.location_y;
             
@@ -87,8 +88,7 @@ function drawMinimap(socket)
                'left' : Math.floor((assets.enemy.x * 300) / 3500),
                'top'  : Math.floor((assets.enemy.y * 300) / 3500)
             });
-         }
-         */
+         }         
       });
    }
    else

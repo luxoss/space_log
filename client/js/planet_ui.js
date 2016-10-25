@@ -32,7 +32,7 @@ var planetViewLayer = function(planetSocket) {
             grade : data.create_spd
          }; 
          
-         // TODO: 1. All planets display
+         // TODO: Remove duplicated tags 
          $("#planet_list").append("<div id='pv_name_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
          $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
          $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
