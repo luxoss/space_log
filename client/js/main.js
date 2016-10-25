@@ -603,33 +603,63 @@ function keyHandler(user, socket)
 
    // Before code line is '$(document).on('keyup', function(){});
    $('body').off('keyup').on('keyup', function(ev) {
+      console.log('[CLIENT LOG] Keyup event called.');
       //ev.stopPropagation();
       //ev.preventDefault();
       //return false;
+      if(ev.stopPropagation)
+      {
+         ev.stopPropagation();
+      }
+      else
+      {
+         ev.cancelBubble = true; // 이벤트가 외부로 흐르는 것을 방지.
+      }
 
       switch(ev)
       {
          case LEFT:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case UP:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case RIGHT:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case DOWN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case BATTLESHIP_BTN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case MINIMAP_BTN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case PLANET_BTN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case LOGOUT_BTN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case RANK_BTN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          case KEYSET_BTN:
-               return false;
+            ev.keyCode = 0;
+            return false;
+
          default:
+            ev.keyCode = 0;
             return false;
             break;
       }
