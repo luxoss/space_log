@@ -66,8 +66,9 @@ body {
 	position         : absolute;	
 }
 
-#hp_progress_bar {
-	background-color : rgba(207, 47, 77, 0.7);
+#progress_bar {
+   background-color : rgba(207, 47, 77, 0.7);
+/* background       : transparent;*/
    color            : rgba(255, 255, 255, 0.7);
    font-size        : 20pt;
 	width            : 300px;
@@ -77,11 +78,18 @@ body {
    border-style     : dotted;
 	top              : 0px; 
 	left             : 102px;
-	position         : absolute;
+	position         : relative;
    text-align       : center;
    line-height      : 35px;
 }
-
+/*
+#hp_progress_bar {
+   background-color : rgba(207, 47, 77, 0.7);
+   width: 300px;
+   height: 45px;
+   position: absolute;  
+}
+*/
 #exp_stats {
    background-color : rgba(208, 196, 76, 0.7);
 	width            : 300px;
@@ -114,7 +122,7 @@ body {
 
 #mineral {
    background-color  : rgba(29, 66, 107, 0.7);
-   color             : rgba(255, 2555, 255, 0.7);;
+   color             : rgba(255, 255, 255, 0.7);;
    font-size         : 20pt;
    border            : 0px;
    padding           : 0px;
@@ -177,104 +185,104 @@ body {
 }
 
 .minimap_ui {
-   background-color: rgba(0, 0, 0, 0.7);
-  	width: 300px;
-  	height: 300px; 
-  	border: 3px solid rgba(255, 255, 255, 0.7);;
-   border-style: dotted;
-	border-radius: 15px 0px 0px 0px;
- 	right: 0px;
-  	bottom: 0px;
-  	position: absolute;
-	z-index: 3;
-   display: none;
+   background-color  : rgba(0, 0, 0, 0.7);
+  	width             : 300px;
+  	height            : 300px; 
+  	border            : 3px solid rgba(255, 255, 255, 0.7);;
+   border-style      : dotted;
+	border-radius     : 15px 0px 0px 0px;
+ 	right             : 0px;
+  	bottom            : 0px;
+  	position          : absolute;
+	z-index           : 3;
+   display           : none;
 }
 
 #position_navigator {
-   width: 328px;
-   height: 64px;
-   border: 2px solid rgba(255, 255, 255, 0.7);
-   border-style: dotted;
-   border-radius: 15px 15px 0px 0px;
-   left: 50%;
-   bottom: 0px;
-   transform: translateX(-50%);
-   position: absolute;
-   z-index: 3;
+   width          : 328px;
+   height         : 64px;
+   border         : 2px solid rgba(255, 255, 255, 0.7);
+   border-style   : dotted;
+   border-radius  : 15px 15px 0px 0px;
+   left           : 50%;
+   bottom         : 0px;
+   transform      : translateX(-50%);
+   position       : absolute;
+   z-index        : 3;
 }
 
 #icon_x {
-   background-color: rgba(255, 0, 0, 0.3);
-   color: rgba(255, 255, 255, 0.8);
-   font-size: 14pt;
-   font-weight: bold;
-   width: 64px;
-   height: 64px;
-   border: 0px;
-   border-radius: 15px 0px 0px 0px;
-   left: 0px;
-   position: absolute;
-   text-align: center;
-   line-height: 64px;
+   background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.8);
+   font-size         : 14pt;
+   font-weight       : bold;
+   width             : 64px;
+   height            : 64px;
+   border            : 0px;
+   border-radius     : 15px 0px 0px 0px;
+   left              : 0px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 64px;
 }
 
 #icon_y {
-   background-color: rgba(0, 0, 255, 0.3);
-   color: rgba(255, 255, 255, 0.8);
-   font-size: 14pt;
-   font-weight: bold;
-   width: 64px;
-   height: 64px;
-   border: 0px;
-   border-radius: 0px 0px 0px 0px;
-   left: 164px;
-   position: absolute;
-   text-align: center;
-   line-height: 64px;
+   background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.8);
+   font-size         : 14pt;
+   font-weight       : bold;
+   width             : 64px;
+   height            : 64px;
+   border            : 0px;
+   border-radius     : 0px 0px 0px 0px;
+   left              : 164px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 64px;
 }
 
 #position_x {
 /*   background-color: rgba(255, 255, 255, 0.3);*/
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 14pt;
-   font-weight: bold;
-   width: 100px;
-   height: 64px;
-   border: 0px;
-   left: 64px;
-   position: absolute;
-   text-align: center;
-   line-height: 64px;
+   color       : rgba(255, 255, 255, 0.7);
+   font-size   : 14pt;
+   font-weight : bold;
+   width       : 100px;
+   height      : 64px;
+   border      : 0px;
+   left        : 64px;
+   position    : absolute;
+   text-align  : center;
+   line-height : 64px;
 }
 
 #position_y {
 /*   background-color: rgba(255, 255, 255, 0.3);*/
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 14pt;
-   font-weight: bold;
-   width: 100px;
-   height: 64px;
-   border: 0px;
-   left: 228px;
-   position: absolute;
-   text-align: center;
-   line-height: 64px;
+   color       : rgba(255, 255, 255, 0.7);
+   font-size   : 14pt;
+   font-weight : bold;
+   width       : 100px;
+   height      : 64px;
+   border      : 0px;
+   left        : 228px;
+   position    : absolute;
+   text-align  : center;
+   line-height : 64px;
 }
 
 .menu_buttons_ui {
-   background-color: rgba(0, 0, 0, 0.7);
-  	width: 256px;
-  	height: 64px;
-   border: 2px solid rgba(255, 255, 255, 0.7);
-   border-style: dotted;
-   border-radius: 15px 15px 0px 0px;
-  	left: 50%;
-	bottom: 67px;
-   -ms-transform: translateX(-50%);
-   -webkit-transform: translateX(-50%);
-   transform: translateX(-50%);
-	position: absolute;
-	z-index: 3;
+   background-color  : rgba(0, 0, 0, 0.7);
+  	width             : 256px;
+  	height            : 64px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-style      : dotted;
+   border-radius     : 15px 15px 0px 0px;
+  	left              : 50%;
+	bottom            : 67px;
+   -ms-transform     : translateX(-50%);
+   -webkit-transform : translateX(-50%);
+   transform         : translateX(-50%);
+	position          : absolute;
+	z-index           : 3;
 }
 
 #logout_btn {
@@ -328,484 +336,483 @@ body {
 }
 
 .rank_ui { 
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 600px;
-	height: 500px;
-   border: 0px;
-   border-radius: 5px 5px 0px 0px;
-	display: none;
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	position: fixed;
-	z-index: 100;
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 600px;
+	height            : 500px;
+   border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+	display           : none;
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position          : fixed;
+	z-index           : 100;
 }
 
 #rank_title {
-   background-color: rgba(43, 100, 31, 0.7);
-   width: 600px;
-   height: 100px;
-   border: 0px;
-   border-radius: 5px 5px 0px 0px;
-   left: 0px;
-   position: absolute;
+   background-color  : rgba(43, 100, 31, 0.7);
+   width             : 600px;
+   height            : 100px;
+   border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+   left              : 0px;
+   position          : absolute;
 }
 
 #user_rank {
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-	background-color: rgba(255, 0, 0, 0.3);
-	width: 100px;
-	height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-	left: 10px;
-	position: absolute;
-   text-align: center;
-   line-height: 100px;
+	background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+	width             : 100px;
+	height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+	left              : 10px;
+	position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #user_id {
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-	background-color: rgba(0, 255, 0, 0.3);
-	width: 285px;
-	height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-	left: 110px;
-	position: absolute;
-   text-align: center;
-   line-height: 100px;
+	background-color  : rgba(0, 255, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+	width             : 285px;
+	height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+	left              : 110px;
+	position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #user_planets {
-   color: rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-	background-color: rgba(0, 0, 255, 0.3);
-	width: 187px;
-	height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-	right: 15px;
-	position: absolute;
-   text-align: center;
-   line-height: 100px;
+	background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+	width             : 187px;
+	height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+	right             : 15px;
+	position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #user_list {
-   width: 600px;
-   height: 400px;
-   top: 100px;
-   position: absolute;
-   overflow-y: scroll;
+   width       : 600px;
+   height      : 400px;
+   top         : 100px;
+   position    : absolute;
+   overflow-y  : scroll;
 }
 
 .planet_ui {
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 1000px;
-	height: 500px;
-	display: none;
-   border-radius: 5px;
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	position: fixed;
-	z-index: 100;
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 1000px;
+	height            : 500px;
+	display           : none;
+   border-radius     : 5px;
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position          : fixed;
+	z-index           : 100;
 }
 
 #planet_info {
-	background-color: rgba(43, 100, 31, 0.9);
-	width: 1000px;
-	height: 100px;
-	border: 0px;
-   border-radius: 5px 5px 0px 0px;
-	left: 0px;
-	position: absolute;
+	background-color  : rgba(43, 100, 31, 0.9);
+	width             : 1000px;
+	height            : 100px;
+	border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+	left              : 0px;
+	position          : absolute;
 }
 
 #planet_name {
-   background-color: rgba(255, 0, 0, 0.3);
-   color : rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-   width: 200px;
-   height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-   left : 10px;
-   top: 0px;
-   position: absolute;
-   text-align: center;
-   line-height: 100px;
+   background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 200px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 10px;
+   top               : 0px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #planet_resource {
-   background-color: rgba(0, 255, 255, 0.3);
-   color : rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-   width: 380px;
-   height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-   left : 210px;
-   position: absolute;
-   text-align: center;
-   line-height: 100px;
+   background-color  : rgba(0, 255, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 380px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 210px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #planet_discover {
-   background-color: rgba(0, 0, 255, 0.3);
-   color : rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-   width: 200px;
-   height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-   left : 590px;
-   position: absolute;
-   text-align: center;
-   line-height: 100px;
+   background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 200px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 590px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #planet_grade {
-   background-color: rgba(255, 0, 255, 0.3);
-   color : rgba(255, 255, 255, 0.7);
-   font-size: 20pt;
-   width: 193px;
-   height: 100px;
-   border: 1px solid white;
-   border-style: dotted;
-   left: 790px;
-   position: absolute;   
-   text-align: center;
-   line-height: 100px;
+   background-color  : rgba(255, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 193px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 790px;
+   position          : absolute;   
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #planet_list {
-   width: 1000px;
-   height: 400px;
-   top: 100px;
-   position: absolute;
-   overflow-y: scroll;
+   width       : 1000px;
+   height      : 400px;
+   top         : 100px;
+   position    : absolute;
+   overflow-y  : scroll;
 }
 
 .battle_ship_ui {
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 1500px;
-	height: 500px;
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-	display: none;
-	position: fixed;
-	z-index: 100;
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 1500px;
+	height            : 500px;
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	display           : none;
+	position          : fixed;
+	z-index           : 100;
 }
 
 #battle_ship_info_display {
-	background-color: rgba(255, 255, 255, 0.5);
-	width: 900px;
-	height: 500px;
-	float: left;
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 900px;
+	height            : 500px;
+	float             : left;
 }
 
 #battle_ship_item_slot {
-	background-color: rgba(255, 255, 255, 0.5); 
-	width: 600px;
-	height: 500px;
-	float: right;
+	background-color  : rgba(255, 255, 255, 0.5); 
+	width             : 600px;
+	height            : 500px;
+	float             : right;
 }
 
 #battle_ship_state_img {
-	background-color: rgb(0, 255, 0);
-	width: 600px;
-	height: 300px;
-	top: 100px;
-	left: 150px;
-	position: absolute;
+	background-color  : rgb(0, 255, 0);
+	width             : 600px;
+	height            : 300px;
+	top               : 100px;
+	left              : 150px;
+	position          : absolute;
 }
 
 #cube01_slot {
-	background-color: rgb(0, 0, 255);
-	width: 150px;
-	height: 150px;
-	top: 0px;
-	left: 0px;
-	position: absolute;
+	background-color  : rgb(0, 0, 255);
+	width             : 150px;
+	height            : 150px;
+	top               : 0px;
+	left              : 0px;
+	position          : absolute;
 }
 
 #cube02_slot {
-	background-color: rgb(0, 0, 255);
-	width: 150px;
-	height: 150px;
-	right: 600px;
-	top: 0px;
-	position: absolute;
+	background-color  : rgb(0, 0, 255);
+	width             : 150px;
+	height            : 150px;
+	right             : 600px;
+	top               : 0px;
+	position          : absolute;
 }
 
 #cube03_slot {
-	background-color: rgb(0, 0, 255);
-	width: 150px;
-	height: 150px;
-	bottom: 0px;
-	position: absolute;
+	background-color  : rgb(0, 0, 255);
+	width             : 150px;
+	height            : 150px;
+	bottom            : 0px;
+	position          : absolute;
 }
 
 #cube04_slot {
-	background-color: rgb(0, 0, 255);
-	width: 150px;
-	height: 150px;
-	right: 600px;
-	bottom: 0px;
-	position: absolute;
+	background-color  : rgb(0, 0, 255);
+	width             : 150px;
+	height            : 150px;
+	right             : 600px;
+	bottom            : 0px;
+	position          : absolute;
 }
 /*
 // I thinnk that user got by misile and cube information 
 #misile01_slot {
+	background-color: rgb(0, 0, 255);
 	width: 100px;
 	height: 100px;
-	background-color: rgb(0, 0, 255);
 }
 #misile02_slot {
+	background-color: rgb(0, 0, 255);
 	width: 100px;
 	height: 100px;
-	background-color: rgb(0, 0, 255);
 }
 #misile03_slot {
+	background-color: rgb(0, 0, 255);
 	width: 100px;
 	height: 100px;
-	background-color: rgb(0, 0, 255);
 }
 #misile04_slot {
+	background-color: rgb(0, 0, 255);
 	width: 100px;
 	height: 100px;
-	background-color: rgb(0, 0, 255);
 }
 */
 
 .develop_planet_ui {
-	box-shadow: rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-   background-color: rgba(0, 0, 0, 0.3);
-   border: 1px solid white;
-   border-style: dotted;
-   border-radius: 5px;
-   width: 500px;
-   height: 700px;
-   display: none;
-   position: fixed;
-   z-index: 3;
+   background-color  : rgba(0, 0, 0, 0.3);
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   border-radius     : 5px;
+   width             : 500px;
+   height            : 700px;
+   display           : none;
+   position          : fixed;
+   z-index           : 3;
 }
 
 #d_name {
-   background-color: rgba(0, 255, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   left: 0px;
-   top: 0px;
-   border: 0px;
-   width: 250px;
-   height: 100px;
-   position: absolute;
-   text-align: right;
-   line-height: 100px;
+   background-color  : rgba(0, 255, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   left              : 0px;
+   top               : 0px;
+   border            : 0px;
+   width             : 250px;
+   height            : 100px;
+   position          : absolute;
+   text-align        : right;
+   line-height       : 100px;
 }
 
 #p_name {
-   background-color: rgba(0, 255, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   left: 250px;
-   top: 0px;
-   border: 0px;
-   width: 250px;
-   height: 100px;
-   position: absolute;
-   text-align: center;
-   line-height: 100px;
+   background-color  : rgba(0, 255, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   border            : 0px;
+   width             : 250px;
+   height            : 100px;
+   left              : 250px;
+   top               : 0px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
 }
 
 #d_resource {
-   background-color: rgba(0, 255, 0, 0.3);
-   left: 0px;
-   top: 100px;
-   width: 500px;
-   height: 300px;
-   position: absolute;
+   background-color  : rgba(0, 255, 0, 0.3);
+   width             : 500px;
+   height            : 300px;
+   left              : 0px;
+   top               : 100px;
+   position          : absolute;
 }
 
 #d_gas { 
-   background-color: rgba(0, 255, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: right; 
-   line-height: 100px; 
-   left: 0px;
-   top: 0px;
-   position: absolute;
+   background-color  : rgba(0, 255, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 0px;
+   top               : 0px;
+   position          : absolute;
+   text-align        : right; 
+   line-height       : 100px; 
 }
 
 #d_mineral { 
-   background-color: rgba(0, 0, 255, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: right; 
-   line-height: 100px; 
-   left: 0px;
-   top: 100px;
-   position: absolute;
+   background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 0px;
+   top               : 100px;
+   position          : absolute;
+   text-align        : right; 
+   line-height       : 100px; 
 }  
 
 #d_unknown { 
-   background-color: rgba(255, 0, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: right; 
-   line-height: 100px; 
-   left: 0px; 
-   top: 200px;
-   position: absolute; 
+   background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   text-align        : right; 
+   line-height       : 100px; 
+   left              : 0px; 
+   top               : 200px;
+   position          : absolute; 
 }
 
 #p_gas { 
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: center; 
-   line-height: 100px; 
-   left: 250px;
-   top: 0px;
-   position: absolute; 
+   width       : 250px; 
+   height      : 100px; 
+   border      : 0px; 
+   left        : 250px;
+   top         : 0px;
+   position    : absolute; 
+   text-align  : center; 
+   line-height : 100px; 
 }
 
 #p_mineral { 
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: center; 
-   line-height: 100px; 
-   left: 250px;
-   top: 100px;
-   position: absolute; 
+   width       : 250px; 
+   height      : 100px; 
+   border      : 0px; 
+   left        : 250px;
+   top         : 100px;
+   position    : absolute; 
+   text-align  : center; 
+   line-height : 100px; 
 }
 
 #p_unknown { 
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: center; 
-   line-height: 100px; 
-   left: 250px;
-   top: 200px;
-   position: absolute; 
+   width       : 250px; 
+   height      : 100px; 
+   border      : 0px; 
+   left        : 250px;
+   top         : 200px;
+   position    : absolute; 
+   text-align  : center; 
+   line-height : 100px; 
 }
 
 #d_grade { 
-   background-color: rgba(255, 255, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   background-color: rgba(0, 0, 0, 0.3);
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: right; 
-   line-height: 100px;
-   left: 0px;
-   top: 400px;
-   position: absolute;
+   background-color  : rgba(255, 255, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 0px;
+   top               : 400px;
+   position          : absolute;
+   text-align        : right; 
+   line-height       : 100px;
 }
 
 #p_grade { 
-   background-color: rgba(0, 0, 0, 0.3);
-   width: 250px; 
-   height: 100px; 
-   border: 0px; 
-   text-align: center; 
-   line-height: 100px;
-   left: 250px;
-   top: 400px;
-   position: absolute;
+   background-color  : rgba(0, 0, 0, 0.3);
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 250px;
+   top               : 400px;
+   position          : absolute;
+   text-align        : center; 
+   line-height       : 100px;
 }
 
 #d_develop {
-   background-color: rgba(0, 255, 255, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   width: 250px;
-   height: 100px;
-   border: 0px;
-   text-align: right;
-   line-height: 100px;
-   left: 0px;
-   top: 500px;
-   position: absolute;
+   background-color  : rgba(0, 255, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px;
+   height            : 100px;
+   border            : 0px;
+   text-align        : right;
+   line-height       : 100px;
+   left              : 0px;
+   top               : 500px;
+   position          : absolute;
 }
 
 #p_develop {
-   width: 250px;
-   height: 100px;
-   border: 0px;
-   text-align: center;
-   line-height: 100px;
-   left: 250px;
-   top: 500px;
-   position: absolute;
+   width       : 250px;
+   height      : 100px;
+   border      : 0px;
+   left        : 250px;
+   top         : 500px;
+   position    : absolute;
+   text-align  : center;
+   line-height : 100px;
 }
 
 #develop_planet {
-   background-color: rgba(0, 0, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   width: 250px;
-   height: 100px;
-   border: 0px;
-   text-align: center;
-   line-height: 100px;
-   left: 0px;
-   top: 600px;
-   position: absolute;
-   cursor: pointer;
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px;
+   height            : 100px;
+   border            : 0px;
+   left              : 0px;
+   top               : 600px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+   cursor            : pointer;
 }
 
 #cancel {
-   background-color: rgba(0, 0, 0, 0.3);
-   color: rgba(255, 255, 255, 0.3);
-   font-size: 20pt;
-   font-weight: bold;
-   width: 250px;
-   height: 100px;
-   border: 0px;
-   text-align: center;
-   line-height: 100px;
-   left: 250px;
-   top: 600px;
-   position: absolute;
-   cursor: pointer;
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.3);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px;
+   height            : 100px;
+   border            : 0px;
+   left              : 250px;
+   top               : 600px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+   cursor            : pointer;
 }
 
 #key_set {
-   background-color: rgba(255, 255, 255, 0.7);
-   font-weight: bold;
-   font-size: 20pt;
-   border: 1px solid white;
-   border-style: dotted;
-   border-radius: 5px;
-   width: 500px;
-   height: 500px;
-   text-align: center;
-   line-height: 500px;
-   position: fixed;
-   display: none;
-   z-index: 3;
+   background-color  : rgba(255, 255, 255, 0.7);
+   font-weight       : bold;
+   font-size         : 20pt;
+   border            : 1px solid white;
+   border-style      : dotted;
+   border-radius     : 5px;
+   width             : 500px;
+   height            : 500px;
+   text-align        : center;
+   line-height       : 500px;
+   position          : fixed;
+   display           : none;
+   z-index           : 3;
 }
 
 #main_pop_up_view { 

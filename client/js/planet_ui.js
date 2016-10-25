@@ -45,7 +45,7 @@ var planetViewLayer = function(planetSocket) {
          $("#pv_gas_" + planet.name).html(planet['gas']);
          $("#pv_unknown_" + planet.name).html(planet['unknown']);
          $("#pv_develop_" + planet.name).html(planet['develop']);
-         $("#pv_grade_" + planet.name).html(planet['grade']);
+         $("#pv_grade_" + planet.name).html(parseInt(planet['grade'] + 1));
 
          $("#pv_name_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
