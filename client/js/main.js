@@ -50,27 +50,6 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
    popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
    /*
-   if(navigator.onLine) {
-      localStorage.setItem('username');
-      localStorage.setItem('exp');
-      localStorage.setItem('hp');
-      localStorage.setItem('mineral');
-      localStorage.setItem('gas');
-      localStorage.setItem('unknown');
-      localStorage.setItem('x');
-      localStorage.setItem('y'); 
-   }
-   else{
-      localStorage.removeItem('username');
-      localStorage.removeItem('exp');
-      localStorage.removeItem('hp');
-      localStorage.removeItem('mineral');
-      localStorage.removeItem('gas');
-      localStorage.removeItem('unknown');
-      localStorage.removeItem('x');
-      localStorage.removeItem('y'); 
-   }
-
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
       
@@ -118,6 +97,25 @@ $(document).mousemove(function(e){
              'exp'  : user.state['exp'],
               'hp'  : user.state['hp'],
       });  
+      localStorage.setItem('username');
+      localStorage.setItem('exp');
+      localStorage.setItem('hp');
+      localStorage.setItem('mineral');
+      localStorage.setItem('gas');
+      localStorage.setItem('unknown');
+      localStorage.setItem('x');
+      localStorage.setItem('y'); 
+   }
+   else
+   {
+      localStorage.removeItem('username');
+      localStorage.removeItem('exp');
+      localStorage.removeItem('hp');
+      localStorage.removeItem('mineral');
+      localStorage.removeItem('gas');
+      localStorage.removeItem('unknown');
+      localStorage.removeItem('x');
+      localStorage.removeItem('y'); 
    }
    //TODO:새로 고침이나 탭 키등 브라우저에 상에 조작을 가할 수 있는 키를 제한 시켜야 함.
 }
