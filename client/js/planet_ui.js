@@ -48,6 +48,15 @@ var planetViewLayer = function(planetSocket) {
          $("#pv_develop_" + planet.name).text(planet['develop']);
          $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
 
+         /*
+            document.getElementByid('pv_name_' + planet.name).innerHTML = "planet" + planet['name'];
+            document.getElementByid('pv_name_' + planet.name).innerHTML = planet['mineral'];
+            document.getElementByid('pv_name_' + planet.name).innerHTML = planet['gas'];
+            document.getElementByid('pv_name_' + planet.name).innerHTML = planet['unknown'];
+            document.getElementByid('pv_name_' + planet.name).innerHTML = planet['develop'];
+            document.getElementByid('pv_name_' + planet.name).innerHTML = planet['grade'];
+         */
+
          $("#pv_name_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
