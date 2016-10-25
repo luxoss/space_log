@@ -446,12 +446,12 @@ function keyHandler(user, socket)
       {
          drawMinimap(socket);
       }
-
+/*
       if(keyState = KEYSET_BTN) 
       {
          keySetDisplay();
       }
-
+*/
       if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
       {
          if(user['name'] != null) 
@@ -1018,9 +1018,10 @@ function keySetDisplay()
 
       menuSelection.play();
       menuSelection.currentTime = 0;
-
+      
+      $("#key_set").find("div").css({ 'width': 500, 'height' : 50, top: 10 });
       $("#key_set").show();
-     }
+   }
    else
    {
       menuSelection.play();
@@ -1029,9 +1030,7 @@ function keySetDisplay()
       $("#key_set").hide();
    }
 }
-*/
 
-/*
 //TODO: SHOOT STYLE 3
 function shooting() 
 {

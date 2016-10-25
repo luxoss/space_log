@@ -802,14 +802,14 @@ body {
 #key_set {
    background-color  : rgba(255, 255, 255, 0.7);
    font-weight       : bold;
-   font-size         : 20pt;
+   font-size         : 12pt;
    border            : 1px solid white;
    border-style      : dotted;
    border-radius     : 5px;
    width             : 500px;
    height            : 500px;
    text-align        : center;
-   line-height       : 500px;
+/* line-height       : 500px;*/
    position          : fixed;
    display           : none;
    z-index           : 3;
