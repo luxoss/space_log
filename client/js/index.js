@@ -89,7 +89,6 @@ $(document).ready(function() {
             else 
             {
                popUpMsg("해당 아이디가 이미 있습니다."); 
-               //window.location.reload();
 	         }
 	      });
       }
@@ -107,8 +106,7 @@ $(document).ready(function() {
          password: user.password
       });
 
-      userInfoSocket.on('login_res', function(data){
-         
+      userInfoSocket.on('login_res', function(data){         
          if(data.response == "true") 
          {
             popUpMsg("Loading...");
@@ -122,20 +120,25 @@ $(document).ready(function() {
          }
       });
    });
-/*
-   $("#sound_control").on('click', function() {
-      var state = document.getElementById('bg_sound');
 
-      if(state.loop == true) {
-         $("#sound_control").text("SOUND | OFF");
-         state.loop = false;
-         state.paused;
+   $("#sound_control").on('click', function() {
+      var bgSound = document.getElementById('bg_sound');
+
+      if(bgSound.paused)
+      {
+         $("#sound_control").css('color', 'rgba(255, 255, 255, 0.7)');
+         $("#sound_control").text("SOUND |  ON");
+         bgSound.play();
       }
-      
-      $("sound_control").text("SOUND | ON");
-      state.loop = true;
+      else
+      {
+         $("#sound_control").css('color', 'rgba(207, 47, 77, 0.7)');
+         $("#sound_control").text("SOUND | OFF");
+         bgSound.pause();
+         bgSound.currentTime = 0;
+      }
    });
-*/   
+   
    $(document).keydown(function(ev){
 
       var keyCode = ev.keyCode;
@@ -171,7 +174,6 @@ $(document).ready(function() {
 
 	      });
       }	
-
       //if(keyCode == TAB) { return false; }
    });
    
