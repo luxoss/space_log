@@ -894,7 +894,6 @@ function userPosUpdate(user)
       }
       else 
       {
-         console.log("[CLIENT LOG]", data['username'], "is login."); 
          console.log(
                "[CLIENT LOG] ", data['username'],
                ",x: ", data['location_x'], ",y: ", data['location_y'],
