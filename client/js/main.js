@@ -75,7 +75,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
-
+/*
    localStorage.removeItem('username');
    localStorage.removeItem('exp');
    localStorage.removeItem('hp');
@@ -84,6 +84,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
    localStorage.removeItem('unknown');
    localStorage.removeItem('x');
    localStorage.removeItem('y'); 
+*/
 });
 /*
 // TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
