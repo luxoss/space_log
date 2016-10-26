@@ -584,64 +584,70 @@ function keyHandler(user, socket)
             }
          }); 
       }
-      //return false;
    });
 
    // Before code line is '$(document).on('keyup', function(){});
    $('body').off('keyup').on('keyup', function(ev) {
-      console.log('[CLIENT LOG] Keyup event called.');
-      //ev.stopPropagation();
-      //ev.preventDefault();
-      //return false;
+      console.log('[CLIENT LOG] Keyup event is called.');
       ev.stopImmediatePropagation();
 
       switch(ev)
       {
          case LEFT:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case UP:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case RIGHT:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case DOWN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case BATTLESHIP_BTN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case MINIMAP_BTN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case PLANET_BTN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case LOGOUT_BTN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case RANK_BTN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          case KEYSET_BTN:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
+            break;
 
          default:
             ev.keyCode = 0;
-            return false;
+            ev.stopImmediatePropagation();
             break;
-      }
+       }
     });
    
    $("#logout_btn").off('click.logout').on('click.logout', function(event){	
