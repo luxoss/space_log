@@ -151,7 +151,7 @@ $(document).ready(function() {
 		   
          // TODO:만약 프리로딩할 데이터가 많아지면 데이터가 모두 프리로딩할 때 까지
          // 모래시계가 돌아가는 애니메이션 파일을 보여주던지 할 계획. 	
-	      alert("Loading...");
+	      popUpMsg("Loading...");
 
 	      userInfoSocket.emit('login_msg', {
 	         username : user['name'],

@@ -10,12 +10,10 @@ var planetViewLayer = function(planetSocket) {
 
    if(state == 'none') 
    {
-      $(window).resize(function(){
-         $('.planet_ui').css({
-            left: ($(window).width() - $('.planet_ui').outerWidth()) / 2,
-	         top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
-         });
-      }).resize();		
+      $('.planet_ui').css({
+         left: ($(window).width() - $('.planet_ui').outerWidth()) / 2,
+	      top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
+      });
       
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('.planet_ui').show();
