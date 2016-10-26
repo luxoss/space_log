@@ -53,7 +53,8 @@ $(document).ready(function(){ // After onload document, execute inner functions
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
       
-      if(data.username != user['name']) {
+      if(data.username != user['name']) 
+      {
          $("#main_layer").append("<div id ='" + data.username + "' style='position:absolute;'></div>");
       }
    });
@@ -357,7 +358,7 @@ function keyHandler(user, socket)
       
       var keyState = ev.keyCode;
 
-      event.stopImmediatePropagation();
+      ev.stopImmediatePropagation();
           
       if(keyState == LEFT)
       {
@@ -498,7 +499,7 @@ function keyHandler(user, socket)
                         gas : $("#p_gas").text(data.gas),
                         unknown : $("#p_unknown").text(data.unknown)
                      },
-                     grade : $("#p_grade").text(data.create_spd),
+                     grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
                      develop : $("#p_develop")
                   };
 
@@ -534,13 +535,13 @@ function keyHandler(user, socket)
 
                   $("#cancel").mouseover(function() {
                      menuSelection.play();
-                     $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
+                     $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
                      menuSelection.currentTime = 0;
                   });
 
                   $("#cancel").mouseout(function() {
                      menuSelection.play();
-                     $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
+                     $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
                      menuSelection.currentTime = 0;
                   });
 
@@ -553,13 +554,13 @@ function keyHandler(user, socket)
 
                   $("#develop_planet").mouseover(function() {
                      menuSelection.play();
-                     $("#develop_planet").css('background-color', 'rgba(0, 0, 255, 0.3)');
+                     $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
                      menuSelection.currentTime = 0;
                   });
 
                   $("#develop_planet").mouseout(function() {
                      menuSelection.play();
-                     $("#develop_planet").css('background-color', 'rgba(255, 255, 255, 0.3)');
+                     $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
                      menuSelection.currentTime = 0;
                   });
                   

@@ -585,7 +585,7 @@ body {
 */
 
 .develop_planet_ui {
-   background-color  : rgba(0, 0, 0, 0.3);
+   background-color  : rgba(255, 255, 255, 1);
 	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
    border            : 1px solid white;
    border-style      : dotted;
@@ -598,8 +598,8 @@ body {
 }
 
 #d_name {
-   background-color  : rgba(0, 255, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    left              : 0px;
@@ -608,13 +608,13 @@ body {
    width             : 250px;
    height            : 100px;
    position          : absolute;
-   text-align        : right;
+   text-align        : center;
    line-height       : 100px;
 }
 
 #p_name {
-   background-color  : rgba(0, 255, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    border            : 0px;
@@ -628,7 +628,7 @@ body {
 }
 
 #d_resource {
-   background-color  : rgba(0, 255, 0, 0.3);
+   background-color  : rgba(255, 255, 0, 0.3);
    width             : 500px;
    height            : 300px;
    left              : 0px;
@@ -637,8 +637,8 @@ body {
 }
 
 #d_gas { 
-   background-color  : rgba(0, 255, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 255, 0, 0.7);
+   color             : rgba(0, 0, 0, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -647,13 +647,13 @@ body {
    left              : 0px;
    top               : 0px;
    position          : absolute;
-   text-align        : right; 
+   text-align        : center; 
    line-height       : 100px; 
 }
 
 #d_mineral { 
-   background-color  : rgba(0, 0, 255, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 255, 0.7);
+   color             : rgba(0, 0, 0, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -662,19 +662,19 @@ body {
    left              : 0px;
    top               : 100px;
    position          : absolute;
-   text-align        : right; 
+   text-align        : center; 
    line-height       : 100px; 
 }  
 
 #d_unknown { 
-   background-color  : rgba(255, 0, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(255, 0, 0, 0.7);
+   color             : rgba(0, 0, 0, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
    height            : 100px; 
    border            : 0px; 
-   text-align        : right; 
+   text-align        : center; 
    line-height       : 100px; 
    left              : 0px; 
    top               : 200px;
@@ -682,6 +682,9 @@ body {
 }
 
 #p_gas { 
+   background-color : rgba(0, 255, 0, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
    width       : 250px; 
    height      : 100px; 
    border      : 0px; 
@@ -693,6 +696,9 @@ body {
 }
 
 #p_mineral { 
+   background-color : rgba(0, 0, 255, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
    width       : 250px; 
    height      : 100px; 
    border      : 0px; 
@@ -704,6 +710,9 @@ body {
 }
 
 #p_unknown { 
+   background-color: rgba(255, 0, 0, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
    width       : 250px; 
    height      : 100px; 
    border      : 0px; 
@@ -715,8 +724,8 @@ body {
 }
 
 #d_grade { 
-   background-color  : rgba(255, 255, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -725,12 +734,15 @@ body {
    left              : 0px;
    top               : 400px;
    position          : absolute;
-   text-align        : right; 
+   text-align        : center; 
    line-height       : 100px;
 }
 
 #p_grade { 
-   background-color  : rgba(0, 0, 0, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
    width             : 250px; 
    height            : 100px; 
    border            : 0px; 
@@ -742,14 +754,14 @@ body {
 }
 
 #d_develop {
-   background-color  : rgba(0, 255, 255, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px;
    height            : 100px;
    border            : 0px;
-   text-align        : right;
+   text-align        : center;
    line-height       : 100px;
    left              : 0px;
    top               : 500px;
@@ -757,6 +769,10 @@ body {
 }
 
 #p_develop {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
    width       : 250px;
    height      : 100px;
    border      : 0px;
@@ -768,8 +784,8 @@ body {
 }
 
 #develop_planet {
-   background-color  : rgba(0, 0, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px;
@@ -784,8 +800,8 @@ body {
 }
 
 #cancel {
-   background-color  : rgba(0, 0, 0, 0.3);
-   color             : rgba(255, 255, 255, 0.3);
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px;
