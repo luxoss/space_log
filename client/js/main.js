@@ -486,13 +486,12 @@ function keyHandler(user, socket)
          });
 
          socket.userPos.on('collision_res', function(data) {
-            console.log(data);
-
-            if(data.collision == 0)
+/*
+            if(parseInt(data.collision) === 0)
             {
-               console.log('[CLIENT LOG] DEVELOP_KEY is off.');
+               popUpMsg("이미 개척된 행성입니다.");
             }
-
+*/
             // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
             if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
             {
@@ -591,14 +590,6 @@ function keyHandler(user, socket)
 
                      event.stopImmediatePropagation();
                   });
-               }
-               else if(data.develop == 'true')
-               {
-                  popUpMsg(/*data.username + "께서 이미 개척하신"*/"이미 개척된 행성입니다.");
-               }
-               else
-               {
-                 popUpMsg("ERROR: Cannot find collision detection!");
                }
             }
          }); 

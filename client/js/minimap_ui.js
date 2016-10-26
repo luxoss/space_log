@@ -30,7 +30,7 @@ function drawMinimap(socket)
 
    menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
-   if(state == 'none')
+   if(state === 'none')
    {
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
@@ -61,7 +61,7 @@ function drawMinimap(socket)
 
       socket.userPos.on('mv', function(data) {
 
-         if(user['name'] == data['username'])
+         if(user['name'] === data['username'])
          {
             assets.player.x = data.location_x;
             assets.player.y = data.location_y;
@@ -73,7 +73,7 @@ function drawMinimap(socket)
          }
          //TODO: 1. 서버에서 값이 들어온다면, 그 값을 확인하여 기존의 값과 같은지 판별한다.
          //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
-         if(user['name'] != data['username'])
+         if(user['name'] !== data['username'])
          {
             $(".minimap_ui").append("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
 
