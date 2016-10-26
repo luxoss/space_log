@@ -741,13 +741,13 @@ function logout(user)
             }); 
 
             localStorage.removeItem('username');
-            localStorage.removeItem('exp');
-            localStorage.removeItem('hp');
+            localStorage.removeItem('x');
+            localStorage.removeItem('y'); 
             localStorage.removeItem('mineral');
             localStorage.removeItem('gas');
             localStorage.removeItem('unknown');
-            localStorage.removeItem('x');
-            localStorage.removeItem('y'); 
+            localStorage.removeItem('exp');
+            localStorage.removeItem('hp');
 
             socket.userInit.disconnect();
             socket.userInfo.disconnect();
