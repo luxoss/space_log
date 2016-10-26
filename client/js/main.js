@@ -31,6 +31,10 @@ var user = {
    }
 };
 
+var devMineral = parseInt(localStorage.getItem('mineral'));
+var devGas = parseInt(localStorage.getItem('gas'));
+var devUnknown = parseInt(localStorage.getItem('unknown'));
+
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 var isKeyDown = [];		            // Create key state array to keyboard polling  
 var fire = new Audio();
@@ -48,7 +52,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
    });
 
-   popUpMsg(user.name + "님 space_log 세계에 오신 것을 환영합니다.");
+   popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
    /*
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
@@ -71,7 +75,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
-/*
+
    localStorage.removeItem('username');
    localStorage.removeItem('exp');
    localStorage.removeItem('hp');
@@ -80,7 +84,6 @@ $(document).ready(function(){ // After onload document, execute inner functions
    localStorage.removeItem('unknown');
    localStorage.removeItem('x');
    localStorage.removeItem('y'); 
-*/
 });
 /*
 // TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
@@ -161,7 +164,7 @@ function drawAllAssets(mainLayer, user, socket)
       
    }).resize();
 
-   socket.planet.emit('planet_req', {'ready' : 'Ready to draw planets'});
+   socket.planet.emit('planet_req', {'ready' : 'Ready to receive' });
 
    socket.planet.on('planet_res', function(data) {
       drawPlanetImg(mainLayer, data);
@@ -568,11 +571,21 @@ function keyHandler(user, socket)
                      menuSelection.currentTime = 0;
                   });
                   
-                  $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function() {
+                  $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function(event) {
                      socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-                     $(".develop_planet_ui").hide();
-                     //socket.on('', function(data){});
+                    
+                     socket.develop.on('chng_info', function(data){
+                        console.log(data);
+                        devMineral += parseInt(data.mineral);
+                        devGas += parseInt(data.gas);
+                        devUnknown += parseInt(data.unknown);
+                        $("#mineral").text(parseInt(devMineral));
+                        $("#gas").text(parseInt(devGas));
+                        $("#unknown").text(parseInt(devUnknown));
+                     });
                    
+                     $(".develop_planet_ui").hide();
+                 
                      popUpMsg("Complete develop planet.");      
 
                      event.stopImmediatePropagation();

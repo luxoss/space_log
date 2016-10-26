@@ -7,6 +7,7 @@
 var planetViewLayer = function(planetSocket) {
    var state = $('.planet_ui').css('display');
    var styleTop = 0;
+   var temp;
 
    if(state == 'none') 
    {
@@ -239,7 +240,6 @@ var planetViewLayer = function(planetSocket) {
             });
 
             styleTop = Math.floor(styleTop + 100);
-            // TODO: 2. Own user's planets display that is developed. 
          });
       });
       */

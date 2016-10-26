@@ -11,19 +11,7 @@ function drawMinimap(socket)
    // canvas width: 300px = 3500px / x, height: 250px = 3500px / y
    var state = $('.minimap_ui').css('display');
    var menuSelectSound = new Audio();
-   //var minimap = document.getElementById('minimap_canvas');
-
-   menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
-
-   if(state == 'none')
-   {
-      // 만약 행성이라면, 빨간색 원 모양으로 그리기
-	   // 만약 함선이라면, 노란색 또는 하얀색으로 그리기  
-      menuSelectSound.play();
-      menuSelectSound.currentTime = 0;
-      $('.minimap_ui').show();
-
-      var assets = {
+    var assets = {
          planet : { // { width : 64px, height: 64px }
             x : 0, 
             y : 0
@@ -37,7 +25,18 @@ function drawMinimap(socket)
             y : 0
          }
       };
-      
+
+   //var minimap = document.getElementById('minimap_canvas');
+
+   menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
+
+   if(state == 'none')
+   {
+      menuSelectSound.play();
+      menuSelectSound.currentTime = 0;
+      $('.minimap_ui').show();
+
+        
       // Initialized div tags
       //$("#minimap_" + user['name']).detach();
       $(".minimap_ui").empty();
@@ -52,7 +51,6 @@ function drawMinimap(socket)
       socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
       socket.planet.on('planet_res', function(data) {
-         console.log(data.location_x, data.location_y);
          assets.planet.x = data.location_x;
          assets.planet.y = data.location_y;
 
@@ -72,23 +70,28 @@ function drawMinimap(socket)
                'left' : Math.floor((assets.player.x * 300) / 3500),
                'top'  : Math.floor((assets.player.y * 300) / 3500)
             });
-            // overlab append  => Not a catch tail game.
-            //$(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position: absolute; width: 2px; height: 2px; background-color: rgba(255, 255, 0, 0.7); left:" + Math.floor((assets.player['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.player['y'] * 300) / 3500) + "px;'></div>");    
          }
-         else
+         //TODO: 1. 서버에서 값이 들어온다면, 그 값을 확인하여 기존의 값과 같은지 판별한다.
+         //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
+         if(user['name'] != data['username'])
          {
-            //TODO: 1. 서버에서 값이 들어온다면, 그 값을 확인하여 기존의 값과 같은지 판별한다.
-            //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
             $(".minimap_ui").append("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
-      
+
             assets.enemy.x = data.location_x;
             assets.enemy.y = data.location_y;
-            
-            $("minimap_" + data['username']).css({
-               'left' : Math.floor((assets.enemy.x * 300) / 3500),
-               'top'  : Math.floor((assets.enemy.y * 300) / 3500)
+         
+            $("#minimap_" + data['username']).css({
+               'left' : Math.floor((data.location_x * 300) / 3500),
+               'top'  : Math.floor((data.location_y * 300) / 3500)
             });
-         }         
+         }
+      });
+
+      socket.userInit.on('logout_all', function(data) {
+         if(data.username !== user['name'])
+         {
+            $("#minimap_" + data.username).remove();
+         }
       });
    }
    else
