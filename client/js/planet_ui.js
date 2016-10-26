@@ -132,8 +132,117 @@ var planetViewLayer = function(planetSocket) {
          });
 
          styleTop = Math.floor(styleTop + 100);
-         // TODO: 2. Own user's planets display that is developed. 
       });
+/*      
+      $("#my_planets").off('click.myplanets').on('click.my_planets', function(planetsocket) {
+         $("planet_list").detach();
+         $("#all_planets").css('background-color', rgba(0, 0, 0, 0.7);
+         
+         planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
+
+         planetSocket.on('planet_res', function(data){
+            var planet = {
+               name : data.p_id,
+               gas : data.gas,
+               mineral : data.mineral, 
+               unknown : data.unknown,
+               develop : data.develop,
+               grade : data.create_spd
+            }; 
+
+            // TODO: Remove overlaping tags 
+            $("#planet_list").append("<div id='my_pv_name_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_mineral_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_gas_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_unknown_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_develop_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_grade_" + planet.name + "'style = 'position:inherit; line-height:100px;'></div>");
+
+            // TODO: Change html() -> text()
+            $("#my_pv_name_" + planet.name).text("planet" + planet['name']);
+            $("#my_pv_mineral_" + planet.name).text(planet['mineral']);
+            $("#my_pv_gas_" + planet.name).text(planet['gas']);
+            $("#my_pv_unknown_" + planet.name).text(planet['unknown']);
+
+            if(planet['develop'] == 'true')
+            {
+               $("#my_pv_develop_" + planet.name).text("개척된 행성");
+            }
+
+            $("#my_pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
+
+            $("#my_pv_name_" + planet.name).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width': 200,
+               'height': 100,
+               'text-align': 'center',
+               left: 10,
+               top: Math.floor(0 + styleTop)
+            });
+
+            $("#my_pv_mineral_" + planet.name).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width': 127,
+               'height': 100,
+               'text-align': 'center',
+               left  : 210,
+               top   : Math.floor(0 + styleTop)
+            });
+
+            $("#my_pv_gas_" + planet.name).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width' : 127,
+               'height': 100,
+               'text-align': 'center',
+               left  : 337,
+               top   : Math.floor(0 + styleTop)
+            });
+
+            $("#my_pv_unknown_" + planet.name).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width': 127,
+               'height': 100,
+               'text-align': 'center',
+               left  : 464,
+               top   : Math.floor(0 + styleTop)
+            });
+
+            $("#my_pv_develop_" + planet.name).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width': 200,
+               'height': 100,
+               'text-align': 'center',
+               left  : 591,
+               top   : Math.floor(0 + styleTop)
+            });
+
+            $("#my_pv_grade_" + planet.name).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width': 190,
+               'height': 100,
+               'text-align': 'center',
+             //  'line-height': 100,
+               left  : 791,
+               top   : Math.floor(0 + styleTop)
+            });
+
+            styleTop = Math.floor(styleTop + 100);
+            // TODO: 2. Own user's planets display that is developed. 
+         });
+      });
+      */
    }
    else 
    {
