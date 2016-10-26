@@ -429,14 +429,14 @@ function keyHandler(user, socket)
          //shoot(ev, user);
          fire.currentTime = 0;      
       }
-
+/*
       if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
       {
          menuSelection.play();
          menuSelection.currentTime = 0; 	  
          battleShipViewLayer();
       }
-
+*/
       if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
       {
          menuSelection.play();
@@ -689,7 +689,7 @@ function keyHandler(user, socket)
 
       event.stopImmediatePropagation();
    });
-
+/*
    $("#battle_ship_btn").off('click.battle_ship').on('click.battle_ship', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
@@ -697,8 +697,8 @@ function keyHandler(user, socket)
 
       event.stopImmediatePropagation();
    });
-
-   $("#rank_btn").off('click.rank').on('click.rank', function() {
+*/
+   $("#rank_btn").off('click.rank').on('click.rank', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
