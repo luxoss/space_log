@@ -352,21 +352,13 @@ function keyHandler(user, socket)
    
    // TODO: $("#" + selector :: e.g.document).on('keydown', function(ev){});
    $('body').off('keydown').on('keydown', function(ev) {  
-      console.log("[CLIENT LOG] Keydown event is called.");
 
+      console.log("[CLIENT LOG] Keydown event is called.");
+      
       var keyState = ev.keyCode;
 
-      //var e = ev | window.event;
-      //ev.stopPropagation(); 
-      if(ev.stopPropagation)
-      {
-         ev.stopPropagation();
-      }
-      else
-      {
-         ev.cancelBubble = true; // 이벤트가 외부로 흐르는 것을 방지.
-      }
-     
+      event.stopImmediatePropagation();
+          
       if(keyState == LEFT)
       {
          console.log("[CLIENT LOG] LEFT is called.");
@@ -544,23 +536,19 @@ function keyHandler(user, socket)
                      menuSelection.play();
                      $("#cancel").css('background-color', 'rgba(255, 0, 0, 0.3)');
                      menuSelection.currentTime = 0;
-
-                     return false;
                   });
 
                   $("#cancel").mouseout(function() {
                      menuSelection.play();
                      $("#cancel").css('background-color', 'rgba(255, 255, 255, 0.3)');
                      menuSelection.currentTime = 0;
-
-                     return false;
                   });
 
-                  $("#cancel").on('click.cancel', function() { 
+                  $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
                      console.log("[CLINET LOG] Canceled.");
                      $(".develop_planet_ui").hide();
-
-                     return false;
+                     
+                     event.stopImmediatePropagation();
                   });
 
                   $("#develop_planet").mouseover(function() {
@@ -575,14 +563,14 @@ function keyHandler(user, socket)
                      menuSelection.currentTime = 0;
                   });
                   
-                  $("#develop_planet").on('click.develop_planet', function() {
+                  $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function() {
                      socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
                      $(".develop_planet_ui").hide();
                      //socket.on('', function(data){});
                    
                      popUpMsg("Complete develop planet.");      
 
-                     return false;
+                     event.stopImmediatePropagation();
                   });
                }
                else if(data.develop == 'true')
@@ -605,14 +593,7 @@ function keyHandler(user, socket)
       //ev.stopPropagation();
       //ev.preventDefault();
       //return false;
-      if(ev.stopPropagation)
-      {
-         ev.stopPropagation();
-      }
-      else
-      {
-         ev.cancelBubble = true; // 이벤트가 외부로 흐르는 것을 방지.
-      }
+      ev.stopImmediatePropagation();
 
       switch(ev)
       {
@@ -663,7 +644,7 @@ function keyHandler(user, socket)
       }
     });
    
-   $("#logout_btn").on('click.logout', function(){	
+   $("#logout_btn").off('click.logout').on('click.logout', function(event){	
       if(user['name'] != null) 
       {
          logout(user);
@@ -673,30 +654,31 @@ function keyHandler(user, socket)
          popUpMsg('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
          $(location).attr('href', indexPageUrl);	
       }
+      event.stopImmediatePropagation();
    });	
 
-   $("#planet_btn").on('click.planet', function() {
+   $("#planet_btn").off('click.planet').on('click.planet', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(socket['planet']);
 
-      return false;
+      event.stopImmediatePropagation();
    });
 
-   $("#battle_ship_btn").on('click.battle_ship', function() {
+   $("#battle_ship_btn").off('click.battle_ship').on('click.battle_ship', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       battleShipViewLayer();
 
-      return false;
+      event.stopImmediatePropagation();
    });
 
-   $("#rank_btn").on('click.rank', function() {
+   $("#rank_btn").off('click.rank').on('click.rank', function() {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
 
-      return false;
+      event.stopImmediatePropagation();
    });
 /*
    $('#minimap_btn').on('click.minimap_btn', function() {      
