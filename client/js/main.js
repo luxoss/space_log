@@ -533,7 +533,7 @@ function keyHandler(user, socket)
                      }
                      else
                      {
-                        developPlanetInfo.develop.text("미개척");
+                        developPlanetInfo.develop.text("미 개척");
                      }
                   }
 

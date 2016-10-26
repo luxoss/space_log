@@ -43,7 +43,16 @@ var planetViewLayer = function(planetSocket) {
          $("#pv_mineral_" + planet.name).text(planet['mineral']);
          $("#pv_gas_" + planet.name).text(planet['gas']);
          $("#pv_unknown_" + planet.name).text(planet['unknown']);
-         $("#pv_develop_" + planet.name).text(planet['develop']);
+
+         if(planet['develop'] == 'true')
+         {
+            $("#pv_develop_" + planet.name).text("개척된 행성");
+         }
+         else
+         {
+            $("#pv_develop_" + planet.name).text("미 개척된 행성");
+         }
+
          $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
 
          /*
