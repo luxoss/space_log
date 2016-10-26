@@ -8,7 +8,7 @@ var q=10;
 function chngUserRscPlntRsc(){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 //		console.log(".././.s/././/./..s/d.f/./.f");		
-//		var planet = db.collection("PLANET");
+		var planet = db.collection("PLANET");
 		var mem_plan = db.collection("MEM_PLAN");
 		var mem_info = db.collection("MEM_INFO");
 
@@ -27,34 +27,32 @@ function chngUserRscPlntRsc(){
 							u_mineral = result.mineral + q;
 							u_gas = result.gas + q;
 							u_unknown = result.unknown + q;
-							
-							mem_info.update({username:username}, {$set:{mineral:u_mineral, gas:u_gas, unknown:u_unknown}},  function(err, res){
+							u_exp = result.exp + q;
+							mem_info.update({username:username}, {$set:{exp : u_exp, mineral:u_mineral, gas:u_gas, unknown:u_unknown}},  function(err, res){
 								
 								if(err){
 									console.log("mem_info Update is ERR /////////////");
 									console.log(err);
 								}else if(res){
+
+									console.log("::::: p_id");	
+									planet.findOne({p_id : p_id}, function(err, res){
+										p_mineral = res.mineral - q;
+										p_gas = res.gas - q;
+										p_unknown = res.unknown - q;
+								//		console.log("././././.  :::::  " + p_id);
+										planet.update({p_id : p_id}, {$set:{minreal : p_mineral, gas:p_gas, unknown: p_unknown}});
+										console.log(res);	
+									});
+
 							//		console.log(res);
-									console.log('lkjsdflkjaskldjfklsjadjf;kljaksdjf');
+							//		console.log('lkjsdflkjaskldjfklsjadjf;kljaksdjf');
 								}
 
 							});
 						});
-				/*		planet.findOne({p_id:p_id}, function(err, result){
-							console.log(result.gas);
-							p_mineral = result.mineral - q;
-							p_gas = result.gas - q;
-							p_unknown = result.unknown - q;
-						//	console.log(p_gas);
-							planet.update({p_id:p_id}, {$set:{mineral:p_mineral, gas:p_gas, unknown:p_unknown}}, function(err, res){
-								if(err){
-									console.log("ERR ???????///////////////////////////");
-								}
-								else if(res){
-									console.log("/./.././/././.././");
-								}
-							});
-						});*/
+
+						
 					}
 				}
 			} else{
@@ -66,4 +64,4 @@ function chngUserRscPlntRsc(){
 }
 
 //setInterval(chngUserRscPlntRsc, 60000);
-//setInterval(chngUserRscPlntRsc, 5000);
+setInterval(chngUserRscPlntRsc, 5000);

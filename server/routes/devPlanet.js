@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 var planet, mem_info, mem_plan;
 
 var p_id, username;
-
+var r_id;
 devPlntio.on('connection', function(socket){
 	socket.on('add_p', function(data){
 		console.log('add_p MESSAGE');
@@ -14,6 +14,27 @@ devPlntio.on('connection', function(socket){
 			
 			p_id = data.p_id;
 			username = data.username;
+			console.log(p_id);
+			var findByPid = {"p_id" : p_id};
+			mem_plan.findOne(findByPid, function(err, f_res){
+				if(err){
+					console.log('MEM_PLAN FindOne query error :::');
+					console.log(err);
+				} else if(f_res){
+					if(f_res.develop == "false"){
+						console.log('MEM_PLAN document develop field value : false');
+						mem_plan.update({"p_id":p_id}, {$set: {"develop" : "true", "username":username}}, function(err, r){
+							if(err){
+								console.log('///////////');
+								console.log(err);
+							}
+						})
+					}
+				}
+
+			});
+
+			/*
 			mem_plan.findOne({"p_id" : p_id}, function(err, result){
 				console.log("MEM_PLAN find query");
 				if(err){
@@ -23,19 +44,26 @@ devPlntio.on('connection', function(socket){
 					if(result.develop == "false"){
 						console.log('result.develop : false');
 						console.log(p_id);
-						mem_plan.update({"p_id" : p_id}, {$set : {"username":username, "develop" : "true"}}, function(err, updateR){
+						mem_plan.findOne({p_id:p_id},  function(err,res_id){
 							if(err){
-								console.log('planet update is err');
 								console.log(err);
-							} else if(updateR){
-								console.log('planet update result is....');
-								console.log(updateR);
-							} else{
-							
+							//	console.log('/////////////////');
+
+							} else if(res_id){
+								if(p_id == res_id.p_id){
+									console.log('/////');
+									mem_plan.update({"p_id":p_id}, {$set:{"develop":"true"}}, function(err, x){
+										if(err){
+											console.log("WHY!!!!!!!!!!!!");
+											console.log(err);
+										}
+									});	
+								}
 							}
+
 						});
-					//	result.develop="true";
-					//	mem_plan.save({"p_id" : p_id, "username":username});
+						
+						
 						devPlntio.emit('add_p_result', {"p_id":p_id, "username":username, "develop":"true"});
 					} else if (result.develop == "true"){
 						console.log("resulte.develop : true");	
@@ -45,7 +73,7 @@ devPlntio.on('connection', function(socket){
 				} else{
 					
 				}
-			});
+			});*/
 			
 		});
 	});
@@ -54,14 +82,6 @@ devPlntio.on('connection', function(socket){
 	});*/
 
 });
-/*
-function dev_p(){
-	
-	
 
-
-}
-*/
-//setInterval(dev_p, 600000);
 
 console.log("devPlanet.js : https://203.237.179.21:5003");
