@@ -71,7 +71,16 @@ $(document).ready(function(){ // After onload document, execute inner functions
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
-
+/*
+   localStorage.removeItem('username');
+   localStorage.removeItem('exp');
+   localStorage.removeItem('hp');
+   localStorage.removeItem('mineral');
+   localStorage.removeItem('gas');
+   localStorage.removeItem('unknown');
+   localStorage.removeItem('x');
+   localStorage.removeItem('y'); 
+*/
 });
 /*
 // TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
@@ -133,7 +142,7 @@ function drawAllAssets(mainLayer, user, socket)
       clnt  : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
       other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
    };
-  
+
    $(window).resize(function() {
       $("#main_layer").css({
          left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
@@ -152,11 +161,6 @@ function drawAllAssets(mainLayer, user, socket)
       
    }).resize();
 
-   console.log(
-      "[CLIENT LOG] username:", user['name'], "hp:", hp, "exp:", exp, 
-      "mineral:", mineral, "gas:", gas, "unknown:", unknown
-   );                
-
    socket.planet.emit('planet_req', {'ready' : 'Ready to draw planets'});
 
    socket.planet.on('planet_res', function(data) {
@@ -168,7 +172,7 @@ function drawAllAssets(mainLayer, user, socket)
    $("#unknown").text(unknown);
    $("#position_x").text(user['x']);
    $("#position_y").text(user['y']);
-   $("#progress_bar").text(hp + "/ 300");
+   $("#progress_bar").text(hp + " / 300");
 
    $("#user_avartar").append(
       "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 

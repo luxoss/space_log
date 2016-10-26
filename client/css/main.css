@@ -7,15 +7,15 @@
 html { overflow: hidden !important; }
 
 body {
+   width: 7000px;
+   height: 7000px;
    background-color : rgb(0, 0, 0);
 	overflow         : hidden !important; 
-   width            : 7700px;
-   height           : 7700px;   
 }
 
 #main_layer {
    background-image : url('http://203.237.179.21:8000/res/img/space_tile1.png');
-  	width            :  3500px;
+  	width            : 3500px;
   	height           : 3500px; 
    border           : 0px;
   	position         : absolute;
