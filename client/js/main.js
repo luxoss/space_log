@@ -1023,7 +1023,6 @@ function userPosUpdate(user)
    });		
 }
 
-//TODO: Test Later...
 function popUpMsg(msg)
 {
    var state = $("#main_pop_up_view").css('display');
