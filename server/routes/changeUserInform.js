@@ -1,4 +1,4 @@
-/*
+
 
 var username;
 var g_mineral, g_gas, g_unknown;
@@ -11,14 +11,14 @@ var l_x, l_y;
 
 var MongoClient = require('mongodb').MongoClient;
 
-var io = require('socket.io').listen(5005);
-
+var io = require('socket.io').listen(5007);
+/*
 io.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
-		var collection = db.collection("MEM_INFO");
-		var f_obj;
+		var mem_info = db.collection("MEM_INFO");
+	//	var f_obj;
 		//user get resource -> change the user's informations
-	
+		
 		socket.on('lpos_req', function(data){
 
 			console.log('lastposition req-------------');
@@ -165,4 +165,4 @@ io.on('connection', function(socket){
 
 });
 */
-//console.log('changeUserInform.js : https://203.237.179.21:5005');
+console.log('changeUserInform.js : https://203.237.179.21:5007');

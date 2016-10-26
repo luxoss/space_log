@@ -9,7 +9,7 @@ io.on('connection', function(socket){
 			
 	socket.on('planet_req', function(data){
 		console.log("I get a planet request.");
-		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 		
 
 			var planet = db.collection("PLANET");

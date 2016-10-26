@@ -7,7 +7,7 @@ var r_id;
 devPlntio.on('connection', function(socket){
 	socket.on('add_p', function(data){
 		console.log('add_p MESSAGE');
-		MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 			planet = db.collection("PLANET");
 			mem_info = db.collection("MEM_INFO");
 			mem_plan = db.collection("MEM_PLAN");
@@ -28,10 +28,17 @@ devPlntio.on('connection', function(socket){
 								console.log('///////////');
 								console.log(err);
 							}
-						})
+						});
 					}
 				}
 
+			});
+			mem_info.findOne({username:username}, function(err,res){
+				if(res){
+					console.log('CHNG_INFO');
+					console.log(res);
+					socket.emit('chng_info', res);
+				}
 			});
 
 			/*

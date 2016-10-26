@@ -45,7 +45,7 @@ io.on('connection', function (socket) {
 		password = data.password;
 		console.log(username + ', ' + password);	
 		
-		MongoClient.connect("mongodb://localhost/space_log", function(err,db){
+		MongoClient.connect("mongodb://localhost:27017/space_log", function(err,db){
 			var adminDB = db.admin();
 			adminDB.listDatabases(function(err, databases){	});
 	

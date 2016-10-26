@@ -8,7 +8,7 @@ var cnt;
 
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
-	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 
 		var collection = db.collection("PLANET");
 		var mem_plan = db.collection("MEM_PLAN");

@@ -21,7 +21,7 @@ var p_size = 100, s_size = 64;
 var develop;
 
 UsersPio.on('connection', function(socket){
-	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
+	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 		var mem_info = db.collection("MEM_INFO");
 		var mem_plan = db.collection("MEM_PLAN");
 		var member = db.collection("MEMBER");
