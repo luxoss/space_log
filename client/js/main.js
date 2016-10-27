@@ -36,12 +36,13 @@ var devGas = parseInt(localStorage.getItem('gas'));
 var devUnknown = parseInt(localStorage.getItem('unknown'));
 
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
+var enemy = {};                     // Create enemy json object
 var isKeyDown = [];		            // Create key state array to keyboard polling  
-var fire = new Audio();
 var discovered = new Audio();
 var menuSelection = new Audio();
 var eventCount = 0;
 
+//var fire = new Audio();
 //fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 //discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
