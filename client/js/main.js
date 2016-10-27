@@ -53,16 +53,21 @@ $(document).ready(function(){ // After onload document, execute inner functions
    });
 
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
-   /*
+/*
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
       
       if(data.username != user['name']) 
       {
          $("#main_layer").append("<div id ='" + data.username + "' style='position:absolute;'></div>");
+         $("#" + data['username']).append(
+            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+            + data['username'] + "</div>"
+         );
       }
+
    });
-   */
+*/
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
@@ -189,10 +194,11 @@ function drawAllAssets(mainLayer, user, socket)
       "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
       + user['name'] + "</div>"
    );
+   /*
    $("#" + user['name']).append(
       "<div id='" + user['name'] + "_laser" + "' style='position:absolute;'></div>"
    );
-
+   */
    $("#" + user['name']).css({
       "backgroundImage" : image['clnt'],
       "width"  : "64px",
