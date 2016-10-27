@@ -47,6 +47,7 @@ var eventCount = 0;
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
+
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
@@ -80,65 +81,9 @@ $(document).ready(function(){ // After onload document, execute inner functions
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
-/*
-   localStorage.removeItem('username');
-   localStorage.removeItem('exp');
-   localStorage.removeItem('hp');
-   localStorage.removeItem('mineral');
-   localStorage.removeItem('gas');
-   localStorage.removeItem('unknown');
-   localStorage.removeItem('x');
-   localStorage.removeItem('y'); 
-*/
+   
 });
-/*
-// TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
-$(document).mousemove(function(e){
-   if(e.clientY < 0)
-   {
-      socket.userInit.emit('logout_msg', { 
-         'username' : user['name'],
-          'mineral' : user.resource['mineral'],
-              'gas' : user.resource['gas'],
-          'unknown' : user.resource['unknown'],          
-             'exp'  : user.state['exp'],
-              'hp'  : user.state['hp'],
-      });       
-   }
-   if(navigator.onLine == false)
-   {
-      console.log("This browser is online? " + navigator.onLine);
-      socket.userInit.emit('logout_msg', { 
-         'username' : user['name'],
-          'mineral' : user.resource['mineral'],
-              'gas' : user.resource['gas'],
-          'unknown' : user.resource['unknown'],          
-             'exp'  : user.state['exp'],
-              'hp'  : user.state['hp'],
-      });  
-      localStorage.setItem('username');
-      localStorage.setItem('exp');
-      localStorage.setItem('hp');
-      localStorage.setItem('mineral');
-      localStorage.setItem('gas');
-      localStorage.setItem('unknown');
-      localStorage.setItem('x');
-      localStorage.setItem('y'); 
-   }
-   else
-   {
-      localStorage.removeItem('username');
-      localStorage.removeItem('exp');
-      localStorage.removeItem('hp');
-      localStorage.removeItem('mineral');
-      localStorage.removeItem('gas');
-      localStorage.removeItem('unknown');
-      localStorage.removeItem('x');
-      localStorage.removeItem('y'); 
-   }
-   //TODO:새로 고침이나 탭 키등 브라우저에 상에 조작을 가할 수 있는 키를 제한 시켜야 함.
-}
-*/
+
 function drawAllAssets(mainLayer, user, socket) 
 {
    var hp = user.state['hp'];
@@ -190,15 +135,12 @@ function drawAllAssets(mainLayer, user, socket)
    $("#user_name").text(user['name']);
 	
    $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
+
    $("#" + user['name']).append(
       "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
       + user['name'] + "</div>"
    );
-   /*
-   $("#" + user['name']).append(
-      "<div id='" + user['name'] + "_laser" + "' style='position:absolute;'></div>"
-   );
-   */
+
    $("#" + user['name']).css({
       "backgroundImage" : image['clnt'],
       "width"  : "64px",
@@ -209,7 +151,7 @@ function drawAllAssets(mainLayer, user, socket)
       top: user['y']
    });
 
-   // Auto focus user's battleship
+   // TODO: Test auto focus user's battleship
    var offset = $("#" + user['name']).offset();
 
    $("html, body").animate({
@@ -365,10 +307,7 @@ function keyHandler(user, socket)
       }
    };
    
-   // TODO: $("#" + selector :: e.g.document).on('keydown', function(ev){});
    $('body').off('keydown').on('keydown', function(ev) {  
-
-      console.log("[CLIENT LOG] Keydown event is called.");
       
       var keyState = ev.keyCode;
 
@@ -376,7 +315,6 @@ function keyHandler(user, socket)
           
       if(keyState == LEFT)
       {
-         console.log("[CLIENT LOG] LEFT is called.");
          bg.x("main_layer", bg.x("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -389,7 +327,6 @@ function keyHandler(user, socket)
 
       if(keyState == UP)
       {
-         console.log("[CLIENT LOG] UP is called.");
          bg.y("main_layer", bg.y("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -403,7 +340,6 @@ function keyHandler(user, socket)
 
       if(keyState == RIGHT)
       {
-         console.log("[CLIENT LOG] RIGHT is called.");
          bg.x("main_layer", bg.x("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -416,7 +352,6 @@ function keyHandler(user, socket)
 
       if(keyState == DOWN)
       {
-         console.log("[CLIENT LOG] DOWN is called.");
          bg.y("main_layer", bg.y("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -426,14 +361,6 @@ function keyHandler(user, socket)
             'location_y' : user['y']
          });
 
-      }
-
-      if(keyState == SHOOT) 
-      {
-         fire.play();
-         console.log('fire!');
-         //shoot(ev, user);
-         fire.currentTime = 0;      
       }
 
       if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
@@ -471,8 +398,6 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(keyState == DEVELOP_PLANET) 
       {        
-         console.log("[CLIENT LOG] SPACE KEY LOG");
-         
          socket.userPos.emit('collision_req', {
             'username' : user['name'], 
             'location_x' : user['x'],
@@ -499,19 +424,19 @@ function keyHandler(user, socket)
                      develop : $("#p_develop")
                   };
 
-                  var state = $('.develop_planet_ui').css('display');
+                  var state = $("#develop_planet_ui").css('display');
                            
                   //discovered.play();
                   //discovered.currentTime = 0;
 
-                  $('.develop_planet_ui').css({
-                     left: ($(window).width() - $('.develop_planet_ui').outerWidth()) / 2, 
-                     top: ($(window).height() - $('.develop_planet_ui').outerHeight()) / 2
+                  $("#develop_planet_ui").css({
+                     left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
+                     top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
                   });
 
                   if(state == 'none')
                   {
-                     $(".develop_planet_ui").show();
+                     $("#develop_planet_ui").show();
 
                      developPlanetInfo.name;
                      developPlanetInfo.resource.mineral;
@@ -542,9 +467,7 @@ function keyHandler(user, socket)
                   });
 
                   $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
-                     console.log("[CLINET LOG] Canceled.");
-                     $(".develop_planet_ui").hide();
-                     
+                     $("#develop_planet_ui").hide();
                      event.stopImmediatePropagation();
                   });
 
@@ -561,6 +484,7 @@ function keyHandler(user, socket)
                   });
                   
                   $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function(event) {
+
                      socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
                     
                      socket.develop.on('chng_info', function(data){
@@ -573,7 +497,7 @@ function keyHandler(user, socket)
                         $("#unknown").text(parseInt(devUnknown));
                      });
                    
-                     $(".develop_planet_ui").hide();
+                     $("#develop_planet_ui").hide();
                  
                      popUpMsg("Complete develop planet.");      
 
@@ -583,24 +507,11 @@ function keyHandler(user, socket)
             }
          }); 
       }
-/*
-      if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
-      {
-         menuSelection.play();
-         menuSelection.currentTime = 0; 	  
-         battleShipViewLayer();
-      }
-
-      if(keyState = KEYSET_BTN) 
-      {
-         keySetDisplay();
-      }
-*/
    });
 
-   // Before code line is '$(document).on('keyup', function(){});
+   // Keydown event
    $('body').off('keyup').on('keyup', function(ev) {
-      console.log('[CLIENT LOG] Keyup event is called.');
+
       ev.stopImmediatePropagation();
 
       switch(ev)
@@ -682,15 +593,7 @@ function keyHandler(user, socket)
 
       event.stopImmediatePropagation();
    });
-/*
-   $("#battle_ship_btn").off('click.battle_ship').on('click.battle_ship', function(event) {
-      menuSelection.play();
-      menuSelection.currentTime = 0;
-      battleShipViewLayer();
 
-      event.stopImmediatePropagation();
-   });
-*/
    $("#rank_btn").off('click.rank').on('click.rank', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
@@ -711,7 +614,7 @@ function logout(user)
    var logoutMsg = confirm('로그아웃 하시겠습니까?');
    var LOGOUT = 81;
 
-   if(logoutMsg == true) 
+   if(logoutMsg === true) 
    {
       socket.userInit.emit('logout_msg', { 
          'username' : user['name'],
@@ -725,7 +628,7 @@ function logout(user)
 
       socket.userInit.on('logout_res', function(data) {
           
-         if(data.response == 'true') 
+         if(data.response === 'true') 
          {
             socket.userInfo.emit('lpos', {
                'username': user['name'],  
@@ -760,7 +663,6 @@ function logout(user)
 
 function userPosUpdate(user)
 {
-   //var userId = user['name'];
    var imgSprite = {
       player : { 
          LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
@@ -897,11 +799,7 @@ function userPosUpdate(user)
 
       if(user['name'] !== data['username'])
       {
-         console.log(
-               "[CLIENT LOG] ", data['username'],
-               ",x: ", data['location_x'], ",y: ", data['location_y'],
-               ",key_value: ", data['key_val']
-         );
+         console.log( "[CLIENT LOG] ", data['username']);
          /*
          $("#main_layer").append(
             "<div id='" + data['username'] + "' style='position: absolute;'></div>"
@@ -929,17 +827,6 @@ function userPosUpdate(user)
 
                enemyPosX = parseInt(data.location_x);
 	            enemyPosY = parseInt(data.location_y);
-
-               if(enemyPosX <= 0) 
-               {
-                  enemyPosX = 0;
-                  enemyPosY = parseInt(data.location_y);
-                  $("#" + data.username).css({
-	                 "backgroundImage" : imgSprite.player.LEFT,
- 		              left: enemyPosX, 
-		              top: enemyPosY
-	               }); 
-               }
 	            break;
 
 	         case RIGHT:	            
@@ -954,17 +841,6 @@ function userPosUpdate(user)
                		
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
-
-               if(enemyPosX >= 4910) 
-               {
-                  enemyPosX = 4910;
-                  enemyPosY = parseInt(data.location_y);
-                  $("#" + data.username).css({
-	                 "backgroundImage" : imgSprite.player.RIGHT,
- 		              left: enemyPosX, 
-		              top: enemyPosY
-	               }); 
-               }
 		         break;
 				
 	         case UP:	
@@ -979,17 +855,6 @@ function userPosUpdate(user)
                		
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
-
-               if(enemyPosY <= 0) 
-               {
-                  enemyPosX = parseInt(data.location_x);
-                  enemyPosY = 0
-                  $("#" + data.username).css({
-	                 "backgroundImage" : imgSprite.player.UP,
- 		              left: enemyPosX, 
-		              top: enemyPosY
-	               }); 
-               }
 		         break;
 				
 	         case DOWN:	
@@ -1004,17 +869,6 @@ function userPosUpdate(user)
                	
                enemyPosX = parseInt(data.location_x);
 		         enemyPosY = parseInt(data.location_y);
-
-               if(enemyPosY >= 4910) 
-               {
-                  enemyPosX = parseInt(data.location_x);
-                  enemyPosY = 4910;
-                  $("#" + data.username).css({
-	                 "backgroundImage" : imgSprite.player.DOWN,
- 		              left: enemyPosX, 
-		              top: enemyPosY 
-	               }); 
-               }
 		         break;
 		
             default:
@@ -1041,6 +895,15 @@ function popUpMsg(msg)
 }
 
 /*
+
+if(keyState == SHOOT) 
+{
+   fire.play();
+   console.log('fire!');
+   //shoot(ev, user);
+   fire.currentTime = 0;      
+}
+
 function keySetDisplay() 
 {
    var display_state = $("#key_set").css('display');
@@ -1065,6 +928,53 @@ function keySetDisplay()
 
       $("#key_set").hide();
    }
+}
+
+// TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
+$(document).mousemove(function(e){
+   if(e.clientY < 0)
+   {
+      socket.userInit.emit('logout_msg', { 
+         'username' : user['name'],
+          'mineral' : user.resource['mineral'],
+              'gas' : user.resource['gas'],
+          'unknown' : user.resource['unknown'],          
+             'exp'  : user.state['exp'],
+              'hp'  : user.state['hp'],
+      });       
+   }
+   if(navigator.onLine == false)
+   {
+      console.log("This browser is online? " + navigator.onLine);
+      socket.userInit.emit('logout_msg', { 
+         'username' : user['name'],
+          'mineral' : user.resource['mineral'],
+              'gas' : user.resource['gas'],
+          'unknown' : user.resource['unknown'],          
+             'exp'  : user.state['exp'],
+              'hp'  : user.state['hp'],
+      });  
+      localStorage.setItem('username');
+      localStorage.setItem('exp');
+      localStorage.setItem('hp');
+      localStorage.setItem('mineral');
+      localStorage.setItem('gas');
+      localStorage.setItem('unknown');
+      localStorage.setItem('x');
+      localStorage.setItem('y'); 
+   }
+   else
+   {
+      localStorage.removeItem('username');
+      localStorage.removeItem('exp');
+      localStorage.removeItem('hp');
+      localStorage.removeItem('mineral');
+      localStorage.removeItem('gas');
+      localStorage.removeItem('unknown');
+      localStorage.removeItem('x');
+      localStorage.removeItem('y'); 
+   }
+   //TODO:새로 고침이나 탭 키등 브라우저에 상에 조작을 가할 수 있는 키를 제한 시켜야 함.
 }
 
 //TODO: SHOOT STYLE 3
