@@ -501,6 +501,28 @@ function keyHandler(user, socket)
                     
                      socket.develop.on('chng_info', function(data){
                         console.log(data);
+                        /*
+                        if(data.create_spd === '0')
+                        {
+                          //TODO: Update exp progress bar 10%
+                        }
+                        else if(data.create_spd === '1')
+                        {
+                          //TODO: Update exp progress bar 20%
+                        }
+                        else if(data.create_spd === '2')
+                        {
+                          //TODO: Update exp progress bar 30%
+                        }
+                        else if(data.create_spd === '3')
+                        {
+                          //TODO: Update exp progress bar 40%
+                        }
+                        else
+                        {
+                          //TODO: Update exp progress bar 50%
+                        }
+                        */
                         devMineral += parseInt(data.mineral);
                         devGas += parseInt(data.gas);
                         devUnknown += parseInt(data.unknown);
