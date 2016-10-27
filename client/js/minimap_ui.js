@@ -11,22 +11,20 @@ function drawMinimap(socket)
    // canvas width: 300px = 3500px / x, height: 250px = 3500px / y
    var state = $('#minimap_ui').css('display');
    var menuSelectSound = new Audio();
-    var assets = {
-         planet : { // { width : 64px, height: 64px }
-            x : 0, 
-            y : 0
-         },
-         player : { // { width : 100px, height: 100px; }
-            x : 0, 
-            y : 0
-         }, 
-         enemy : {
-            x : 0, 
-            y : 0
-         }
-      };
-
-   //var minimap = document.getElementById('minimap_canvas');
+   var assets = {
+      planet : { // { width : 64px, height: 64px }
+         x : 0, 
+         y : 0
+      },
+      player : { // { width : 100px, height: 100px; }
+         x : 0, 
+         y : 0
+      }, 
+      enemy : {
+         x : 0, 
+         y : 0
+      }
+   };
 
    menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
@@ -35,6 +33,7 @@ function drawMinimap(socket)
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
 
+      $('#minimap_btn').css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('#minimap_ui').show();
 
         
@@ -99,6 +98,7 @@ function drawMinimap(socket)
    {
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
+      $('#minimap_btn').css('background-color', 'rgba(0, 0, 0, 0.7)');
       $('#minimap_ui').hide();
    }
 }

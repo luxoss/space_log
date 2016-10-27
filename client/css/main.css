@@ -308,7 +308,7 @@ div { margin : 0px; padding: 0px; }
    cursor           : pointer;
 }
 
-#battle_ship_btn {
+#minimap_btn {
   	background-image : url('../res/img/icon/space_ship.svg');
    background-color : rgba(0, 0, 0, 0.7);
   	width            : 64px;
