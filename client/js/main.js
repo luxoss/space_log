@@ -42,8 +42,8 @@ var discovered = new Audio();
 var menuSelection = new Audio();
 var eventCount = 0;
 
-fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
-discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
+//fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
+//discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions

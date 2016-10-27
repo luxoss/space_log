@@ -6,10 +6,10 @@
 
 $(document).ready(function() {
 
-   var userInfoSocket = io.connect('http://203.237.179.21:5001');  
+   var userInfoSocket = io.connect('http://game.smuc.ac.kr:5001');  
    var selectButton = new Audio();
 
-   selectButton.src = "http://203.237.179.21:8000/res/sound/effect/menu_selection.wav";
+   selectButton.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
    $(window).resize(function(){
       
