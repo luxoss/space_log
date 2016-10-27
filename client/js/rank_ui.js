@@ -12,8 +12,8 @@ function rankViewLayer()
 	if(state == 'none')
 	{
       $('#rank_ui').css({
-         left: ($(window).width() - $('.rank_ui').outerWidth()) / 2,
-         top: ($(window).height() - $('.rank_ui').outerHeight()) / 2
+         left: ($(window).width() - $('#rank_ui').outerWidth()) / 2,
+         top: ($(window).height() - $('#rank_ui').outerHeight()) / 2
       });
 
       $("#rank_btn").css("background-color", "rgba(255, 47, 77, 0.7)");
