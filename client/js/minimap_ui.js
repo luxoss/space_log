@@ -9,7 +9,7 @@ function drawMinimap(socket)
 {
    // background width: 3500px, height: 3500px
    // canvas width: 300px = 3500px / x, height: 250px = 3500px / y
-   var state = $('.minimap_ui').css('display');
+   var state = $('#minimap_ui').css('display');
    var menuSelectSound = new Audio();
     var assets = {
          planet : { // { width : 64px, height: 64px }
@@ -34,14 +34,15 @@ function drawMinimap(socket)
    {
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
-      $('.minimap_ui').show();
+
+      $('#minimap_ui').show();
 
         
       // Initialized div tags
       //$("#minimap_" + user['name']).detach();
-      $(".minimap_ui").empty();
+      $("#minimap_ui").empty();
 
-      $(".minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
+      $("#minimap_ui").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
 
       $("#minimap_" + user['name']).css({
          'left' : Math.floor((user['x'] * 300) / 3500),
@@ -55,7 +56,7 @@ function drawMinimap(socket)
          assets.planet.y = data.location_y;
 
          // Not a received by the same tags.
-         $(".minimap_ui").append("<div style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" + Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
+         $("#minimap_ui").append("<div style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" + Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
      
       });
 
@@ -75,7 +76,7 @@ function drawMinimap(socket)
          //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
          if(user['name'] !== data['username'])
          {
-            $(".minimap_ui").append("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
+            $("#minimap_ui").append("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
 
             assets.enemy.x = data.location_x;
             assets.enemy.y = data.location_y;
@@ -98,7 +99,7 @@ function drawMinimap(socket)
    {
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
-      $('.minimap_ui').hide();
+      $('#minimap_ui').hide();
    }
 }
 
