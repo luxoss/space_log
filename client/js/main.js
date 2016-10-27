@@ -53,11 +53,11 @@ $(document).ready(function(){ // After onload document, execute inner functions
    });
 
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
-/*
+
    socket.userInit.on('login_all', function(data) {
       console.log("[CLIENT LOG]", data.username, 'is login!');
       
-      if(data.username != user['name']) 
+      if(data.username !== user['name']) 
       {
          $("#main_layer").append("<div id ='" + data.username + "' style='position:absolute;'></div>");
          $("#" + data['username']).append(
@@ -67,7 +67,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
       }
 
    });
-*/
+
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
@@ -435,14 +435,7 @@ function keyHandler(user, socket)
          //shoot(ev, user);
          fire.currentTime = 0;      
       }
-/*
-      if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
-      {
-         menuSelection.play();
-         menuSelection.currentTime = 0; 	  
-         battleShipViewLayer();
-      }
-*/
+
       if(keyState == PLANET_BTN) // press planet menu button, isKeyDown[80]
       {
          menuSelection.play();
@@ -461,12 +454,7 @@ function keyHandler(user, socket)
       {
          drawMinimap(socket);
       }
-/*
-      if(keyState = KEYSET_BTN) 
-      {
-         keySetDisplay();
-      }
-*/
+
       if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
       {
          if(user['name'] != null) 
@@ -492,12 +480,7 @@ function keyHandler(user, socket)
          });
 
          socket.userPos.on('collision_res', function(data) {
-/*
-            if(parseInt(data.collision) === 0)
-            {
-               popUpMsg("이미 개척된 행성입니다.");
-            }
-*/
+
             // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
             if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
             {
@@ -600,6 +583,19 @@ function keyHandler(user, socket)
             }
          }); 
       }
+/*
+      if(keyState == BATTLESHIP_BTN) // press battle ship menu button, isKeyDown[66]
+      {
+         menuSelection.play();
+         menuSelection.currentTime = 0; 	  
+         battleShipViewLayer();
+      }
+
+      if(keyState = KEYSET_BTN) 
+      {
+         keySetDisplay();
+      }
+*/
    });
 
    // Before code line is '$(document).on('keyup', function(){});
@@ -898,14 +894,15 @@ function userPosUpdate(user)
 	            break;
          }
       }
-      else 
+
+      if(user['name'] !== data['username'])
       {
          console.log(
                "[CLIENT LOG] ", data['username'],
                ",x: ", data['location_x'], ",y: ", data['location_y'],
                ",key_value: ", data['key_val']
          );
-
+         /*
          $("#main_layer").append(
             "<div id='" + data['username'] + "' style='position: absolute;'></div>"
          );
@@ -914,7 +911,6 @@ function userPosUpdate(user)
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
             + data['username'] + "</div>"
          );
-         /*
          $("#" + data['username']).append(
             "<div id='" + data['username'] + "_laser" + "' style='position:absolute;'></div>"
          );

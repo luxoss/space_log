@@ -102,8 +102,8 @@ $(document).ready(function() {
       user.password = $.trim($('#password').val());
  
       userInfoSocket.emit('login_msg', {
-         username: user.name, 
-         password: user.password
+         username : user.name, 
+         password : user.password,
       });
 
       userInfoSocket.on('login_res', function(data){         
