@@ -136,8 +136,17 @@ var planetViewLayer = function(planetSocket) {
       });
 /*      
       $("#my_planets").off('click.myplanets').on('click.my_planets', function(planetsocket) {
-         $("planet_list").detach();
-         $("#all_planets").css('background-color', rgba(0, 0, 0, 0.7);
+         $("#planet_list").hide();
+         $("#user_planet_list").css({
+            'background-color': 'rgba()';
+            'width': ,
+            'height': ,
+            'position' : 'absolute',
+            'top': 200,
+            'left' : 0
+         });            
+         $("#user_planet_list").show();
+         //$("#all_planets").css('background-color', rgba(0, 0, 0, 0.7);
          
          planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
 
