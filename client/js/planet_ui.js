@@ -11,13 +11,13 @@ var planetViewLayer = function(planetSocket) {
 
    if(state == 'none') 
    {
-      $('.planet_ui').css({
+      $('#planet_ui').css({
          left: ($(window).width() - $('.planet_ui').outerWidth()) / 2,
 	      top: ($(window).height() - $('.planet_ui').outerHeight()) / 2
       });
       
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
-      $('.planet_ui').show();
+      $('#planet_ui').show();
      
       planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
 
@@ -247,7 +247,7 @@ var planetViewLayer = function(planetSocket) {
    else 
    {
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
-      $('.planet_ui').hide();
+      $('#planet_ui').hide();
    }
 };
 
