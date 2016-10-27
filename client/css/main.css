@@ -4,14 +4,19 @@
 	**File-explanation: Decorate main html page with cascading style sheet
 */
 
-html { overflow: hidden !important; }
+
+html { overflow: hidden !important; margin: 0px; padding: 0px; }
 
 body {
-   width: 7000px;
-   height: 7000px;
    background-color : rgb(0, 0, 0);
-	overflow         : hidden !important; 
+   margin   : 0px;
+   padding  : 0px;
+   width    : 7000px;
+   height   : 7000px;
+	overflow : hidden !important; 
 }
+
+div { margin : 0px; padding: 0px; } 
 
 #main_layer {
    background-image : url('http://203.237.179.21:8000/res/img/space_tile1.png');
@@ -31,7 +36,7 @@ body {
 	z-index       : 3;
 }
 
-.user_info_ui {
+#user_info_ui {
 	background    : transparent;
   	width         : 400px;
   	height        : 128px;
@@ -66,9 +71,9 @@ body {
 	position         : absolute;	
 }
 
+/*
 #progress_bar {
    background-color : rgba(207, 47, 77, 0.7);
-/* background       : transparent;*/
    color            : rgba(255, 255, 255, 0.7);
    font-size        : 20pt;
 	width            : 300px;
@@ -82,7 +87,6 @@ body {
    text-align       : center;
    line-height      : 35px;
 }
-/*
 #hp_progress_bar {
    background-color : rgba(207, 47, 77, 0.7);
    width: 300px;
@@ -90,6 +94,7 @@ body {
    position: absolute;  
 }
 */
+
 #exp_stats {
    background-color : rgba(208, 196, 76, 0.7);
 	width            : 300px;
@@ -125,8 +130,6 @@ body {
    color             : rgba(255, 255, 255, 0.7);;
    font-size         : 20pt;
    border            : 0px;
-   padding           : 0px;
-   margin            : 0px;
    width             : 70px;
    height            : 35px;
    left              : 30px;
@@ -149,8 +152,6 @@ body {
    font-size         : 20pt;
    text-align        : right;
    border            : 0px;
-   padding           : 0px;
-   margin            : 0px;
    width             : 70px;
    height            : 35px;
    left              : 130px;
@@ -174,8 +175,6 @@ body {
    text-align        : right;
    border            : 0px;
    border-radius     : 0px 0px 15px 0px;
-   padding           : 0px;
-   margin            : 0px;
    width             : 70px;
    height            : 35px;
    left              : 230px;
@@ -184,7 +183,7 @@ body {
    line-height       : 35px;
 }
 
-.minimap_ui {
+#minimap_ui {
    background-color  : rgba(0, 0, 0, 0.7);
   	width             : 300px;
   	height            : 300px; 
@@ -269,7 +268,7 @@ body {
    line-height : 64px;
 }
 
-.menu_buttons_ui {
+#menu_buttons_ui {
    background-color  : rgba(0, 0, 0, 0.7);
   	width             : 256px;
   	height            : 64px;
@@ -335,7 +334,7 @@ body {
    cursor           : pointer;
 }
 
-.rank_ui { 
+#rank_ui { 
 	background-color  : rgba(255, 255, 255, 0.5);
 	width             : 600px;
 	height            : 500px;
@@ -407,7 +406,7 @@ body {
    overflow-y  : scroll;
 }
 
-.planet_ui {
+#planet_ui {
 	background-color  : rgba(255, 255, 255, 0.5);
 	width             : 1000px;
 	height            : 550px;
@@ -539,7 +538,7 @@ body {
    overflow-y  : scroll;
 }
 
-.battle_ship_ui {
+#battle_ship_ui {
 	background-color  : rgba(255, 255, 255, 0.5);
 	width             : 1500px;
 	height            : 500px;
@@ -549,88 +548,7 @@ body {
 	z-index           : 100;
 }
 
-#battle_ship_info_display {
-	background-color  : rgba(255, 255, 255, 0.5);
-	width             : 900px;
-	height            : 500px;
-	float             : left;
-}
-
-#battle_ship_item_slot {
-	background-color  : rgba(255, 255, 255, 0.5); 
-	width             : 600px;
-	height            : 500px;
-	float             : right;
-}
-
-#battle_ship_state_img {
-	background-color  : rgb(0, 255, 0);
-	width             : 600px;
-	height            : 300px;
-	top               : 100px;
-	left              : 150px;
-	position          : absolute;
-}
-
-#cube01_slot {
-	background-color  : rgb(0, 0, 255);
-	width             : 150px;
-	height            : 150px;
-	top               : 0px;
-	left              : 0px;
-	position          : absolute;
-}
-
-#cube02_slot {
-	background-color  : rgb(0, 0, 255);
-	width             : 150px;
-	height            : 150px;
-	right             : 600px;
-	top               : 0px;
-	position          : absolute;
-}
-
-#cube03_slot {
-	background-color  : rgb(0, 0, 255);
-	width             : 150px;
-	height            : 150px;
-	bottom            : 0px;
-	position          : absolute;
-}
-
-#cube04_slot {
-	background-color  : rgb(0, 0, 255);
-	width             : 150px;
-	height            : 150px;
-	right             : 600px;
-	bottom            : 0px;
-	position          : absolute;
-}
-/*
-// I thinnk that user got by misile and cube information 
-#misile01_slot {
-	background-color: rgb(0, 0, 255);
-	width: 100px;
-	height: 100px;
-}
-#misile02_slot {
-	background-color: rgb(0, 0, 255);
-	width: 100px;
-	height: 100px;
-}
-#misile03_slot {
-	background-color: rgb(0, 0, 255);
-	width: 100px;
-	height: 100px;
-}
-#misile04_slot {
-	background-color: rgb(0, 0, 255);
-	width: 100px;
-	height: 100px;
-}
-*/
-
-.develop_planet_ui {
+#develop_planet_ui {
    background-color  : rgba(255, 255, 255, 1);
 	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
    border            : 1px solid white;
