@@ -21,6 +21,7 @@ function drawMinimap(user, socket)
          y : 0
       }, 
       enemy : {
+         //username : ,
          x : 0, 
          y : 0
       }
