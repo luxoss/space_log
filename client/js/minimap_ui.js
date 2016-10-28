@@ -11,6 +11,7 @@ function drawMinimap(user, socket)
    // canvas width: 300px = 3500px / x, height: 250px = 3500px / y
    var state = $('#minimap_ui').css('display');
    var menuSelectSound = new Audio();
+   var minimapEnemy = {};
    var assets = {
       planet : { // { width : 64px, height: 64px }
          x : 0, 
@@ -60,6 +61,7 @@ function drawMinimap(user, socket)
       });
 /*
       socket.userPos.on('login_all', function(data) {
+       
          console.log(data.username, data.location_x, data.location_y);
          if(data.username !== user['name']) 
          {

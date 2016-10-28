@@ -65,6 +65,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
             "[CLIENT LOG]", data.username, 'is login!', 'x: '
             , data.location_x, 'y: ', data.location_y
          ); 
+         enemy[data.username] = data.username;
 
          $("#main_layer").append("<div id ='" + data['username'] + "' style='position:absolute;'></div>");
          $("#" + data['username']).append(
@@ -90,6 +91,12 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
       if(data.username != user['name']) 
       {
+         /*
+         if(data.username == enemy[data.username])
+         {
+            $("#" + data.username).remove();
+         }
+         */
          $("#" + data.username).remove(); 
       } 
    });
@@ -847,6 +854,10 @@ function userPosUpdate(user)
       else
       {
          /*
+            if(data.username == enemy[data.username]){
+               해당 유저 태그에 css스타일을 적용
+            }
+         */
             var enemy = {};
             enemy['username'] = data.username;
             enemy['x'] = data.location_x,
