@@ -79,7 +79,6 @@ $(document).ready(function(){ // After onload document, execute inner functions
             "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
             "width"  : "64px",
             "height" : "64px",
-            "border" : "1px solid rgba(255, 255, 0, 0.3)",
             "zIndex" : "2",
             left: parseInt(data['location_x']), 
             top: parseInt(data['location_y'])
