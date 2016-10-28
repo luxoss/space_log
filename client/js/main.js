@@ -30,13 +30,13 @@ var user = {
         exp : parseInt(localStorage.getItem('exp')),
    }
 };
+var enemy = {};                     // Create enemy json object
 
 var devMineral = parseInt(localStorage.getItem('mineral'));
 var devGas = parseInt(localStorage.getItem('gas'));
 var devUnknown = parseInt(localStorage.getItem('unknown'));
 
 var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
-var enemy = {};                     // Create enemy json object
 var isKeyDown = [];		            // Create key state array to keyboard polling  
 var discovered = new Audio();
 var menuSelection = new Audio();
