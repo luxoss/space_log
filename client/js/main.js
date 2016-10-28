@@ -59,13 +59,16 @@ $(document).ready(function(){ // After onload document, execute inner functions
 /*
    socket.userPos.on('login_all', function(data) {
       
-      if(data.username !== user['name']) 
+      if(data.username != user['name']) 
       {
+         if(data.username == enemy[data.username]){}
          console.log(
             "[CLIENT LOG]", data.username, 'is login!', 'x: '
             , data.location_x, 'y: ', data.location_y
          ); 
          enemy[data.username] = data.username;
+         enemy[data.username + "X"] = data.location_x;
+         enemy[data.username + "Y"] = data.location_y; 
 
          $("#main_layer").append("<div id ='" + data['username'] + "' style='position:absolute;'></div>");
          $("#" + data['username']).append(
@@ -94,6 +97,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
          /*
          if(data.username == enemy[data.username])
          {
+            delete enemy[data.username];
             $("#" + data.username).remove();
          }
          */
