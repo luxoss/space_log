@@ -152,7 +152,7 @@ function drawAllAssets(mainLayer, user, socket)
       top: user['y']
    });
 
-   // TODO: Test auto focus user's battleship
+   // TODO: Test auto focus user's battleship. 화면을 벗어날 때만 auto focus?
    var offset = $("#" + user['name']).offset();
 
    $("html, body").animate({
