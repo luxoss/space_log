@@ -722,7 +722,7 @@ function logout(user)
    }
 }
 
-function userPosUpdate(user)
+function userPosUpdate(/*enemy,*/ user)
 {
    var imgSprite = {
       player : { 
@@ -860,7 +860,6 @@ function userPosUpdate(user)
             if(data.username == enemy[data.username]){
                해당 유저 태그에 css스타일을 적용
             }
-         */
             var enemy = {};
             enemy['username'] = data.username;
             enemy['x'] = data.location_x,
