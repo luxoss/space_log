@@ -125,8 +125,20 @@ UsersPio.on('connection', function(socket){
 	
 		});
 	
-/*
-		socket.on('init_press_key', function(data){
+
+		mem_info.findOne({username:username}, function(err, m_res){
+			if(err){
+				console.log(err);
+			} else if(m_res){
+				console.log(m_res);
+				socket.emit('login_all', m_res);
+			}
+		});
+
+
+//
+
+		socket.on('login_all', function(data){
 			console.log("[SERVER LOG] Init press key.");
 			console.log(key_val);
 
@@ -143,10 +155,11 @@ UsersPio.on('connection', function(socket){
 					
 					} else if(res_obj){
 						console.log(results);
+						
 					}
 				});				
 			}
-		});      */
+		});      
 	});
 });
 

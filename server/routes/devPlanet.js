@@ -27,6 +27,7 @@ devPlntio.on('connection', function(socket){
 							if(err){
 								console.log('///////////');
 								console.log(err);
+								socket.emit('chng_plan', r);//p_id, username, develop
 							}
 						});
 					}

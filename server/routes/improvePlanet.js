@@ -47,4 +47,4 @@ function improve_p(){
 	});	
 }
 
-setInterval(improve_p, 86400000);
+setInterval(improve_p, 60000);

@@ -69,7 +69,7 @@ io.on('connection', function (socket) {
 						socket.join('playing');//this socket binding at playing group(room)
 						
 						mem_info.findOne(findByUsrname, function(err, userinfo){
-							sendinfo = {
+						/*	sendinfo = {
 								"username" 	: userinfo.username, 
 								"exp" 		: userinfo.exp, 
 								"mineral" 	: userinfo.mineral, 
@@ -79,8 +79,9 @@ io.on('connection', function (socket) {
 								"location_y" 	: userinfo.location_y, 
 								"gold" 		: userinfo.gold,
 								"hp"		: userinfo.hp
-							}	
-							socket.emit('user_info', sendinfo);
+							}	*/
+						//	socket.emit('user_info', sendinfo);
+							socket.emit('user_info', userinfo);
 
 							
 
@@ -155,7 +156,7 @@ io.on('connection', function (socket) {
 								var sampleX = Math.floor(Math.random()*3500-1);
 								var sampleY = Math.floor(Math.random()*3500-1);
 								var hp_val = 300;
-								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : sampleX, "location_y" : sampleY, "hp" : hp_val});
+								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : sampleX, "location_y" : sampleY, "hp" : hp_val, "rank":0});
 							}
 						});
 						

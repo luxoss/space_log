@@ -1,4 +1,4 @@
-
+/*
 
 var username;
 var g_mineral, g_gas, g_unknown;
@@ -12,7 +12,7 @@ var l_x, l_y;
 var MongoClient = require('mongodb').MongoClient;
 
 var io = require('socket.io').listen(5007);
-/*
+
 io.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost/space_log", function(err, db){
 		var mem_info = db.collection("MEM_INFO");
@@ -165,4 +165,4 @@ io.on('connection', function(socket){
 
 });
 */
-console.log('changeUserInform.js : https://203.237.179.21:5007');
+//console.log('changeUserInform.js : https://203.237.179.21:5007');

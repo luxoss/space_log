@@ -27,7 +27,8 @@ var changeUserPlanet = require('./routes/changeUserPlanet');
 var broadcastPos = require('./routes/broadcastPos');
 //new : Increase user's resource and decrease planet's resource for develop Planet
 var indecreaseRsc = require('./routes/indecreaseRsc.js');
-
+//new : Calculating user's ranking
+var ranking = require('./routes/ranking.js');
 
 
 //test Mongodb

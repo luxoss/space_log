@@ -5,8 +5,14 @@ var p_id, p_mineral, p_gas, p_unknown, p_exp;
 var q=10;
 //var overf = 0;	
 function chngUserRscPlntRsc(){
-	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
+	MongoClient.connect("Mongodb://localhost:27017/space_log", function(err,db){
+//	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 //		console.log(".././.s/././/./..s/d.f/./.f");		
+		if(err){
+			console.log('mongo client connection error !');
+			console.log(err);
+		}
+
 		var planet = db.collection('PLANET');
 		var mem_plan = db.collection('MEM_PLAN');
 		var mem_info = db.collection('MEM_INFO');
@@ -79,6 +85,6 @@ function chngUserRscPlntRsc(){
 }
 
 //setInterval(chngUserRscPlntRsc, 60000);
-setInterval(chngUserRscPlntRsc, 5000);
+setInterval(chngUserRscPlntRsc, 60000);
 
 //});
