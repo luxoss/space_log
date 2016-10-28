@@ -5,7 +5,7 @@
 */
 
 //TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr' 
-var serverUrl = "http://203.237.179.21";
+var serverUrl = "http://game.smuc.ac.kr";
 var indexPageUrl = serverUrl + ":8000";
 
 var socket = {
@@ -13,7 +13,8 @@ var socket = {
    userInfo : io.connect(serverUrl + ":5005"),
    userPos  : io.connect(serverUrl + ":5006"),
    develop  : io.connect(serverUrl + ":5003"),
-   planet   : io.connect(serverUrl + ":5002")
+   planet   : io.connect(serverUrl + ":5002"),
+   rank     : io.connect(serverUrl + ":5008")
 };
 
 var user = {
@@ -55,25 +56,39 @@ $(document).ready(function(){ // After onload document, execute inner functions
    });
 
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
-
-   socket.userInit.on('login_all', function(data) {
-      console.log("[CLIENT LOG]", data.username, 'is login!');
+/*
+   socket.userPos.on('login_all', function(data) {
       
       if(data.username !== user['name']) 
       {
-         $("#main_layer").append("<div id ='" + data.username + "' style='position:absolute;'></div>");
+         console.log(
+            "[CLIENT LOG]", data.username, 'is login!', 'x: '
+            , data.location_x, 'y: ', data.location_y
+         ); 
+
+         $("#main_layer").append("<div id ='" + data['username'] + "' style='position:absolute;'></div>");
          $("#" + data['username']).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
             + data['username'] + "</div>"
          );
+
+         $("#" + data['username']).css({ 
+            "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
+            "width"  : "64px",
+            "height" : "64px",
+            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            "zIndex" : "2",
+            left: parseInt(data['location_x']), 
+            top: parseInt(data['location_y'])
+         });
       }
 
    });
-
+*/
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
-      if(data.username !== user['name']) 
+      if(data.username != user['name']) 
       {
          $("#" + data.username).remove(); 
       } 
@@ -94,8 +109,8 @@ function drawAllAssets(mainLayer, user, socket)
    var unknown = user.resource['unknown'];
    var ENTER = 13;
    var image = {
-      clnt  : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-      other : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')"
+      clnt  : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
+      other : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
    };
 
    $(window).resize(function() {
@@ -174,11 +189,11 @@ function drawPlanetImg(mainLayer, data)
       gas : data.gas,
       unknown : data.unknown,
       image : { 
-         1 :  "url('http://203.237.179.21:8000/res/img/planet/planet_5.png')",
-         2 :  "url('http://203.237.179.21:8000/res/img/planet/planet_7.png')",
-         3 :  "url('http://203.237.179.21:8000/res/img/planet/planet_9.png')",
-         4 :  "url('http://203.237.179.21:8000/res/img/planet/planet_11.png')",
-         5 :  "url('http://203.237.179.21:8000/res/img/planet/planet_12.png')"
+         1 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_5.png')",
+         2 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_7.png')",
+         3 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_9.png')",
+         4 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_11.png')",
+         5 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_12.png')"
       }
    };
 	
@@ -379,19 +394,19 @@ function keyHandler(user, socket)
       {
          menuSelection.play();
          menuSelection.currentTime = 0;
-         planetViewLayer(socket['planet']);
+         planetViewLayer(socket);
       }
 
       if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
       {
          menuSelection.play();
          menuSelection.currentTime = 0;
-         rankViewLayer();
+         rankViewLayer(socket);
       }
 
       if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
       {
-         drawMinimap(socket);
+         drawMinimap(user, socket);
       }
 
       if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
@@ -403,7 +418,7 @@ function keyHandler(user, socket)
          else 
          {
             popUpMsg('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
-            $(location).attr('href', 'http://203.237.179.21:8000');	
+            $(location).attr('href', 'http://game.smuc.ac.kr:8000');	
          }
       }
       
@@ -701,16 +716,16 @@ function userPosUpdate(user)
 {
    var imgSprite = {
       player : { 
-         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship1_left.svg')",
-         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship1_right.svg')",
-         UP   : "url('http://203.237.179.21:8000/res/img/space_ship1_up.svg')",
-         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship1_down.svg')"
+         LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_left.svg')",
+         RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_right.svg')",
+         UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
+         DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_down.svg')"
       },
       others : {
-         LEFT : "url('http://203.237.179.21:8000/res/img/space_ship2_left.svg')",
-         RIGHT: "url('http://203.237.179.21:8000/res/img/space_ship2_right.svg')",
-         UP   : "url('http://203.237.179.21:8000/res/img/space_ship2_up.svg')",
-         DOWN : "url('http://203.237.179.21:8000/res/img/space_ship2_down.svg')"
+         LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_left.svg')",
+         RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
+         UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
+         DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_down.svg')"
      } 
    }; 
 
@@ -721,11 +736,8 @@ function userPosUpdate(user)
       // TODO:  여기서 실행하면 키 입력 값을 받을 때 마다 appendChild를 하므로 같은 테그들이 생겨남
       //        따라서 초기화 시에 접속한 모든 사람의 데이터를 받아 appendChild를 한 번 해주고 
       //        위치 변경 시 각각의 css style만 바꿔야 함.
-      if(user['name'] === data['username'])  
+      if(user['name'] == data['username'])  
       {
-         /*
-         console.log("[Client log] ", data['username'], ",x: ", data['location_x'], ",y: ", data['location_y'], ",key_value: ", data['key_val']);
-         */
          switch(keyValue)
          {
             case LEFT: 	           
@@ -832,27 +844,32 @@ function userPosUpdate(user)
 	            break;
          }
       }
-
-      if(user['name'] !== data['username'])
+      else
       {
-         console.log( "[CLIENT LOG] ", data['username']);
          /*
+            var enemy = {};
+            enemy['username'] = data.username;
+            enemy['x'] = data.location_x,
+            enemy['y'] = data.location_y
+
+            if(enemy['username'] == data.username)
+            {
+            }
+         */
+
          $("#main_layer").append(
-            "<div id='" + data['username'] + "' style='position: absolute;'></div>"
+            "<div id ='" + data['username'] + "' style='position:absolute;'></div>"
          );
 
          $("#" + data['username']).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
             + data['username'] + "</div>"
          );
-         $("#" + data['username']).append(
-            "<div id='" + data['username'] + "_laser" + "' style='position:absolute;'></div>"
-         );
-         */   
+
          switch(keyValue)
          {
             case LEFT:	      
-	            $("#" + data.username).css({
+	            $("#" + data['username']).css({
 	               "backgroundImage" : imgSprite.others.LEFT,
 		            "width"  : "64px",
 		            "height" : "64px",
@@ -866,7 +883,7 @@ function userPosUpdate(user)
 	            break;
 
 	         case RIGHT:	            
-		         $("#" + data.username).css({
+		         $("#" + data['username']).css({
 		            "backgroundImage" : imgSprite.others.RIGHT,
 		            "width"  : "64px",
 		            "height" : "64px",
@@ -880,7 +897,7 @@ function userPosUpdate(user)
 		         break;
 				
 	         case UP:	
-		         $("#" + data.username).css({
+		         $("#" + data['username']).css({
 			         "backgroundImage" : imgSprite.others.UP,
 			         "width"  : "64px",
 			         "height" : "64px",
@@ -894,7 +911,7 @@ function userPosUpdate(user)
 		         break;
 				
 	         case DOWN:	
-		         $("#" + data.username).css({
+		         $("#" + data['username']).css({
 		            "backgroundImage" : imgSprite.others.DOWN,
 		            "width"  : "64px",
 		            "height" : "64px",
@@ -1100,10 +1117,10 @@ var shoot = function(user) {
    var laserX = laserId.css("left");
    var laserY = laserId.css("top");
    var laserImg = {
-       LEFT : "url('http://203.237.179.21:8000/res/img/missile/laser_left.svg')",
-      RIGHT : "url('http://203.237.179.21:8000/res/img/missile/laser_right.svg')",
-         UP : "url('http://203.237.179.21:8000/res/img/missile/laser_up.svg')",
-       DOWN : "url('http://203.237.179.21:8000/res/img/missile/laser_down.svg')"
+       LEFT : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_left.svg')",
+      RIGHT : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_right.svg')",
+         UP : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_up.svg')",
+       DOWN : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_down.svg')"
    };
 
    laserX = user['x'];

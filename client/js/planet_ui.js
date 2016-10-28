@@ -4,7 +4,7 @@
 	** Author: luxoss
 */
 
-var planetViewLayer = function(planetSocket) {
+var planetViewLayer = function(socket) {
    var state = $('#planet_ui').css('display');
    var styleTop = 0;
    var temp;
@@ -19,9 +19,9 @@ var planetViewLayer = function(planetSocket) {
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('#planet_ui').show();
      
-      planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
+      socket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
-      planetSocket.on('planet_res', function(data){
+      socket.planet.on('planet_res', function(data){
          var planet = {
             name : data.p_id,
             gas : data.gas,
