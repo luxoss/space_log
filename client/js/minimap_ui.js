@@ -81,16 +81,20 @@ function drawMinimap(user, socket)
                'top'  : Math.floor((assets.player.y * 300) / 3500)
             });
          }
-         //TODO: 1. 서버에서 값이 들어온다면, 그 값을 확인하여 기존의 값과 같은지 판별한다.
-         //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
-         if(user['name'] !== data['username'])
+         else
          {
-            $("#minimap_ui").append("<div id='minimap_" + data['username'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
+            //TODO: 1. 서버에서 값이 들어온다면, 그 값을 확인하여 기존의 값과 같은지 판별한다.
+            //      2. 값이 같으면 추가 태깅을 하지 않고, 다르다면 해당 값만 변경해주는 것으로 끝낸다.
+            $("#minimap_ui").append("<div id='minimap_" + data['username'] + "></div>");
  
             assets.enemy.x = data.location_x;
             assets.enemy.y = data.location_y;
          
             $("#minimap_" + data['username']).css({
+               'background-color' : 'rgba(0, 255, 0, 0.7)',
+               'position' : 'absolute',
+               'width'    : 5,
+               'height'   : 5,               
                'left' : Math.floor((data.location_x * 300) / 3500),
                'top'  : Math.floor((data.location_y * 300) / 3500)
             });
@@ -98,7 +102,7 @@ function drawMinimap(user, socket)
       });
 
       socket.userInit.on('logout_all', function(data) {
-         if(data.username !== user['name'])
+         if(data['username'] !== user['name'])
          {
             $("#minimap_" + data.username).remove();
          }
