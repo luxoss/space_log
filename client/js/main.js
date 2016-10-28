@@ -417,7 +417,7 @@ function keyHandler(user, socket)
 
          socket.userPos.on('collision_res', function(data) {
             if(data.develop == "true")
-               console.log(data['username'] + "께서 개척하신 행성입니다.");
+               popUpMsg(data['username'] + "께서 개척하신 행성입니다.");
 
             // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
             if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
