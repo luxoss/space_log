@@ -28,7 +28,6 @@ var user = {
    },
    state : {
         exp : parseInt(localStorage.getItem('exp')),
-        hp : parseInt(localStorage.getItem('hp'))
    }
 };
 
@@ -114,7 +113,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
 function drawAllAssets(mainLayer, user, socket) 
 {
    var hp = user.state['hp'];
-   var exp = user.state['exp'];
+   var score = user.state['exp'];
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
@@ -153,7 +152,7 @@ function drawAllAssets(mainLayer, user, socket)
    $("#unknown").text(unknown);
    $("#position_x").text(user['x']);
    $("#position_y").text(user['y']);
-   $("#exp_stats").text(exp + "%");
+   $("#exp_stats").text(score);
 //   $("#progress_bar").text(hp + " / 300");
 
    $("#user_avartar").append(
