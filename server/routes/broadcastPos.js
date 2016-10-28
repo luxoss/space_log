@@ -20,6 +20,8 @@ var p_size = 100, s_size = 64;
 
 var develop;
 
+var i=0, MIarr = [];
+
 UsersPio.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 		var mem_info = db.collection("MEM_INFO");
@@ -126,18 +128,22 @@ UsersPio.on('connection', function(socket){
 		});
 	
 
-		mem_info.findOne({username:username}, function(err, m_res){
+		mem_info.find().each(function(err, m_res){
 			if(err){
 				console.log(err);
 			} else if(m_res){
-				console.log(m_res);
-				socket.emit('login_all', m_res);
+				console.log('M_RES ::::::::::::::::::::::');
+				MIarr[i++] = m_res;
+			//	console.log(m_res);
+			//	socket.emit('login_all', m_res);
 			}
 		});
-
+		for(var z=0; z< MIarr.length;z++){
+			socket.emit('login_all', MIarr[z]);
+		}
 
 //
-
+/*
 		socket.on('login_all', function(data){
 			console.log("[SERVER LOG] Init press key.");
 			console.log(key_val);
@@ -155,12 +161,12 @@ UsersPio.on('connection', function(socket){
 					
 					} else if(res_obj){
 						console.log(results);
-						
+												
 					}
 				});				
 			}
-		});      
+		});      */
 	});
 });
 
-console.log("broadcastPos.js : http://203.237.179.21:5006");
+console.log("broadcastPos.js : http://203.237.17i9.21:5006");
