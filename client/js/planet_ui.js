@@ -9,6 +9,7 @@ var planetViewLayer = function(user, socket) {
    var styleTop = 0;
    var myStyleTop = 0;
 
+
    if(state == 'none') 
    {
       $('#planet_ui').css({
@@ -27,7 +28,7 @@ var planetViewLayer = function(user, socket) {
          $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
       });
 
-      $("#my_planets").off('click.my_planets').on('click.my_planets', function(){
+      $("#my_planets").off('click.my_planets').on('click.my_planets', function(socket){
          $("#planet_list").hide();
          $("#my_planet_list").show();
          $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
