@@ -58,7 +58,9 @@ $(document).ready(function(){ // After onload document, execute inner functions
 */
    for(var i = 0; i <= 777; i++)
    {
-      $('body').append("<div id='star_" + i + "' style='position:absolute; width: 7px; height: 7px;'></div>");
+      $('body #star_boxes').append(
+         "<div id='star_" + i + "' style='position:absolute; width: 10px; height: 10px;'></div>"
+      );
 
       $("#star_" + i).css({
          'background-color' : 'rgba(255, 255, 0, 1)',
@@ -68,6 +70,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
          'border-radius'    : '5px'
       });
    }
+
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
