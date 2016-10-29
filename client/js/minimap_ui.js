@@ -24,7 +24,7 @@ function drawMinimap(user, socket)
    };
 
    minimapEnemy = enemy;
-   conosole.log(minimapEnemy);
+   console.log(minimapEnemy);
 
    menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 

@@ -20,19 +20,19 @@ function rankViewLayer(socket)
       $("#rank_btn").css("background-color", "rgba(255, 47, 77, 0.7)");
 		$('#rank_ui').show();
       
-      socket.rank.emit('rank_req', {'ready' : 'ready to receive'});
+      socket.rank.emit('rank_req', {'ready' : 'Ready to receive'});
       socket.rank.on('rank_res', function(data) {
 
          console.log("[CLIENT LOG] rank: " + data.rank + " name: " + data.username);
+
          var userList = {
             rank : data.rank,
             name : data.username,
-            //score : data.score
          };
 
-         $("#user_list").append("<div id=rank_number_" + userList.name + "'style='position:aboslute; line-height: 100px;'></div>");
-         $("#user_list").append("<div id=rank_username_" + userList.name + "'style='position:absolute; line-height: 100px;'></div>");
-         //$("#user_score").append("<div id=rank_user_score_" + userList.name + "'stlye='position:absolute; line-height: 100px;'></div>");
+         $("#user_list").append("<div id='rank_number_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
+         $("#user_list").append("<div id='rank_username_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
+         //$("#user_list").append("<div id='rank_user_score_" + userList.name + "' stlye='position:absolute; line-height: 100px;'></div>");
 
          $("#rank_number_" + userList.name).text(userList['rank']);
          $("#rank_username_" + userList.name).text(userList['name']);
@@ -41,43 +41,46 @@ function rankViewLayer(socket)
          $("#rank_number_" + userList.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color'            : 'rgba(255, 255, 255, 1)',
+            'font-size'        : '20pt',
             'font-weight'      : 'bold',
             'width'            : 100,
             'height'           : 100,
             'text-align'       : 'center',
-            left               : 0,
-            top                : parseInt(0 + styleTop)
+            left               : 10,
+            top                : Math.floor(0 + styleTop)
          });
 
          $("#rank_username_" + userList.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color'            : 'rgba(255, 255, 255, 1)',
+            'font-size'        : '20pt',
             'font-weight'      : 'bold',
             'width'            : 285,
             'height'           : 100,
             'text-align'       : 'center',
             left               : 110,
-            top                : parseInt(0 + styleTop)
+            top                : Math.floor(0 + styleTop)
          });
 /*
          $("#rank_user_score_" + userList.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color'            : 'rgba(255, 255, 255, 1)',
+            'font-size'        : '20pt',
             'font-weight'      : 'bold',
-            'width'            : 100,
+            'width'            : 187,
             'height'           : 100,
             'text-align'       : 'center',
-            left               : 0,
-            top                : parseInt(0 + styleTop)
+            left               : 395,
+            top                : Math.floor(0 + styleTop)
          });
 */
-
-         styleTop = parseInt(styleTop + 100);                  
+         styleTop = Math.floor(styleTop + 100);                  
 	   });
    }
 	else
 	{
       $("#rank_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
+      //$("#rank_ui").detach();
 		$('#rank_ui').hide();
 	}
 }

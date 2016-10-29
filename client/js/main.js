@@ -35,13 +35,12 @@ var enemy = {};                     // Create enemy json object
 var devMineral = parseInt(localStorage.getItem('mineral'));
 var devGas = parseInt(localStorage.getItem('gas'));
 var devUnknown = parseInt(localStorage.getItem('unknown'));
-
-var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
-var isKeyDown = [];		            // Create key state array to keyboard polling  
 var discovered = new Audio();
 var menuSelection = new Audio();
 var eventCount = 0;
 
+//var isKeyDown = [];		         // Create key state array to keyboard polling  
+//var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
 //var fire = new Audio();
 //fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 //discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
@@ -91,6 +90,8 @@ $(document).ready(function(){ // After onload document, execute inner functions
       if(enemy[data.username] != user['name']) 
       {
             delete enemy[data.username];
+            delete enemy[data.username + "X"];
+            delete enemy[data.username + "Y"];
             $("#" + enemy[data.username]).remove();
             //$("#" + data.username).remove(); 
       } 
@@ -107,7 +108,6 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
 function drawAllAssets(mainLayer, user, socket) 
 {
-   var hp = user.state['hp'];
    var score = user.state['exp'];
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
@@ -147,7 +147,7 @@ function drawAllAssets(mainLayer, user, socket)
    $("#unknown").text(unknown);
    $("#position_x").text(user['x']);
    $("#position_y").text(user['y']);
-   $("#exp_stats").text(score);
+   $("#score_point").text(score);
 //   $("#progress_bar").text(hp + " / 300");
 
    $("#user_avartar").append(
@@ -399,7 +399,7 @@ function keyHandler(user, socket)
       {
          menuSelection.play();
          menuSelection.currentTime = 0;
-         planetViewLayer(socket);
+         planetViewLayer(user, socket);
       }
 
       if(keyState == RANK_BTN) // press rank menu button, isKeyDown[82]
@@ -645,7 +645,7 @@ function keyHandler(user, socket)
    $("#planet_btn").off('click.planet').on('click.planet', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
-      planetViewLayer(socket['planet']);
+      planetViewLayer(user, socket);
 
       event.stopImmediatePropagation();
    });
@@ -849,13 +849,12 @@ function userPosUpdate(/*enemy,*/ user)
 	            break;
          }
       }
-      else if(enemy['username'] == data.username)
-      {
-            
+      else if(enemy[data.username] != user['name'])
+      { 
          enemy[data.username] = data.username;
          enemy[data.username + "X"] = data.location_x;
          enemy[data.username + "Y"] = data.location_y;
-
+/*
          $("#main_layer").append(
             "<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>"
          );
@@ -864,7 +863,7 @@ function userPosUpdate(/*enemy,*/ user)
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
             + enemy[data.username] + "</div>"
          );
-
+*/
          switch(keyValue)
          {
             case LEFT:	      

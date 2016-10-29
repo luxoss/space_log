@@ -4,9 +4,10 @@
 	** Author: luxoss
 */
 
-var planetViewLayer = function(socket) {
+var planetViewLayer = function(user, socket) {
    var state = $('#planet_ui').css('display');
    var styleTop = 0;
+   var myStyleTop = 0;
    var temp;
 
    if(state == 'none') 
@@ -144,27 +145,14 @@ var planetViewLayer = function(socket) {
 
       $("#my_planets").off('click.my_planets').on('click.my_planets', function() {
          $("#planet_list").hide();
-         //$("#my_planet_list").show();
+         $("#my_planet_list").show();
          $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
-         $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
-      });
-/*      
-      $("#my_planets").off('click.myplanets').on('click.my_planets', function(planetsocket) {
-         $("#planet_list").hide();
-         $("#user_planet_list").css({
-            'background-color': 'rgba()';
-            'width': ,
-            'height': ,
-            'position' : 'absolute',
-            'top': 200,
-            'left' : 0
-         });            
-         $("#user_planet_list").show();
-         //$("#all_planets").css('background-color', rgba(0, 0, 0, 0.7);
          
-         planetSocket.emit('planet_req', { 'ready' : 'Ready to receive' });
+        //$("#all_planets").css('background-color', rgba(0, 0, 0, 0.7);
+            
+         socket.planet.emit('my_planet_req', { 'ready' : 'Ready to receive' });
 
-         planetSocket.on('planet_res', function(data){
+         socket.planet.on('my_planet_res', function(data){
             var planet = {
                name : data.p_id,
                gas : data.gas,
@@ -203,7 +191,7 @@ var planetViewLayer = function(socket) {
                'height': 100,
                'text-align': 'center',
                left: 10,
-               top: Math.floor(0 + styleTop)
+               top: Math.floor(0 + myStyleTop)
             });
 
             $("#my_pv_mineral_" + planet.name).css({
@@ -214,7 +202,7 @@ var planetViewLayer = function(socket) {
                'height': 100,
                'text-align': 'center',
                left  : 210,
-               top   : Math.floor(0 + styleTop)
+               top   : Math.floor(0 + myStyleTop)
             });
 
             $("#my_pv_gas_" + planet.name).css({
@@ -225,7 +213,7 @@ var planetViewLayer = function(socket) {
                'height': 100,
                'text-align': 'center',
                left  : 337,
-               top   : Math.floor(0 + styleTop)
+               top   : Math.floor(0 + myStyleTop)
             });
 
             $("#my_pv_unknown_" + planet.name).css({
@@ -236,7 +224,7 @@ var planetViewLayer = function(socket) {
                'height': 100,
                'text-align': 'center',
                left  : 464,
-               top   : Math.floor(0 + styleTop)
+               top   : Math.floor(0 + myStyleTop)
             });
 
             $("#my_pv_develop_" + planet.name).css({
@@ -247,7 +235,7 @@ var planetViewLayer = function(socket) {
                'height': 100,
                'text-align': 'center',
                left  : 591,
-               top   : Math.floor(0 + styleTop)
+               top   : Math.floor(0 + myStyleTop)
             });
 
             $("#my_pv_grade_" + planet.name).css({
@@ -259,13 +247,12 @@ var planetViewLayer = function(socket) {
                'text-align': 'center',
              //  'line-height': 100,
                left  : 791,
-               top   : Math.floor(0 + styleTop)
+               top   : Math.floor(0 + myStyleTop)
             });
 
-            styleTop = Math.floor(styleTop + 100);
+            myStyleTop = Math.floor(myStyleTop + 100);
          });
       });
-      */
    }
    else 
    {
