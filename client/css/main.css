@@ -6,16 +6,16 @@
 html { overflow : hidden !important; margin: 0px; padding: 0px; }
 
 body {
-   background-color : rgb(255, 0, 255, 0.3);
+   background-color : rgba(0, 51, 102, 1);
    margin   : 0px;
    padding  : 0px;
    width    : 14000px;
    height   : 14000px;
    overflow : hidden !important;
 }
-/*
+
 div { margin : 0px; padding: 0px; } 
-*/
+
 #main_layer {
    /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/
    background-color : rgba(0, 0, 0, 0.7);

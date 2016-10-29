@@ -45,8 +45,17 @@ var eventCount = 0;
 //discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
-$(document).ready(function(){ // After onload document, execute inner functions
 
+$(document).ready(function(){ // After onload document, execute inner functions
+/*
+   $(window).on("beforeunload", function(){
+      return "정말 나가시겠습니까?";
+   });
+
+   $(window).on('unload', function(user){
+     logout(user);
+   });
+*/
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
@@ -54,7 +63,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
 
-   drawAllAssets("main_layer", user, socket); 		
+   drawAllAssets("planets", user, socket); 		
 
    socket.userPos.on('login_all', function(data) {
       console.log("[CLIENT LOG] me: ", user['name']);
@@ -71,7 +80,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
             'x: ', enemy[data.username + "X"], 'y: ', enemy[data.username + "Y"]
          );
         
-         $("#main_layer").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
+         $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
          $("#" + enemy[data.username]).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
             + enemy[data.username] + "</div>"
@@ -89,7 +98,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
    });
 
    keyHandler(user, socket);
-   userPosUpdate(user); 
+   userPosUpdate(user, enemy); 
 
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG] logout_all: ", data);
@@ -264,7 +273,7 @@ function drawAllAssets(mainLayer, user, socket)
    );
    $("#user_name").text(user['name']);
 	
-   $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
+   $("#space_ship").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
 
    $("#" + user['name']).append(
       "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold; text-align: center;'>" 
@@ -442,7 +451,7 @@ function keyHandler(user, socket)
          });
 
          socket.userPos.on('collision_res', function(data) {
-            console.log(data);
+
             var collisionFlag = parseInt(data['collision']);
             var collisionUser = data['username'];
             var developThis = data['develop'];
@@ -655,8 +664,7 @@ function logout(user)
           'mineral' : user.resource['mineral'],
               'gas' : user.resource['gas'],
           'unknown' : user.resource['unknown'],          
-             'exp'  : user.state['exp'],
-              'hp'  : user.state['hp'],
+            'socre' : user.state['score'],
          'key_val'  : LOGOUT 
       }); 
 
@@ -669,7 +677,7 @@ function logout(user)
                'lastPosX': user['x'],     
                'lastPosY': user['y']     
             }); 
-
+/*
             localStorage.removeItem('username');
             localStorage.removeItem('x');
             localStorage.removeItem('y'); 
@@ -678,7 +686,6 @@ function logout(user)
             localStorage.removeItem('unknown');
             localStorage.removeItem('exp');
             localStorage.removeItem('hp');
-/*
             socket.userInit.disconnect();
             socket.userInfo.disconnect();
             socket.userPos.disconnect();
@@ -695,7 +702,7 @@ function logout(user)
    }
 }
 
-function userPosUpdate(/*enemy,*/ user)
+function userPosUpdate(user, enemy)
 {
    var imgSprite = {
       player : { 
