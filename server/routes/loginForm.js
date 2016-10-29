@@ -46,8 +46,8 @@ io.on('connection', function (socket) {
 		console.log(username + ', ' + password);	
 		
 		MongoClient.connect("mongodb://localhost:27017/space_log", function(err,db){
-			var adminDB = db.admin();
-			adminDB.listDatabases(function(err, databases){	});
+		//	var adminDB = db.admin();
+		//	adminDB.listDatabases(function(err, databases){	});
 	
 
 			var findByUsrname = {"username" : username};
@@ -156,7 +156,7 @@ io.on('connection', function (socket) {
 								var sampleX = Math.floor(Math.random()*3500-1);
 								var sampleY = Math.floor(Math.random()*3500-1);
 								var hp_val = 300;
-								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : sampleX, "location_y" : sampleY, "hp" : hp_val, "rank":0});
+								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : sampleX, "location_y" : sampleY, "hp" : hp_val, "score" : 0,"rank":0});
 							}
 						});
 						

@@ -1,17 +1,28 @@
 var rankio = require('socket.io').listen(5008);
 var MongoClient = require('mongodb').MongoClient;
 
-var expSort = [],  rankArr =[];
-var i=0;
+var expSort = [],  rankArr =[], arrMPcur =[];
+var i=0, j=0;
 
 function cal_ranking(){
 	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 		var mem_info = db.collection("MEM_INFO");
-		var mem_plan = db.collection("MEM_PLAN");
-
-		var m_i_cursor = mem_info.find();
-		var m_p_cursor = mem_plan.find();
+		var planet = db.collection("PLANET");
+	//	var mem_plan = db.collection("MEM_PLAN");
 		
+		var m_i_cursor = mem_info.find();
+		var m_p_cursor = planet.find();
+	/*
+		m_p_cursor.each(function(err, res){
+			if(res){
+				arrMPcur[j++] = res;
+			}
+		});
+
+		for(var a =0; a< arrMPcur.length; a++){
+			
+		})*/
+
 		m_i_cursor.sort({"exp":-1}).toArray(function(err, sortRes){
 			if(err){
 				console.log('sort error!!!!!!!!');
@@ -33,9 +44,8 @@ function cal_ranking(){
 	});	
 }
 
-
-//setInterval(cal_ranking, 60000);
-setInterval(cal_ranking, 6000);
+setInterval(cal_ranking, 60000);
+//setInterval(cal_ranking, 6000);
 
 
 

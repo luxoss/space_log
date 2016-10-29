@@ -3,7 +3,7 @@ var MongoClient = require('mongodb').MongoClient;
 
 var s_p_id, s_mineral, s_gas, s_unknown, s_create_spd, s_develop;
 var sendP = {};	
-var arrP = [], arrMP = [];
+var arrP = [], arrMP = [], re_arrMP = [];
 var i = 0, j=0;
 io.on('connection', function(socket){
 			
@@ -13,7 +13,7 @@ io.on('connection', function(socket){
 		
 
 			var planet = db.collection("PLANET");
-			var mem_plan = db.collection("MEM_PLAN");
+		//	var mem_plan = db.collection("MEM_PLAN");
 
 			var p_cursor = planet.find();
 			
@@ -21,36 +21,60 @@ io.on('connection', function(socket){
 			p_cursor.each(function(err,p){
 				if(p){
 					arrP[i++] = p;
-				//	console.log(arrP[i-1].p_id);
-				//	return arrP;
+				
 				}
-		//		return arrP;
 			});
-
+/*
 			var m_p_cursor = mem_plan.find();
 			m_p_cursor.each(function(err,m_p){
 				if(m_p){
-			//		console.log("j ::: " +j);	
 					arrMP[j++] = m_p;
-
-				//	console.log("p_id :: " + m_p.p_id + "  develop ::   " + m_p.develop + "  user :: " + m_p.username + ".......");
-				//	return arrMP;
 				}
-			//	return arrMP;
 			});
 
 			console.log('asdflaksdjfa     :::   ' + arrP.length);
-			console.log('asdflaksdjfa     :::   ' + arrMP.length);
+			console.log('asdflaksdjfa     :::   ' + arrMP.length);*/
 			for(var z=0; z<arrP.length; z++){
-				//console.log(arrP[z]);
-				arrP[z].develop = arrMP[z].develop;
-		//		console.log(arrP[z]);
-				socket.emit('planet_res', arrP[z]);
-			}
 
+			//	arrP[z].develop = arrMP[z].develop;
+				socket.emit('planet_res', arrP[z]);
+			//	console.log("planet_res :::::     " + z);
+			}
 			
 		});
 i=0; j=0;
+
+	//console.log('./././.' + arrMP[0].username);
+	});
+	socket.on('my_planet_req', function(data){
+		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
+			var planet = db.collection("PLANET");
+		//	var mem_plan = db.collection("MEM_PLAN");
+
+			
+			
+			/*
+			mem_plan.find().each(function(err, m_p){
+				if(m_p){
+					re_arrMP[j++] = m_p;
+				}
+			});*/
+			planet.find().each(function(err, resultP){
+				if(resultP){
+					re_arrMP[j++] = resultP;
+				}
+			});
+			for(var z =0; z< re_arrMP.length; z++){
+				socket.emit('my_planet.res', re_arrMP[z]);
+				/*
+				planet.findOne({p_id : re_arrMP[z].p_id}, function(err, result){
+					if(result){
+						socket.emit('my_planet.res', result);
+					}
+				});*/
+			}
+
+		});
 	});
 
 

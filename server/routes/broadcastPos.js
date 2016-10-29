@@ -68,7 +68,7 @@ UsersPio.on('connection', function(socket){
 
 		});
 		socket.on('collision_req', function(data){
-			console.log("request!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		//	console.log("request!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			username = data.username;
 //			collision  = data.collistion;
 			x = data.location_x;
@@ -85,17 +85,17 @@ UsersPio.on('connection', function(socket){
 							//collision
 
 							getP = results[i];						
-							mem_plan.findOne({p_id: results[i].p_id}, function(err, mem_plan_dev){
+							planet.findOne({p_id: results[i].p_id}, function(err, mem_plan_dev){
 								if(err){
 								
 								} else if(mem_plan_dev){
 									develop = mem_plan_dev.develop;
-									console.log("DEVELOP dksjfalsdjflkajsdkfljaskldjfk");
-									console.log(develop);
+								//	console.log("DEVELOP dksjfalsdjflkajsdkfljaskldjfk");
+								//	console.log(develop);
 									getP.develop = develop;
 									getP.username = username;
 									getP.collision = 1;
-									console.log(getP);	
+								//	console.log(getP);	
 										
 									socket.emit('collision_res',  getP);
 									
@@ -128,19 +128,28 @@ UsersPio.on('connection', function(socket){
 		});
 	
 
-		mem_info.find().each(function(err, m_res){
+		member.find({accessing:"true"}).each(function(err, m_res){
 			if(err){
 				console.log(err);
 			} else if(m_res){
-				console.log('M_RES ::::::::::::::::::::::');
-				MIarr[i++] = m_res;
+				//socket.emit('login_all', {username});
+				
+				console.log(m_res.username);
+				mem_info.findOne({username:m_res.username}, function(err, miRes){
+					socket.emit('login_all', {username:miRes.username, location_x:miRes.location_x, location_y : miRes.location_y});
+				//	MIarr[i++] = miRes;
+				//	console.log(MIarr[i]);
+				});
+			//	MIarr[i++] = m_res;
 			//	console.log(m_res);
 			//	socket.emit('login_all', m_res);
 			}
 		});
-		for(var z=0; z< MIarr.length;z++){
+		i=0;
+	/*	for(var z=0; z< MIarr.length;z++){
+//			console.log(MIarr[z].username);
 			socket.emit('login_all', MIarr[z]);
-		}
+		}*/
 
 //
 /*

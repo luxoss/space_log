@@ -3,7 +3,6 @@
 	**Writer: luxoss
 	**File-explanation: Decorate main html page with cascading style sheet
 */
-
 html { overflow : hidden !important; margin: 0px; padding: 0px; }
 
 body {
@@ -12,12 +11,13 @@ body {
    padding  : 0px;
    width    : 14000px;
    height   : 14000px;
+   overflow : hidden !important;
 }
-
+/*
 div { margin : 0px; padding: 0px; } 
-
+*/
 #main_layer {
-   background-image : url('http://203.237.179.21:8000/res/img/space_tile1.png');
+   background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');
   	width            : 3500px;
   	height           : 3500px; 
    border           : 0px;
@@ -111,7 +111,8 @@ div { margin : 0px; padding: 0px; }
    font-weight      : bold;
    width            : 100px;
    height           : 45px;
-   border           : 1px solid rgba(208, 196, 76, 0.7);
+   border           : 1px solid rgba(255, 255, 255, 0.7);
+   border-style     : dotted;
    left             : 0px;
    position         : absolute;
    text-align       : center;
@@ -303,8 +304,6 @@ div { margin : 0px; padding: 0px; }
    border-radius     : 15px 15px 0px 0px;
   	left              : 50%;
 	bottom            : 67px;
-   -ms-transform     : translateX(-50%);
-   -webkit-transform : translateX(-50%);
    transform         : translateX(-50%);
 	position          : absolute;
 	z-index           : 3;
@@ -561,7 +560,7 @@ div { margin : 0px; padding: 0px; }
    height      : 400px;
    top         : 150px;
    position    : absolute;
-   overflow-y  : scroll;
+   overflow-y  : auto;
 }
 
 #my_planet_list {
@@ -569,7 +568,6 @@ div { margin : 0px; padding: 0px; }
    height      : 400px;
    top         : 150px;
    position    : absolute;
-   overflow-y  : scroll;
 }
 
 #battle_ship_ui {
