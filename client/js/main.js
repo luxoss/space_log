@@ -56,6 +56,18 @@ $(document).ready(function(){ // After onload document, execute inner functions
      logout(user);
    });
 */
+   for(var i = 0; i <= 777; i++)
+   {
+      $('body').append("<div id='star_" + i + "' style='position:absolute; width: 7px; height: 7px;'></div>");
+
+      $("#star_" + i).css({
+         'background-color' : 'rgba(255, 255, 0, 1)',
+         'left'             : Math.floor(Math.random() * 14000 - 1),
+         'top'              : Math.floor(Math.random() * 14000 - 1),
+         'border'           : '0px',
+         'border-radius'    : '5px'
+      });
+   }
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
@@ -64,38 +76,8 @@ $(document).ready(function(){ // After onload document, execute inner functions
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
 
    drawAllAssets("planets", user, socket); 		
-
-   socket.userPos.on('login_all', function(data) {
-      console.log("[CLIENT LOG] me: ", user['name']);
-
-      if(data['username'] !== user['name']) 
-      {
-         enemy[data.username] = data.username;
-         enemy[data.username + "X"] = parseInt(data['location_x']);
-         enemy[data.username + "Y"] = parseInt(data['location_y']); 
-
-         console.log("[CLIENT LOG] enemyObj all: ", enemy);
-         console.log(
-            "[CLIENT LOG] enemyObj(inner):", enemy[data.username], 
-            'x: ', enemy[data.username + "X"], 'y: ', enemy[data.username + "Y"]
-         );
-        
-         $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
-         $("#" + enemy[data.username]).append(
-            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-            + enemy[data.username] + "</div>"
-         );
-
-         $("#" + enemy[data.username]).css({ 
-            "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
-            "width"  : "64px",
-            "height" : "64px",
-            "zIndex" : "2",
-            left: parseInt(enemy[data.username + "X"]), 
-            top: parseInt(enemy[data.username + "Y"])
-         });
-      }
-   });
+ 
+   setInterval(loginAll(user, enemy, socket), 60000);
 
    keyHandler(user, socket);
    userPosUpdate(user, enemy); 
@@ -116,6 +98,40 @@ $(document).ready(function(){ // After onload document, execute inner functions
    });
 });
 
+function loginAll(user, enemy, socket)
+{
+  socket.userPos.on('login_all', function(data) {
+      console.log("[CLIENT LOG] me: ", user['name']);
+
+      if(data['username'] !== user['name']) 
+      {
+         enemy[data.username] = data.username;
+         enemy[data.username + "X"] = parseInt(data['location_x']);
+         enemy[data.username + "Y"] = parseInt(data['location_y']); 
+
+         console.log("[CLIENT LOG] enemyObj all: ", enemy);
+         console.log(
+            "[CLIENT LOG] enemyObj(inner):", enemy[data.username], 
+            'x: ', enemy[data.username + "X"], 'y: ', enemy[data.username + "Y"]
+         );
+/*        
+         $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
+         $("#" + enemy[data.username]).append(
+            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+            + enemy[data.username] + "</div>"
+         );
+*/
+         $("#" + enemy[data.username]).css({ 
+            "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
+            "width"  : "64px",
+            "height" : "64px",
+            "zIndex" : "2",
+            left: parseInt(enemy[data.username + "X"]), 
+            top: parseInt(enemy[data.username + "Y"])
+         });
+      }
+   });
+}
 
 function drawAllAssets(mainLayer, user, socket) 
 {
@@ -840,6 +856,12 @@ function userPosUpdate(user, enemy)
          enemy[data.username + "X"] = data.location_x;
          enemy[data.username + "Y"] = data.location_y;
          console.log("[CLIENT LOG] 835 enemy Object:", enemy);
+
+        $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
+         $("#" + enemy[data.username]).append(
+            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+            + enemy[data.username] + "</div>"
+         );
 
          switch(keyValue)
          {
