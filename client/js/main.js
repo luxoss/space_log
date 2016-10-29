@@ -55,59 +55,55 @@ $(document).ready(function(){ // After onload document, execute inner functions
    });
 
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
-/*
+
    socket.userPos.on('login_all', function(data) {
+      enemy[data.username] = data.username;
+      enemy[data.username + "X"] = data.location_x;
+      enemy[data.username + "Y"] = data.location_y; 
       
-      if(data.username != user['name']) 
+      if(enemy[data.username] !== user['name']) 
       {
-         if(data.username == enemy[data.username]){}
          console.log(
             "[CLIENT LOG]", data.username, 'is login!', 'x: '
             , data.location_x, 'y: ', data.location_y
-         ); 
-         enemy[data.username] = data.username;
-         enemy[data.username + "X"] = data.location_x;
-         enemy[data.username + "Y"] = data.location_y; 
-
-         $("#main_layer").append("<div id ='" + data['username'] + "' style='position:absolute;'></div>");
-         $("#" + data['username']).append(
+         );
+        
+         $("#main_layer").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
+         $("#" + enemy[data.username]).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-            + data['username'] + "</div>"
+            + enemy[data.username] + "</div>"
          );
 
-         $("#" + data['username']).css({ 
+         $("#" + enemy[data.username]).css({ 
             "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
             "width"  : "64px",
             "height" : "64px",
             "zIndex" : "2",
-            left: parseInt(data['location_x']), 
-            top: parseInt(data['location_y'])
+            left: parseInt(enemy[data.username + "X"]), 
+            top: parseInt(enemy[data.username + "Y"])
          });
       }
-
    });
-*/
+
    socket.userInit.on('logout_all', function(data) {
       console.log("[CLIENT LOG]", data.username, "is logout!"); 
 
-      if(data.username != user['name']) 
+      if(enemy[data.username] != user['name']) 
       {
-         /*
-         if(data.username == enemy[data.username])
-         {
             delete enemy[data.username];
-            $("#" + data.username).remove();
-         }
-         */
-         $("#" + data.username).remove(); 
+            $("#" + enemy[data.username]).remove();
+            //$("#" + data.username).remove(); 
       } 
    });
 
+//   loginAll(socket);
+//   logoutAll(socket);
    drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
    
 });
+
 
 function drawAllAssets(mainLayer, user, socket) 
 {
@@ -853,92 +849,88 @@ function userPosUpdate(/*enemy,*/ user)
 	            break;
          }
       }
-      else
+      else if(enemy['username'] == data.username)
       {
-         /*
-            if(data.username == enemy[data.username]){
-               해당 유저 태그에 css스타일을 적용
-            }
-            var enemy = {};
-            enemy['username'] = data.username;
-            enemy['x'] = data.location_x,
-            enemy['y'] = data.location_y
-
-            if(enemy['username'] == data.username)
-            {
-            }
-         */
+            
+         enemy[data.username] = data.username;
+         enemy[data.username + "X"] = data.location_x;
+         enemy[data.username + "Y"] = data.location_y;
 
          $("#main_layer").append(
-            "<div id ='" + data['username'] + "' style='position:absolute;'></div>"
+            "<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>"
          );
 
-         $("#" + data['username']).append(
+         $("#" + enemy[data.username]).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-            + data['username'] + "</div>"
+            + enemy[data.username] + "</div>"
          );
 
          switch(keyValue)
          {
             case LEFT:	      
-	            $("#" + data['username']).css({
+	            $("#" + enemy[data.username]).css({
 	               "backgroundImage" : imgSprite.others.LEFT,
 		            "width"  : "64px",
 		            "height" : "64px",
 		            "zIndex" : "2",
-		            left: enemyPosX, 
-		            top: enemyPosY
+		            left: enemy[data.username + "X"], 
+		            top: enemy[data.username + "Y"]
 	            });
 
-               enemyPosX = parseInt(data.location_x);
-	            enemyPosY = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x);
+	            enemy[data.username + "Y"] = parseInt(data.location_y);
 	            break;
 
 	         case RIGHT:	            
-		         $("#" + data['username']).css({
+		         $("#" + enemy[data.username]).css({
 		            "backgroundImage" : imgSprite.others.RIGHT,
 		            "width"  : "64px",
 		            "height" : "64px",
 		            "zIndex" : "2",
-		            left: enemyPosX, 
-		            top: enemyPosY
+		            left: enemy[data.username + "X"], 
+		            top: enemy[data.username + "Y"]
 		         });
                		
-               enemyPosX = parseInt(data.location_x);
-		         enemyPosY = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x);
+		         enemy[data.username + "Y"] = parseInt(data.location_y);
 		         break;
 				
 	         case UP:	
-		         $("#" + data['username']).css({
+		         $("#" + enemy[data.username]).css({
 			         "backgroundImage" : imgSprite.others.UP,
 			         "width"  : "64px",
 			         "height" : "64px",
 			         "zIndex" : "2",
-			         left: enemyPosX, 
-			         top: enemyPosY
+			         left: enemy[data.username + "X"], 
+			         top: enemy[data.username + "Y"]
 		         });
                		
-               enemyPosX = parseInt(data.location_x);
-		         enemyPosY = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x);
+		         enemy[data.username + "Y"] = parseInt(data.location_y);
 		         break;
 				
 	         case DOWN:	
-		         $("#" + data['username']).css({
+		         $("#" + enemy[data.username]).css({
 		            "backgroundImage" : imgSprite.others.DOWN,
 		            "width"  : "64px",
 		            "height" : "64px",
 		            "zIndex" : "2",
-		            left: enemyPosX, 
-		            top: enemyPosY
+		            left: enemy[data.username + "X"], 
+		            top: enemy[data.username + "Y"]
 		         });
                	
-               enemyPosX = parseInt(data.location_x);
-		         enemyPosY = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x);
+		         enemy[data.username + "Y"] = parseInt(data.location_y);
 		         break;
 		
             default:
+                console.log("[CLIENT LOG] 927:", enemy[data.username]);
                 break;
          }
+      }
+      else
+      {
+         console.log("[CLIENT LOG] 933:", data);
       }
    });		
 }

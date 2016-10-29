@@ -21,12 +21,10 @@ function drawMinimap(user, socket)
          x : 0, 
          y : 0
       }, 
-      enemy : {
-         //username : ,
-         x : 0, 
-         y : 0
-      }
    };
+
+   minimapEnemy = enemy;
+   conosole.log(minimapEnemy);
 
    menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
