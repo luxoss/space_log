@@ -18,7 +18,23 @@ var planetViewLayer = function(user, socket) {
       
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('#planet_ui').show();
+
+      $("#all_planets").on('click.all_planets', function(){
+         $("#my_plnaet_list").hide();
+         $("#planet_list").show();
+         $("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
+         $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
+         event.stopImmediatePropagation();
+      });
+
+      $("#my_planets").on('click.my_planets', function() {
+         $("#planet_list").hide();
+         $("#my_planet_list").show();
+         $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
+         $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
+      });
      
+      // All planet listing
       socket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       socket.planet.on('planet_res', function(data){
@@ -134,124 +150,114 @@ var planetViewLayer = function(user, socket) {
 
          styleTop = Math.floor(styleTop + 100);
       });
+         
+      // My planets listing     
+      socket.develop.emit('my_planet_req', { username : user['name']});
 
-      $("#all_planets").off('click.all_planets').on('click.all_planets', function(){
-         $("#my_plnaet_list").hide();
-         $("#planet_list").show();
-         $("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
-         $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
-      });
+      console.log("socket request...");
 
-      $("#my_planets").off('click.my_planets').on('click.my_planets', function() {
-         $("#planet_list").hide();
-         $("#my_planet_list").show();
-         $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
-         $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
-           
-         socket.develop.emit('my_planet_req', { 'username' : user['name']});
+      socket.develop.on('my_planet_res', function(data){
+         consoel.log('[CLIENT LOG]', data);
 
-         socket.develop.on('my_planet_res', function(data){
-            consoel.log('[CLIENT LOG]', data);
+         var myPlanets = {
+            name : data.p_id,
+            gas : data.gas,
+            mineral : data.mineral, 
+            unknown : data.unknown,
+            develop : data.develop,
+            grade : data.create_spd
+         }; 
 
-            var myPlanets = {
-               name : data.p_id,
-               gas : data.gas,
-               mineral : data.mineral, 
-               unknown : data.unknown,
-               develop : data.develop,
-               grade : data.create_spd
-            }; 
+         // TODO: Remove overlaping tags 
+         $("#my_planet_list").append("<div id='my_pv_name_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#my_planet_list").append("<div id='my_pv_mineral_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#my_planet_list").append("<div id='my_pv_gas_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#my_planet_list").append("<div id='my_pv_unknown_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#my_planet_list").append("<div id='my_pv_develop_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+         $("#my_planet_list").append("<div id='my_pv_grade_" + myPlanets.name + "'style = 'position:inherit; line-height:100px;'></div>");
 
-            // TODO: Remove overlaping tags 
-            $("#planet_list").append("<div id='my_pv_name_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_mineral_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_gas_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_unknown_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_develop_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_grade_" + myPlanets.name + "'style = 'position:inherit; line-height:100px;'></div>");
+         // TODO: Change html() -> text()
+         $("#my_pv_name_" + myPlanets.name).text("planet" + myPlanets['name']);
+         $("#my_pv_mineral_" + myPlanet.name).text(myPlanet['mineral']);
+         $("#my_pv_gas_" + myPlanet.name).text(myPlanets['gas']);
+         $("#my_pv_unknown_" + myPlanets.name).text(myPlanets['unknown']);
 
-            // TODO: Change html() -> text()
-            $("#my_pv_name_" + myPlanets.name).text("planet" + myPlanets['name']);
-            $("#my_pv_mineral_" + myPlanet.name).text(myPlanet['mineral']);
-            $("#my_pv_gas_" + myPlanet.name).text(myPlanets['gas']);
-            $("#my_pv_unknown_" + myPlanets.name).text(myPlanets['unknown']);
+         if(myPlanets['develop'] == 'true')
+         {
+            $("#my_pv_develop_" + myPlanets.name).text("개척된 행성");
+         }
 
-            if(myPlanets['develop'] == 'true')
-            {
-               $("#my_pv_develop_" + myPlanets.name).text("개척된 행성");
-            }
+         $("#my_pv_grade_" + myPlanets.name).text(parseInt(myPlanets['grade'] + 1));
 
-            $("#my_pv_grade_" + myPlanets.name).text(parseInt(myPlanets['grade'] + 1));
-
-            $("#my_pv_name_" + myPlanets.name).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width': 200,
-               'height': 100,
-               'text-align': 'center',
-               left: 10,
-               top: Math.floor(0 + myStyleTop)
-            });
-
-            $("#my_pv_mineral_" + myPlanets.name).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width': 127,
-               'height': 100,
-               'text-align': 'center',
-               left  : 210,
-               top   : Math.floor(0 + myStyleTop)
-            });
-
-            $("#my_pv_gas_" + myPlanets.name).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width' : 127,
-               'height': 100,
-               'text-align': 'center',
-               left  : 337,
-               top   : Math.floor(0 + myStyleTop)
-            });
-
-            $("#my_pv_unknown_" + myPlanets.name).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width': 127,
-               'height': 100,
-               'text-align': 'center',
-               left  : 464,
-               top   : Math.floor(0 + myStyleTop)
-            });
-
-            $("#my_pv_develop_" + myPlanets.name).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width': 200,
-               'height': 100,
-               'text-align': 'center',
-               left  : 591,
-               top   : Math.floor(0 + myStyleTop)
-            });
-
-            $("#my_pv_grade_" + myPlanets.name).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width': 190,
-               'height': 100,
-               'text-align': 'center',
-             //  'line-height': 100,
-               left  : 791,
-               top   : Math.floor(0 + myStyleTop)
-            });
-
-            myStyleTop = Math.floor(myStyleTop + 100);
+         $("#my_pv_name_" + myPlanets.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width': 200,
+            'height': 100,
+            'text-align': 'center',
+            left: 10,
+            top: Math.floor(0 + myStyleTop)
          });
+
+         $("#my_pv_mineral_" + myPlanets.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width': 127,
+            'height': 100,
+            'text-align': 'center',
+            left  : 210,
+            top   : Math.floor(0 + myStyleTop)
+         });
+
+         $("#my_pv_gas_" + myPlanets.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width' : 127,
+            'height': 100,
+            'text-align': 'center',
+            left  : 337,
+            top   : Math.floor(0 + myStyleTop)
+         });
+
+         $("#my_pv_unknown_" + myPlanets.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width': 127,
+            'height': 100,
+            'text-align': 'center',
+            left  : 464,
+            top   : Math.floor(0 + myStyleTop)
+         });
+
+         $("#my_pv_develop_" + myPlanets.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width': 200,
+            'height': 100,
+            'text-align': 'center',
+            left  : 591,
+            top   : Math.floor(0 + myStyleTop)
+         });
+
+         $("#my_pv_grade_" + myPlanets.name).css({
+            'background-color' : 'rgba(0, 0, 0, 0.7)',
+            'color' : 'rgba(255, 255, 255, 1)',
+            'font-weight': 'bold',
+            'width': 190,
+            'height': 100,
+            'text-align': 'center',
+          //  'line-height': 100,
+            left  : 791,
+            top   : Math.floor(0 + myStyleTop)
+         });
+
+         myStyleTop = Math.floor(myStyleTop + 100);
+      });
       });
    }
    else 
