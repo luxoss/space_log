@@ -139,7 +139,117 @@ function drawAllAssets(mainLayer, user, socket)
    socket.planet.emit('planet_req', {'ready' : 'Ready to receive' });
 
    socket.planet.on('planet_res', function(data) {
-      drawPlanetImg(mainLayer, data);
+      var planet = {
+         id : "planet" + data.p_id,
+         x  : data.location_x,
+         y  : data.location_y,
+         grade : data.create_spd,
+         mineral : data.mineral,
+         gas : data.gas,
+         unknown : data.unknown,
+         image : { 
+            1 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_5.png')",
+            2 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_7.png')",
+            3 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_9.png')",
+            4 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_11.png')",
+            5 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_12.png')"
+         }
+      };
+      
+      if(planet.grade == 0)
+      {
+         $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>");	
+
+         $("#" + planet['id']).css({
+            "backgroundImage" : planet.image['1'],
+            "width"  : "100px",
+            "height" : "100px",
+            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            left: planet['x'],
+            top: planet['y']
+         });
+         
+         $("#" + planet['id']).append(
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            + planet['id'] + "</div>"
+         );
+      }
+      
+      if(planet.grade == 1) 
+      {
+         $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
+
+         $("#" + planet['id']).css({
+            "backgroundImage" : planet.image['2'],
+            "width"  : "100px",
+            "height" : "100px",
+            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            left: planet['x'],
+            top: planet['y']
+         });
+
+         $("#" + planet['id']).append(
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            + planet['id'] + "</div>"
+         );
+      }
+      
+      if(planet.grade == 2) 
+      {
+         $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
+
+         $("#" + planet['id']).css({
+            "backgroundImage" : planet.image['3'],
+            "width"  : "100px",
+            "height" : "100px",
+            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            left: planet['x'],
+            top: planet['y']
+         });
+
+         $("#" + planet['id']).append(
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            + planet['id'] + "</div>"
+         );
+      }
+      
+      if(planet.grade == 3)
+      {
+         $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
+
+         $("#" + planet['id']).css({
+            "backgroundImage" : planet.image['4'],
+            "width"  : "100px",
+            "height" : "100px",
+            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            left: planet['x'],
+            top: planet['y']
+         });
+
+         $("#" + planet['id']).append(
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align:center;'>" 
+            + planet['id'] + "</div>"
+         );
+      }
+      
+      if(planet.grade == 4) 
+      {
+         $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>");	
+
+         $("#" + planet['id']).css({
+            "backgroundImage" : planet.image['5'],
+            "width"  : "100px",
+            "height" : "100px",
+            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            left: planet['x'],
+            top: planet['y']
+         });
+
+         $("#" + planet['id']).append(
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            + planet['id'] + "</div>"
+         );
+      }
    });		
         
    $("#mineral").text(mineral);
@@ -148,7 +258,6 @@ function drawAllAssets(mainLayer, user, socket)
    $("#position_x").text(user['x']);
    $("#position_y").text(user['y']);
    $("#score_point").text(score);
-//   $("#progress_bar").text(hp + " / 300");
 
    $("#user_avartar").append(
       "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 
@@ -180,122 +289,6 @@ function drawAllAssets(mainLayer, user, socket)
       scrollLeft: offset.left - ($(window).width() / 2), 
       scrollTop: offset.top - ($(window).height() / 2)  
    }, 1000);
-}
-
-// 생성된 행성들을 메인 화면 내에 뿌려주기 위한 함수
-function drawPlanetImg(mainLayer, data) 
-{
-   var planet = {
-      id : "planet" + data.p_id,
-      x  : data.location_x,
-      y  : data.location_y,
-      grade : data.create_spd,
-      mineral : data.mineral,
-      gas : data.gas,
-      unknown : data.unknown,
-      image : { 
-         1 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_5.png')",
-         2 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_7.png')",
-         3 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_9.png')",
-         4 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_11.png')",
-         5 :  "url('http://game.smuc.ac.kr:8000/res/img/planet/planet_12.png')"
-      }
-   };
-	
-   if(planet.grade == 0)
-   {
-      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>");	
-
-      $("#" + planet['id']).css({
-         "backgroundImage" : planet.image['1'],
-         "width"  : "100px",
-         "height" : "100px",
-         "border" : "1px solid rgba(255, 255, 0, 0.3)",
-         left: planet['x'],
-         top: planet['y']
-      });
-      
-      $("#" + planet['id']).append(
-         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
-         + planet['id'] + "</div>"
-      );
-   }
-   
-   if(planet.grade == 1) 
-   {
-      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
-
-      $("#" + planet['id']).css({
-         "backgroundImage" : planet.image['2'],
-         "width"  : "100px",
-         "height" : "100px",
-         "border" : "1px solid rgba(255, 255, 0, 0.3)",
-         left: planet['x'],
-         top: planet['y']
-      });
-
-      $("#" + planet['id']).append(
-         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
-         + planet['id'] + "</div>"
-      );
-   }
-   
-   if(planet.grade == 2) 
-   {
-      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
-
-      $("#" + planet['id']).css({
-         "backgroundImage" : planet.image['3'],
-         "width"  : "100px",
-         "height" : "100px",
-         "border" : "1px solid rgba(255, 255, 0, 0.3)",
-         left: planet['x'],
-         top: planet['y']
-      });
-
-      $("#" + planet['id']).append(
-         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
-         + planet['id'] + "</div>"
-      );
-   }
-   
-   if(planet.grade == 3)
-   {
-      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>"); 
-
-      $("#" + planet['id']).css({
-         "backgroundImage" : planet.image['4'],
-         "width"  : "100px",
-         "height" : "100px",
-         "border" : "1px solid rgba(255, 255, 0, 0.3)",
-         left: planet['x'],
-         top: planet['y']
-      });
-
-      $("#" + planet['id']).append(
-         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align:center;'>" 
-         + planet['id'] + "</div>"
-      );
-   }
-   
-   if(planet.grade == 4) 
-   {
-      $("#" + mainLayer).append("<div id='" + planet['id'] + "' style='position: absolute;'></div>");	
-
-      $("#" + planet['id']).css({
-         "backgroundImage" : planet.image['5'],
-         "width"  : "100px",
-         "height" : "100px",
-         "border" : "1px solid rgba(255, 255, 0, 0.3)",
-         left: planet['x'],
-         top: planet['y']
-      });
-
-      $("#" + planet['id']).append(
-         "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
-         + planet['id'] + "</div>"
-      );
-   }
 }
 
 function keyHandler(user, socket) 

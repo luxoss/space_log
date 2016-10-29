@@ -564,7 +564,7 @@ div { margin : 0px; padding: 0px; }
    overflow-y  : scroll;
 }
 
-#user_planet_list {
+#my_planet_list {
    width       : 1000px;
    height      : 400px;
    top         : 150px;

@@ -8,7 +8,6 @@ var planetViewLayer = function(user, socket) {
    var state = $('#planet_ui').css('display');
    var styleTop = 0;
    var myStyleTop = 0;
-   var temp;
 
    if(state == 'none') 
    {
@@ -137,7 +136,7 @@ var planetViewLayer = function(user, socket) {
       });
 
       $("#all_planets").off('click.all_planets').on('click.all_planets', function(){
-        // $("#my_plnaet_list").hide();
+         $("#my_plnaet_list").hide();
          $("#planet_list").show();
          $("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
          $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
@@ -146,14 +145,15 @@ var planetViewLayer = function(user, socket) {
       $("#my_planets").off('click.my_planets').on('click.my_planets', function() {
          $("#planet_list").hide();
          $("#my_planet_list").show();
+         $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
          $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
-         
-        //$("#all_planets").css('background-color', rgba(0, 0, 0, 0.7);
-            
-         socket.planet.emit('my_planet_req', { 'ready' : 'Ready to receive' });
+           
+         socket.develop.emit('my_planet_req', { 'username' : user['name']});
 
-         socket.planet.on('my_planet_res', function(data){
-            var planet = {
+         socket.develop.on('my_planet_res', function(data){
+            consoel.log('[CLIENT LOG]', data);
+
+            var myPlanets = {
                name : data.p_id,
                gas : data.gas,
                mineral : data.mineral, 
@@ -163,27 +163,27 @@ var planetViewLayer = function(user, socket) {
             }; 
 
             // TODO: Remove overlaping tags 
-            $("#planet_list").append("<div id='my_pv_name_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_mineral_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_gas_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_unknown_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_develop_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-            $("#planet_list").append("<div id='my_pv_grade_" + planet.name + "'style = 'position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_name_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_mineral_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_gas_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_unknown_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_develop_" + myPlanets.name + "'style='position:inherit; line-height:100px;'></div>");
+            $("#planet_list").append("<div id='my_pv_grade_" + myPlanets.name + "'style = 'position:inherit; line-height:100px;'></div>");
 
             // TODO: Change html() -> text()
-            $("#my_pv_name_" + planet.name).text("planet" + planet['name']);
-            $("#my_pv_mineral_" + planet.name).text(planet['mineral']);
-            $("#my_pv_gas_" + planet.name).text(planet['gas']);
-            $("#my_pv_unknown_" + planet.name).text(planet['unknown']);
+            $("#my_pv_name_" + myPlanets.name).text("planet" + myPlanets['name']);
+            $("#my_pv_mineral_" + myPlanet.name).text(myPlanet['mineral']);
+            $("#my_pv_gas_" + myPlanet.name).text(myPlanets['gas']);
+            $("#my_pv_unknown_" + myPlanets.name).text(myPlanets['unknown']);
 
-            if(planet['develop'] == 'true')
+            if(myPlanets['develop'] == 'true')
             {
-               $("#my_pv_develop_" + planet.name).text("개척된 행성");
+               $("#my_pv_develop_" + myPlanets.name).text("개척된 행성");
             }
 
-            $("#my_pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
+            $("#my_pv_grade_" + myPlanets.name).text(parseInt(myPlanets['grade'] + 1));
 
-            $("#my_pv_name_" + planet.name).css({
+            $("#my_pv_name_" + myPlanets.name).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 255, 1)',
                'font-weight': 'bold',
@@ -194,7 +194,7 @@ var planetViewLayer = function(user, socket) {
                top: Math.floor(0 + myStyleTop)
             });
 
-            $("#my_pv_mineral_" + planet.name).css({
+            $("#my_pv_mineral_" + myPlanets.name).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 255, 1)',
                'font-weight': 'bold',
@@ -205,7 +205,7 @@ var planetViewLayer = function(user, socket) {
                top   : Math.floor(0 + myStyleTop)
             });
 
-            $("#my_pv_gas_" + planet.name).css({
+            $("#my_pv_gas_" + myPlanets.name).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 255, 1)',
                'font-weight': 'bold',
@@ -216,7 +216,7 @@ var planetViewLayer = function(user, socket) {
                top   : Math.floor(0 + myStyleTop)
             });
 
-            $("#my_pv_unknown_" + planet.name).css({
+            $("#my_pv_unknown_" + myPlanets.name).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 255, 1)',
                'font-weight': 'bold',
@@ -227,7 +227,7 @@ var planetViewLayer = function(user, socket) {
                top   : Math.floor(0 + myStyleTop)
             });
 
-            $("#my_pv_develop_" + planet.name).css({
+            $("#my_pv_develop_" + myPlanets.name).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 255, 1)',
                'font-weight': 'bold',
@@ -238,7 +238,7 @@ var planetViewLayer = function(user, socket) {
                top   : Math.floor(0 + myStyleTop)
             });
 
-            $("#my_pv_grade_" + planet.name).css({
+            $("#my_pv_grade_" + myPlanets.name).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 255, 1)',
                'font-weight': 'bold',
