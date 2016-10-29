@@ -12,6 +12,10 @@ $(document).ready(function() {
    selectButton.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
    $(window).resize(function(){
+      $('body').css({
+         'width' : $(window).width(),
+         'height': $(window).height()
+      });
       
       $('#main_container').css({
 	      left: ($(window).width() - $('#main_container').outerWidth()) / 2, 

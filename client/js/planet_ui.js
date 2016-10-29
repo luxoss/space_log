@@ -22,6 +22,7 @@ var planetViewLayer = function(user, socket) {
       $("#all_planets").off('click.all_planets').on('click.all_planets', function(){
          //$("#my_plnaet_list").hide();
          $("#planet_list").show();
+         $("#planet_list").animate({ scrollTop : 0 }, 1000);
          $("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
          $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
       });

@@ -31,7 +31,6 @@ var user = {
    }
 };
 var enemy = {};                     // Create enemy json object
-
 var devMineral = parseInt(localStorage.getItem('mineral'));
 var devGas = parseInt(localStorage.getItem('gas'));
 var devUnknown = parseInt(localStorage.getItem('unknown'));
@@ -55,16 +54,21 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
 
+   drawAllAssets("main_layer", user, socket); 		
+
    socket.userPos.on('login_all', function(data) {
-      enemy[data.username] = data.username;
-      enemy[data.username + "X"] = data.location_x;
-      enemy[data.username + "Y"] = data.location_y; 
-      
-      if(enemy[data.username] !== user['name']) 
+      console.log("[CLIENT LOG] me: ", user['name']);
+
+      if(data['username'] !== user['name']) 
       {
+         enemy[data.username] = data.username;
+         enemy[data.username + "X"] = parseInt(data['location_x']);
+         enemy[data.username + "Y"] = parseInt(data['location_y']); 
+
+         console.log("[CLIENT LOG] enemyObj all: ", enemy);
          console.log(
-            "[CLIENT LOG]", data.username, 'is login!', 'x: '
-            , data.location_x, 'y: ', data.location_y
+            "[CLIENT LOG] enemyObj(inner):", enemy[data.username], 
+            'x: ', enemy[data.username + "X"], 'y: ', enemy[data.username + "Y"]
          );
         
          $("#main_layer").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
@@ -74,7 +78,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
          );
 
          $("#" + enemy[data.username]).css({ 
-            "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
+            "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
             "width"  : "64px",
             "height" : "64px",
             "zIndex" : "2",
@@ -84,25 +88,23 @@ $(document).ready(function(){ // After onload document, execute inner functions
       }
    });
 
-   socket.userInit.on('logout_all', function(data) {
-      console.log("[CLIENT LOG]", data.username, "is logout!"); 
-
-      if(enemy[data.username] != user['name']) 
-      {
-            delete enemy[data.username];
-            delete enemy[data.username + "X"];
-            delete enemy[data.username + "Y"];
-            $("#" + enemy[data.username]).remove();
-            //$("#" + data.username).remove(); 
-      } 
-   });
-
-//   loginAll(socket);
-//   logoutAll(socket);
-   drawAllAssets("main_layer", user, socket); 		
    keyHandler(user, socket);
    userPosUpdate(user); 
-   
+
+   socket.userInit.on('logout_all', function(data) {
+      console.log("[CLIENT LOG] logout_all: ", data);
+
+      if(data['username'] !== user['name']) 
+      {
+         console.log("[CLIENT LOG]", data.username, "is logout!");
+         console.log("[CLIENT LOG] enemyObj:", enemy[data.username], "is logout!");
+         delete enemy[data.username];
+         delete enemy[data.username + "X"];
+         delete enemy[data.username + "Y"];
+         $("#" + enemy[data.username]).remove();
+         $("#" + data.username).remove(); 
+      } 
+   });
 });
 
 
@@ -113,10 +115,7 @@ function drawAllAssets(mainLayer, user, socket)
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
    var ENTER = 13;
-   var image = {
-      clnt  : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
-      other : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')"
-   };
+   var image = { clnt  : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')" };
 
    $(window).resize(function() {
       $("#main_layer").css({
@@ -268,7 +267,7 @@ function drawAllAssets(mainLayer, user, socket)
    $("#main_layer").append("<div id='" + user['name'] + "' style='position:absolute;'></div>");
 
    $("#" + user['name']).append(
-      "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+      "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold; text-align: center;'>" 
       + user['name'] + "</div>"
    );
 
@@ -289,12 +288,23 @@ function drawAllAssets(mainLayer, user, socket)
       scrollLeft: offset.left - ($(window).width() / 2), 
       scrollTop: offset.top - ($(window).height() / 2)  
    }, 1000);
+
+   localStorage.removeItem('username');
+   localStorage.removeItem('x');
+   localStorage.removeItem('y'); 
+   localStorage.removeItem('mineral');
+   localStorage.removeItem('gas');
+   localStorage.removeItem('unknown');
+   localStorage.removeItem('exp');
+   localStorage.removeItem('hp');
+
 }
 
 function keyHandler(user, socket) 
 {
    console.log("[CLIENT LOG] KeyHandler is called.");
-
+   
+   var userId = user['name'];
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
    var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82, KEYSET_BTN = 73;
    var DEVELOP_PLANET = 32, FOCUS = 83;
@@ -404,7 +414,7 @@ function keyHandler(user, socket)
 
       if(keyState == MINIMAP_BTN) // press minimap display button, isKeyDown[77]
       {
-         drawMinimap(user, socket);
+         drawMinimap(user, enemy, socket);
       }
 
       if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
@@ -423,6 +433,8 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(keyState == DEVELOP_PLANET) 
       {        
+         console.log('Space key down');
+
          socket.userPos.emit('collision_req', {
             'username' : user['name'], 
             'location_x' : user['x'],
@@ -430,131 +442,105 @@ function keyHandler(user, socket)
          });
 
          socket.userPos.on('collision_res', function(data) {
-            if(data.develop == "true")
-               popUpMsg(data['username'] + "께서 개척하신 행성입니다.");
+            console.log(data);
+            var collisionFlag = parseInt(data['collision']);
+            var collisionUser = data['username'];
+            var developThis = data['develop'];
 
-            // 충돌 + 접속 클라이언트와의 일치여부 + 개척이 안 되어 있으면 실행
-            if((data.collision == 1) && (data.username == user['name']) && (data.develop == 'false')) 
+            if((collisionUser === user['name']) && (collisionFlag === 1) && (developThis === 'false')) 
             {
-               if(data.develop == 'false')
+               console.log("[CLIENT LOG] Ready to the develop planet.");
+
+               var developPlanetInfo = {
+                  name : $("#p_name").text("planet" + data.p_id),
+                  resource : {
+                     mineral : $("#p_mineral").text(data.mineral),
+                     gas : $("#p_gas").text(data.gas),
+                     unknown : $("#p_unknown").text(data.unknown)
+                  },
+                  grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
+                  develop : $("#p_develop")
+               };
+
+               var state = $("#develop_planet_ui").css('display');
+
+               $("#develop_planet_ui").css({
+                  left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
+                  top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
+               });
+
+               if(state == 'none')
                {
-                  console.log("[CLIENT LOG] Ready to the develop planet.");
+                  $("#develop_planet_ui").show();
 
-                  var developPlanetInfo = {
-                     name : $("#p_name").text("planet" + data.p_id),
-                     resource : {
-                        mineral : $("#p_mineral").text(data.mineral),
-                        gas : $("#p_gas").text(data.gas),
-                        unknown : $("#p_unknown").text(data.unknown)
-                     },
-                     grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
-                     develop : $("#p_develop")
-                  };
-
-                  var state = $("#develop_planet_ui").css('display');
-                           
-                  //discovered.play();
-                  //discovered.currentTime = 0;
-
-                  $("#develop_planet_ui").css({
-                     left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
-                     top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
-                  });
-
-                  if(state == 'none')
-                  {
-                     $("#develop_planet_ui").show();
-
-                     developPlanetInfo.name;
-                     developPlanetInfo.resource.mineral;
-                     developPlanetInfo.resource.gas;
-                     developPlanetInfo.resource.unknown;
-                     developPlanetInfo.grade;
-                     
-                     if(data.develop == 'true') 
-                     {
-                        developPlanetInfo.develop.text("개척"); 
-                     }
-                     else
-                     {
-                        developPlanetInfo.develop.text("미 개척");
-                     }
-                  }
-
-                  $("#cancel").mouseover(function() {
-                     menuSelection.play();
-                     $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
-                     menuSelection.currentTime = 0;
-                  });
-
-                  $("#cancel").mouseout(function() {
-                     menuSelection.play();
-                     $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
-                     menuSelection.currentTime = 0;
-                  });
-
-                  $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
-                     $("#develop_planet_ui").hide();
-                     event.stopImmediatePropagation();
-                  });
-
-                  $("#develop_planet").mouseover(function() {
-                     menuSelection.play();
-                     $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
-                     menuSelection.currentTime = 0;
-                  });
-
-                  $("#develop_planet").mouseout(function() {
-                     menuSelection.play();
-                     $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
-                     menuSelection.currentTime = 0;
-                  });
+                  developPlanetInfo.name;
+                  developPlanetInfo.resource.mineral;
+                  developPlanetInfo.resource.gas;
+                  developPlanetInfo.resource.unknown;
+                  developPlanetInfo.grade;
                   
-                  $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function(event) {
-
-                     socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
-                    
-                     socket.develop.on('chng_info', function(data){
-                        console.log(data);
-                        /*
-                        if(data.create_spd === '0')
-                        {
-                          //TODO: Update exp progress bar 10%
-                        }
-                        else if(data.create_spd === '1')
-                        {
-                          //TODO: Update exp progress bar 20%
-                        }
-                        else if(data.create_spd === '2')
-                        {
-                          //TODO: Update exp progress bar 30%
-                        }
-                        else if(data.create_spd === '3')
-                        {
-                          //TODO: Update exp progress bar 40%
-                        }
-                        else
-                        {
-                          //TODO: Update exp progress bar 50%
-                        }
-                        */
-                        devMineral += parseInt(data.mineral);
-                        devGas += parseInt(data.gas);
-                        devUnknown += parseInt(data.unknown);
-                        $("#mineral").text(parseInt(devMineral));
-                        $("#gas").text(parseInt(devGas));
-                        $("#unknown").text(parseInt(devUnknown));
-                     });
-                   
-                     $("#develop_planet_ui").hide();
-                 
-                     popUpMsg("Complete develop planet.");      
-
-                     event.stopImmediatePropagation();
-                  });
+                  if(data.develop == 'true') 
+                  {
+                     developPlanetInfo.develop.text("개척"); 
+                  }
+                  else
+                  {
+                     developPlanetInfo.develop.text("미 개척");
+                  }
                }
+
+               $("#cancel").mouseover(function() {
+                  menuSelection.play();
+                  $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#cancel").mouseout(function() {
+                  menuSelection.play();
+                  $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
+                  $("#develop_planet_ui").hide();
+                  event.stopImmediatePropagation();
+               });
+
+               $("#develop_planet").mouseover(function() {
+                  menuSelection.play();
+                  $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#develop_planet").mouseout(function() {
+                  menuSelection.play();
+                  $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
+                  menuSelection.currentTime = 0;
+               });
+               
+               $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function(event) {
+
+                  socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+                 
+                  socket.develop.on('chng_info', function(data){
+
+                     devMineral += parseInt(data.mineral);
+                     devGas += parseInt(data.gas);
+                     devUnknown += parseInt(data.unknown);
+
+                     $("#mineral").text(parseInt(devMineral));
+                     $("#gas").text(parseInt(devGas));
+                     $("#unknown").text(parseInt(devUnknown));
+                  });
+                
+                  $("#develop_planet_ui").hide();
+              
+                  popUpMsg("Complete develop planet.");      
+
+                  event.stopImmediatePropagation();
+               });
             }
-         }); 
+         });
       }
    });
 
@@ -585,11 +571,6 @@ function keyHandler(user, socket)
             ev.stopImmediatePropagation();
             break;
 
-         case BATTLESHIP_BTN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
          case MINIMAP_BTN:
             ev.keyCode = 0;
             ev.stopImmediatePropagation();
@@ -611,6 +592,11 @@ function keyHandler(user, socket)
             break;
 
          case KEYSET_BTN:
+            ev.keyCode = 0;
+            ev.stopImmediatePropagation();
+            break;
+         
+         case DEVELOP_PLANET:
             ev.keyCode = 0;
             ev.stopImmediatePropagation();
             break;
@@ -650,12 +636,11 @@ function keyHandler(user, socket)
 
       event.stopImmediatePropagation();
    });
-/*
-   $('#minimap_btn').on('click.minimap_btn', function() {      
-      drawMinimap(socket);
-      return false;
+
+   $('#minimap_btn').on('click.minimap_btn', function(event) {      
+      drawMinimap(user, enemy, socket);   
+      event.stopImmediatePropagation();
    });
-*/
 }
 
 function logout(user) 
@@ -693,13 +678,13 @@ function logout(user)
             localStorage.removeItem('unknown');
             localStorage.removeItem('exp');
             localStorage.removeItem('hp');
-
+/*
             socket.userInit.disconnect();
             socket.userInfo.disconnect();
             socket.userPos.disconnect();
             socket.develop.disconnect();
             socket.planet.disconnect();   
-           
+*/           
             $(location).attr('href', 'http://game.smuc.ac.kr:8000');
          }
          else
@@ -734,7 +719,7 @@ function userPosUpdate(/*enemy,*/ user)
       // TODO:  여기서 실행하면 키 입력 값을 받을 때 마다 appendChild를 하므로 같은 테그들이 생겨남
       //        따라서 초기화 시에 접속한 모든 사람의 데이터를 받아 appendChild를 한 번 해주고 
       //        위치 변경 시 각각의 css style만 바꿔야 함.
-      if(user['name'] == data['username'])  
+      if(user['name'] === data['username'])  
       {
          switch(keyValue)
          {
@@ -842,21 +827,13 @@ function userPosUpdate(/*enemy,*/ user)
 	            break;
          }
       }
-      else if(enemy[data.username] != user['name'])
+      else if(data['username'] !== user['name'])
       { 
          enemy[data.username] = data.username;
          enemy[data.username + "X"] = data.location_x;
          enemy[data.username + "Y"] = data.location_y;
-/*
-         $("#main_layer").append(
-            "<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>"
-         );
+         console.log("[CLIENT LOG] 835 enemy Object:", enemy);
 
-         $("#" + enemy[data.username]).append(
-            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-            + enemy[data.username] + "</div>"
-         );
-*/
          switch(keyValue)
          {
             case LEFT:	      
@@ -1165,6 +1142,14 @@ var shoot = function(user) {
       });
    }
 };
+         $("#main_layer").append(
+            "<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>"
+         );
+
+         $("#" + enemy[data.username]).append(
+            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
+            + enemy[data.username] + "</div>"
+         );
 */
 
 

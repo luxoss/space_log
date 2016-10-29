@@ -6,7 +6,7 @@
 html { overflow : hidden !important; margin: 0px; padding: 0px; }
 
 body {
-   background-color : rgb(0, 0, 0);
+   background-color : rgb(255, 0, 255, 0.3);
    margin   : 0px;
    padding  : 0px;
    width    : 14000px;
@@ -17,7 +17,8 @@ body {
 div { margin : 0px; padding: 0px; } 
 */
 #main_layer {
-   background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');
+   /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/
+   background-color : rgba(0, 0, 0, 0.7);
   	width            : 3500px;
   	height           : 3500px; 
    border           : 0px;
@@ -201,7 +202,7 @@ div { margin : 0px; padding: 0px; }
    font-size         : 20pt;
    text-align        : right;
    border            : 0px;
-   border-radius     : 0px 0px 15px 0px;
+   border-radius     : 0px 0px 0px 0px;
    width             : 70px;
    height            : 35px;
    left              : 230px;
