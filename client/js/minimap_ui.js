@@ -37,7 +37,7 @@ function drawMinimap(user, enemy, socket)
       $('#minimap_ui').show();
 
       // Initialized div tags
-      $("#minimap_assets").detach();
+      //$("#minimap_assets").detach();
 
       $("#minimap_assets").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 1);'></div>");
 
@@ -69,10 +69,11 @@ function drawMinimap(user, enemy, socket)
 
          // Not a received by the same tags.
          $("#minimap_assets").append("<div id='" + data.p_id + "' style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" + Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
+
       });
 
-
       socket.userPos.on('mv', function(data) {
+
          if(user['name'] === data['username'])
          {   
             assets.player.x = data.location_x;
