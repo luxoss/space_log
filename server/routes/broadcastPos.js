@@ -95,7 +95,7 @@ UsersPio.on('connection', function(socket){
 								|| (arrP[a].location_y >= (y+64-100)) && (arrP[a].location_y <= (y+64))))
 					
 				){*/
-					console.log('collision!');
+					console.log('collision!' + a);
 					
 					arrP[a].username = username;
 

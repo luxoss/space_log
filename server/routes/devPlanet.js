@@ -10,7 +10,7 @@ var crt_spd;
 var arrMP = [], arrMI = [];
 var i=0, j=0;
 
-var sum_score =0;
+var sum_score = 1;
 
 devPlntio.on('connection', function(socket){
 	socket.on('add_p', function(data){
@@ -42,22 +42,26 @@ devPlntio.on('connection', function(socket){
 			//	console.log(z);
 				if(arrMP[z].develop == "false" && arrMP[z].p_id == p_id){
 					console.log("Planet's develop is FALSE!!!");
-					planet.update({p_id : p_id}, {$set : {develop : "true", username: username}}, function(err, res){
+					planet.update({p_id : p_id}, {$set : {develop : "null", username: username}}, function(err, res){
 						if(err){
 							console.log("ERRROROROROROOR!!!!    " + err);
 						} else if(res){
 							console.log("SUCCESS!!!!!!!");
 							//sum_score = res.create_spd + 	
-							/*
+							
 							mem_info.findOne({username:username}, function(err, findRes){
 								if(findRes){
-									console.log("devPlanet.js ::: find Memebr in mem_info collection");
-									sum_socre = findRes + arrMP[z].create_spd;
-									console.log('::::::::::::::::::::::sum_score ::: ' + arrMP[z].create_spd);
+								//	var sum_score = 0;
+									console.log("devPlanet.js ::: find Memebr in mem_info collection       !!!!!!!   " + arrMP[z].create_spd);
+									
+									sum_score = parseInt(arrMP[z].create_spd, 10)
+									console.log("PARSE INT :: " + sum_score);
+									console.log('::::::::::::::::::::::sum_score ::: ');
+
 									console.log('devPlanet ::::::::::::::::::::::::::::::::::' + username);
-									mem_info.update({username : username}, {$set :{score : sum_score}});
+									mem_info.update({username : username}, {$set :{score : sum_score +1}});
 								}
-							});*/
+							});
 							socket.emit('chng_plan', res);
 							//Not Complete!
 						

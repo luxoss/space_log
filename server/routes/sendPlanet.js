@@ -65,7 +65,7 @@ i=0; j=0;
 				}
 			});
 			for(var z =0; z< re_arrMP.length; z++){
-				socket.emit('my_planet.res', re_arrMP[z]);
+				socket.emit('my_planet_res', re_arrMP[z]);
 				/*
 				planet.findOne({p_id : re_arrMP[z].p_id}, function(err, result){
 					if(result){
