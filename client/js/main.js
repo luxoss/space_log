@@ -544,120 +544,94 @@ function keyHandler(user, socket)
                grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
                develop : $("#p_develop")
             };
-
-            if((collisionUser === user['name']) && (collisionFlag === 1)) // (developThis === 'false')) 
+            
+            if(collisionFlag === 1 && developThis === 'false') 
             {
-               switch(developThis)
+               //TODO: 개척 창 띄우고 실행 컴플릿 되면 바로 자원 데이터 넣기
+               //console.log("[CLIENT LOG] Ready to the develop planet.");
+               var developPlanet = data['p_id'];
+               var state = $("#develop_planet_ui").css('display');
+
+               $("#develop_planet_ui").css({
+                  left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
+                  top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
+               });
+
+               if(state == 'none')
                {
-                  case 'true' : 
-                        popUpMsg(data['username'] + "께서 개척하신 행성입니다.");
-                        break;
-                  case 'false':
-                        //TODO: 개척 창 띄우고 실행 컴플릿 되면 바로 자원 데이터 넣기
-                        //console.log("[CLIENT LOG] Ready to the develop planet.");
-  
-                        var developPlanet = data['p_id'];
+                  $("#develop_planet_ui").show();
+                  //$("#develop_planet_ui").fadeOut(5000);      
 
-                        var state = $("#develop_planet_ui").css('display');
-
-                        $("#develop_planet_ui").css({
-                           left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
-                           top: ($(window).height() - $("#develop_planet_ui").outerHeight()) / 2
-                        });
- 
-                        if(state == 'none')
-                        {
-                           $("#develop_planet_ui").show();
-                           //$("#develop_planet_ui").fadeOut(5000);      
-
-                           developPlanetInfo.name;
-                           developPlanetInfo.resource.mineral;
-                           developPlanetInfo.resource.gas;
-                           developPlanetInfo.resource.unknown;
-                           developPlanetInfo.grade;
-                           developPlanetInfo.develop.text("미 개척");
-                        }
-
-                        $("#cancel").mouseover(function() {
-                           menuSelection.play();
-                           $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
-                           menuSelection.currentTime = 0;
-                        });
-
-                        $("#cancel").mouseout(function() {
-                           menuSelection.play();
-                           $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
-                           menuSelection.currentTime = 0;
-                        });
-
-                        $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
-                           $("#develop_planet_ui").hide();
-                           event.stopImmediatePropagation();
-                        });
-
-                        $("#develop_planet").mouseover(function(event) {
-                           menuSelection.play();
-                           $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
-                           menuSelection.currentTime = 0;
-                           event.stopImmediatePropagation();
-                        });
-
-                        $("#develop_planet").mouseout(function(event) {
-                           menuSelection.play();
-                           $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
-                           menuSelection.currentTime = 0;
-                           event.stopImmediatePropagation();
-                        });
-                        
-                        $("#develop_planet").on('click.develop_planet', function() {
-
-                           socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
-                          
-                           socket.develop.on('chng_info', function(data){
-
-                              devMineral += parseInt(data.mineral, 10);
-                              devGas += parseInt(data.gas, 10);
-                              devUnknown += parseInt(data.unknown, 10);
-
-                              $("#mineral").text(parseInt(devMineral, 10));
-                              $("#gas").text(parseInt(devGas, 10));
-                              $("#unknown").text(parseInt(devUnknown, 10)); 
-                           });
-                         
-                           $("#develop_planet_ui").hide();
-                       
-                           popUpMsg("Complete develop planet.");      
-
-                           //event.stopImmediatePropagation();
-                           return false;
-
-                        }).off('click.develop_plnaet').on('click.develop_planet1', function() {
-
-                           socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
-                          
-                           socket.develop.on('chng_info', function(data){
-
-                              devMineral += parseInt(data.mineral, 10);
-                              devGas += parseInt(data.gas, 10);
-                              devUnknown += parseInt(data.unknown, 10);
-
-                              $("#mineral").text(parseInt(devMineral, 10));
-                              $("#gas").text(parseInt(devGas, 10));
-                              $("#unknown").text(parseInt(devUnknown, 10)); 
-                           });
-                         
-                           $("#develop_planet_ui").hide();
-                       
-                           popUpMsg("Complete develop planet.");      
-
-                           //event.stopImmediatePropagation();
-                           return false;
-                        });
-                        break;
-                  default:
-                        break;
+                  developPlanetInfo.name;
+                  developPlanetInfo.resource.mineral;
+                  developPlanetInfo.resource.gas;
+                  developPlanetInfo.resource.unknown;
+                  developPlanetInfo.grade;
+                  developPlanetInfo.develop.text("미 개척");
                }
-            }             
+
+               $("#cancel").mouseover(function() {
+                  menuSelection.play();
+                  $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#cancel").mouseout(function() {
+                  menuSelection.play();
+                  $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
+                  menuSelection.currentTime = 0;
+               });
+
+               $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
+                  $("#develop_planet_ui").hide();
+                  event.stopImmediatePropagation();
+               });
+
+               $("#develop_planet").mouseover(function(event) {
+                  menuSelection.play();
+                  $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
+                  menuSelection.currentTime = 0;
+                  event.stopImmediatePropagation();
+               });
+
+               $("#develop_planet").mouseout(function(event) {
+                  menuSelection.play();
+                  $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
+                  menuSelection.currentTime = 0;
+                  event.stopImmediatePropagation();
+               });
+               
+               $("#develop_planet").on('click.develop_planet', function(){
+
+                  socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
+                 
+                  socket.develop.on('chng_info', function(data){
+
+                     devMineral += parseInt(data.mineral, 10);
+                     devGas += parseInt(data.gas, 10);
+                     devUnknown += parseInt(data.unknown, 10);
+
+                     $("#mineral").text(parseInt(devMineral, 10));
+                     $("#gas").text(parseInt(devGas, 10));
+                     $("#unknown").text(parseInt(devUnknown, 10)); 
+                  });
+                
+                  $("#develop_planet_ui").hide();
+              
+                  popUpMsg("Complete develop planet.");      
+
+                  //event.stopImmediatePropagation();
+                  return false;
+               });
+            }
+            else if(collisionFlag == 1 && developThis === 'true')
+            {
+               popUpMsg(data['username'] + "께서 개척하신 행성입니다.");
+            }
+            else
+            {
+               console.log('[CLIENT LOG]: ', data);
+            }
          });
       }
    });

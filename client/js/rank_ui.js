@@ -32,11 +32,11 @@ function rankViewLayer(socket)
 
          $("#user_list").append("<div id='rank_number_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
          $("#user_list").append("<div id='rank_username_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
-         //$("#user_list").append("<div id='rank_user_score_" + userList.name + "' stlye='position:absolute; line-height: 100px;'></div>");
+         $("#user_list").append("<div id='rank_user_score_" + userList.name + "' stlye='position:absolute; line-height: 100px;'></div>");
 
          $("#rank_number_" + userList.name).text(userList['rank']);
          $("#rank_username_" + userList.name).text(userList['name']);
-         //$("#rank_user_score_" + userList.name).text(userList['score']);
+         $("#rank_user_score_" + userList.name).text(userList['score']);
 
          $("#rank_number_" + userList.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
@@ -61,7 +61,7 @@ function rankViewLayer(socket)
             left               : 110,
             top                : Math.floor(0 + styleTop)
          });
-/*
+
          $("#rank_user_score_" + userList.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color'            : 'rgba(255, 255, 255, 1)',
@@ -73,7 +73,6 @@ function rankViewLayer(socket)
             left               : 395,
             top                : Math.floor(0 + styleTop)
          });
-*/
          styleTop = Math.floor(styleTop + 100);                  
 	   });
    }

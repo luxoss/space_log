@@ -9,11 +9,6 @@ var planetViewLayer = function(user, socket) {
    var styleTop = 0;
    var myStyleTop = 0;
    var planetViewSocket = socket;
-
-   planetViewSocket.planet.emit('my_planet_req', { 'username' : user['name'] });
-   planetViewSocket.planet.on('my_planet_res', function(data) {
-      console.log(data);
-   });
   
    if(state == 'none') 
    {
@@ -25,27 +20,28 @@ var planetViewLayer = function(user, socket) {
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('#planet_ui').show();
 
-      $("#all_planets").off('click.all_planets').on('click.all_planets', function(){
-         $("#my_plnaet_list").hide();
+      $("#all_planets").off('click.all_planets').on('click.all_planets', function(event){
+
+         //$("#my_plnaet_list").hide();
          $("#planet_list").show();
          $("#planet_list").animate({ scrollTop : 0 }, 1000);
-         $("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
+         //$("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
          $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
+
+         event.stopImmediatePropagation();
+
+         return false;
       });
-
-      $("#my_planets").off('click.my_planets').on('click.my_planets', function(){
-         $("#planet_list").hide();
-         $("#my_planet_list").show();
-         $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
-         $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
 /*
+      $("#my_planets").off('click.my_planets').on('click.my_planets', function(event){
+         //$("#planet_list").hide();
+         $("#my_planet_list").show();
+         //$("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
+         $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
          // My planets listing     
-         socket.develop.emit('my_planet_req', { username : user['name']});
+         planetViewSocket.planet.emit('my_planet_req', { username : user['name']});
 
-         console.log("socket request...");
-
-         socket.develop.on('my_planet_res', function(data){
-            consoel.log('[CLIENT LOG]', data);
+         planetViewSocket.planet.on('my_planet_res', function(data){
 
             var myPlanets = {
                name : data.p_id,
@@ -66,15 +62,10 @@ var planetViewLayer = function(user, socket) {
 
             // TODO: Change html() -> text()
             $("#my_pv_name_" + myPlanets.name).text("planet" + myPlanets['name']);
-            $("#my_pv_mineral_" + myPlanet.name).text(myPlanet['mineral']);
-            $("#my_pv_gas_" + myPlanet.name).text(myPlanets['gas']);
+            $("#my_pv_mineral_" + myPlanets.name).text(myPlanets['mineral']);
+            $("#my_pv_gas_" + myPlanets.name).text(myPlanets['gas']);
             $("#my_pv_unknown_" + myPlanets.name).text(myPlanets['unknown']);
-
-            if(myPlanets['develop'] == 'true')
-            {
-               $("#my_pv_develop_" + myPlanets.name).text("개척된 행성");
-            }
-
+            $("#my_pv_develop_" + myPlanets.name).text("개척된 행성");
             $("#my_pv_grade_" + myPlanets.name).text(parseInt(myPlanets['grade'] + 1));
 
             $("#my_pv_name_" + myPlanets.name).css({
@@ -143,11 +134,13 @@ var planetViewLayer = function(user, socket) {
                left  : 791,
                top   : Math.floor(0 + myStyleTop)
             });
-            myStyleTop = Math.floor(myStyleTop + 100);
+            myStyleTop = Math.floor(myStyleTop + 100);          
          });
-         */
+        
+         event.stopImmediatePropagation();
+         return false;
       });
-
+*/
       // All planet listing
       planetViewSocket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
