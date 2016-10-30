@@ -152,7 +152,7 @@ function backgroundSoundControl()
       }
       else
       {
-         $("#bg_sound_control").css('color', 'rgba(255, 255, 255, 0.7)');
+         $("#bg_sound_control").css('color', 'rgba(207, 47, 77, 0.7)');
          $("#bg_sound_control").text("[SOUND | OFF]");
          bgSound.pause();
          bgSound.currentTime = 0;
