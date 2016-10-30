@@ -22,6 +22,10 @@ function drawMinimap(user, enemy, socket)
          y : 0
       }, 
    };
+   // Caching the jquery selector 
+   // var minimapAssetsTag = $("#minimap_assets");
+   // var minimapUserTag = $("#minimap_" + user['name']);
+   // var minimapAnemyTag = $("#minimap_" + minimapEnemy[data.username]);
 
    minimapEnemy = enemy;
    console.log(minimapEnemy);
