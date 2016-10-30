@@ -3,7 +3,6 @@
 	** File-explanation: Contorl index html page with javascript
 	** Author: luxoss 
 */
-
 $(document).ready(function() {
 
    var userInfoSocket = io.connect('http://game.smuc.ac.kr:5001');  
@@ -187,13 +186,12 @@ $(document).ready(function() {
 	         }
 	      });
       }	
-      //if(keyCode == TAB) { return false; }
+      if(keyCode == TAB) { return false; }
+      ev.stopImmediatePropagation();
    });
    
    $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
    $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
-
-   ev.stopImmediatePropagation();
 });
 
 function getUserItems(userInfoSocket, user) 
