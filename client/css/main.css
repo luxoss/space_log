@@ -18,7 +18,7 @@ div { margin : 0px; padding: 0px; }
 
 #main_layer {
    /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/
-   background-color : rgba(0, 0, 0, 0.7);
+   background-color : rgba(0, 0, 0, 0.8);
   	width            : 3500px;
   	height           : 3500px; 
    border           : 0px;
@@ -869,4 +869,11 @@ div { margin : 0px; padding: 0px; }
    cursor           : pointer;   
 }
 
-
+#bg_sound_control {
+  color        : rgba(255, 255, 255, 0.8);
+  font-size    : 20pt;
+  font-weight  : bold;
+  cursor       : pointer;
+  top          : 0px;
+  right        : 10px;
+  position     : absolute;

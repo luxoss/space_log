@@ -55,6 +55,8 @@ $(document).ready(function(){ // After onload document, execute inner functions
 */
    $(window).on('unload', function(user){ logout(user); });
 
+   backgroundSoundControl();
+
    for(var i = 0; i <= 1000; i++)
    {
       if(i % 1 === 0)
@@ -137,6 +139,27 @@ $(document).ready(function(){ // After onload document, execute inner functions
 */
 });
 
+function backgroundSoundControl()
+{
+   $("#bg_sound_control").on('click.bg_sound_control', function() {
+      var bgSound = document.getElementById('main_bg_sound');
+
+      if(bgSound.paused)
+      {
+         $("#bg_sound_control").css('color', 'rgba(255, 255, 255, 0.7)');
+         $("#bg_sound_control").text("[SOUND | ON]");
+         bgSound.play();
+      }
+      else
+      {
+         $("#bg_sound_control").css('color', 'rgba(255, 255, 255, 0.7)');
+         $("#bg_sound_control").text("[SOUND | OFF]");
+         bgSound.pause();
+         bgSound.currentTime = 0;
+      }
+   });
+}
+         
 function loginAll(user, enemy, socket)
 {
   socket.userPos.on('login_all', function(data) {
