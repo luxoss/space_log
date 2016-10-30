@@ -29,43 +29,51 @@ $(document).ready(function() {
 
    }).resize();		
 
-   $("#username").mouseover(function() {
+   $("#username").mouseover(function(event) {
       $("#username").css('border', '2px solid rgba(0, 255, 0, 0.7)');
+      event.stopImmediatePropagation();
    });
 
-   $("#username").mouseout(function() {
+   $("#username").mouseout(function(event) {
       $("#username").css('border', '2px solid rgba(255, 255, 255, 1)');
+      event.stopImmediatePropagation();
    });
 
-   $("#password").mouseover(function() {
+   $("#password").mouseover(function(event) {
       $("#password").css('border', '2px solid rgba(0, 255, 0, 0.7)');
+      event.stopImmediatePropagation();
    });
 
-   $("#password").mouseout(function() {
+   $("#password").mouseout(function(event) {
       $("#password").css('border', '2px solid rgba(255, 255, 255, 1)');
+      event.stopImmediatePropagation();
    });
 
-   $("#login_btn").mouseover(function() {
+   $("#login_btn").mouseover(function(event) {
       selectButton.play();
       $("#login_btn").css('background-color', 'rgba(0, 0, 255, 0.3)');
       selectButton.currentTime = 0;
+      event.stopImmediatePropagation();
    });
 
-   $("#login_btn").mouseout(function() {
+   $("#login_btn").mouseout(function(event) {
       $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+      event.stopImmediatePropagation();
    });
 
-   $("#join_btn").mouseover(function() {
+   $("#join_btn").mouseover(function(event) {
       selectButton.play();
       $("#join_btn").css('background-color', 'rgba(255, 0, 0, 0.3)');
       selectButton.currentTime = 0;
+      event.stopImmediatePropagation();
    });
 
-   $("#join_btn").mouseout(function() {
+   $("#join_btn").mouseout(function(event) {
       $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+      event.stopImmediatePropagation();
    });
 
-   $("#join_btn").on('click', function() {
+   $("#join_btn").click(function(event){ //.on('click', function() {
 
       var user = {};
 
@@ -96,9 +104,10 @@ $(document).ready(function() {
 	         }
 	      });
       }
+      event.stopImmediatePropagation();
    });
 
-   $("#login_btn").on('click', function(){ 
+   $("#login_btn").click(function(event){ //.on('click', function(){ 
       var user = {};
       var mainPageUrl = './main.html';
 
@@ -123,9 +132,10 @@ $(document).ready(function() {
             //window.location.reload();
          }
       });
+      event.stopImmediatePropagation();
    });
 
-   $("#sound_control").on('click', function() {
+   $("#sound_control").click(function(event){ //.on('click', function() {
       var bgSound = document.getElementById('bg_sound');
 
       if(bgSound.paused)
@@ -141,6 +151,7 @@ $(document).ready(function() {
          bgSound.pause();
          bgSound.currentTime = 0;
       }
+      event.stopImmediatePropagation();
    });
    
    $(document).keydown(function(ev){
@@ -181,6 +192,8 @@ $(document).ready(function() {
    
    $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
    $("#join_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+
+   ev.stopImmediatePropagation();
 });
 
 function getUserItems(userInfoSocket, user) 
