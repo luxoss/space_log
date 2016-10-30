@@ -59,7 +59,8 @@ i=0; j=0;
 					re_arrMP[j++] = m_p;
 				}
 			});*/
-			planet.find().each(function(err, resultP){
+			console.log('username :: ', data.username);
+			planet.find({username: data.username}).each(function(err, resultP){
 				if(resultP){
 					re_arrMP[j++] = resultP;
 				}

@@ -23,7 +23,7 @@ function cal_ranking(){
 			
 		})*/
 
-		m_i_cursor.sort({"exp":-1}).toArray(function(err, sortRes){
+		m_i_cursor.sort({"score":-1}).toArray(function(err, sortRes){
 			if(err){
 				console.log('sort error!!!!!!!!');
 				console.log(err);
@@ -34,8 +34,9 @@ function cal_ranking(){
 			}
 		});		
 		
+		console.log('///////////////////////');
 		for(var z=0; z<expSort.length; z++){
-//			console.log(expSort[z].username);	
+			console.log(expSort[z].username);	
 			mem_info.update({username:expSort[z].username}, {$set:{rank:z+1}}, function(err, updateRes){
 	
 			});

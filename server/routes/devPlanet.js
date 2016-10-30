@@ -42,7 +42,7 @@ devPlntio.on('connection', function(socket){
 			//	console.log(z);
 				if(arrMP[z].develop == "false" && arrMP[z].p_id == p_id){
 					console.log("Planet's develop is FALSE!!!");
-					planet.update({p_id : p_id}, {$set : {develop : "null", username: username}}, function(err, res){
+					planet.update({p_id : p_id}, {$set : {develop : "true", username: username}}, function(err, res){
 						if(err){
 							console.log("ERRROROROROROOR!!!!    " + err);
 						} else if(res){

@@ -20,10 +20,10 @@ var p_size = 100, s_size = 64;
 
 var develop;
 
+var collision =0;
 
 
-
-var i=0, MIarr = [, arrP =[]];
+var i=0, MIarr = [], arrP =[];
 
 UsersPio.on('connection', function(socket){
 	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
@@ -95,16 +95,23 @@ UsersPio.on('connection', function(socket){
 								|| (arrP[a].location_y >= (y+64-100)) && (arrP[a].location_y <= (y+64))))
 					
 				){*/
-					console.log('collision!' + a);
+				//	console.log('collision!' + a);
 					
-					arrP[a].username = username;
+					//arrP[a].username = username;
 
 					arrP[a].collision = 1;
-					socket.emit('collision_res', arrP[a]);
+					collision = 1;
+					planet.findOne({p_id:arrP[a].p_id}, function(err, res){
+						res.collision = collision;
+						console.log('COLLISION !!//////////////////// ' + res.collision);
+						socket.emit('collision_res', res);
+					});
+				//	socket.emit('collision_res', arrP[a]);
 					break;
 
 				//	console.log(arrP[a]);
 				} else{
+					collision = 0;
 					arrP[a].username = username;
 					arrP[a].collision =0;
 
