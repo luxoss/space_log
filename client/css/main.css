@@ -6,12 +6,12 @@
 html { overflow : hidden !important; margin: 0px; padding: 0px; }
 
 body {
-   background-color : rgba(0, 51, 102, 1);
+   background-color : rgba(19, 35, 56, 1);
    margin   : 0px;
    padding  : 0px;
    width    : 14000px;
    height   : 14000px;
-   overflow : hidden !important;
+/*   overflow : hidden !important;*/
 }
 
 div { margin : 0px; padding: 0px; } 
@@ -24,6 +24,7 @@ div { margin : 0px; padding: 0px; }
    border           : 0px;
   	position         : absolute;
 	z-index          : 1;
+   overflow : hidden !important;
 }
 
 #view_layer {

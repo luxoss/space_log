@@ -8,8 +8,13 @@ var planetViewLayer = function(user, socket) {
    var state = $('#planet_ui').css('display');
    var styleTop = 0;
    var myStyleTop = 0;
+   var planetViewSocket = socket;
 
-
+   planetViewSocket.develop.emit('my_planet_req', { 'ready' : 'Ready to receive' });
+   planetViewSocket.develop.on('my_planet_res', function(data) {
+      console.log(data);
+   });
+  
    if(state == 'none') 
    {
       $('#planet_ui').css({
@@ -28,12 +33,12 @@ var planetViewLayer = function(user, socket) {
          $("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
       });
 
-      $("#my_planets").off('click.my_planets').on('click.my_planets', function(socket){
+      $("#my_planets").off('click.my_planets').on('click.my_planets', function(){
          $("#planet_list").hide();
          $("#my_planet_list").show();
          $("#my_planets").css("background-color", "rgba(29, 66, 107, 0.7)");
          $("#all_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
-
+/*
          // My planets listing     
          socket.develop.emit('my_planet_req', { username : user['name']});
 
@@ -140,12 +145,13 @@ var planetViewLayer = function(user, socket) {
             });
             myStyleTop = Math.floor(myStyleTop + 100);
          });
+         */
       });
 
       // All planet listing
-      socket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
+      planetViewSocket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
-      socket.planet.on('planet_res', function(data){
+      planetViewSocket.planet.on('planet_res', function(data){
          var planet = {
             name : data.p_id,
             gas : data.gas,

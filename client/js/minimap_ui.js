@@ -44,7 +44,7 @@ function drawMinimap(user, enemy, socket)
          'left' : Math.floor((user['x'] * 300) / 3500),
          'top'  : Math.floor((user['y'] * 300) / 3500) 
       });
-      
+/*      
       socket.userPos.on('login_all', function(data) {
        
          console.log("[CLIENT LOG] MINIMAP:", data.username, data.location_x, data.location_y);
@@ -59,7 +59,7 @@ function drawMinimap(user, enemy, socket)
              });
          }
       });
-
+*/
       socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
       socket.planet.on('planet_res', function(data) {
@@ -84,7 +84,7 @@ function drawMinimap(user, enemy, socket)
          }
          else if(minimapEnemy[data.username] !== user['name'])
          {
-            //$("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
+            $("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
 
             minimapEnemy[data.username + "X"] = data.location_x;
             minimapEnemy[data.username + "Y"] = data.location_y;
