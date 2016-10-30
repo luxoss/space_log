@@ -567,6 +567,7 @@ function keyHandler(user, socket)
                         if(state == 'none')
                         {
                            $("#develop_planet_ui").show();
+                           $("#develop_planet_ui").fadeOut(5000);      
 
                            developPlanetInfo.name;
                            developPlanetInfo.resource.mineral;
@@ -1009,7 +1010,7 @@ function popUpMsg(msg)
    {
       $("#main_pop_up_view").show();
       $("#main_pop_up_msg").text(msg);
-      $("#main_pop_up_view").fadeOut('slow');      
+      $("#main_pop_up_view").fadeOut(1600);      
    }
 /*   
    $("#main_pop_up_hide").click(function() {

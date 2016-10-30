@@ -88,7 +88,7 @@ function drawMinimap(user, enemy, socket)
             minimapEnemy[data.username + "X"] = data.location_x;
             minimapEnemy[data.username + "Y"] = data.location_y;
 
-            $("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
+            $("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(0, 255, 0, 0.7);'></div>");
 
             minimapEnemy[data.username + "X"] = data.location_x;
             minimapEnemy[data.username + "Y"] = data.location_y;
