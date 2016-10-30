@@ -198,8 +198,7 @@ function getUserItems(userInfoSocket, user)
          if(data.username == user['name'])
          {
             user['name'] = data.username;
-            user['exp'] = data.exp;
-            user['hp'] = data.hp;
+            user['score'] = data.score;
             user['mineral'] = data.mineral;
             user['gas'] = data.gas;
             user['unknown'] = data.unknown;
@@ -207,8 +206,7 @@ function getUserItems(userInfoSocket, user)
             user['y'] = data.location_y;
 
             localStorage.setItem('username', user['name']); 
-            localStorage.setItem('exp', user['exp']);
-            localStorage.setItem('hp', user['hp']);
+            localStorage.setItem('score', user['score']);
             localStorage.setItem('mineral', user['mineral']);
             localStorage.setItem('gas', user['gas']);
             localStorage.setItem('unknown', user['unknown']);

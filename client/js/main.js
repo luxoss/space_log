@@ -27,7 +27,7 @@ var user = {
       unknown : parseInt(localStorage.getItem('unknown'))
    },
    state : {
-        exp : parseInt(localStorage.getItem('exp')),
+        exp : parseInt(localStorage.getItem('score')),
    }
 };
 var enemy = {};                     // Create enemy json object
@@ -52,10 +52,10 @@ $(document).ready(function(){ // After onload document, execute inner functions
    $(window).on("beforeunload", function(){
       return "정말 나가시겠습니까?";
    });
+   //$(window).on('unload', function(user){ logout(user); });
 */
-   $(window).on('unload', function(user){ logout(user); });
-
    backgroundSoundControl();
+   loginAll(user, enemy, socket);
 
    for(var i = 0; i <= 1000; i++)
    {
@@ -99,7 +99,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
    drawAllAssets("planets", user, socket); 		
  
-   setInterval(loginAll(user, enemy, socket), 60000);
+   //setInterval(loginAll(user, enemy, socket), 60000);
 
    keyHandler(user, socket);
    userPosUpdate(user, enemy); 
@@ -171,12 +171,12 @@ function loginAll(user, enemy, socket)
          enemy[data.username + "X"] = parseInt(data['location_x']);
          enemy[data.username + "Y"] = parseInt(data['location_y']); 
 
+/*
          console.log("[CLIENT LOG] enemyObj(all): ", enemy);
          console.log(
             "[CLIENT LOG] enemyObj(inner):", enemy[data.username], 
             'x: ', enemy[data.username + "X"], 'y: ', enemy[data.username + "Y"]
-         );
-/*        
+         );        
          $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
          $("#" + enemy[data.username]).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
@@ -197,7 +197,7 @@ function loginAll(user, enemy, socket)
 
 function drawAllAssets(mainLayer, user, socket) 
 {
-   var score = user.state['exp'];
+   var score = user.state['score'];
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
@@ -556,6 +556,7 @@ function keyHandler(user, socket)
                            grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
                            develop : $("#p_develop")
                         };
+                        var developPlanet = data['p_id'];
 
                         var state = $("#develop_planet_ui").css('display');
 
@@ -567,7 +568,7 @@ function keyHandler(user, socket)
                         if(state == 'none')
                         {
                            $("#develop_planet_ui").show();
-                           $("#develop_planet_ui").fadeOut(5000);      
+                           //$("#develop_planet_ui").fadeOut(5000);      
 
                            developPlanetInfo.name;
                            developPlanetInfo.resource.mineral;
@@ -606,12 +607,11 @@ function keyHandler(user, socket)
                            menuSelection.currentTime = 0;
                         });
                         
-                        $("#develop_planet").off('click.develop_plnaet').on('click.develop_planet', function(event) {
+                        $("#develop_planet").on('click.develop_planet', function() {
 
-                           socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : data.p_id});
+                           socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
                           
                            socket.develop.on('chng_info', function(data){
-                              console.log("[CLIENT LOG]change planet resource information: ", data);
 
                               devMineral += parseInt(data.mineral);
                               devGas += parseInt(data.gas);
@@ -619,14 +619,37 @@ function keyHandler(user, socket)
 
                               $("#mineral").text(parseInt(devMineral));
                               $("#gas").text(parseInt(devGas));
-                              $("#unknown").text(parseInt(devUnknown));
+                              $("#unknown").text(parseInt(devUnknown)); 
                            });
                          
                            $("#develop_planet_ui").hide();
                        
                            popUpMsg("Complete develop planet.");      
 
-                           event.stopImmediatePropagation();
+                           //event.stopImmediatePropagation();
+                           return false;
+
+                        }).off('click.develop_plnaet').on('click.develop_planet', function() {
+
+                           socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
+                          
+                           socket.develop.on('chng_info', function(data){
+
+                              devMineral += parseInt(data.mineral);
+                              devGas += parseInt(data.gas);
+                              devUnknown += parseInt(data.unknown);
+
+                              $("#mineral").text(parseInt(devMineral));
+                              $("#gas").text(parseInt(devGas));
+                              $("#unknown").text(parseInt(devUnknown)); 
+                           });
+                         
+                           $("#develop_planet_ui").hide();
+                       
+                           popUpMsg("Complete develop planet.");      
+
+                           //event.stopImmediatePropagation();
+                           return false;
                         });
                         break;
                   default:
@@ -770,12 +793,13 @@ function logout(user)
             localStorage.removeItem('unknown');
             localStorage.removeItem('exp');
             localStorage.removeItem('hp');
+*/
             socket.userInit.disconnect();
             socket.userInfo.disconnect();
             socket.userPos.disconnect();
             socket.develop.disconnect();
             socket.planet.disconnect();   
-*/           
+                       
             $(location).attr('href', 'http://game.smuc.ac.kr:8000');
          }
          else
@@ -923,10 +947,10 @@ function userPosUpdate(user, enemy)
          enemy[data.username] = data.username;
          enemy[data.username + "X"] = data.location_x;
          enemy[data.username + "Y"] = data.location_y;
-         console.log("[CLIENT LOG] 835 enemy Object:", enemy);
+         //console.log("[CLIENT LOG] 835 enemy Object:", enemy);
 
         //TODO: RE-TEST
-        $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
+         $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
          $("#" + enemy[data.username]).append(
             "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
             + enemy[data.username] + "</div>"
@@ -991,8 +1015,8 @@ function userPosUpdate(user, enemy)
 		         break;
 		
             default:
-                console.log("[CLIENT LOG] 927:", enemy[data.username]);
-                break;
+               console.log("[CLIENT LOG] 927:", enemy[data.username]);
+               break;
          }
       }
       else
