@@ -31,7 +31,7 @@ function rankViewLayer(socket)
 
          $("#user_list").append("<div id='rank_number_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
          $("#user_list").append("<div id='rank_username_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
-         $("#user_list").append("<div id='rank_user_score_" + userList.name + "' stlye='position:absolute; line-height: 100px;'></div>");
+         $("#user_list").append("<div id='rank_user_score_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
 
          $("#rank_number_" + userList.name).text(userList['rank']);
          $("#rank_username_" + userList.name).text(userList['name']);
