@@ -162,7 +162,6 @@ $(document).ready(function() {
          });
          
          userInfoSocket.on('login_res', function(data){                       
-
             if(data.response == "true") 
             {
                popUpMsg("Loading...");
@@ -175,7 +174,6 @@ $(document).ready(function() {
                popUpMsg("해당 아이디가 이미 있거나 비밀번호가 틀립니다.");
 	            //window.location.reload();
 	         }
-
 	      });
       }	
       //if(keyCode == TAB) { return false; }
@@ -229,7 +227,7 @@ function popUpMsg(msg)
    {
       $("#index_pop_up_view").show();
       $("#index_pop_up_msg").text(msg);
-     
+   
       // Before code is ':text:not([id=username])' that cleared except id=username. 
       // But, it is wrong. so I changed this code lines
       $("#username").val('');

@@ -27,7 +27,7 @@ var user = {
       unknown : parseInt(localStorage.getItem('unknown'))
    },
    state : {
-        exp : parseInt(localStorage.getItem('score')),
+        score : parseInt(localStorage.getItem('score')),
    }
 };
 var enemy = {};                     // Create enemy json object
@@ -534,6 +534,16 @@ function keyHandler(user, socket)
             var collisionFlag = parseInt(data['collision']);
             var collisionUser = data['username'];
             var developThis = data['develop'];
+            var developPlanetInfo = {
+               name : $("#p_name").text("planet" + data.p_id),
+               resource : {
+                  mineral : $("#p_mineral").text(data.mineral),
+                  gas : $("#p_gas").text(data.gas),
+                  unknown : $("#p_unknown").text(data.unknown)
+               },
+               grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
+               develop : $("#p_develop")
+            };
 
             if((collisionUser === user['name']) && (collisionFlag === 1)) // (developThis === 'false')) 
             {
@@ -544,18 +554,8 @@ function keyHandler(user, socket)
                         break;
                   case 'false':
                         //TODO: 개척 창 띄우고 실행 컴플릿 되면 바로 자원 데이터 넣기
-                        console.log("[CLIENT LOG] Ready to the develop planet.");
-
-                        var developPlanetInfo = {
-                           name : $("#p_name").text("planet" + data.p_id),
-                           resource : {
-                              mineral : $("#p_mineral").text(data.mineral),
-                              gas : $("#p_gas").text(data.gas),
-                              unknown : $("#p_unknown").text(data.unknown)
-                           },
-                           grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
-                           develop : $("#p_develop")
-                        };
+                        //console.log("[CLIENT LOG] Ready to the develop planet.");
+  
                         var developPlanet = data['p_id'];
 
                         var state = $("#develop_planet_ui").css('display');
@@ -595,16 +595,18 @@ function keyHandler(user, socket)
                            event.stopImmediatePropagation();
                         });
 
-                        $("#develop_planet").mouseover(function() {
+                        $("#develop_planet").mouseover(function(event) {
                            menuSelection.play();
                            $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
                            menuSelection.currentTime = 0;
+                           event.stopImmediatePropagation();
                         });
 
-                        $("#develop_planet").mouseout(function() {
+                        $("#develop_planet").mouseout(function(event) {
                            menuSelection.play();
                            $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
                            menuSelection.currentTime = 0;
+                           event.stopImmediatePropagation();
                         });
                         
                         $("#develop_planet").on('click.develop_planet', function() {
@@ -613,13 +615,13 @@ function keyHandler(user, socket)
                           
                            socket.develop.on('chng_info', function(data){
 
-                              devMineral += parseInt(data.mineral);
-                              devGas += parseInt(data.gas);
-                              devUnknown += parseInt(data.unknown);
+                              devMineral += parseInt(data.mineral, 10);
+                              devGas += parseInt(data.gas, 10);
+                              devUnknown += parseInt(data.unknown, 10);
 
-                              $("#mineral").text(parseInt(devMineral));
-                              $("#gas").text(parseInt(devGas));
-                              $("#unknown").text(parseInt(devUnknown)); 
+                              $("#mineral").text(parseInt(devMineral, 10));
+                              $("#gas").text(parseInt(devGas, 10));
+                              $("#unknown").text(parseInt(devUnknown, 10)); 
                            });
                          
                            $("#develop_planet_ui").hide();
@@ -629,19 +631,19 @@ function keyHandler(user, socket)
                            //event.stopImmediatePropagation();
                            return false;
 
-                        }).off('click.develop_plnaet').on('click.develop_planet', function() {
+                        }).off('click.develop_plnaet').on('click.develop_planet1', function() {
 
                            socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
                           
                            socket.develop.on('chng_info', function(data){
 
-                              devMineral += parseInt(data.mineral);
-                              devGas += parseInt(data.gas);
-                              devUnknown += parseInt(data.unknown);
+                              devMineral += parseInt(data.mineral, 10);
+                              devGas += parseInt(data.gas, 10);
+                              devUnknown += parseInt(data.unknown, 10);
 
-                              $("#mineral").text(parseInt(devMineral));
-                              $("#gas").text(parseInt(devGas));
-                              $("#unknown").text(parseInt(devUnknown)); 
+                              $("#mineral").text(parseInt(devMineral, 10));
+                              $("#gas").text(parseInt(devGas, 10));
+                              $("#unknown").text(parseInt(devUnknown, 10)); 
                            });
                          
                            $("#develop_planet_ui").hide();

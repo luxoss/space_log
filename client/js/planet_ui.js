@@ -10,8 +10,8 @@ var planetViewLayer = function(user, socket) {
    var myStyleTop = 0;
    var planetViewSocket = socket;
 
-   planetViewSocket.develop.emit('my_planet_req', { 'ready' : 'Ready to receive' });
-   planetViewSocket.develop.on('my_planet_res', function(data) {
+   planetViewSocket.planet.emit('my_planet_req', { 'username' : user['name'] });
+   planetViewSocket.planet.on('my_planet_res', function(data) {
       console.log(data);
    });
   

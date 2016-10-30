@@ -11,7 +11,7 @@ body {
    padding  : 0px;
    width    : 14000px;
    height   : 14000px;
-/*   overflow : hidden !important;*/
+/* overflow : hidden !important;*/
 }
 
 div { margin : 0px; padding: 0px; } 
@@ -38,7 +38,7 @@ div { margin : 0px; padding: 0px; }
 
 #user_info_ui {
 	background    : transparent;
-  	width         : 400px;
+  	width         : 500px;
   	height        : 128px;
 	border-radius : 0px 15px 0px 0px;
   	left          : 0px;	
@@ -96,7 +96,7 @@ div { margin : 0px; padding: 0px; }
 */
 
 #score_status {
-	width            : 300px;
+	width            : 400px;
 	height           : 45px;
 	border           : 2px solid rgba(208, 196, 76, 0.7);
    border-style     : dotted;
@@ -126,7 +126,7 @@ div { margin : 0px; padding: 0px; }
    color            : rgba(255, 255, 255, 0.7);
    font-size        : 20pt;
    font-weight      : bold;
-   width            : 200px;
+   width            : 300px;
    height           : 45px;
    border           : 1px solid rgba(208, 196, 76, 0.7);
    left             : 100px;
