@@ -141,7 +141,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
 function backgroundSoundControl()
 {
-   $("#bg_sound_control").on('click.bg_sound_control', function() {
+   $("#bg_sound_control").off('click.bg_sound_control').on('click.bg_sound_control', function() {
       var bgSound = document.getElementById('main_bg_sound');
 
       if(bgSound.paused)
@@ -363,7 +363,7 @@ function drawAllAssets(mainLayer, user, socket)
       "backgroundImage" : image['clnt'],
       "width"  : "64px",
       "height" : "64px",
-      "border" : "1px solid rgba(255, 255, 0, 0.3)",
+      //"border" : "1px solid rgba(255, 255, 0, 0.3)",
       "zIndex" : "2",
       left: user['x'], 
       top: user['y']
@@ -383,9 +383,7 @@ function drawAllAssets(mainLayer, user, socket)
    localStorage.removeItem('mineral');
    localStorage.removeItem('gas');
    localStorage.removeItem('unknown');
-   localStorage.removeItem('exp');
-   localStorage.removeItem('hp');
-
+   localStorage.removeItem('score');
 }
 
 function keyHandler(user, socket) 
@@ -570,10 +568,11 @@ function keyHandler(user, socket)
                   developPlanetInfo.develop.text("미 개척");
                }
 
-               $("#cancel").mouseover(function() {
+               $("#cancel").mouseover(function(event) {
                   menuSelection.play();
                   $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
                   menuSelection.currentTime = 0;
+                  event.stopImmediatePropagation();
                });
 
                $("#cancel").mouseout(function() {
@@ -582,7 +581,8 @@ function keyHandler(user, socket)
                   menuSelection.currentTime = 0;
                });
 
-               $("#cancel").off('click.cancel').on('click.cancel', function(event) { 
+               $("#cancel").click(function(event){//off('click.cancel').on('click.cancel', function(event) { 
+                  console.log('call by cancel click');
                   $("#develop_planet_ui").hide();
                   event.stopImmediatePropagation();
                });
@@ -601,7 +601,8 @@ function keyHandler(user, socket)
                   event.stopImmediatePropagation();
                });
                
-               $("#develop_planet").on('click.develop_planet', function(){
+               $("#develop_planet").click(function(event){//.on('click.develop_planet', function(){
+                  console.log("call by develop");
 
                   socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
                  
@@ -620,8 +621,8 @@ function keyHandler(user, socket)
               
                   popUpMsg("Complete develop planet.");      
 
-                  //event.stopImmediatePropagation();
-                  return false;
+                  event.stopImmediatePropagation();
+                  //return false;
                });
             }
             else if(collisionFlag == 1 && developThis === 'true')
@@ -729,7 +730,7 @@ function keyHandler(user, socket)
       event.stopImmediatePropagation();
    });
 
-   $('#minimap_btn').on('click.minimap_btn', function(event) {      
+   $('#minimap_btn').off('click.minimap_btn').on('click.minimap_btn', function(event) {      
       drawMinimap(user, enemy, socket);   
       event.stopImmediatePropagation();
    });

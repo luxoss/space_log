@@ -23,11 +23,10 @@ function rankViewLayer(socket)
       socket.rank.emit('rank_req', {'ready' : 'Ready to receive'});
       socket.rank.on('rank_res', function(data) {
 
-         console.log("[CLIENT LOG] rank: " + data.rank + " name: " + data.username);
-
          var userList = {
             rank : data.rank,
             name : data.username,
+
          };
 
          $("#user_list").append("<div id='rank_number_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");

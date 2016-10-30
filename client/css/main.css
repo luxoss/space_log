@@ -136,7 +136,7 @@ div { margin : 0px; padding: 0px; }
 }
 
 #resource {
-	width          : 300px;
+	width          : 400px;
 	height         : 35px; /* 35 + 28 = 63 */
 	border         : 2px solid rgba(83, 80, 44, 0.7);
    border-style   : dotted;
@@ -159,7 +159,7 @@ div { margin : 0px; padding: 0px; }
    color             : rgba(255, 255, 255, 0.7);;
    font-size         : 20pt;
    border            : 0px;
-   width             : 70px;
+   width             : 103px;
    height            : 35px;
    left              : 30px;
    position          : absolute;
@@ -171,7 +171,7 @@ div { margin : 0px; padding: 0px; }
    background-image  : url('../res/img/icon/gas.png');
    width             : 30px;
    height            : 35px;
-   left              : 100px;
+   left              : 133px;
    position          : absolute;
 }
 
@@ -181,9 +181,9 @@ div { margin : 0px; padding: 0px; }
    font-size         : 20pt;
    text-align        : right;
    border            : 0px;
-   width             : 70px;
+   width             : 103px;
    height            : 35px;
-   left              : 130px;
+   left              : 163px;
    position          : absolute;
    text-align        : center;
    line-height       : 35px;
@@ -193,7 +193,7 @@ div { margin : 0px; padding: 0px; }
    background-image  : url('../res/img/icon/unknown.png');
    width             : 30px;
    height            : 35px;
-   left              : 200px;
+   left              : 267px;
    position          : absolute;
 }
 
@@ -204,9 +204,9 @@ div { margin : 0px; padding: 0px; }
    text-align        : right;
    border            : 0px;
    border-radius     : 0px 0px 0px 0px;
-   width             : 70px;
+   width             : 104px;
    height            : 35px;
-   left              : 230px;
+   left              : 297px;
    position          : absolute;
    text-align        : center;
    line-height       : 35px;

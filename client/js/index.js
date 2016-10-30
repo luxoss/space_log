@@ -227,17 +227,19 @@ function popUpMsg(msg)
    {
       $("#index_pop_up_view").show();
       $("#index_pop_up_msg").text(msg);
+      $("#index_pop_up_view").fadeOut(1400);
    
       // Before code is ':text:not([id=username])' that cleared except id=username. 
       // But, it is wrong. so I changed this code lines
       $("#username").val('');
       $("#password").val(''); 
    }
-   
+/*   
    $("#index_pop_up_hide").click(function() {
       $("#index_pop_up_view").hide();
       return false;
    });
+*/
 }
 
 /*
