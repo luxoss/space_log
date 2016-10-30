@@ -118,6 +118,6 @@ function chngUserRscPlntRsc(){
 }
 
 //setInterval(chngUserRscPlntRsc, 60000);
-setInterval(chngUserRscPlntRsc, 60000);
+setInterval(chngUserRscPlntRsc, 600000); //10 minute
 
 //});

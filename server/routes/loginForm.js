@@ -156,7 +156,7 @@ io.on('connection', function (socket) {
 								var sampleX = Math.floor(Math.random()*3500-1);
 								var sampleY = Math.floor(Math.random()*3500-1);
 								var hp_val = 300;
-								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : sampleX, "location_y" : sampleY, "hp" : hp_val, "score" : 0,"rank":0});
+								db.collection("MEM_INFO").insert({"username" : username, "exp" : 0, "mineral" : 0, "gas" : 0, "unknown" : 0, "location_x" : 3500, "location_y" : 3500, "hp" : hp_val, "score" : 0,"rank":0});
 							}
 						});
 						

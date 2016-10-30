@@ -23,4 +23,4 @@ function improve_p(){
 	});	
 }
 
-setInterval(improve_p,  1200000);
+setInterval(improve_p,  2400000);// 40 minute
