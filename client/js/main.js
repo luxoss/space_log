@@ -30,14 +30,13 @@ var user = {
         score : parseInt(localStorage.getItem('score')),
    }
 };
-var enemy = {};                     // Create enemy json object
+var enemy = {}; // Create enemy json object
 var devMineral = parseInt(localStorage.getItem('mineral'));
 var devGas = parseInt(localStorage.getItem('gas'));
 var devUnknown = parseInt(localStorage.getItem('unknown'));
 var discovered = new Audio();
 var menuSelection = new Audio();
 var eventCount = 0;
-var fps = 15;
 
 //var isKeyDown = [];		         // Create key state array to keyboard polling  
 //var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
@@ -141,7 +140,8 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
 function backgroundSoundControl()
 {
-   $("#bg_sound_control").off('click.bg_sound_control').on('click.bg_sound_control', function() {
+   $("#bg_sound_control").click(function(event){
+      //.off('click.bg_sound_control').on('click.bg_sound_control', function() {
       var bgSound = document.getElementById('main_bg_sound');
 
       if(bgSound.paused)
@@ -157,6 +157,8 @@ function backgroundSoundControl()
          bgSound.pause();
          bgSound.currentTime = 0;
       }
+
+      event.stopImmediatePropagation();
    });
 }
          
@@ -418,7 +420,7 @@ function keyHandler(user, socket)
       }
    };
    
-   $('body').off('keydown').on('keydown', function(ev) {  
+   $('body').keydown(function(ev){ //.off('keydown').on('keydown', function(ev) {  
       
       var keyState = ev.keyCode;
 
@@ -581,7 +583,8 @@ function keyHandler(user, socket)
                   menuSelection.currentTime = 0;
                });
 
-               $("#cancel").click(function(event){//off('click.cancel').on('click.cancel', function(event) { 
+               $("#cancel").click(function(event){
+                  //off('click.cancel').on('click.cancel', function(event) { 
                   console.log('call by cancel click');
                   $("#develop_planet_ui").hide();
                   event.stopImmediatePropagation();
@@ -601,7 +604,8 @@ function keyHandler(user, socket)
                   event.stopImmediatePropagation();
                });
                
-               $("#develop_planet").click(function(event){//.on('click.develop_planet', function(){
+               $("#develop_planet").click(function(event){
+                  //.on('click.develop_planet', function(){
                   console.log("call by develop");
 
                   socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
@@ -638,7 +642,7 @@ function keyHandler(user, socket)
    });
 
    // Keydown event
-   $('body').off('keyup').on('keyup', function(ev) {
+   $('body').keyup(function(ev){ //.off('keyup').on('keyup', function(ev) {
 
       ev.stopImmediatePropagation();
 
@@ -701,7 +705,8 @@ function keyHandler(user, socket)
        }
     });
    
-   $("#logout_btn").off('click.logout').on('click.logout', function(event){	
+   $("#logout_btn").click(function(event){ 
+      //.off('click.logout').on('click.logout', function(event){	
       if(user['name'] != null) 
       {
          logout(user);
@@ -714,7 +719,8 @@ function keyHandler(user, socket)
       event.stopImmediatePropagation();
    });	
 
-   $("#planet_btn").off('click.planet').on('click.planet', function(event) {
+   $("#planet_btn").click(function(event){ 
+      //.off('click.planet').on('click.planet', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(user, socket);
@@ -722,7 +728,8 @@ function keyHandler(user, socket)
       event.stopImmediatePropagation();
    });
 
-   $("#rank_btn").off('click.rank').on('click.rank', function(event) {
+   $("#rank_btn").click(function(event){ 
+      //.off('click.rank').on('click.rank', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
@@ -730,7 +737,8 @@ function keyHandler(user, socket)
       event.stopImmediatePropagation();
    });
 
-   $('#minimap_btn').off('click.minimap_btn').on('click.minimap_btn', function(event) {      
+   $('#minimap_btn').click(function(event){ 
+      //.off('click.minimap_btn').on('click.minimap_btn', function(event) {      
       drawMinimap(user, enemy, socket);   
       event.stopImmediatePropagation();
    });
