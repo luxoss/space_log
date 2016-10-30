@@ -37,6 +37,7 @@ function drawMinimap(user, enemy, socket)
       $('#minimap_ui').show();
 
       // Initialized div tags
+      $("#minimap_assets").detach();
 
       $("#minimap_assets").append("<div id='minimap_" + user['name'] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 1);'></div>");
 
@@ -72,7 +73,7 @@ function drawMinimap(user, enemy, socket)
 
 
       socket.userPos.on('mv', function(data) {
-          if(user['name'] === data['username'])
+         if(user['name'] === data['username'])
          {   
             assets.player.x = data.location_x;
             assets.player.y = data.location_y;
@@ -84,6 +85,9 @@ function drawMinimap(user, enemy, socket)
          }
          else if(minimapEnemy[data.username] !== user['name'])
          {
+            minimapEnemy[data.username + "X"] = data.location_x;
+            minimapEnemy[data.username + "Y"] = data.location_y;
+
             $("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
 
             minimapEnemy[data.username + "X"] = data.location_x;
