@@ -19,20 +19,27 @@ var planetViewLayer = function(user, socket) {
       
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('#planet_ui').show();
+      $("#planet_list").animate({ scrollTop : 0 }, 1000);
+
+      /*
+      $('#plnaet_list [id]').each(function(){
+         $('[id="' + this.id + '"];not(#" + this.id + ":first)').remove();
+      });
+      $('[id]').each(function() {
+         $('[id="' + this.id + '"]gt(0)').remove();
+      });
 
       $("#all_planets").click(function(event){
       //.off('click.all_planets').on('click.all_planets', function(event){
 
          //$("#my_plnaet_list").hide();
          $("#planet_list").show();
-         $("#planet_list").animate({ scrollTop : 0 }, 1000);
-         //$("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
+                  //$("#my_planets").css("background-color", "rgba(0, 0, 0, 0.7)");
          //$("#all_planets").css("background-color", "rgba(207, 47, 77, 0.7)");
 
          event.stopImmediatePropagation();
          //return false;
       });
-/*
       $("#my_planets").off('click.my_planets').on('click.my_planets', function(event){
          //$("#planet_list").hide();
          $("#my_planet_list").show();
