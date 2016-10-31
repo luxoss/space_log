@@ -63,7 +63,8 @@ rankio.on('connection', function(socket){
 				}
 			});			
 			for(var k=0; k<rankArr.length; k++){
-				socket.emit('rank_res', {username: rankArr[k].username, rank:rankArr[k].rank});
+				console.log('================= k value :::  ' + k + "   db's rank : " + rankArr[k].rank + "  : " + rankArr[k].username + "==================");
+				socket.emit('rank_res', {username: rankArr[k].username, rank:rankArr[k].rank, score:rankArr[k].score});
 			}
 
 		});		

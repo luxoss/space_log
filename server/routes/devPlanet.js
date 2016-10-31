@@ -10,7 +10,9 @@ var crt_spd;
 var arrMP = [], arrMI = [];
 var i=0, j=0;
 
-var sum_score = 1;
+var sum_score, ticket;
+
+
 
 devPlntio.on('connection', function(socket){
 	socket.on('add_p', function(data){
@@ -41,6 +43,7 @@ devPlntio.on('connection', function(socket){
 			for(var z =0; z<arrMP.length; z++){
 			//	console.log(z);
 				if(arrMP[z].develop == "false" && arrMP[z].p_id == p_id){
+					
 					console.log("Planet's develop is FALSE!!!");
 					planet.update({p_id : p_id}, {$set : {develop : "true", username: username}}, function(err, res){
 						if(err){
@@ -49,19 +52,30 @@ devPlntio.on('connection', function(socket){
 							console.log("SUCCESS!!!!!!!");
 							//sum_score = res.create_spd + 	
 							
-							mem_info.findOne({username:username}, function(err, findRes){
+							mem_info.findOne({username:username, ticket : {$gt : 0} }, function(err, findRes){
 								if(findRes){
 								//	var sum_score = 0;
+							//		if(findRes.ticket<=10){
+	
+
 									console.log("devPlanet.js ::: find Memebr in mem_info collection       !!!!!!!   " + arrMP[z].create_spd);
 									
-									sum_score = parseInt(arrMP[z].create_spd, 10)
-									console.log("PARSE INT :: " + sum_score);
-									console.log('::::::::::::::::::::::sum_score ::: ');
-
+									sum_score = parseInt(arrMP[z].create_spd, 10) +1;
+									ticket = parseInt(findRes.ticket , 10);
+									console.log("SUM_SOCRE :: " + sum_score);
+									console.log("TICKET    :: " + ticket);
+	
 									console.log('devPlanet ::::::::::::::::::::::::::::::::::' + username);
-									mem_info.update({username : username}, {$set :{score : sum_score +1}});
-								}
+														
+									mem_info.update({username : username}, {$set :{score : sum_score +1, ticket : ticket - 1}});
+							//		}
+								  } else{
+								  	socket.emit('');
+								  }
+
 							});
+						
+
 							socket.emit('chng_plan', res);
 							//Not Complete!
 						
@@ -72,7 +86,13 @@ devPlntio.on('connection', function(socket){
 				}
 			}
 			
-
+			mem_info.findOne({username:username}, function(err,res){
+				if(res){
+					console.log('CHNG_INFO');
+					console.log(res);
+					socket.emit('chng_info', res);
+				}
+			});
 		
 
 
@@ -112,13 +132,7 @@ devPlntio.on('connection', function(socket){
 				}
 
 			});*/
-			mem_info.findOne({username:username}, function(err,res){
-				if(res){
-					console.log('CHNG_INFO');
-					console.log(res);
-					socket.emit('chng_info', res);
-				}
-			});
+	
 
 			/*
 			mem_plan.findOne({"p_id" : p_id}, function(err, result){

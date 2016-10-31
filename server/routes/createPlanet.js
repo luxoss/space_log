@@ -9,8 +9,19 @@ var cnt;
 function create_p(){
 //DB에 행성 정보를 저장하는 걸 여기에 넣기
 	MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
-
+		
 		var collection = db.collection("PLANET");
+
+		var mem_info = db.collection("MEM_INFO");
+
+		mem_info.find().each(function(err, miRes){
+			if(miRes){
+				mem_info.update({username : miRes.username}, {$set:{ticket:0}});
+			}
+		});
+
+
+
 	//	var mem_plan = db.collection("MEM_PLAN");
 		collection.count(function(err, count){
 			if(err){
@@ -71,5 +82,5 @@ function create_p(){
 
 setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
 
-//setInterval(create_p, 500);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 300);//10초단위로 create_p 함수를 실행
 
