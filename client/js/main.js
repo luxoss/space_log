@@ -31,20 +31,19 @@ var user = {
    }
 };
 var enemy = {}; // Create enemy json object
-var devMineral = parseInt(localStorage.getItem('mineral'));
-var devGas = parseInt(localStorage.getItem('gas'));
-var devUnknown = parseInt(localStorage.getItem('unknown'));
-var discovered = new Audio();
+
+var devMineral    = parseInt(localStorage.getItem('mineral'));
+var devGas        = parseInt(localStorage.getItem('gas'));
+var devUnknown    = parseInt(localStorage.getItem('unknown'));
+var discovered    = new Audio();
 var menuSelection = new Audio();
-var eventCount = 0;
+var ticket        = 0;
+var eventCount    = 0;
+var developPlanet = 0;
 
 //var isKeyDown = [];		         // Create key state array to keyboard polling  
-//var enemyPosX = 0, enemyPosY = 0;	// Create enemy x, y position
-//var fire = new Audio();
-//fire.src = serverUrl + ":8000/res/sound/effect/laser.wav";
 //discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
-
 
 $(document).ready(function(){ // After onload document, execute inner functions
 /*
@@ -253,7 +252,7 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['1'],
             "width"  : "100px",
             "height" : "100px",
-            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
             left: planet['x'],
             top: planet['y']
          });
@@ -272,7 +271,7 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['2'],
             "width"  : "100px",
             "height" : "100px",
-            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
             left: planet['x'],
             top: planet['y']
          });
@@ -291,7 +290,7 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['3'],
             "width"  : "100px",
             "height" : "100px",
-            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
             left: planet['x'],
             top: planet['y']
          });
@@ -310,7 +309,7 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['4'],
             "width"  : "100px",
             "height" : "100px",
-            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
             left: planet['x'],
             top: planet['y']
          });
@@ -329,7 +328,7 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['5'],
             "width"  : "100px",
             "height" : "100px",
-            "border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
             left: planet['x'],
             top: planet['y']
          });
@@ -532,7 +531,7 @@ function keyHandler(user, socket)
 
          socket.userPos.on('collision_res', function(data) {
 
-            var collisionFlag = parseInt(data['collision']);
+            var collisionFlag = parseInt(data['collision'], 10);
             var collisionUser = data['username'];
             var developThis = data['develop'];
             var developPlanetInfo = {
@@ -545,13 +544,12 @@ function keyHandler(user, socket)
                grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
                develop : $("#p_develop")
             };
-            
+                        
             if(collisionFlag === 1 && developThis === 'false') 
             {
-               //TODO: 개척 창 띄우고 실행 컴플릿 되면 바로 자원 데이터 넣기
-               //console.log("[CLIENT LOG] Ready to the develop planet.");
-               var developPlanet = data['p_id'];
                var state = $("#develop_planet_ui").css('display');
+               //console.log("[CODE LINE 552]", developPlanet);
+               developPlanet = data['p_id'];
 
                $("#develop_planet_ui").css({
                   left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
@@ -607,7 +605,7 @@ function keyHandler(user, socket)
                
                $("#develop_planet").click(function(event){
                   //.on('click.develop_planet', function(){
-                  console.log("call by develop");
+                  //console.log("[CLIENT LOG] 609", developPlanet);
 
                   socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
                  

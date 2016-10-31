@@ -28,7 +28,7 @@ function drawMinimap(user, enemy, socket)
    // var minimapAnemyTag = $("#minimap_" + minimapEnemy[data.username]);
 
    minimapEnemy = enemy;
-   console.log(minimapEnemy);
+// console.log(minimapEnemy);
 
    menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
    

@@ -198,7 +198,7 @@ function getUserItems(userInfoSocket, user)
 {
    if(!localStorage) 
    {
-      popUpMsg("Thisbrower isn't support localStorage.");
+      popUpMsg("This brower isn't support localStorage.");
    }
    else 
    {	
@@ -213,6 +213,7 @@ function getUserItems(userInfoSocket, user)
             user['unknown'] = data.unknown;
             user['x'] = data.location_x;
             user['y'] = data.location_y;
+            user['ticket'] = data.ticket;
 
             localStorage.setItem('username', user['name']); 
             localStorage.setItem('score', user['score']);
@@ -221,6 +222,7 @@ function getUserItems(userInfoSocket, user)
             localStorage.setItem('unknown', user['unknown']);
             localStorage.setItem('x', user['x']);
             localStorage.setItem('y', user['y']);
+            localStorage.setItem('ticket', user['ticket']);
          }
          else
          {

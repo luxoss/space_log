@@ -26,7 +26,7 @@ function rankViewLayer(socket)
          var userList = {
             rank : data.rank,
             name : data.username,
-
+            score: data.score
          };
 
          $("#user_list").append("<div id='rank_number_" + userList.name + "' style='position:inherit; line-height: 100px;'></div>");
