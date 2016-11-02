@@ -9,6 +9,7 @@ function rankViewLayer(socket)
 {	
 	var state = $('#rank_ui').css('display');
    var styleTop = 0;
+   socket.rank.emit('rank_req', {'ready' : 'Ready to receive'});
 
 	if(state == 'none')
 	{
@@ -20,7 +21,6 @@ function rankViewLayer(socket)
       $("#rank_btn").css("background-color", "rgba(255, 47, 77, 0.7)");
 		$('#rank_ui').show();
       
-      socket.rank.emit('rank_req', {'ready' : 'Ready to receive'});
       socket.rank.on('rank_res', function(data) {
 
          var userList = {

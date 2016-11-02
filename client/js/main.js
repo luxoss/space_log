@@ -163,8 +163,9 @@ function drawAllAssets(mainLayer, user, socket)
    var ticket  = user.state['ticket'];
    var ENTER = 13;
    var image = { clnt  : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')" };
-   
- 
+
+   socket.planet.emit('planet_req', {'ready' : 'Ready to receive' });
+
    $(window).resize(function() {
 
       $("#main_layer").css({
@@ -216,8 +217,6 @@ function drawAllAssets(mainLayer, user, socket)
          });
       } 
    }
-
-   socket.planet.emit('planet_req', {'ready' : 'Ready to receive' });
 
    socket.planet.on('planet_res', function(data) {
       var planet = {
