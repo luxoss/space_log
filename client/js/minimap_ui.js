@@ -27,7 +27,6 @@ function drawMinimap(user, enemy, socket)
    var minimapBtn       = $("#minimap_btn");
    var minimapAssetsTag = $("#minimap_assets");
    var minimapUserTag   = $("#minimap_" + user['name']);
-   var minimapAnemyTag  = $("#minimap_" + minimapEnemy[data.username]);
 
    minimapEnemy = enemy;
 
@@ -96,8 +95,11 @@ function drawMinimap(user, enemy, socket)
                'top'  : Math.floor((assets.player.y * 300) / 3500)
             });
          }
-         else if(minimapEnemy[data.username] !== user['name'])
+         
+         if(minimapEnemy[data.username] !== user['name'])
          {
+            var minimapAnemyTag  = $("#minimap_" + minimapEnemy[data.username]);
+
             minimapEnemy[data.username + "X"] = data.location_x;
             minimapEnemy[data.username + "Y"] = data.location_y;
 
@@ -119,6 +121,7 @@ function drawMinimap(user, enemy, socket)
          {
             console.log('[CLIENT LOG] MINIMAP:', data);
          }
+      
       });
 
       socket.userInit.on('logout_all', function(data) {
