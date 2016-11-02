@@ -152,6 +152,7 @@ var planetViewLayer = function(user, socket) {
       planetViewSocket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       planetViewSocket.planet.on('planet_res', function(data){
+         console.log(data);
          var planet = {
             name : data.p_id,
             gas : data.gas,

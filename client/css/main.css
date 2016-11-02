@@ -3,7 +3,7 @@
 	**Writer: luxoss
 	**File-explanation: Decorate main html page with cascading style sheet
 */
-html { overflow : hidden !important; margin: 0px; padding: 0px; }
+html { overflow : hidden !important; margin: 0px; padding: 0px;}
 
 body {
    background-color : rgba(19, 35, 56, 1);
@@ -11,10 +11,11 @@ body {
    padding  : 0px;
    width    : 14000px;
    height   : 14000px;
-/* overflow : hidden !important;*/
+   overflow : hidden !important;
+   position : absolute;
 }
 
-div { margin : 0px; padding: 0px; } 
+div { margin : 0px; padding: 0px;} 
 
 #main_layer {
    /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/

@@ -28,16 +28,18 @@ var user = {
    },
    state : {
         score : parseInt(localStorage.getItem('score')),
+        ticket : parseInt(localStorage.getItem('ticket'))
    }
 };
 var enemy = {}; // Create enemy json object
 
-var devMineral    = parseInt(localStorage.getItem('mineral'));
-var devGas        = parseInt(localStorage.getItem('gas'));
-var devUnknown    = parseInt(localStorage.getItem('unknown'));
+var devMineral    = parseInt(localStorage.getItem('mineral'), 10);
+var devGas        = parseInt(localStorage.getItem('gas'), 10);
+var devUnknown    = parseInt(localStorage.getItem('unknown'), 10);
+var devScore      = parseInt(localStorage.getItem('score'), 10);
 var discovered    = new Audio();
 var menuSelection = new Audio();
-var ticket        = 0;
+var devTicket     = parseInt(localStorage.getItem('ticket'), 10);
 var eventCount    = 0;
 var developPlanet = 0;
 
@@ -103,12 +105,12 @@ $(document).ready(function(){ // After onload document, execute inner functions
    userPosUpdate(user, enemy); 
 
    socket.userInit.on('logout_all', function(data) {
-      console.log("[CLIENT LOG] logout_all: ", data);
+      //console.log("[CLIENT LOG] logout_all: ", data);
 
       if(data['username'] !== user['name']) 
       {
-         console.log("[CLIENT LOG]", data.username, "is logout!");
-         console.log("[CLIENT LOG] enemyObj:", enemy[data.username], "is logout!");
+        // console.log("[CLIENT LOG]", data.username, "is logout!");
+        // console.log("[CLIENT LOG] enemyObj:", enemy[data.username], "is logout!");
 
          delete enemy[data.username];
          delete enemy[data.username + "X"];
@@ -125,9 +127,9 @@ $(document).ready(function(){ // After onload document, execute inner functions
       socket.develop.on('chng_info', function(data){
          console.log("receive resource");
 
-         devMineral += parseInt(data.mineral);
-         devGas += parseInt(data.gas);
-         devUnknown += parseInt(data.unknown);
+         devMineral = parseInt(data.mineral);
+         devGas = parseInt(data.gas);
+         devUnknown = parseInt(data.unknown);
 
          $("#mineral").text(parseInt(devMineral));
          $("#gas").text(parseInt(devGas));
@@ -164,7 +166,7 @@ function backgroundSoundControl()
 function loginAll(user, enemy, socket)
 {
   socket.userPos.on('login_all', function(data) {
-      console.log("[CLIENT LOG] me: ", user['name']);
+      //console.log("[CLIENT LOG] me: ", user['name']);
 
       if(data['username'] !== user['name']) 
       {
@@ -202,6 +204,7 @@ function drawAllAssets(mainLayer, user, socket)
    var mineral = user.resource['mineral'];
    var gas = user.resource['gas'];
    var unknown = user.resource['unknown'];
+   var ticket  = user.state['ticket'];
    var ENTER = 13;
    var image = { clnt  : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')" };
    
@@ -252,7 +255,6 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['1'],
             "width"  : "100px",
             "height" : "100px",
-            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
             left: planet['x'],
             top: planet['y']
          });
@@ -271,7 +273,9 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['2'],
             "width"  : "100px",
             "height" : "100px",
-            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba()",
+            //"border-radius" : "15px",
+            //"border-style"  : "dotted",
             left: planet['x'],
             top: planet['y']
          });
@@ -290,7 +294,9 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['3'],
             "width"  : "100px",
             "height" : "100px",
-            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba()",
+            //"border-radius" : "15px",
+            //"border-style"  : "dotted",
             left: planet['x'],
             top: planet['y']
          });
@@ -309,7 +315,9 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['4'],
             "width"  : "100px",
             "height" : "100px",
-            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba()",
+            //"border-radius" : "15px",
+            //"border-style"  : "dotted",
             left: planet['x'],
             top: planet['y']
          });
@@ -328,7 +336,9 @@ function drawAllAssets(mainLayer, user, socket)
             "backgroundImage" : planet.image['5'],
             "width"  : "100px",
             "height" : "100px",
-            //"border" : "1px solid rgba(255, 255, 0, 0.3)",
+            //"border" : "1px solid rgba()",
+            //"border-radius" : "15px",
+            //"border-style"  : "dotted",
             left: planet['x'],
             top: planet['y']
          });
@@ -346,6 +356,7 @@ function drawAllAssets(mainLayer, user, socket)
    $("#position_x").text(user['x']);
    $("#position_y").text(user['y']);
    $("#score_point").text(score);
+   $("#ticket_point").text(ticket);
 
    $("#user_avartar").append(
       "<div id='" + user['name'] + "'style='position:absolute; bottom:0px; color:white;'>" 
@@ -385,16 +396,17 @@ function drawAllAssets(mainLayer, user, socket)
    localStorage.removeItem('gas');
    localStorage.removeItem('unknown');
    localStorage.removeItem('score');
+   localStorage.removeItem('ticket');
 }
 
 function keyHandler(user, socket) 
 {
-   console.log("[CLIENT LOG] KeyHandler is called.");
+   //console.log("[CLIENT LOG] KeyHandler is called.");
    
    var userId = user['name'];
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
    var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82, KEYSET_BTN = 73;
-   var DEVELOP_PLANET = 32, FOCUS = 83;
+   var DEVELOP_PLANET = 32, FOCUS = 83, SHIFT = 16, CTRL = 17, BACK_SPACE = 8, F5 = 116;
    //shift: 16, backspace: 8, f5:116, tab: 9, ctrl: 17 
    var speed = 4;
    var bg = {
@@ -425,6 +437,10 @@ function keyHandler(user, socket)
       var keyState = ev.keyCode;
 
       ev.stopImmediatePropagation();
+      
+      if(keyState == BACK_SPACE) { return false; }
+      if(keyState == F5) { return false; } 
+      if(keyState == SHIFT) { return false; }
           
       if(keyState == LEFT)
       {
@@ -521,8 +537,18 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(keyState == DEVELOP_PLANET) 
       {        
-         console.log('Space key down');
-
+         // Change execute contexts
+         var developPlanetInfo = {
+            name : $("#p_name").text("planet" + data.p_id),
+            resource : {
+               mineral : $("#p_mineral").text(data.mineral),
+               gas : $("#p_gas").text(data.gas),
+               unknown : $("#p_unknown").text(data.unknown)
+            },
+            grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
+            develop : $("#p_develop")
+         };
+ 
          socket.userPos.emit('collision_req', {
             'username' : user['name'], 
             'location_x' : user['x'],
@@ -532,23 +558,13 @@ function keyHandler(user, socket)
          socket.userPos.on('collision_res', function(data) {
 
             var collisionFlag = parseInt(data['collision'], 10);
-            var collisionUser = data['username'];
+            var collisionUser = parseInt(data['username'], 10);
             var developThis = data['develop'];
-            var developPlanetInfo = {
-               name : $("#p_name").text("planet" + data.p_id),
-               resource : {
-                  mineral : $("#p_mineral").text(data.mineral),
-                  gas : $("#p_gas").text(data.gas),
-                  unknown : $("#p_unknown").text(data.unknown)
-               },
-               grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
-               develop : $("#p_develop")
-            };
-                        
-            if(collisionFlag === 1 && developThis === 'false') 
+
+            if((collisionFlag === 1) && (developThis === 'false') && (devTicket > 0)) 
             {
                var state = $("#develop_planet_ui").css('display');
-               //console.log("[CODE LINE 552]", developPlanet);
+
                developPlanet = data['p_id'];
 
                $("#develop_planet_ui").css({
@@ -559,14 +575,13 @@ function keyHandler(user, socket)
                if(state == 'none')
                {
                   $("#develop_planet_ui").show();
-                  //$("#develop_planet_ui").fadeOut(5000);      
 
                   developPlanetInfo.name;
                   developPlanetInfo.resource.mineral;
                   developPlanetInfo.resource.gas;
                   developPlanetInfo.resource.unknown;
                   developPlanetInfo.grade;
-                  developPlanetInfo.develop.text("미 개척");
+                  developPlanetInfo.develop.text("Unexplored planet");
                }
 
                $("#cancel").mouseover(function(event) {
@@ -583,41 +598,58 @@ function keyHandler(user, socket)
                });
 
                $("#cancel").click(function(event){
+
                   //off('click.cancel').on('click.cancel', function(event) { 
-                  console.log('call by cancel click');
                   $("#develop_planet_ui").hide();
                   event.stopImmediatePropagation();
+
                });
 
                $("#develop_planet").mouseover(function(event) {
+
                   menuSelection.play();
                   $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
                   menuSelection.currentTime = 0;
+
                   event.stopImmediatePropagation();
+
                });
 
                $("#develop_planet").mouseout(function(event) {
+
                   menuSelection.play();
                   $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
                   menuSelection.currentTime = 0;
+
                   event.stopImmediatePropagation();
                });
                
+               // Developed planet event that clicked.
                $("#develop_planet").click(function(event){
                   //.on('click.develop_planet', function(){
-                  //console.log("[CLIENT LOG] 609", developPlanet);
 
                   socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
-                 
+
+                  socket.develop.on('add_p_res_userinfo', function(data){
+
+                     devScore  = parseInt(data.score, 10);  // Number() -> parseInt()
+                     devTicket = parseInt(data.ticket, 10); // Number() -> parseInt()
+
+                     $("#score_point").text(devScore);
+                     $("#ticket_point").text(devTicket);
+
+                  });
+
                   socket.develop.on('chng_info', function(data){
 
-                     devMineral += parseInt(data.mineral, 10);
-                     devGas += parseInt(data.gas, 10);
-                     devUnknown += parseInt(data.unknown, 10);
+                     devMineral = parseInt(data.mineral, 10);
+                     devGas     = parseInt(data.gas, 10);
+                     devUnknown = parseInt(data.unknown, 10);
 
-                     $("#mineral").text(parseInt(devMineral, 10));
-                     $("#gas").text(parseInt(devGas, 10));
-                     $("#unknown").text(parseInt(devUnknown, 10)); 
+                     $("#mineral").text(devMineral);
+                     $("#gas").text(devGas);
+                     $("#unknown").text(devUnknown); 
+
                   });
                 
                   $("#develop_planet_ui").hide();
@@ -625,12 +657,15 @@ function keyHandler(user, socket)
                   popUpMsg("Complete develop planet.");      
 
                   event.stopImmediatePropagation();
-                  //return false;
                });
             }
             else if(collisionFlag == 1 && developThis === 'true')
             {
                popUpMsg(data['username'] + "께서 개척하신 행성입니다.");
+            }
+            else if(devTicket == 0)
+            {
+               popUpMsg("티켓이 없어 더이상 개척을 진행할 수 없습니다.");
             }
             else
             {
@@ -640,10 +675,15 @@ function keyHandler(user, socket)
       }
    });
 
-   // Keydown event
-   $('body').keyup(function(ev){ //.off('keyup').on('keyup', function(ev) {
+   // Handling keyup event.
+   $('body').keyup(function(ev){ 
+      //.off('keyup').on('keyup', function(ev) {
 
       ev.stopImmediatePropagation();
+
+      if(ev.keyCode == BACK_SPACE) { return false; }
+      if(ev.keyCode == F5) { return false; } 
+      if(ev.keyCode == SHIFT) { return false; }
 
       switch(ev)
       {
@@ -705,6 +745,7 @@ function keyHandler(user, socket)
     });
    
    $("#logout_btn").click(function(event){ 
+
       //.off('click.logout').on('click.logout', function(event){	
       if(user['name'] != null) 
       {
@@ -715,19 +756,24 @@ function keyHandler(user, socket)
          popUpMsg('비 정상적인 로그아웃이므로 게임을 강제 종료합니다.');
          $(location).attr('href', indexPageUrl);	
       }
+
       event.stopImmediatePropagation();
+
    });	
 
    $("#planet_btn").click(function(event){ 
+
       //.off('click.planet').on('click.planet', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(user, socket);
 
       event.stopImmediatePropagation();
+
    });
 
    $("#rank_btn").click(function(event){ 
+
       //.off('click.rank').on('click.rank', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
@@ -737,9 +783,12 @@ function keyHandler(user, socket)
    });
 
    $('#minimap_btn').click(function(event){ 
+
       //.off('click.minimap_btn').on('click.minimap_btn', function(event) {      
       drawMinimap(user, enemy, socket);   
+
       event.stopImmediatePropagation();
+
    });
 }
 
@@ -797,21 +846,25 @@ function logout(user)
 function userPosUpdate(user, enemy)
 {
    var imgSprite = {
+
       player : { 
          LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_left.svg')",
          RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_right.svg')",
          UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_up.svg')",
          DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship1_down.svg')"
       },
+
       others : {
          LEFT : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_left.svg')",
          RIGHT: "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
          UP   : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_up.svg')",
          DOWN : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_down.svg')"
      } 
+
    }; 
 
    socket.userPos.on('mv', function(data) { // userStatus is 'object type'
+
       var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40; 
       var keyValue = data.key_val;
       
@@ -830,15 +883,14 @@ function userPosUpdate(user, enemy)
 	            });
 
                user['x'] = parseInt(data.location_x);
-	            //user['y'] = parseInt(data.location_y);
               
                $("#position_x").text(user['x']);
-               //$("#position_y").text(user['y']);
 
                if(user['x'] <= 0) 
                {
                   user['x'] = 0;
                   user['y'] = parseInt(data.location_y);
+
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.LEFT,
  		              left: user['x'], 
@@ -854,16 +906,15 @@ function userPosUpdate(user, enemy)
 	               top: user['y']
 	            });
 
-	            user['x'] = parseInt(data.location_x);
-	            //user['y'] = parseInt(data.location_y);
-               
+	            user['x'] = parseInt(data.location_x);               
+
                $("#position_x").text(user['x']);
-               //$("#position_y").text(user['y']);
 
                if(user['x'] >= 3430) 
                {
                   user['x'] = 3430;
                   user['y'] = parseInt(data.location_y);
+
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.RIGHT,
  		              left: user['x'], 
@@ -879,16 +930,15 @@ function userPosUpdate(user, enemy)
 		            top: user['y']
 	            });
 
-	            //user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               //$("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
                if(user['y'] <= 0) 
                {
                   user['x'] = parseInt(data.location_x);
-                  user['y'] = 0
+                  user['y'] = 0;
+
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.UP,
  		              left: user['x'], 
@@ -904,16 +954,15 @@ function userPosUpdate(user, enemy)
 		            top: user['y']
 	            });
 
-               //user['x'] = parseInt(data.location_x);
 	            user['y'] = parseInt(data.location_y);
 
-               //$("#position_x").text(user['x']);
                $("#position_y").text(user['y']);
 
                if(user['y'] >= 3430) 
                {
                   user['x'] = parseInt(data.location_x);
                   user['y'] = 3430;
+
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.DOWN,
  		              left: user['x'], 
@@ -929,9 +978,8 @@ function userPosUpdate(user, enemy)
       else if(data['username'] !== user['name'])
       { 
          enemy[data.username] = data.username;
-         enemy[data.username + "X"] = data.location_x;
-         enemy[data.username + "Y"] = data.location_y;
-         //console.log("[CLIENT LOG] 835 enemy Object:", enemy);
+         enemy[data.username + "X"] = parseInt(data.location_x, 10);
+         enemy[data.username + "Y"] = parseInt(data.location_y, 10);
 
         //TODO: RE-TEST
          $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
@@ -952,8 +1000,8 @@ function userPosUpdate(user, enemy)
 		            top: enemy[data.username + "Y"]
 	            });
 
-               enemy[data.username + "X"] = parseInt(data.location_x);
-	            enemy[data.username + "Y"] = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x, 10);
+	            enemy[data.username + "Y"] = parseInt(data.location_y, 10);
 	            break;
 
 	         case RIGHT:	            
@@ -966,8 +1014,8 @@ function userPosUpdate(user, enemy)
 		            top: enemy[data.username + "Y"]
 		         });
                		
-               enemy[data.username + "X"] = parseInt(data.location_x);
-		         enemy[data.username + "Y"] = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x, 10);
+		         enemy[data.username + "Y"] = parseInt(data.location_y, 10);
 		         break;
 				
 	         case UP:	
@@ -980,8 +1028,8 @@ function userPosUpdate(user, enemy)
 			         top: enemy[data.username + "Y"]
 		         });
                		
-               enemy[data.username + "X"] = parseInt(data.location_x);
-		         enemy[data.username + "Y"] = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x, 10);
+		         enemy[data.username + "Y"] = parseInt(data.location_y, 10);
 		         break;
 				
 	         case DOWN:	
@@ -994,18 +1042,18 @@ function userPosUpdate(user, enemy)
 		            top: enemy[data.username + "Y"]
 		         });
                	
-               enemy[data.username + "X"] = parseInt(data.location_x);
-		         enemy[data.username + "Y"] = parseInt(data.location_y);
+               enemy[data.username + "X"] = parseInt(data.location_x, 10);
+		         enemy[data.username + "Y"] = parseInt(data.location_y, 10);
 		         break;
 		
             default:
-               console.log("[CLIENT LOG] 927:", enemy[data.username]);
+               console.log("[CLIENT LOG] 1050:", enemy[data.username]);
                break;
          }
       }
       else
       {
-         console.log("[CLIENT LOG] 933:", data);
+         console.log("[CLIENT LOG] 1056:", data);
       }
    });		
 }
@@ -1020,16 +1068,9 @@ function popUpMsg(msg)
       $("#main_pop_up_msg").text(msg);
       $("#main_pop_up_view").fadeOut(1600);      
    }
-/*   
-   $("#main_pop_up_hide").click(function() {
-      $("#main_pop_up_view").hide();
-      return false;
-   });
-*/
 }
 
 /*
-
 function keySetDisplay() 
 {
    var display_state = $("#key_set").css('display');
@@ -1069,9 +1110,10 @@ $(document).mousemove(function(e){
               'hp'  : user.state['hp'],
       });       
    }
-   if(navigator.onLine == false)
+   if(navigator.onLine === false)
    {
       console.log("This browser is online? " + navigator.onLine);
+
       socket.userInit.emit('logout_msg', { 
          'username' : user['name'],
           'mineral' : user.resource['mineral'],
@@ -1080,27 +1122,9 @@ $(document).mousemove(function(e){
              'exp'  : user.state['exp'],
               'hp'  : user.state['hp'],
       });  
-      localStorage.setItem('username');
-      localStorage.setItem('exp');
-      localStorage.setItem('hp');
-      localStorage.setItem('mineral');
-      localStorage.setItem('gas');
-      localStorage.setItem('unknown');
-      localStorage.setItem('x');
-      localStorage.setItem('y'); 
+      
+      localStorage.clear();
    }
-   else
-   {
-      localStorage.removeItem('username');
-      localStorage.removeItem('exp');
-      localStorage.removeItem('hp');
-      localStorage.removeItem('mineral');
-      localStorage.removeItem('gas');
-      localStorage.removeItem('unknown');
-      localStorage.removeItem('x');
-      localStorage.removeItem('y'); 
-   }
-   //TODO:새로 고침이나 탭 키등 브라우저에 상에 조작을 가할 수 있는 키를 제한 시켜야 함.
 }
 
 //TODO: SHOOT STYLE 3
@@ -1155,29 +1179,28 @@ function shoot(ev, user)
 //TODO: SHOOT STYLE 2
 function fire(keyState) 
 {
+   var isFire = false;
+
    if(keyState == LEFT)
    {
       $("#" + user['name']).append($("<div>").addClass("bullet").css(user['x'] + speed, 0));
    }
-   else if(keyState == RIGHT)
+   
+   if(keyState == RIGHT)
    {
       $("#" + user['name']).appned($("<div>").addClass("bullet").css(user['x'] - speed, 0));
    }
-   else if(keyState == UP)
+   
+   if(keyState == UP)
    {
       $("#" + user['name']).append($("<div>").addClass("bullet").css(0, user['y'] - speed));
    }
-   else if(keyState == DOWN)
+   
+   if(keyState == DOWN)
    {
       $("#" + user['name']).appned($("<div>").addClass("bullet").css(0, user['y'] - speed));
    }
-   else
-   {
-      console.log("Not a direction key pressed!");
-   }
 }
-//TODO: Not a click. Just if you press key direction button, this lazer is shooted!
-$("input").click(fire);
 
 function update() 
 {
@@ -1204,8 +1227,8 @@ var shoot = function(user) {
        DOWN : "url('http://game.smuc.ac.kr:8000/res/img/missile/laser_down.svg')"
    };
 
-   laserX = user['x'];
-   laserY = user['y'];
+   laserX = parseInt(user['x'], 10);
+   laserY = parseInt(user['y'], 10);
 
    // If this key is pressed, save position image in user's laser division
    if(key_state == LEFT) 
@@ -1250,14 +1273,6 @@ var shoot = function(user) {
       });
    }
 };
-         $("#main_layer").append(
-            "<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>"
-         );
-
-         $("#" + enemy[data.username]).append(
-            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-            + enemy[data.username] + "</div>"
-         );
 */
 
 
