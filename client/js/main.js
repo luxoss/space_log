@@ -53,42 +53,15 @@ $(document).ready(function(){ // After onload document, execute inner functions
       return "정말 나가시겠습니까?";
    });
    //$(window).on('unload', function(user){ logout(user); });
+   /*
+   setInterval(function(user, enemy, socket) {
+      loginAll(user, enemy, socket);
+   }, 60000);
 */
+
    backgroundSoundControl();
    loginAll(user, enemy, socket);
 
-   for(var i = 0; i <= 1000; i++)
-   {
-      if(i % 1 === 0)
-      {
-         $('body #star_boxes').append(
-            "<div id='star_" + i + "' style='position:absolute; width: 10px; height: 10px;'></div>"
-         );
-
-         $("#star_" + i).css({
-            'background-color' : 'rgba(255, 255, 0, 1)',
-            'left'             : Math.floor(Math.random() * 14000 - 1),
-            'top'              : Math.floor(Math.random() * 14000 - 1),
-            'border'           : '0px',
-            'border-radius'    : '5px'
-         });
-      }
-      
-      if(i % 2 === 0)
-      {
-         $('#main_star_boxes').append(
-            "<div id='star_" + i + "' style='position:absolute; width: 15px; height: 15px;'></div>"
-         );
-
-         $("#star_" + i).css({
-            'background-color' : 'rgba(255, 255, 255, 0.8)',
-            'left'             : Math.floor(Math.random() * 14000 - 1),
-            'top'              : Math.floor(Math.random() * 14000 - 1),
-            'border'           : '0px',
-            'border-radius'    : '15px'
-         });
-      } 
-   }
 
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
@@ -98,20 +71,14 @@ $(document).ready(function(){ // After onload document, execute inner functions
    popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
 
    drawAllAssets("planets", user, socket); 		
- 
-   //setInterval(loginAll(user, enemy, socket), 60000);
 
    keyHandler(user, socket);
    userPosUpdate(user, enemy); 
 
    socket.userInit.on('logout_all', function(data) {
-      //console.log("[CLIENT LOG] logout_all: ", data);
 
       if(data['username'] !== user['name']) 
       {
-        // console.log("[CLIENT LOG]", data.username, "is logout!");
-        // console.log("[CLIENT LOG] enemyObj:", enemy[data.username], "is logout!");
-
          delete enemy[data.username];
          delete enemy[data.username + "X"];
          delete enemy[data.username + "Y"];
@@ -119,6 +86,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
          $("#" + enemy[data.username]).remove();
          $("#" + data.username).remove(); 
       } 
+
    });
 /*
    setInterval(function(){
@@ -226,6 +194,39 @@ function drawAllAssets(mainLayer, user, socket)
       });
       
    }).resize();
+
+   for(var i = 0; i <= 1000; i++)
+   {
+      if(i % 1 === 0)
+      {
+         $('body #star_boxes').append(
+            "<div id='star_" + i + "' style='position:absolute; width: 10px; height: 10px;'></div>"
+         );
+
+         $("#star_" + i).css({
+            'background-color' : 'rgba(255, 255, 0, 1)',
+            'left'             : Math.floor(Math.random() * 14000 - 1),
+            'top'              : Math.floor(Math.random() * 14000 - 1),
+            'border'           : '0px',
+            'border-radius'    : '5px'
+         });
+      }
+      
+      if(i % 2 === 0)
+      {
+         $('#main_star_boxes').append(
+            "<div id='star_" + i + "' style='position:absolute; width: 15px; height: 15px;'></div>"
+         );
+
+         $("#star_" + i).css({
+            'background-color' : 'rgba(255, 255, 255, 0.8)',
+            'left'             : Math.floor(Math.random() * 14000 - 1),
+            'top'              : Math.floor(Math.random() * 14000 - 1),
+            'border'           : '0px',
+            'border-radius'    : '15px'
+         });
+      } 
+   }
 
    socket.planet.emit('planet_req', {'ready' : 'Ready to receive' });
 
