@@ -3,19 +3,20 @@
 	**Writer: luxoss
 	**File-explanation: Decorate main html page with cascading style sheet
 */
-html { overflow : hidden !important; margin: 0px; padding: 0px;}
+html { overflow : hidden !important; margin: 0px; padding: 0px; }
 
-body {
-   background-color : rgba(19, 35, 56, 1);
-   margin   : 0px;
-   padding  : 0px;
-   width    : 14000px;
-   height   : 14000px;
-   overflow : hidden !important;
+body { background-color : rgba(19, 35, 56, 1); overflow : hidden !important; margin: 0 auto; padding: 0px; }
+
+
+div { margin: 0px; padding: 0px; display: inline-block;} 
+
+#main_container {
+   background-color : rgba(0, 0, 255, 0.5);
+   width    : 7000px;
+   height   : 7000px;
    position : absolute;
+   z-index  : -1;
 }
-
-div { margin : 0px; padding: 0px;} 
 
 #main_layer {
    /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/
@@ -25,7 +26,7 @@ div { margin : 0px; padding: 0px;}
    border           : 0px;
   	position         : absolute;
 	z-index          : 1;
-   overflow : hidden !important;
+   overflow         : hidden !important;
 }
 
 #view_layer {

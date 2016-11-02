@@ -142,18 +142,6 @@ function loginAll(user, enemy, socket)
          enemy[data.username + "X"] = parseInt(data['location_x']);
          enemy[data.username + "Y"] = parseInt(data['location_y']); 
 
-/*
-         console.log("[CLIENT LOG] enemyObj(all): ", enemy);
-         console.log(
-            "[CLIENT LOG] enemyObj(inner):", enemy[data.username], 
-            'x: ', enemy[data.username + "X"], 'y: ', enemy[data.username + "Y"]
-         );        
-         $("#space_ship").append("<div id ='" + enemy[data.username] + "' style='position:absolute;'></div>");
-         $("#" + enemy[data.username]).append(
-            "<div style='position:absolute; bottom: 0px; color: white; font-weight: bold;'>" 
-            + enemy[data.username] + "</div>"
-         );
-*/
          $("#" + enemy[data.username]).css({ 
             "backgroundImage" : "url('http://game.smuc.ac.kr:8000/res/img/space_ship2_right.svg')",
             "width"  : "64px",
@@ -178,9 +166,10 @@ function drawAllAssets(mainLayer, user, socket)
    
  
    $(window).resize(function() {
+
       $("#main_layer").css({
-         left: ($(window).width() - $("#main_layer").outerWidth()) / 2,
-         top : ($(window).height() - $("#main_layer").outerHeight()) / 2
+         left: 1920, //($(window).width() - $("#main_layer").outerWidth()) / 2,
+         top : 1080  //($(window).height() - $("#main_layer").outerHeight()) / 2
       });
 
       $("#view_layer").css({
@@ -195,18 +184,18 @@ function drawAllAssets(mainLayer, user, socket)
       
    }).resize();
 
-   for(var i = 0; i <= 1000; i++)
+   for(var i = 0; i <= 777; i++)
    {
       if(i % 1 === 0)
       {
-         $('body #star_boxes').append(
+         $('#star_boxes').append(
             "<div id='star_" + i + "' style='position:absolute; width: 10px; height: 10px;'></div>"
          );
 
          $("#star_" + i).css({
             'background-color' : 'rgba(255, 255, 0, 1)',
-            'left'             : Math.floor(Math.random() * 14000 - 1),
-            'top'              : Math.floor(Math.random() * 14000 - 1),
+            'left'             : Math.floor(Math.random() * 3500 - 1),
+            'top'              : Math.floor(Math.random() * 3500 - 1),
             'border'           : '0px',
             'border-radius'    : '5px'
          });
@@ -215,15 +204,15 @@ function drawAllAssets(mainLayer, user, socket)
       if(i % 2 === 0)
       {
          $('#main_star_boxes').append(
-            "<div id='star_" + i + "' style='position:absolute; width: 15px; height: 15px;'></div>"
+            "<div id='star_" + i + "' style='position:absolute; width: 10px; height: 10px;'></div>"
          );
 
          $("#star_" + i).css({
             'background-color' : 'rgba(255, 255, 255, 0.8)',
-            'left'             : Math.floor(Math.random() * 14000 - 1),
-            'top'              : Math.floor(Math.random() * 14000 - 1),
+            'left'             : Math.floor(Math.random() * 3500 - 1),
+            'top'              : Math.floor(Math.random() * 3500 - 1),
             'border'           : '0px',
-            'border-radius'    : '15px'
+            'border-radius'    : '10px'
          });
       } 
    }
@@ -436,6 +425,8 @@ function keyHandler(user, socket)
    $('body').keydown(function(ev){ //.off('keydown').on('keydown', function(ev) {  
       
       var keyState = ev.keyCode;
+      var viewOffset = $("#view_layer").offset();
+      var offset = $("#" + user['name']).offset();
 
       ev.stopImmediatePropagation();
       
@@ -445,6 +436,8 @@ function keyHandler(user, socket)
           
       if(keyState == LEFT)
       {
+//         if(user['x'] <= 0) { bg.x("main_layer", bg.x("main_layer") - 0); }
+
          bg.x("main_layer", bg.x("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -457,6 +450,8 @@ function keyHandler(user, socket)
 
       if(keyState == UP)
       {
+//         if(user['y'] <= 0) { bg.y("main_layer", bg.y("main_layer") + 0); }
+
          bg.y("main_layer", bg.y("main_layer") + speed);
 
          socket.userPos.emit('press_key', {
@@ -465,11 +460,12 @@ function keyHandler(user, socket)
             'location_x' : user['x'],
             'location_y' : user['y']
          });
-
       }
 
       if(keyState == RIGHT)
       {
+//         if(user['x'] >= 3430) { bg.x("main_layer", bg.x("main_layer") + 0); }
+
          bg.x("main_layer", bg.x("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -482,6 +478,8 @@ function keyHandler(user, socket)
 
       if(keyState == DOWN)
       {
+//         if(user['y'] >= 3430) { bg.y("main_layer", bg.y("main_layer") - 0); }
+
          bg.y("main_layer", bg.y("main_layer") - speed);
 
          socket.userPos.emit('press_key', {
@@ -539,16 +537,6 @@ function keyHandler(user, socket)
       if(keyState == DEVELOP_PLANET) 
       {        
          // Change execute contexts
-         var developPlanetInfo = {
-            name : $("#p_name").text("planet" + data.p_id),
-            resource : {
-               mineral : $("#p_mineral").text(data.mineral),
-               gas : $("#p_gas").text(data.gas),
-               unknown : $("#p_unknown").text(data.unknown)
-            },
-            grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
-            develop : $("#p_develop")
-         };
  
          socket.userPos.emit('collision_req', {
             'username' : user['name'], 
@@ -557,6 +545,16 @@ function keyHandler(user, socket)
          });
 
          socket.userPos.on('collision_res', function(data) {
+            var developPlanetInfo = {
+               name : $("#p_name").text("planet" + data.p_id),
+               resource : {
+                  mineral : $("#p_mineral").text(data.mineral),
+                  gas : $("#p_gas").text(data.gas),
+                  unknown : $("#p_unknown").text(data.unknown)
+               },
+               grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
+               develop : $("#p_develop")
+            };
 
             var collisionFlag = parseInt(data['collision'], 10);
             var collisionUser = parseInt(data['username'], 10);

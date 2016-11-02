@@ -23,10 +23,7 @@ function drawMinimap(user, enemy, socket)
       }, 
    };
    // Caching the jquery selector 
-   var minimapUiTag     = $("#minimap_ui");
-   var minimapBtn       = $("#minimap_btn");
-   var minimapAssetsTag = $("#minimap_assets");
-   var minimapUserTag   = $("#minimap_" + user['name']);
+   var minimapBtn = $("#minimap_btn");
 
    minimapEnemy = enemy;
 
@@ -37,15 +34,15 @@ function drawMinimap(user, enemy, socket)
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
 
-      $('#minimap_btn').css('background-color', 'rgba(255, 47, 77, 0.7)');
-      minimapUiTag.show();
+      $("#minimap_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
+      $("#minimap_ui").show();
 
       // Initialized div tags
       //$("#minimap_assets").detach();
 
-      minimapAssetsTag.append("<div id='minimap_" + user['name'] + "'></div>");
+      $("#minimap_assets").append("<div id='minimap_" + user['name'] + "'></div>");
 
-      minimapUserTag.css({
+      $("#minimap_" + user['name']).css({
          'background-color' : 'rgba(255, 255, 0, 1)',
          'position' : 'absolute',
          'width'    : '5px',
@@ -53,34 +50,16 @@ function drawMinimap(user, enemy, socket)
          'left' : Math.floor((user['x'] * 300) / 3500),
          'top'  : Math.floor((user['y'] * 300) / 3500) 
       });
-/*      
-      socket.userPos.on('login_all', function(data) {
-       
-         console.log("[CLIENT LOG] MINIMAP:", data.username, data.location_x, data.location_y);
 
-         if(minimapEnemy[data.username] !== user['name']) 
-         {
-            $("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "' style='position:absolute; width: 5px; height: 5px; background-color: rgba(255, 255, 0, 0.7);'></div>");
-
-            $("#minimap_" + minimapEnemy[data.username]).css({
-                'left' : Math.floor((minimapEnemy[data.uesrname + "X"] * 300) / 3500),
-                'top'  : Math.floor((minimapEnemy[data.username + "Y"] * 300) / 3500)
-             });
-         }
-      });
-*/
       socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
 
       socket.planet.on('planet_res', function(data) {
 
-         assets.planet.x = data.location_x;
-         assets.planet.y = data.location_y;
-
+         assets.planet.x = parseInt(data.location_x, 10);
+         assets.planet.y = parseInt(data.location_y, 10);
          // Not a received by the same tags.
-         minimapAssetsTag
-            .append("<div id='" + data.p_id + "' style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" + 
-             Math.floor((assets.planet['x'] * 300) / 3500) + "px; top:" + Math.floor((assets.planet['y'] * 300) / 3500) + "px;'></div>");
-
+         $("#minimap_assets").append("<div id='minimap_" + data.p_id + "' style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" +  ((assets.planet['x'] * 300) / 3500) + "px; top:" + ((assets.planet['y'] * 300) / 3500) + "px;'></div>");
+        
       });
 
       socket.userPos.on('mv', function(data) {
@@ -90,25 +69,22 @@ function drawMinimap(user, enemy, socket)
             assets.player.x = data.location_x;
             assets.player.y = data.location_y;
             
-            minimapUserTag.css({
+            $("#minimap_" + user['name']).css({
                'left' : Math.floor((assets.player.x * 300) / 3500),
                'top'  : Math.floor((assets.player.y * 300) / 3500)
             });
-         }
-         
-         if(minimapEnemy[data.username] !== user['name'])
+         }         
+         else if(minimapEnemy[data.username] !== user['name'])
          {
-            var minimapAnemyTag  = $("#minimap_" + minimapEnemy[data.username]);
+            minimapEnemy[data.username + "X"] = data.location_x;
+            minimapEnemy[data.username + "Y"] = data.location_y;
+
+            $("#minimap_ui").append("<div id='minimap_" + minimapEnemy[data.username] + "'></div>");
 
             minimapEnemy[data.username + "X"] = data.location_x;
             minimapEnemy[data.username + "Y"] = data.location_y;
 
-            minimapUiTag.append("<div id='minimap_" + minimapEnemy[data.username] + "'></div>");
-
-            minimapEnemy[data.username + "X"] = data.location_x;
-            minimapEnemy[data.username + "Y"] = data.location_y;
-
-            minimapAnemyTag.css({
+            $("#minimap_" + enemy[data.username]).css({
                'background-color' : 'rgba(0, 255, 0, 0.7)',
                'position'         : 'absolute',
                'width'            : '5px',
@@ -119,9 +95,8 @@ function drawMinimap(user, enemy, socket)
          }
          else
          {
-            console.log('[CLIENT LOG] MINIMAP:', data);
+            console.log(data);
          }
-      
       });
 
       socket.userInit.on('logout_all', function(data) {
@@ -130,7 +105,7 @@ function drawMinimap(user, enemy, socket)
             delete minimapEnemy[data.username];
             delete minimapEnemy[data.username + "X"];
             delete minimapEnemy[data.username + "Y"];
-            minimapUserTag.remove();
+            $("#minimap_" + user['name']).remove();
          }
       });
    }
@@ -138,8 +113,8 @@ function drawMinimap(user, enemy, socket)
    {
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
-      minimapBtn.css('background-color', 'rgba(0, 0, 0, 0.7)');
-      minimapUiTag.hide();
+      $("#minimap_btn").css('background-color', 'rgba(0, 0, 0, 0.7)');
+      $("#minimap_ui").hide();
    }
 }
 
