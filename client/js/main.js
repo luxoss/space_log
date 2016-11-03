@@ -31,19 +31,19 @@ var user = {
         ticket : parseInt(localStorage.getItem('ticket'))
    }
 };
-var enemy = {}; // Create enemy json object
+var enemy = {}; // Create other users object
 
-var devMineral    = parseInt(localStorage.getItem('mineral'), 10);
-var devGas        = parseInt(localStorage.getItem('gas'), 10);
-var devUnknown    = parseInt(localStorage.getItem('unknown'), 10);
-var devScore      = parseInt(localStorage.getItem('score'), 10);
+// Set develop information that are resource, score, and ticket. 
+var devMineral    = Number(user.resource.mineral); //parseInt(localStorage.getItem('mineral'), 10);
+var devGas        = Number(user.resource.gas);     //parseInt(localStorage.getItem('gas'), 10);
+var devUnknown    = Number(user.resource.unknown); //parseInt(localStorage.getItem('unknown'), 10);
+var devScore      = Number(user.state.score);      //parseInt(localStorage.getItem('score'), 10);
+var devTicket     = Number(user.state.ticket);     //parseInt(localStorage.getItem('ticket'), 10);
+
 var discovered    = new Audio();
 var menuSelection = new Audio();
-var devTicket     = parseInt(localStorage.getItem('ticket'), 10);
-var eventCount    = 0;
 var developPlanet = 0;
 
-//var isKeyDown = [];		         // Create key state array to keyboard polling  
 //discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
@@ -89,6 +89,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
    });
 /*
+   // Set interval 60sec
    setInterval(function(){
       socket.develop.emit('add_p', {'username' : user['name']});
        
@@ -103,7 +104,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
          $("#gas").text(parseInt(devGas));
          $("#unknown").text(parseInt(devUnknown));
       });
-   }, 1000/fps);
+   }, 60000);
 */
 });
 
@@ -579,7 +580,7 @@ function keyHandler(user, socket)
                   developPlanetInfo.resource.gas;
                   developPlanetInfo.resource.unknown;
                   developPlanetInfo.grade;
-                  developPlanetInfo.develop.text("Unexplored planet");
+                  developPlanetInfo.develop.text("미개척 행성");
                }
 
                $("#cancel").mouseover(function(event) {
