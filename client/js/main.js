@@ -48,17 +48,16 @@ var developPlanet = 0;
 menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
-/*
-   $(window).on("beforeunload", function(){
-      return "정말 나가시겠습니까?";
+
+   $(window).on("beforeunload", function(user){
+      logout(user);
    });
    //$(window).on('unload', function(user){ logout(user); });
    /*
    setInterval(function(user, enemy, socket) {
       loginAll(user, enemy, socket);
    }, 60000);
-*/
-
+   */
    backgroundSoundControl();
    loginAll(user, enemy, socket);
 

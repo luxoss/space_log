@@ -5,7 +5,12 @@
 */
 html { overflow : hidden !important; margin: 0px; padding: 0px; }
 
-body { background-color : rgba(19, 35, 56, 1); overflow : hidden !important; margin: 0 auto; padding: 0px; }
+body { 
+   background-color : rgba(19, 35, 56, 1); 
+   overflow : hidden !important; 
+   margin: 0 auto; 
+   padding: 0px; 
+}
 
 
 div { margin: 0px; padding: 0px; display: inline-block;} 

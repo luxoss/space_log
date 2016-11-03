@@ -117,4 +117,3 @@ function drawMinimap(user, enemy, socket)
       $("#minimap_ui").hide();
    }
 }
-
