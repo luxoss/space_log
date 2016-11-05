@@ -10,6 +10,8 @@ $(document).ready(function() {
   
    selectButton.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
+   selectTeam();
+
    $(window).resize(function(){
       $('body').css({
          'width' : $(window).width(),
@@ -53,6 +55,24 @@ $(document).ready(function() {
 
    $("#password").mouseout(function(event) {
       $("#password").css('border', '2px solid rgba(255, 255, 255, 1)');
+
+      event.stopImmediatePropagation();
+   });
+
+   $("#select_red_team").click(function(event){
+      selectButton.play();
+      $("#select_blue_team").css('background-color', 'transparent');
+      $("#select_red_team").css('background-color', 'rgba(255, 0, 0, 0.3)');
+      selectButton.currentTime = 0;
+
+      event.stopImmediatePropagation();
+   });
+
+   $("#select_blue_team").click(function(event){
+      selectButton.play();
+      $("#select_red_team").css('background-color', 'transparent');
+      $("#select_blue_team").css('background-color', 'rgba(0, 0, 255, 0.3)');
+      selectButton.currentTime = 0;
 
       event.stopImmediatePropagation();
    });
@@ -113,37 +133,6 @@ $(document).ready(function() {
 
    $("#join_btn").click(function(event){ //.on('click', function() {
       joinView(userInfoSocket);
-      /*
-      var user = {};
-
-      user['name'] = $.trim($("#username").val());
-      user['password'] = $.trim($("#password").val());
-
-      if((user.name == '' ) || (user.password == '')) 
-      {
-         popUpMsg("아이디와 비밀번호를 입력해주세요.");
-         //window.location.reload();
-      }
-      else 
-      {
-         userInfoSocket.emit('join_msg', {    
-            username: user.name, 
-            password: user.password
-         }); 
-
-	      userInfoSocket.on('join_res', function(data){		
-	         if(data.response == 'true') 
-            {
-               popUpMsg("회원가입이 완료 되었습니다.");
-	            //window.location.reload();
-	         }
-            else 
-            {
-               popUpMsg("해당 아이디가 이미 있습니다."); 
-	         }
-	      });
-      }
-      */
       event.stopImmediatePropagation();      
    });
 
@@ -169,9 +158,9 @@ $(document).ready(function() {
          else 
          {
             popUpMsg("해당 아이디가 이미 있거나 틀립니다.");
-            //window.location.reload();
          }
       });
+
       event.stopImmediatePropagation();
    });
 
@@ -289,6 +278,9 @@ function joinView(userInfoSocket)
          top : ($(window).height() - $('#join_info').outerHeight()) / 2
       });
 
+      //$("#select_blue_team").css('background-color', 'transparent');
+      $("#select_red_team").css('background-color', 'rgba(255, 0, 0, 0.3)');
+
       $('#join_info').show();
    }
    
@@ -328,6 +320,14 @@ function joinView(userInfoSocket)
       $('#join_info').hide();
       event.stopImmediatePropagation();
    });
+}
+
+function selectTeam()
+{
+   var red = $("#select_red_team").text();
+   var blue = $("#select_blue_team").text();
+
+   console.log(red, blue);
 }
 
 function popUpMsg(msg)
