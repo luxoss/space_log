@@ -13,6 +13,7 @@ $(document).ready(function() {
    selectTeam();
 
    $(window).resize(function(){
+
       $('body').css({
          'width' : $(window).width(),
          'height': $(window).height()
@@ -26,11 +27,6 @@ $(document).ready(function() {
       $('#index_pop_up_view').css({
          left: ($(window).width() - $('#index_pop_up_view').outerWidth()) / 2,
          top : ($(window).height() - $('#index_pop_up_view').outerHeight()) / 2
-      });
-
-      $('#join_info').css({
-         left: ($(window).width() - $('#join_info').outerWidth()) / 2,
-         top : ($(window).height() - $('#join_info').outerHeight()) / 2
       });
 
    }).resize();		
@@ -86,7 +82,7 @@ $(document).ready(function() {
    });
 
    $("#join_submit").mouseout(function(event) {
-      $("#join_submit").css('background-color', 'rgba(0, 0, 0, 1)');
+      $("#join_submit").css('background-color', 'rgba(0, 0, 0, 0.3)');
 
       event.stopImmediatePropagation();
    });
@@ -100,7 +96,7 @@ $(document).ready(function() {
    });
 
    $("#join_cancel").mouseout(function(event) {
-      $("#join_cancel").css('background-color', '2px solid rgba(0, 0, 0, 1)');
+      $("#join_cancel").css('background-color', 'rgba(0, 0, 0, 0.3)');
 
       event.stopImmediatePropagation();
    });
@@ -270,17 +266,21 @@ function joinView(userInfoSocket)
 {
    var state = $('#join_info').css('display');
    var joinSocket = userInfoSocket;
+   var footer = $('#footer').html();
 
    if(state === 'none')
-   {
+   { 
       $('#join_info').css({
          left: ($(window).width() - $('#join_info').outerWidth()) / 2, 
-         top : ($(window).height() - $('#join_info').outerHeight()) / 2
+         top : Number($("#header").offset().top) + 150 
+         //($(window).height() - $('#join_info').outerHeight()) / 2
       });
 
       //$("#select_blue_team").css('background-color', 'transparent');
       $("#select_red_team").css('background-color', 'rgba(255, 0, 0, 0.3)');
 
+      $('#login_info').hide();
+      $('#footer').hide();
       $('#join_info').show();
    }
    
@@ -293,7 +293,6 @@ function joinView(userInfoSocket)
       if((user.name == '' ) || (user.password == '')) 
       {
          popUpMsg("아이디와 비밀번호를 입력해주세요.");
-         //window.location.reload();
       }
       else 
       {
@@ -318,6 +317,10 @@ function joinView(userInfoSocket)
 
    $('#join_cancel').click(function(event){
       $('#join_info').hide();
+      $("#select_blue_team").css('background-color', 'transparent');
+      $('#login_info').show();
+      $('#footer').show();
+
       event.stopImmediatePropagation();
    });
 }
