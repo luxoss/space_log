@@ -67,7 +67,7 @@ $(document).ready(function(){ // After onload document, execute inner functions
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
    });
 
-   popUpMsg(user.name + "님 SPACE LOG 세계에 오신 것을 환영합니다.");
+   popUpMsg(user.name + "님SPACE LOG 세계에 오신 것을 환영합니다.");
 
    drawAllAssets("planets", user, socket); 		
 
@@ -168,9 +168,9 @@ function drawAllAssets(mainLayer, user, socket)
 
    $(window).resize(function() {
 
-      $("#main_layer").css({
-         left: 1920, //($(window).width() - $("#main_layer").outerWidth()) / 2,
-         top : 1080  //($(window).height() - $("#main_layer").outerHeight()) / 2
+      $("#main_layer").css({ // left : 1920, top : 1080 
+         left: 1920, //($(window).width() - $('#main_layer').outerWidth()) / 2,
+         top : 1080//($(window).height() - $('#main_layer').outerHeight()) / 2
       });
 
       $("#view_layer").css({

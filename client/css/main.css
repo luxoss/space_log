@@ -8,6 +8,8 @@ html { overflow : hidden !important; margin: 0px; padding: 0px; }
 body { 
    background-color : rgba(19, 35, 56, 1); 
    overflow : hidden !important; 
+   width: 7000px;
+   height: 7000px;
    margin: 0 auto; 
    padding: 0px; 
 }
@@ -15,6 +17,7 @@ body {
 
 div { margin: 0px; padding: 0px; display: inline-block;} 
 
+/*
 #main_container {
    background-color : rgba(0, 0, 255, 0.5);
    width    : 7000px;
@@ -22,6 +25,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
    position : absolute;
    z-index  : -1;
 }
+*/
 
 #main_layer {
    /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/

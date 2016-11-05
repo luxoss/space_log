@@ -7,7 +7,7 @@ $(document).ready(function() {
 
    var userInfoSocket = io.connect('http://game.smuc.ac.kr:5001');  
    var selectButton = new Audio();
-Object.defineProperty(console, '_commandLineAPI', { get : function() { throw '콘솔을 사용할 수 없습니다.' } });
+  
    selectButton.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
 
    $(window).resize(function(){

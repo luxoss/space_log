@@ -5,9 +5,9 @@
 */	
 
 body {
-   background-color : rgba(0, 0, 0, 1);
+/*  background-color : rgba(0, 0, 0, 1);*/
    overflow         : hidden !important;
-/*   background-image : url('http://203.237.179.21:8000/res/img/galaxy_box.png');*/
+   background-image : url('http://203.237.179.21:8000/res/img/galaxy_box.png');
 /*   background-size  : cover;*/
 }
 
