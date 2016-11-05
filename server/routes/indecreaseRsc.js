@@ -43,17 +43,17 @@ function chngUserRscPlntRsc(){
 					
 
 
-					planet.findOne({username : MPC.username}, function(err, MIres){
+					mem_info.findOne({username : MPC.username}, function(err, MIres){
 					
 								u_mineral =MIres.mineral +q;
 								u_gas = MIres.gas +q;
 								u_unknown = MIres.unknown +q;
-								u_exp = MIres.exp + q;
+								//u_exp = MIres.exp + q;
 								var obj = {
 									mineral : u_mineral,
 									gas: u_gas,
 									unknown : u_unknown,
-								exp : u_exp
+								//	exp : u_exp
 								}
 								mem_info.update({username: MPC.username}, {$set : obj});
 							});	
@@ -117,7 +117,7 @@ function chngUserRscPlntRsc(){
 
 }
 
-//setInterval(chngUserRscPlntRsc, 60000);
-setInterval(chngUserRscPlntRsc, 600000); //10 minute
+setInterval(chngUserRscPlntRsc, 300000);
+//setInterval(chngUserRscPlntRsc, 600000); //10 minute
 
 //});

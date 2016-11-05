@@ -45,8 +45,8 @@ function cal_ranking(){
 	});	
 }
 
-setInterval(cal_ranking, 60000);
-//setInterval(cal_ranking, 6000);
+//setInterval(cal_ranking, 600000);
+setInterval(cal_ranking, 300000);
 
 
 

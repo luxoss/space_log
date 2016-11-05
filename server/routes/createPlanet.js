@@ -16,7 +16,7 @@ function create_p(){
 
 		mem_info.find().each(function(err, miRes){
 			if(miRes){
-				mem_info.update({username : miRes.username}, {$set:{ticket:0}});
+				mem_info.update({username : miRes.username}, {$set:{ticket:10}});
 			}
 		});
 
@@ -80,7 +80,7 @@ function create_p(){
 	}); 		
 }
 
-setInterval(create_p, 86400000);//10초단위로 create_p 함수를 실행
+setInterval(create_p, 21600000);//10초단위로 create_p 함수를 실행
 
-//setInterval(create_p, 300);//10초단위로 create_p 함수를 실행
+//setInterval(create_p, 500);//10초단위로 create_p 함수를 실행
 

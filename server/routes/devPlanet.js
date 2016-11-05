@@ -21,10 +21,10 @@ devPlntio.on('connection', function(socket){
 			planet = db.collection("PLANET");
 			mem_info = db.collection("MEM_INFO");
 		//	mem_plan = db.collection("MEM_PLAN");
-			console.log("CHECK the p_id value in add_p message !!|||!|!|!|!|!|!|" + p_id);;
 			p_id = data.p_id;
 			username = data.username;
-			console.log(p_id);
+//			console.log(p_id);
+			console.log("CHECK the p_id value in add_p message !!|||!|!|!|!|!|!|" + p_id);;
 
 
 			planet.find().each(function(err, mpRes){
@@ -51,8 +51,11 @@ devPlntio.on('connection', function(socket){
 						} else if(res){
 							console.log("SUCCESS!!!!!!!");
 							//sum_score = res.create_spd + 	
+						
+	
+						
 							
-							mem_info.findOne({username:username, ticket : {$gt : 0} }, function(err, findRes){
+							mem_info.findOne({username:username }, function(err, findRes){
 								if(findRes){
 								//	var sum_score = 0;
 							//		if(findRes.ticket<=10){
@@ -60,17 +63,28 @@ devPlntio.on('connection', function(socket){
 
 									console.log("devPlanet.js ::: find Memebr in mem_info collection       !!!!!!!   " + arrMP[z].create_spd);
 									
-									sum_score = parseInt(arrMP[z].create_spd, 10) +1;
+									sum_score = parseInt(findRes.score) +  parseInt(arrMP[z].create_spd, 10) +1;
 									ticket = parseInt(findRes.ticket , 10);
 									console.log("SUM_SOCRE :: " + sum_score);
 									console.log("TICKET    :: " + ticket);
 	
 									console.log('devPlanet ::::::::::::::::::::::::::::::::::' + username);
 														
-									mem_info.update({username : username}, {$set :{score : sum_score +1, ticket : ticket - 1}});
+									mem_info.update({username : username}, {$set :{score : sum_score +1, ticket : ticket - 1}}, function(err, updt){
+										if(updt){
+											console.log('[devPlanet.js] : add_p_res_userinfo data');
+										//	console.log(updt);
+											mem_info.findOne({username:username},function(err, res){
+												console.log(res);
+												socket.emit('add_p_res_userinfo', res);
+											} );
+										
+										}
+									});
+								//		socket.emit('add_p_res_userinfo', );
 							//		}
 								  } else{
-								  	socket.emit('');
+								  //	socket.emit('');
 								  }
 
 							});
