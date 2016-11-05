@@ -8,7 +8,7 @@ body {
 /*  background-color : rgba(0, 0, 0, 1);*/
    overflow         : hidden !important;
    background-image : url('http://203.237.179.21:8000/res/img/galaxy_box.png');
-/*   background-size  : cover;*/
+   background-size  : cover;
 }
 
 input {
@@ -71,6 +71,95 @@ div h1 h3{
    border     : 0px;
    top        : 150px;
    position   : absolute;
+}
+
+#join_info {
+   background-color : rgba(0, 0, 0, 1);
+   color            : rgba(255, 255, 255, 0.7);
+   font-weight      : bold;
+   width            : 450px;
+   height           : 450px;
+   border           : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius    : 15px;
+   border-style     : dotted;
+   position         : absolute;
+   display          : none;
+   z-index          : 3;
+}
+
+#join_title {
+   color       : rgba(255, 255, 255, 0.8);
+   font-size   : 24pt;
+   font-weight : bold;
+   width       : 400px;
+   height      : 100px;
+   position    : absolute;
+   left        : 25px;
+   top         : 25px;
+   text-align  : center;
+   line-height : 100px;
+}
+
+#join_username {
+   background-color  : transparent;
+   color             : rgba(255, 255, 0, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 400px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   border-style      : dotted;
+   position          : absolute;
+   left              : 25px;
+   top               : 115px;
+}	
+
+#join_password {
+   background-color  : transparent;
+   color             : rgba(255, 255, 0, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 400px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   border-style      : dotted;
+   position          : absolute;
+   left              : 25px;
+   top               : 225px;
+}
+
+#join_submit {
+   background-color : transparent;
+   color            : rgba(255, 255, 255, 0.9);
+   width            : 190px;
+   height           : 50px;
+   border           : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius    : 10px;
+   border-style     : dotted;
+   position         : absolute;
+   left             : 25px;
+   bottom           : 50px;
+   text-align       : center;
+   line-height      : 50px;
+   cursor           : pointer;
+}
+
+#join_cancel {
+   background-color : transparent;
+   color            : rgba(255, 255, 255, 0.9);
+   width            : 190px;
+   height           : 50px;
+   border           : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius    : 10px;
+   border-style     : dotted;
+   position         : absolute;
+   right            : 25px;
+   bottom           : 50px;
+   text-align       : center;
+   line-height      : 50px;
+   cursor           : pointer;
 }
 
 #footer {

@@ -26,25 +26,62 @@ $(document).ready(function() {
          top : ($(window).height() - $('#index_pop_up_view').outerHeight()) / 2
       });
 
+      $('#join_info').css({
+         left: ($(window).width() - $('#join_info').outerWidth()) / 2,
+         top : ($(window).height() - $('#join_info').outerHeight()) / 2
+      });
+
    }).resize();		
 
    $("#username").mouseover(function(event) {
       $("#username").css('border', '2px solid rgba(0, 255, 0, 0.7)');
+
       event.stopImmediatePropagation();
    });
 
    $("#username").mouseout(function(event) {
       $("#username").css('border', '2px solid rgba(255, 255, 255, 1)');
+
       event.stopImmediatePropagation();
    });
 
    $("#password").mouseover(function(event) {
       $("#password").css('border', '2px solid rgba(0, 255, 0, 0.7)');
+
       event.stopImmediatePropagation();
    });
 
    $("#password").mouseout(function(event) {
       $("#password").css('border', '2px solid rgba(255, 255, 255, 1)');
+
+      event.stopImmediatePropagation();
+   });
+
+   $("#join_submit").mouseover(function(event) {
+      selectButton.play();
+      $("#join_submit").css('background-color', 'rgba(255, 0, 0, 0.3)');
+      selectButton.currentTime = 0;
+
+      event.stopImmediatePropagation();
+   });
+
+   $("#join_submit").mouseout(function(event) {
+      $("#join_submit").css('background-color', 'rgba(0, 0, 0, 1)');
+
+      event.stopImmediatePropagation();
+   });
+
+   $("#join_cancel").mouseover(function(event) {
+      selectButton.play();
+      $("#join_cancel").css('background-color', 'rgba(0, 0, 255, 0.3)');
+      selectButton.currentTime = 0;
+
+      event.stopImmediatePropagation();
+   });
+
+   $("#join_cancel").mouseout(function(event) {
+      $("#join_cancel").css('background-color', '2px solid rgba(0, 0, 0, 1)');
+
       event.stopImmediatePropagation();
    });
 
@@ -52,11 +89,13 @@ $(document).ready(function() {
       selectButton.play();
       $("#login_btn").css('background-color', 'rgba(0, 0, 255, 0.3)');
       selectButton.currentTime = 0;
+
       event.stopImmediatePropagation();
    });
 
    $("#login_btn").mouseout(function(event) {
       $("#login_btn").css('background-color', 'rgba(0, 0, 0, 0.3)');
+
       event.stopImmediatePropagation();
    });
 
@@ -73,7 +112,8 @@ $(document).ready(function() {
    });
 
    $("#join_btn").click(function(event){ //.on('click', function() {
-
+      joinView(userInfoSocket);
+      /*
       var user = {};
 
       user['name'] = $.trim($("#username").val());
@@ -103,7 +143,8 @@ $(document).ready(function() {
 	         }
 	      });
       }
-      event.stopImmediatePropagation();
+      */
+      event.stopImmediatePropagation();      
    });
 
    $("#login_btn").click(function(event){ //.on('click', function(){ 
@@ -236,6 +277,59 @@ function getUserItems(userInfoSocket, user)
    }
 }
 
+function joinView(userInfoSocket) 
+{
+   var state = $('#join_info').css('display');
+   var joinSocket = userInfoSocket;
+
+   if(state === 'none')
+   {
+      $('#join_info').css({
+         left: ($(window).width() - $('#join_info').outerWidth()) / 2, 
+         top : ($(window).height() - $('#join_info').outerHeight()) / 2
+      });
+
+      $('#join_info').show();
+   }
+   
+   $('#join_submit').click(function(event){
+      var user = {};
+
+      user.name = $.trim($("#join_username").val());
+      user.password = $.trim($("#join_password").val());
+
+      if((user.name == '' ) || (user.password == '')) 
+      {
+         popUpMsg("아이디와 비밀번호를 입력해주세요.");
+         //window.location.reload();
+      }
+      else 
+      {
+         joinSocket.emit('join_msg', {    
+            username: user.name, 
+            password: user.password
+         }); 
+
+	      joinSocket.on('join_res', function(data){		
+	         if(data.response == 'true') 
+            {
+               popUpMsg("회원가입이 완료 되었습니다.");
+	         }
+            else 
+            {
+               popUpMsg("해당 아이디가 이미 있습니다."); 
+	         }
+	      });
+      }
+      event.stopImmediatePropagation();
+   });
+
+   $('#join_cancel').click(function(event){
+      $('#join_info').hide();
+      event.stopImmediatePropagation();
+   });
+}
+
 function popUpMsg(msg)
 {
    var state = $("#index_pop_up_view").css('display');
@@ -250,13 +344,9 @@ function popUpMsg(msg)
       // But, it is wrong. so I changed this code lines
       $("#username").val('');
       $("#password").val(''); 
+      $("#join_username").val('');
+      $("#join_password").val('');
    }
-/*   
-   $("#index_pop_up_hide").click(function() {
-      $("#index_pop_up_view").hide();
-      return false;
-   });
-*/
 }
 
 /*

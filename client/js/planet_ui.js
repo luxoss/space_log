@@ -266,11 +266,8 @@ var planetViewLayer = function(user, socket) {
          styleTop = Math.floor(styleTop + 100);
       });
    }
-   else 
-   {
-      $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
-      $('#planet_ui').hide();
-   }
+//      $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
+//      $('#planet_ui').hide();
 };
 
 
