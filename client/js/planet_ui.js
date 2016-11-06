@@ -45,14 +45,29 @@ var planetViewLayer = function(user, socket) {
          $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:inherit; line-height:100px;'></div>");
 
          // TODO: Change html() -> text()
+         if(planet['develop'] == 'true') {  
+            document.getElementByid('pv_name_' + planet.name).innerHTML = "개척된 행성";
+         }
+         else {  
+            document.getElementByid('pv_name_' + planet.name).innerHTML = "미 개척된 행성";
+         } 
+         document.getElementByid('pv_name_' + planet.name).innerHTML = "planet" + planet['name'];
+         document.getElementByid('pv_name_' + planet.name).innerHTML = planet['mineral'];
+         document.getElementByid('pv_name_' + planet.name).innerHTML = planet['gas'];                   
+         document.getElementByid('pv_name_' + planet.name).innerHTML = planet['grade'];
+/*
          $("#pv_name_" + planet.name).text("planet" + planet['name']);
          $("#pv_mineral_" + planet.name).text(planet['mineral']);
          $("#pv_gas_" + planet.name).text(planet['gas']);
          $("#pv_unknown_" + planet.name).text(planet['unknown']);
-         $("#pv_develop_" + planet.name).text("미 개척된 행성");
+         if(planet['develop'] == 'true') {
+            $("#pv_develop_" + planet.name).text("미 개척된 행성");
+         }
+         else {
+            $("#pv_develop_" + planet.name).text("미 개척된 행성");
+         }
          $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
-
-        
+*/      
          $("#pv_name_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
@@ -136,9 +151,6 @@ var planetViewLayer = function(user, socket) {
    document.getElementByid('pv_name_' + planet.name).innerHTML = planet['unknown'];
    document.getElementByid('pv_name_' + planet.name).innerHTML = planet['develop'];
    document.getElementByid('pv_name_' + planet.name).innerHTML = planet['grade'];
-
-   if(planet['develop'] == 'true') { $("#pv_develop_" + planet.name).text("개척된 행성"); }
-   else { $("#pv_develop_" + planet.name).text("개척된 행성"); }            
 
    $('#plnaet_list [id]').each(function(){
       $('[id="' + this.id + '"];not(#" + this.id + ":first)').remove();
