@@ -49,18 +49,8 @@ menuSelection.src = serverUrl + ":8000/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload document, execute inner functions
 
-   $(window).on("beforeunload", function(user){
-      logout(user);
-   });
-   //$(window).on('unload', function(user){ logout(user); });
-   /*
-   setInterval(function(user, enemy, socket) {
-      loginAll(user, enemy, socket);
-   }, 60000);
-   */
    backgroundSoundControl();
    loginAll(user, enemy, socket);
-
 
    $('#main_pop_up_view').css({
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
@@ -87,24 +77,19 @@ $(document).ready(function(){ // After onload document, execute inner functions
       } 
 
    });
-/*
-   // Set interval 60sec
-   setInterval(function(){
-      socket.develop.emit('add_p', {'username' : user['name']});
-       
-      socket.develop.on('chng_info', function(data){
-         console.log("receive resource");
 
-         devMineral = parseInt(data.mineral);
-         devGas = parseInt(data.gas);
-         devUnknown = parseInt(data.unknown);
+   socket.develop.on('chng_info', function(data){
+      console.log("receive resource");
 
-         $("#mineral").text(parseInt(devMineral));
-         $("#gas").text(parseInt(devGas));
-         $("#unknown").text(parseInt(devUnknown));
-      });
-   }, 60000);
-*/
+      devMineral = parseInt(data.mineral);
+      devGas = parseInt(data.gas);
+      devUnknown = parseInt(data.unknown);
+
+      $("#mineral").text(parseInt(devMineral));
+      $("#gas").text(parseInt(devGas));
+      $("#unknown").text(parseInt(devUnknown));
+   });
+
 });
 
 function backgroundSoundControl()

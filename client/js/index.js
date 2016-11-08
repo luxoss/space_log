@@ -273,10 +273,8 @@ function joinView(userInfoSocket)
       $('#join_info').css({
          left: ($(window).width() - $('#join_info').outerWidth()) / 2, 
          top : Number($("#header").offset().top) + 150 
-         //($(window).height() - $('#join_info').outerHeight()) / 2
       });
 
-      //$("#select_blue_team").css('background-color', 'transparent');
       $("#select_red_team").css('background-color', 'rgba(255, 0, 0, 0.3)');
 
       $('#login_info').hide();
@@ -289,26 +287,28 @@ function joinView(userInfoSocket)
 
       user.name = $.trim($("#join_username").val());
       user.password = $.trim($("#join_password").val());
+      user.email = $.trim($("#join_email").val());
 
-      if((user.name == '' ) || (user.password == '')) 
+      if((user.name == '' ) || (user.password == '') || (user.email == ''))
       {
-         popUpMsg("아이디와 비밀번호를 입력해주세요.");
+         popUpMsg("빠진 것이 없는지 다시 한 번 확인해주세요. :)");
       }
       else 
       {
          joinSocket.emit('join_msg', {    
-            username: user.name, 
-            password: user.password
+            username : user.name, 
+            password : user.password,
+            email    : user.email
          }); 
 
 	      joinSocket.on('join_res', function(data){		
 	         if(data.response == 'true') 
             {
-               popUpMsg("회원가입이 완료 되었습니다.");
+               popUpMsg("회원가입이 완료 되었습니다. :)");
 	         }
             else 
             {
-               popUpMsg("해당 아이디가 이미 있습니다."); 
+               popUpMsg("해당 정보가 이미 있습니다. :("); 
 	         }
 	      });
       }
@@ -349,6 +349,7 @@ function popUpMsg(msg)
       $("#password").val(''); 
       $("#join_username").val('');
       $("#join_password").val('');
+      $("#join_email").val('');
    }
 }
 
