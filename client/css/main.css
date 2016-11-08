@@ -921,6 +921,45 @@ div { margin: 0px; padding: 0px; display: inline-block;}
    cursor           : pointer;   
 }
 
+#develop_planet_question_pop_up_view {
+   background-color : rgba(128, 0, 128, 0.8);
+   border           : 2px solid white;
+   border-radius    : 5px;
+   border-style     : dotted;
+   width            : 500px;
+   height           : 200px;
+   position         : fixed;
+   z-index          : 3;
+   display          : none;
+}
+
+#question_develop_msg {
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   position    : absolute;
+}
+
+#anser_develop_msg {
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   top         : 100px;
+   position    : absolute;
+}
+
 #bg_sound_control {
   color        : rgba(255, 255, 255, 0.8);
   font-size    : 20pt;

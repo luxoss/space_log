@@ -1056,6 +1056,17 @@ function popUpMsg(msg)
 }
 
 /*
+function devPopUpMsg()
+{
+   var state = $("#develop_planet_question_pop_up_view").css('display');
+   var chooseNum = $("#anser_develop_msg").val();
+
+   if(state == 'none') {
+      $("#develop_planet_question_pop_up_view").show();
+      $("#question_develop_msg").text(msg);
+   }
+}
+
 function keySetDisplay() 
 {
    var display_state = $("#key_set").css('display');
@@ -1079,36 +1090,6 @@ function keySetDisplay()
       menuSelection.currentTime = 0;
 
       $("#key_set").hide();
-   }
-}
-
-// TODO:마우스가 페이지 밖으로 나갔을 때의 로그아웃 처리.
-$(document).mousemove(function(e){
-   if(e.clientY < 0)
-   {
-      socket.userInit.emit('logout_msg', { 
-         'username' : user['name'],
-          'mineral' : user.resource['mineral'],
-              'gas' : user.resource['gas'],
-          'unknown' : user.resource['unknown'],          
-             'exp'  : user.state['exp'],
-              'hp'  : user.state['hp'],
-      });       
-   }
-   if(navigator.onLine === false)
-   {
-      console.log("This browser is online? " + navigator.onLine);
-
-      socket.userInit.emit('logout_msg', { 
-         'username' : user['name'],
-          'mineral' : user.resource['mineral'],
-              'gas' : user.resource['gas'],
-          'unknown' : user.resource['unknown'],          
-             'exp'  : user.state['exp'],
-              'hp'  : user.state['hp'],
-      });  
-      
-      localStorage.clear();
    }
 }
 
