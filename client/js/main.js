@@ -520,7 +520,6 @@ function keyHandler(user, socket)
       // command line R key is 'redo' and r key is 'undo'
       if(keyState == DEVELOP_PLANET) 
       {        
-         // Change execute contexts
          develop(user, socket);
       }
               
@@ -694,6 +693,7 @@ function develop(user, socket)
             menuSelection.play();
             $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
             menuSelection.currentTime = 0;
+
             event.stopImmediatePropagation();
          });
 
@@ -704,11 +704,9 @@ function develop(user, socket)
          });
 
          $("#cancel").click(function(event){
-
-            //off('click.cancel').on('click.cancel', function(event) { 
             $("#develop_planet_ui").hide();
-            event.stopImmediatePropagation();
 
+            event.stopImmediatePropagation();
          });
 
          $("#develop_planet").mouseover(function(event) {
@@ -732,7 +730,6 @@ function develop(user, socket)
          
          // Developed planet event that clicked.
          $("#develop_planet").click(function(event){
-            //.on('click.develop_planet', function(){
 
             socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
 
