@@ -55,19 +55,7 @@ var planetViewLayer = function(user, socket) {
          document.getElementById('pv_name_' + planet.name).innerHTML = planet['mineral'];
          document.getElementById('pv_name_' + planet.name).innerHTML = planet['gas'];                   
          document.getElementById('pv_name_' + planet.name).innerHTML = planet['grade'];
-/*
-         $("#pv_name_" + planet.name).text("planet" + planet['name']);
-         $("#pv_mineral_" + planet.name).text(planet['mineral']);
-         $("#pv_gas_" + planet.name).text(planet['gas']);
-         $("#pv_unknown_" + planet.name).text(planet['unknown']);
-         if(planet['develop'] == 'true') {
-            $("#pv_develop_" + planet.name).text("미 개척된 행성");
-         }
-         else {
-            $("#pv_develop_" + planet.name).text("미 개척된 행성");
-         }
-         $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
-*/      
+     
          $("#pv_name_" + planet.name).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
@@ -143,6 +131,21 @@ var planetViewLayer = function(user, socket) {
       $('#planet_ui').hide();
    }
 };
+
+/*
+         //TODO: LATER...
+         $("#pv_name_" + planet.name).text("planet" + planet['name']);
+         $("#pv_mineral_" + planet.name).text(planet['mineral']);
+         $("#pv_gas_" + planet.name).text(planet['gas']);
+         $("#pv_unknown_" + planet.name).text(planet['unknown']);
+         if(planet['develop'] == 'true') {
+            $("#pv_develop_" + planet.name).text("미 개척된 행성");
+         }
+         else {
+            $("#pv_develop_" + planet.name).text("미 개척된 행성");
+         }
+         $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
+*/ 
 
 /*
    //TODO: TEST...
