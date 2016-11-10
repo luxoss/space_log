@@ -46,15 +46,15 @@ var planetViewLayer = function(user, socket) {
 
          // TODO: Change html() -> text()
          if(planet['develop'] == 'true') {  
-            document.getElementByid('pv_name_' + planet.name).innerHTML = "개척된 행성";
+            document.getElementById('pv_name_' + planet.name).innerHTML = "개척된 행성";
          }
          else {  
-            document.getElementByid('pv_name_' + planet.name).innerHTML = "미 개척된 행성";
+            document.getElementById('pv_name_' + planet.name).innerHTML = "미 개척된 행성";
          } 
-         document.getElementByid('pv_name_' + planet.name).innerHTML = "planet" + planet['name'];
-         document.getElementByid('pv_name_' + planet.name).innerHTML = planet['mineral'];
-         document.getElementByid('pv_name_' + planet.name).innerHTML = planet['gas'];                   
-         document.getElementByid('pv_name_' + planet.name).innerHTML = planet['grade'];
+         document.getElementById('pv_name_' + planet.name).innerHTML = "planet" + planet['name'];
+         document.getElementById('pv_name_' + planet.name).innerHTML = planet['mineral'];
+         document.getElementById('pv_name_' + planet.name).innerHTML = planet['gas'];                   
+         document.getElementById('pv_name_' + planet.name).innerHTML = planet['grade'];
 /*
          $("#pv_name_" + planet.name).text("planet" + planet['name']);
          $("#pv_mineral_" + planet.name).text(planet['mineral']);
