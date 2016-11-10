@@ -81,13 +81,13 @@ $(document).ready(function(){ // After onload document, execute inner functions
    socket.develop.on('chng_info', function(data){
       console.log("receive resource");
 
-      devMineral = parseInt(data.mineral);
-      devGas = parseInt(data.gas);
-      devUnknown = parseInt(data.unknown);
+      devMineral = Number(data.mineral);
+      devGas = Number(data.gas);
+      devUnknown = Number(data.unknown);
 
-      $("#mineral").text(parseInt(devMineral));
-      $("#gas").text(parseInt(devGas));
-      $("#unknown").text(parseInt(devUnknown));
+      $("#mineral").text(devMineral);
+      $("#gas").text(devGas);
+      $("#unknown").text(devUnknown);
    });
 */
 });
