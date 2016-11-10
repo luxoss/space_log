@@ -1,0 +1,74 @@
+<!--
+   ** File-name : index.html
+   ** File-expalanation : Join and login html page 
+   ** Author : luxoss
+-->
+<!DOCTYPE html>
+<html>
+   <head>    
+      <meta charset = "UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
+      <link rel="space_log_icon" type="image/x-icon" href="http://203.237.179.21:8000/favicon.ico"/>
+      <link rel="stylesheet" href="http://203.237.179.21:8000/css/index.css" media="all"/>
+
+      <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.0.min.js"></script>
+      <script type="text/javascript" src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+      <script type="text/javascript" src="http://203.237.179.21:8000/js/index.js"></script> 
+      
+      <title>Welcome to the space log web game</title>
+   </head>
+   <body>
+      <!-- Play background sound -->
+      <audio bgsound id = "bg_sound" src = "./res/sound/bgm/interstellare_bgm.mp3" loop = infinite autoplay></audio>
+
+      <!-- Main container -->
+      <div id="main_container"> 			
+         <!-- Header division -->
+         <div id="header">	
+            <h1>SPACE LOG</h1>
+         </div>
+
+	      <!-- Login display -->
+         <div id="login_info"> 
+	         <br/><br/>
+	         <center>
+	            <input type="text" class = "input_text" id = "username" placeholder = " >>USERNAME" value="" maxlength = "12" /><br/><br/>
+	            <input type="password" class = "input_text" id = "password" placeholder = " >>PASSWORD" value="" maxlength = "12" /><br/><br/>
+
+	            <!-- Login button -->
+	            <input type="button" class="input_btn" id="login_btn" value="Sign In"/><br/><br/>
+
+	            <!-- Join button -->
+               <input type="button" class="input_btn" id="join_btn" value="Sign Up"/><br/><br/>
+	         </center>
+	      </div><br/>
+
+	      <!-- footer division -->
+	      <div id="footer">
+	         <h3>Created by 'SPACE LOG TEAM'</h3>
+	         <div id = "sound_control">SOUND | ON&nbsp;</div>
+	      </div> 
+      </div>
+
+      <!-- Join display -->
+      <div id="join_info"> 
+         <div id = "join_username_title">USERNAME</div>
+         <input type = "text" id="join_username" placeholder = " >>USERNAME" value="" maxlength="12"/>
+         <div id = "join_password_title">PASSWORD</div>
+         <input type = "password" id="join_password" placeholder = " >>PASSWORD" value="" maxlength="12"/>
+         <div id = "join_email_title">E-MAIL</div>
+         <input type = "email" id="join_email" placeholder = " >>E-MAIL" value=""/>
+
+         <div id = "join_submit">JOIN</div>
+         <div id = "join_cancel">CANCEL</div>
+         <!--<div id = "join_footer">SIGN UP IN THE SPACE LOG</div>-->
+	   </div>
+              
+      <div id = "index_pop_up_view">
+         <div id = "index_pop_up_msg"></div>
+         <!--<div id = "index_pop_up_hide">X</div>-->
+      </div>
+   </body>
+</html>
+

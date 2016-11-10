@@ -1,0 +1,971 @@
+/**
+	**File-name: main.css
+	**Writer: luxoss
+	**File-explanation: Decorate main html page with cascading style sheet
+*/
+html { overflow : hidden !important; margin: 0px; padding: 0px; }
+
+body { 
+   background-color : rgba(19, 35, 56, 1); 
+   overflow : hidden !important; 
+   width: 7000px;
+   height: 7000px;
+   margin: 0 auto; 
+   padding: 0px; 
+}
+
+
+div { margin: 0px; padding: 0px; display: inline-block;} 
+
+/*
+#main_container {
+   background-color : rgba(0, 0, 255, 0.5);
+   width    : 7000px;
+   height   : 7000px;
+   position : absolute;
+   z-index  : -1;
+}
+*/
+
+#main_layer {
+   /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/
+   background-color : rgba(0, 0, 0, 0.8);
+  	width            : 3500px;
+  	height           : 3500px; 
+   border           : 0px;
+  	position         : absolute;
+	z-index          : 1;
+   overflow         : hidden !important;
+}
+
+#view_layer {
+	box-shadow    : rgba(0, 0, 0, 1) 0 0 0 9999px, rgba(0, 0, 0, 0.7) 2px 2px 3px 3px;
+   border        : 2px solid rgba(255, 255, 255, 0.7);
+   border-style  : dotted;
+	border-radius : 15px;
+	position      : fixed;
+	z-index       : 3;
+}
+
+#user_info_ui {
+	background    : transparent;
+  	width         : 500px;
+  	height        : 128px;
+	border-radius : 0px 15px 0px 0px;
+  	left          : 0px;	
+   bottom        : 0px;
+  	position      : absolute;
+	z-index       : 3;
+}
+
+#user_avatar {
+	background-image : url('../res/img/astronaut.png');
+	background-color : rgba(255, 128, 255, 0.7);
+	width            : 100px;
+	height           : 128px;
+	border           : 1px solid rgba(255, 255, 255, 0.3);
+   border-style     : dotted;
+	border-radius    : 0px 5px 0px 15px;
+	top              : 0px;
+	left             : 0px;
+	position         : absolute;
+}
+
+#user_name {
+	background-color : rgba(255, 128, 255, 0.7);
+	width            : 100px;
+	height           : 20px;
+	font-weight      : bold;
+	text-align       : center;
+	border-radius    : 0px 0px 0px 15px;
+	bottom           : 0px;
+	position         : absolute;	
+}
+
+/*
+#progress_bar {
+   background-color : rgba(207, 47, 77, 0.7);
+   color            : rgba(255, 255, 255, 0.7);
+   font-size        : 20pt;
+	width            : 300px;
+	height           : 45px;
+	border           : 2px solid rgba(256, 47, 77, 0.7);
+   border-radius    : 0px 10px 0px 0px;
+   border-style     : dotted;
+	top              : 0px; 
+	left             : 102px;
+	position         : relative;
+   text-align       : center;
+   line-height      : 35px;
+}
+#hp_progress_bar {
+   background-color : rgba(207, 47, 77, 0.7);
+   width: 300px;
+   height: 45px;
+   position: absolute;  
+}
+*/
+
+#user_ticket {
+	width            : 400px;
+	height           : 45px;
+	border           : 2px solid rgba(208, 196, 76, 0.7);
+   border-style     : dotted;
+   border-radius    : 0px 5px 0px 0px;
+	top              : 0px; 
+	left             : 102px;
+	position         : absolute;
+}
+
+#ticket_icon {
+   background-color : rgba(208, 196, 76, 0.7);
+   color            : rgba(255, 255, 255, 0.7);
+   font-size        : 20pt;
+   font-weight      : bold;
+   width            : 100px;
+   height           : 45px;
+   border           : 1px solid rgba(255, 255, 255, 0.7);
+   border-style     : dotted;
+   left             : 0px;
+   position         : absolute;
+   text-align       : center;
+   line-height      : 45px;
+}
+
+#ticket_point {
+   background-color : rgba(0, 0, 0, 0.7);
+   color            : rgba(255, 255, 255, 0.7);
+   font-size        : 20pt;
+   font-weight      : bold;
+   width            : 300px;
+   height           : 45px;
+   border           : 1px solid rgba(208, 196, 76, 0.7);
+   left             : 100px;
+   position         : absolute;
+   text-align       : center;
+   line-height      : 45px;
+}
+
+#score_status {
+	width            : 400px;
+	height           : 45px;
+	border           : 2px solid rgba(208, 196, 76, 0.7);
+   border-style     : dotted;
+   border-radius    : 0px 5px 0px 0px;
+	top              : 46px; 
+	left             : 102px;
+	position         : absolute;
+}
+
+#score_icon {
+   background-color : rgba(208, 196, 76, 0.7);
+   color            : rgba(255, 255, 255, 0.7);
+   font-size        : 20pt;
+   font-weight      : bold;
+   width            : 100px;
+   height           : 45px;
+   border           : 1px solid rgba(255, 255, 255, 0.7);
+   border-style     : dotted;
+   left             : 0px;
+   position         : absolute;
+   text-align       : center;
+   line-height      : 45px;
+}
+
+#score_point {
+   background-color : rgba(0, 0, 0, 0.7);
+   color            : rgba(255, 255, 255, 0.7);
+   font-size        : 20pt;
+   font-weight      : bold;
+   width            : 300px;
+   height           : 45px;
+   border           : 1px solid rgba(208, 196, 76, 0.7);
+   left             : 100px;
+   position         : absolute;
+   text-align       : center;
+   line-height      : 45px;
+}
+
+#resource {
+	width          : 400px;
+	height         : 35px; /* 35 + 28 = 63 */
+	border         : 2px solid rgba(83, 80, 44, 0.7);
+   border-style   : dotted;
+   border-radius  : 0px 0px 0px 0px; /* up-left up-right down-right down-left */
+	top            : 93px; 
+	left           : 102px;	
+	position       : absolute;
+}
+
+#m_icon {
+   background-image  : url('../res/img/icon/minerals.png');
+   width             : 30px;
+   height            : 35px;
+   left              : 0px;
+   position          : absolute;
+}
+
+#mineral {
+   background-color  : rgba(29, 66, 107, 0.7);
+   color             : rgba(255, 255, 255, 0.7);;
+   font-size         : 20pt;
+   border            : 0px;
+   width             : 103px;
+   height            : 35px;
+   left              : 30px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 35px;
+}
+
+#g_icon {
+   background-image  : url('../res/img/icon/gas.png');
+   width             : 30px;
+   height            : 35px;
+   left              : 133px;
+   position          : absolute;
+}
+
+#gas {
+   background-color  : rgba(26, 61, 19, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   text-align        : right;
+   border            : 0px;
+   width             : 103px;
+   height            : 35px;
+   left              : 163px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 35px;
+}
+
+#u_icon {
+   background-image  : url('../res/img/icon/unknown.png');
+   width             : 30px;
+   height            : 35px;
+   left              : 267px;
+   position          : absolute;
+}
+
+#unknown {
+   background-color  : rgba(28, 21, 28, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   text-align        : right;
+   border            : 0px;
+   border-radius     : 0px 0px 0px 0px;
+   width             : 104px;
+   height            : 35px;
+   left              : 297px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 35px;
+}
+
+#minimap_ui {
+   background-color  : rgba(0, 0, 0, 0.7);
+  	width             : 300px;
+  	height            : 300px; 
+  	border            : 3px solid rgba(255, 255, 255, 0.7);;
+   border-style      : dotted;
+	border-radius     : 15px 0px 0px 0px;
+ 	right             : 0px;
+  	bottom            : 0px;
+  	position          : absolute;
+	z-index           : 3;
+   display           : none;
+}
+
+#position_navigator {
+   width          : 328px;
+   height         : 64px;
+   border         : 2px solid rgba(255, 255, 255, 0.7);
+   border-style   : dotted;
+   border-radius  : 15px 15px 0px 0px;
+   left           : 50%;
+   bottom         : 0px;
+   transform      : translateX(-50%);
+   position       : absolute;
+   z-index        : 3;
+}
+
+#icon_x {
+   background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.8);
+   font-size         : 14pt;
+   font-weight       : bold;
+   width             : 64px;
+   height            : 64px;
+   border            : 0px;
+   border-radius     : 15px 0px 0px 0px;
+   left              : 0px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 64px;
+}
+
+#icon_y {
+   background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.8);
+   font-size         : 14pt;
+   font-weight       : bold;
+   width             : 64px;
+   height            : 64px;
+   border            : 0px;
+   border-radius     : 0px 0px 0px 0px;
+   left              : 164px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 64px;
+}
+
+#position_x {
+/*   background-color: rgba(255, 255, 255, 0.3);*/
+   color       : rgba(255, 255, 255, 0.7);
+   font-size   : 14pt;
+   font-weight : bold;
+   width       : 100px;
+   height      : 64px;
+   border      : 0px;
+   left        : 64px;
+   position    : absolute;
+   text-align  : center;
+   line-height : 64px;
+}
+
+#position_y {
+/*   background-color: rgba(255, 255, 255, 0.3);*/
+   color       : rgba(255, 255, 255, 0.7);
+   font-size   : 14pt;
+   font-weight : bold;
+   width       : 100px;
+   height      : 64px;
+   border      : 0px;
+   left        : 228px;
+   position    : absolute;
+   text-align  : center;
+   line-height : 64px;
+}
+
+#menu_buttons_ui {
+   background-color  : rgba(0, 0, 0, 0.7);
+  	width             : 256px;
+  	height            : 64px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-style      : dotted;
+   border-radius     : 15px 15px 0px 0px;
+  	left              : 50%;
+	bottom            : 67px;
+   transform         : translateX(-50%);
+	position          : absolute;
+	z-index           : 3;
+}
+
+#logout_btn {
+  	background-image : url('../res/img/icon/logout.svg');
+  	width            : 64px;
+  	height           : 64px;
+   border           : 0px;
+   background-color : rgba(0, 0, 0, 0.7);
+   left             : 0px;
+   position         : absolute;
+   opacity          : 0.7;
+   cursor           : pointer;
+}
+
+#planet_btn {
+  	background-image : url('../res/img/icon/planet.svg');
+   background-color : rgba(0, 0, 0, 0.7);
+  	width            : 64px;
+  	height           : 64px;
+   border           : 0px;
+   left             : 64px;
+   position         : absolute;
+   opacity          : 0.7;
+   cursor           : pointer;
+}
+
+#minimap_btn {
+  	background-image : url('../res/img/icon/space_ship.svg');
+   background-color : rgba(0, 0, 0, 0.7);
+  	width            : 64px;
+  	height           : 64px;
+   border           : 0px;
+   left             : 128px;
+   position         : absolute;
+   opacity          : 0.7;
+   cursor           : pointer;
+}
+
+#rank_btn {
+ 	background-image : url('../res/img/icon/rank.svg');
+   background-color : rgba(0, 0, 0, 0.7);
+  	width            : 64px;
+	height           : 64px;
+   border           : 0px;
+   /*border-style: dotted;*/
+   border-radius    : 0px 15px 0px 0px;
+   left             : 192px;
+   position         : absolute;
+   opacity          : 0.7;
+   cursor           : pointer;
+}
+
+#rank_ui { 
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 600px;
+	height            : 500px;
+   border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+	display           : none;
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position          : fixed;
+	z-index           : 100;
+}
+
+#rank_title {
+   background-color  : rgba(43, 100, 31, 0.7);
+   width             : 600px;
+   height            : 100px;
+   border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+   left              : 0px;
+   position          : absolute;
+}
+
+#user_rank {
+	background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+	width             : 100px;
+	height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+	left              : 10px;
+	position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#user_id {
+	background-color  : rgba(0, 255, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+	width             : 285px;
+	height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+	left              : 110px;
+	position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#user_score {
+	background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+	width             : 187px;
+	height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+	right             : 15px;
+	position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#user_list {
+   width       : 600px;
+   height      : 400px;
+   top         : 100px;
+   position    : absolute;
+   overflow-y  : scroll;
+}
+
+#planet_ui {
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 1000px;
+	height            : 550px;
+	display           : none;
+   border-radius     : 5px;
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	position          : fixed;
+	z-index           : 100;
+}
+
+#planet_list_button {
+   background-color  : rgba(43, 100, 31, 0.9);
+   width             : 1000px;
+   height            : 50px;
+   border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+   top               : 0px;
+   left              : 0px;
+   position          : absolute;
+}
+
+#all_planets {
+   background-color  : rgba(207, 47, 77, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 200px;
+   height            : 50px;
+   border            : 1px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 5px 5px 0px 0px;
+   border-style      : dotted;
+   left              : 10px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 50px;
+   cursor            : pointer;
+}
+
+#my_planets {
+   background-color  : rgba(29, 66, 107, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 200px;
+   height            : 50px;
+   border            : 1px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 5px 5px 0px 0px;
+   border-style      : dotted;
+   left              : 210px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 50px;
+   cursor            : pointer;
+}
+
+#planet_info {
+	background-color  : rgba(43, 100, 31, 0.9);
+	width             : 1000px;
+	height            : 100px;
+	border            : 0px;
+   border-radius     : 5px 5px 0px 0px;
+   top               : 50px;
+	left              : 0px;
+	position          : absolute;
+}
+
+#planet_name {
+   background-color  : rgba(255, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 200px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 10px;
+   top               : 0px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#planet_resource {
+   background-color  : rgba(0, 255, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 380px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 210px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#planet_discover {
+   background-color  : rgba(0, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 200px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 590px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#planet_grade {
+   background-color  : rgba(255, 0, 255, 0.3);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   width             : 193px;
+   height            : 100px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   left              : 790px;
+   position          : absolute;   
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#planet_list {
+   width       : 1000px;
+   height      : 400px;
+   top         : 150px;
+   position    : absolute;
+   overflow-y  : auto;
+}
+
+#my_planet_list {
+   width       : 1000px;
+   height      : 400px;
+   top         : 150px;
+   position    : absolute;
+   overflow-y  : auto;
+}
+
+#battle_ship_ui {
+	background-color  : rgba(255, 255, 255, 0.5);
+	width             : 1500px;
+	height            : 500px;
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+	display           : none;
+	position          : fixed;
+	z-index           : 100;
+}
+
+#develop_planet_ui {
+   background-color  : rgba(255, 255, 255, 1);
+	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
+   border            : 1px solid white;
+   border-style      : dotted;
+   border-radius     : 5px;
+   width             : 500px;
+   height            : 700px;
+   display           : none;
+   position          : fixed;
+   z-index           : 3;
+}
+
+#d_name {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 1);
+   font-size         : 20pt;
+   font-weight       : bold;
+   left              : 0px;
+   top               : 0px;
+   border            : 0px;
+   width             : 250px;
+   height            : 100px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#p_name {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 1);
+   font-size         : 20pt;
+   font-weight       : bold;
+   border            : 0px;
+   width             : 250px;
+   height            : 100px;
+   left              : 250px;
+   top               : 0px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+}
+
+#d_resource {
+   background-color  : rgba(255, 255, 0, 0.3);
+   width             : 500px;
+   height            : 300px;
+   left              : 0px;
+   top               : 100px;
+   position          : absolute;
+}
+
+#d_gas { 
+   background-color  : rgba(0, 255, 0, 0.7);
+   color             : rgba(0, 0, 0, 1);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 0px;
+   top               : 0px;
+   position          : absolute;
+   text-align        : center; 
+   line-height       : 100px; 
+}
+
+#d_mineral { 
+   background-color  : rgba(0, 0, 255, 0.7);
+   color             : rgba(0, 0, 0, 1);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 0px;
+   top               : 100px;
+   position          : absolute;
+   text-align        : center; 
+   line-height       : 100px; 
+}  
+
+#d_unknown { 
+   background-color  : rgba(255, 0, 0, 0.7);
+   color             : rgba(0, 0, 0, 1);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   text-align        : center; 
+   line-height       : 100px; 
+   left              : 0px; 
+   top               : 200px;
+   position          : absolute; 
+}
+
+#p_gas { 
+   background-color : rgba(0, 255, 0, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
+   width       : 250px; 
+   height      : 100px; 
+   border      : 0px; 
+   left        : 250px;
+   top         : 0px;
+   position    : absolute; 
+   text-align  : center; 
+   line-height : 100px; 
+}
+
+#p_mineral { 
+   background-color : rgba(0, 0, 255, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
+   width       : 250px; 
+   height      : 100px; 
+   border      : 0px; 
+   left        : 250px;
+   top         : 100px;
+   position    : absolute; 
+   text-align  : center; 
+   line-height : 100px; 
+}
+
+#p_unknown { 
+   background-color: rgba(255, 0, 0, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
+   width       : 250px; 
+   height      : 100px; 
+   border      : 0px; 
+   left        : 250px;
+   top         : 200px;
+   position    : absolute; 
+   text-align  : center; 
+   line-height : 100px; 
+}
+
+#d_grade { 
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 0px;
+   top               : 400px;
+   position          : absolute;
+   text-align        : center; 
+   line-height       : 100px;
+}
+
+#p_grade { 
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px; 
+   height            : 100px; 
+   border            : 0px; 
+   left              : 250px;
+   top               : 400px;
+   position          : absolute;
+   text-align        : center; 
+   line-height       : 100px;
+}
+
+#d_develop {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px;
+   height            : 100px;
+   border            : 0px;
+   text-align        : center;
+   line-height       : 100px;
+   left              : 0px;
+   top               : 500px;
+   position          : absolute;
+}
+
+#p_develop {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size   : 20pt;
+   font-weight : bold;
+   width       : 250px;
+   height      : 100px;
+   border      : 0px;
+   left        : 250px;
+   top         : 500px;
+   position    : absolute;
+   text-align  : center;
+   line-height : 100px;
+}
+
+#develop_planet {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px;
+   height            : 100px;
+   border            : 0px;
+   left              : 0px;
+   top               : 600px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+   cursor            : pointer;
+}
+
+#cancel {
+   background-color  : rgba(0, 0, 0, 0.7);
+   color             : rgba(255, 255, 255, 0.7);
+   font-size         : 20pt;
+   font-weight       : bold;
+   width             : 250px;
+   height            : 100px;
+   border            : 0px;
+   left              : 250px;
+   top               : 600px;
+   position          : absolute;
+   text-align        : center;
+   line-height       : 100px;
+   cursor            : pointer;
+}
+
+#key_set {
+   background-color  : rgba(255, 255, 255, 0.7);
+   font-weight       : bold;
+   font-size         : 12pt;
+   border            : 1px solid white;
+   border-style      : dotted;
+   border-radius     : 5px;
+   width             : 500px;
+   height            : 500px;
+   text-align        : center;
+/* line-height       : 500px;*/
+   position          : fixed;
+   display           : none;
+   z-index           : 3;
+}
+
+#main_pop_up_view { 
+   background-color : rgba(128, 0, 128, 0.8);
+   border           : 2px solid white;
+   border-radius    : 5px;
+   border-style     : dotted;
+   width            : 500px;
+   height           : 100px;
+   position         : fixed;
+   z-index          : 3;
+   display          : none;
+}
+
+#main_pop_up_msg {
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   position    : absolute;
+}
+
+#main_pop_up_hide {
+   background-color : rgba(128, 0, 0, 0.5);
+   color            : rgba(255, 255, 255, 1);
+   border           : 2px solid white;
+   border-style     : dotted;
+   text-align       : center;
+   line-height      : 15px;
+   width            : 15px;
+   height           : 15px;
+   left             : 502px;
+   top              : 0px;
+   position         : relative;
+   cursor           : pointer;   
+}
+
+#develop_planet_question_pop_up_view {
+   background-color : rgba(128, 0, 128, 0.8);
+   border           : 2px solid white;
+   border-radius    : 5px;
+   border-style     : dotted;
+   width            : 500px;
+   height           : 200px;
+   position         : fixed;
+   z-index          : 3;
+   display          : none;
+}
+
+#question_develop_msg {
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   position    : absolute;
+}
+
+#anser_develop_msg {
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   top         : 100px;
+   position    : absolute;
+}
+
+#bg_sound_control {
+  color        : rgba(255, 255, 255, 0.8);
+  font-size    : 20pt;
+  font-weight  : bold;
+  cursor       : pointer;
+  top          : 0px;
+  right        : 10px;
+  position     : absolute;
+}

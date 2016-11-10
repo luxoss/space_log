@@ -1,0 +1,157 @@
+<!--
+   ** File-name: main.html
+   ** Wrtier: luxoss
+   ** File-explanation: Display main html page
+-->
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="utf-8"/>
+<!--  <meta name = "viewport" content = "width=device-width, initial-scale=1" />-->
+
+      <link rel = "stylesheet" href= "./css/main.css" media = "screen" charset = "utf-8" />
+
+      <!-- Contain javascript libs -->
+      <script type = "text/javascript" src = "http://code.jquery.com/jquery-2.1.0.min.js"></script>
+      <script type = "text/javascript" src = "https://cdn.socket.io/socket.io-1.4.5.js"></script>
+
+      <!-- Load main control javascript file list -->
+      <script type = "text/javascript" src = "http://game.smuc.ac.kr:8000/js/main.js"></script>
+      <script type = "text/javascript" src = "http://game.smuc.ac.kr:8000/js/planet_ui.js"></script>
+      <script type = "text/javascript" src = "http://game.smuc.ac.kr:8000/js/minimap_ui.js"></script>
+      <script type = "text/javascript" src = "http://game.smuc.ac.kr:8000/js/rank_ui.js"></script>
+
+      <!-- Turn on the background sound -->
+      <audio bgsound id = "main_bg_sound" src= "./res/sound/bgm/battle_bgm.mp3" loop = infinite autoplay></audio>
+
+      <title>THE SPACE LOG - SOME SPACE VOYAGERS</title>
+   </head>
+   <body>
+<!--      <div id = main_containter>-->
+         <!-- Main display -->
+         <div id = "main_layer">
+            <div id = "main_star_boxes"></div>
+            <div id = "planets"></div>
+            <div id = "space_ship"></div>
+         </div>
+
+         <div id = "view_layer">
+            <!-- Menu icon -->
+            <div id = "menu_buttons_ui">
+               <div id = "logout_btn" type = "button"></div>
+               <div id = "planet_btn" type = "button"></div>
+               <div id = "minimap_btn" type = "button"></div>
+               <div id = "rank_btn"></div>
+            </div>
+
+            <!-- User information UI -->
+            <div id = "user_info_ui">
+               <div id = "user_avatar">
+                  <div id = "user_name"></div>
+               </div>
+
+               <div id = "user_ticket">
+                  <div id = "ticket_icon">TICKET</div>
+                  <div id = "ticket_point"></div>
+               </div>
+
+               <div id = "score_status">
+                  <div id = "score_icon">SCORE</div> 
+                  <div id = "score_point"></div>
+               </div>
+
+               <div id = "resource">
+                  <div id = "m_icon"></div><div id = "mineral" value = "0"></div>
+                  <div id = "g_icon"></div><div id = "gas" value = "0"></div>
+                  <div id = "u_icon"></div><div id = "unknown" value = "0"></div>
+               </div>
+            </div>
+
+            <!-- Draw minimap user interface -->
+            <div id = "minimap_ui">
+               <div id = "minimap_assets"></div>
+            </div>
+
+            <div id = "position_navigator">
+               <div id = "icon_x">X</div>
+               <div id = "position_x" value = "0"></div>
+               <div id = "icon_y">Y</div>
+               <div id = "position_y" value = "0"></div>
+            </div>
+
+            <!-- Background sound on | off -->
+            <div id = "bg_sound_control">[SOUND | ON]</div>
+         </div>
+
+         <!-- Planet UI -->
+         <div id = "planet_ui">
+            <div id = "planet_list_button">
+               <div id = "all_planets">ALL PLANETS</div>
+               <!--<div id = "my_planets">MY PLANETS</div>-->
+            </div>
+            <div id = "planet_info">
+               <div id = "planet_name">PLANET NAME</div>
+               <div id = "planet_resource">RESOURCE</div>
+               <div id = "planet_discover">DEVELOP</div>
+               <div id = "planet_grade">GRADE</div>
+            </div>
+            <!--
+            <div id = "wraper">
+               <div id = "my_planet_list"></div>
+            </div>
+            -->
+            <div id = "planet_list"></div>
+           <!-- 이 태그를 추가 시 planet_list가 overflow되지 않음 -->
+           <!--<div id = "my_planet_list"></div>-->
+         </div>
+
+         <!-- Users' rank inforamtion UI -->
+         <div id = "rank_ui">
+            <div id = "rank_title">
+               <div id = "user_rank">RANK</div>
+               <div id = "user_id">USER NAME</div>
+               <div id = "user_score">SCORE</div>
+            </div>
+            <div id = "user_list"></div> 
+         </div>
+
+         <!-- Develop planet pop up view -->
+         <div id = "develop_planet_ui">
+            <div id = "d_name">행성 이름</div><div id = "p_name"></div>
+            <div id = "d_resource">
+                  <div id = "d_gas">가스</div><div id = "p_gas"></div>
+                  <div id = "d_mineral">미네랄</div><div id = "p_mineral"></div>
+                  <div id = "d_unknown">확인되지 않은 자원</div><div id = "p_unknown"></div>
+            </div>
+            <div id = "d_grade">등급</div><div id = "p_grade"></div>
+            <div id = "d_develop">개척여부</div><div id = "p_develop"></div>
+            <div id = "develop_planet">개척 시작</div>
+            <div id = "cancel">개척 취소</div>
+         </div>
+
+         <!-- Available press key list -->
+         <div id = "key_set">
+            <br/><br/>
+            <div>'P KEY' is 'PLANET MENU BUTTON'</div><br/>
+            <div>'R KEY' is 'RANK MENU BUTTON'</div><br/>
+            <div>'M KEY' is 'MINIMAP BUTTON'</div><br/>
+            <div>'S KEY' is 'FOCUS VIEWPORT BUTTON'</div><br/> 
+            <div>'SPACE KEY' is 'DEVELOP PLANET'</div><br/>
+         </div>
+
+         <!-- Main pop up view -->
+         <div id = "main_pop_up_view">
+            <div id = "main_pop_up_msg"></div>
+         <!--<div id = "main_pop_up_hide">X</div>-->
+         </div>
+
+         <div id = "develop_planet_question_pop_up_view">
+            <div id = "question_develop_msg"></div>
+            <input type = "text" id = "answer_develop_msg" value = "" />
+         </div>
+
+         <!-- Background boxes -->
+         <div id = "star_boxes"></div>
+         <!--</div>-->
+   </body>
+</html>

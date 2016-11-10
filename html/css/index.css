@@ -1,0 +1,280 @@
+/**
+   ** File-name        : index.css
+	** Author           : luxoss
+	** File-explanation : Decorate index html page with cascading style sheet
+*/	
+
+body {
+/*  background-color : rgba(0, 0, 0, 1);*/
+   overflow         : hidden !important;
+   background-image : url('http://203.237.179.21:8000/res/img/galaxy_box.png');
+   background-size  : cover;
+}
+
+input {
+   width   : 290px;
+   height  : 30px;
+   margin  : 0px;
+   padding : 0px;
+   border  : 1px solid rgb(255, 255, 255);
+}
+
+div h1 h3 {
+   margin  : 0px;
+   padding : 0px;
+}
+
+
+.input_text {
+   background    : transparent;
+   color         : rgba(255, 255, 0, 0.7);
+   font-weight   : bold;
+   border        : 2px solid white;
+   border-radius : 10px;
+   position      : relative;
+}	
+
+.input_btn {
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgb(255, 255, 255);
+   font-size         : 16px;
+   font-weight       : bold;
+   border            : 3px solid white;
+   border-radius     : 10px;
+   position          : relative;
+}
+
+#main_container {
+   background    : transparent;
+   width         : 450px;
+   height        : 500px; 
+   border-radius : 10px;
+   position      : fixed;
+   z-index       : 2;
+}
+
+#header {
+   width         : 400px;
+   height        : 150px; 
+   color         : rgb(255, 255, 255);
+   font-size     : 24pt;
+   border-bottom : 2px solid rgb(255, 255, 255);
+   top           : 0px;
+   position      : absolute;
+   text-align    : left;
+}
+
+#login_info {
+   background : transparent;
+   width      : 449px;
+   height     : 275px;
+   border     : 0px;
+   top        : 150px;
+   position   : absolute;
+}
+
+#join_info {
+   background-color : transparent;
+   font-weight      : bold;
+   width            : 450px;
+   height           : 450px;
+  /* border           : 2px solid rgba(255, 255, 255, 1);*/
+  /* border-radius    : 10px;*/
+  /* border-style     : dotted;*/
+   border-bottom    : 2px solid rgba(255, 255, 255, 1);
+   position         : absolute;
+   display          : none;
+   z-index          : 3;
+}
+
+#join_username_title {
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 1);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 110px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   position          : absolute;
+   left              : 25px;
+   top               : 30px;
+   text-align        : center;
+   line-height       : 90px;   
+}
+
+#join_username {
+   background-color  : transparent;
+   color             : rgba(255, 255, 0, 1);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 280px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   position          : absolute;
+   left              : 145px;
+   top               : 30px;
+}	
+
+#join_password_title {
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 1);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 110px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   position          : absolute;
+   left              : 25px;
+   top               : 135px;
+   text-align        : center;
+   line-height       : 90px;
+}
+
+#join_password {
+   background-color  : transparent;
+   color             : rgba(255, 255, 0, 1);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 280px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   position          : absolute;
+   left              : 145px;
+   top               : 135px;
+}
+
+#join_email_title {
+   background-color  : rgba(0, 0, 0, 0.3);
+   color             : rgba(255, 255, 255, 1);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 110px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   position          : absolute;
+   left              : 25px;
+   top               : 240px;
+   text-align        : center;
+   line-height       : 90px;
+}
+
+#join_email {
+   background-color  : transparent;
+   color             : rgba(255, 255, 0, 1);
+   font-size         : 12pt;
+   font-weight       : bold;
+   width             : 280px;
+   height            : 90px;
+   border            : 2px solid rgba(255, 255, 255, 0.7);
+   border-radius     : 10px;
+   position          : absolute;
+   left              : 145px;
+   top               : 240px;
+}
+
+#join_submit {
+   background-color : rgba(0, 0, 0, 0.3);
+   color            : rgba(255, 255, 255, 0.9);
+   width            : 190px;
+   height           : 50px;
+   border           : 2px solid rgba(255, 255, 255, 1);
+   border-radius    : 10px;
+   position         : absolute;
+   left             : 25px;
+   bottom           : 35px;
+   text-align       : center;
+   line-height      : 50px;
+   cursor           : pointer;
+}
+
+#join_cancel {
+   background-color : rgba(0, 0, 0, 0.3);
+   color            : rgba(255, 255, 255, 0.9);
+   width            : 190px;
+   height           : 50px;
+   border           : 2px solid rgba(255, 255, 255, 1);
+   border-radius    : 10px;
+   position         : absolute;
+   right            : 25px;
+   bottom           : 35px;
+   text-align       : center;
+   line-height      : 50px;
+   cursor           : pointer;
+}
+/*
+#join_footer {
+   background-color : transparent;
+   color            : rgba(255, 255, 255, 0.7);
+   width            : 450px;
+   height           : 35px;
+   position         : absolute;
+   top              : 0px;
+   text-align       : right;
+}
+*/
+#footer {
+   background  : transparent;
+   width       : 400px;
+   height      : 75px;
+   color       : rgb(255, 255, 255);
+   clear       : both;
+   border-top  : 2px solid rgb(255, 255, 255);
+   top         : 425px;
+   left        : 50px; 
+   position    : absolute;
+   text-align  : right;
+}
+
+#sound_control {
+   color       : rgba(255, 255, 255, 0.7);
+   font-weight : bold;
+   cursor      : pointer;
+}
+
+#index_pop_up_view { 
+   background-color : rgba(128, 0, 128, 0.8);
+   border           : 2px solid white;
+   border-radius    : 5px;
+   border-style     : dotted;
+   width            : 500px;
+   height           : 100px;
+   position         : fixed;
+   z-index          : 3;
+   display          : none;
+}
+
+#index_pop_up_msg {
+   background  : transparent;
+   color       : rgba(255, 255, 255, 1);
+   font-weight : bold;
+   font-size   : 12pt;
+   width       : 400px;
+   height      : 100px;
+   text-align  : center;
+   line-height : 100px;
+   left        : 50px;
+   position    : absolute;
+}
+
+#index_pop_up_hide {
+   background-color : rgba(128, 0, 0, 0.5);
+   color            : rgba(255, 255, 255, 1);
+   border           : 2px solid white;
+   border-style     : dotted;
+   text-align       : center;
+   line-height      : 15px;
+   width            : 15px;
+   height           : 15px;
+   left             : 502px;
+   top              : 0px;
+   position         : relative;
+   cursor           : pointer;   
+}
+
+
+
