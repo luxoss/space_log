@@ -27,7 +27,7 @@ function drawMinimap(user, enemy, socket)
 
    minimapEnemy = enemy;
 
-   menuSelectSound.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
+   menuSelectSound.src = "http://game.smuc.ac.kr/res/sound/effect/menu_selection.wav";
    
    if(state === 'none')
    {

@@ -28,7 +28,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 */
 
 #main_layer {
-   /*background-image : url('http://game.smuc.ac.kr:8000/res/img/space_tile1.png');*/
+   /*background-image : url('http://game.smuc.ac.kr/res/img/space_tile1.png');*/
    background-color : rgba(0, 0, 0, 0.8);
   	width            : 3500px;
   	height           : 3500px; 

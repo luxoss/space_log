@@ -8,7 +8,7 @@ $(document).ready(function() {
    var userInfoSocket = io.connect('http://game.smuc.ac.kr:5001');  
    var selectButton = new Audio();
   
-   selectButton.src = "http://game.smuc.ac.kr:8000/res/sound/effect/menu_selection.wav";
+   selectButton.src = "http://game.smuc.ac.kr/res/sound/effect/menu_selection.wav";
 
    selectTeam();
 
