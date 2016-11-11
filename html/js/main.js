@@ -774,8 +774,8 @@ function devPopUpMsg(socket, user, msg)
 
          socket.develop.on('add_p_res_userinfo', function(data){
 
-            devScore  = parseInt(data.score, 10);  // Number() -> parseInt()
-            devTicket = parseInt(data.ticket, 10); // Number() -> parseInt()
+            devScore  = Number(data.score);  
+            devTicket = Number(data.ticket);
 
             $("#score_point").text(devScore);
             $("#ticket_point").text(devTicket);
