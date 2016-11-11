@@ -750,8 +750,9 @@ function develop(user, socket)
    });
 }
 
-function devPopUpMsg(socket, user, msg)
+function devPopUpMsg(socket, user, msg/*, keyState*/)
 {
+   //if(keyState == LEFT && keyState == RIGHT && keyState == UP && keyState == DOWN){ return false; } 
    var state = $("#detect_planets_number_display").css('display');
    var chooseNum = $("#input_number_text_field").val();
 
@@ -765,6 +766,7 @@ function devPopUpMsg(socket, user, msg)
       $("#detect_number_msg").text(msg);
       
       $("#submit_choose_number").click(function(event){
+         //console.log("[CLIENT LOG] SELECT NUMBER: ", chooseNum);
 
          socket.develop.emit('add_p', {
             'username' : user['name'], 
