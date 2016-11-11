@@ -414,13 +414,13 @@ function keyHandler(user, socket)
 
       ev.stopImmediatePropagation();
       
-      if(keyState == BACK_SPACE) { return false; }
+      //if(keyState == BACK_SPACE) { return false; }
       if(keyState == F5) { return false; } 
       if(keyState == SHIFT) { return false; }
           
       if(keyState == LEFT)
       {
-//         if(user['x'] <= 0) { bg.x("main_layer", bg.x("main_layer") - 0); }
+         //if(user['x'] <= 0) { bg.x("main_layer", bg.x("main_layer") - 0); }
 
          bg.x("main_layer", bg.x("main_layer") + speed);
 
@@ -434,7 +434,7 @@ function keyHandler(user, socket)
 
       if(keyState == UP)
       {
-//         if(user['y'] <= 0) { bg.y("main_layer", bg.y("main_layer") + 0); }
+         //if(user['y'] <= 0) { bg.y("main_layer", bg.y("main_layer") + 0); }
 
          bg.y("main_layer", bg.y("main_layer") + speed);
 
@@ -448,7 +448,7 @@ function keyHandler(user, socket)
 
       if(keyState == RIGHT)
       {
-//         if(user['x'] >= 3430) { bg.x("main_layer", bg.x("main_layer") + 0); }
+         //if(user['x'] >= 3430) { bg.x("main_layer", bg.x("main_layer") + 0); }
 
          bg.x("main_layer", bg.x("main_layer") - speed);
 
@@ -462,7 +462,7 @@ function keyHandler(user, socket)
 
       if(keyState == DOWN)
       {
-//         if(user['y'] >= 3430) { bg.y("main_layer", bg.y("main_layer") - 0); }
+         //if(user['y'] >= 3430) { bg.y("main_layer", bg.y("main_layer") - 0); }
 
          bg.y("main_layer", bg.y("main_layer") - speed);
 
@@ -794,8 +794,9 @@ function devPopUpMsg(socket, user, msg)
 
          });
 
+         $("#detect_planets_number_display").hide();
          popUpMsg("행성이 개척되었습니다. :)");      
-
+         
          event.stopImmediatePropagation();
       });
    }
