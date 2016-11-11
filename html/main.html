@@ -9,7 +9,7 @@
       <meta charset="utf-8"/>
 <!--  <meta name = "viewport" content = "width=device-width, initial-scale=1" />-->
 
-      <link rel = "stylesheet" href= "./css/main.css" media = "screen" charset = "utf-8" />
+      <link rel = "stylesheet" href= "http://game.smuc.ac.kr/css/main.css" media = "screen" charset = "utf-8" />
 
       <!-- Contain javascript libs -->
       <script type = "text/javascript" src = "http://code.jquery.com/jquery-2.1.0.min.js"></script>
@@ -129,16 +129,6 @@
             <div id = "cancel">개척 취소</div>
          </div>
 
-         <!-- Available press key list -->
-         <div id = "key_set">
-            <br/><br/>
-            <div>'P KEY' is 'PLANET MENU BUTTON'</div><br/>
-            <div>'R KEY' is 'RANK MENU BUTTON'</div><br/>
-            <div>'M KEY' is 'MINIMAP BUTTON'</div><br/>
-            <div>'S KEY' is 'FOCUS VIEWPORT BUTTON'</div><br/> 
-            <div>'SPACE KEY' is 'DEVELOP PLANET'</div><br/>
-         </div>
-
          <!-- Main pop up view -->
          <div id = "main_pop_up_view">
             <div id = "main_pop_up_msg"></div>
@@ -146,12 +136,10 @@
          </div>
 
          <!-- Choice planet barrier number -->
-         <div id = "develop_planet_question_pop_up_view">
-            <div id = "question_develop_msg"></div>
-            <div id = "input_number">
-               <input type = "number" id = "answer_develop_msg" placeholder="1~10사이 정수 입력" value="" maxlength="2" />
-            </div>
-            <div id = "dev_submit"></div>
+         <div id = detect_planets_number_display">
+            <div id = "detect_number_msg"></div>
+            <input type = "text" id = "input_number_text_field" placeholder = "1에서 10사이의 정수 입력" value = "" />
+            <div id = "submit_choose_number"></div>
          </div>
 
          <!-- Background boxes -->

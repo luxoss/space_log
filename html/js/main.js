@@ -752,19 +752,19 @@ function develop(user, socket)
 
 function devPopUpMsg(socket, user, msg)
 {
-   var state = $("#develop_planet_question_pop_up_view").css('display');
-   var chooseNum = $("#answer_develop_msg").val();
+   var state = $("#detect_planets_number_display").css('display');
+   var chooseNum = $("#input_number_text_field").val();
 
-   $("#develop_planet_question_pop_up_view").css({
-      'left' : ($(window).width() - $("#develop_planet_question_pop_up_view").outerWidth()) / 2, 
-      'top'  : ($(window).height() - $("#develop_planet_question_pop_up_view").outerHeight()) / 2
+   $("#detect_planets_number_display").css({
+      'left' : ($(window).width() - $("#detect_planets_number_display").outerWidth()) / 2, 
+      'top'  : ($(window).height() - $("#detect_planets_number_display").outerHeight()) / 2
    });
 
    if(state == 'none') {
-      $("#develop_planet_question_pop_up_view").show();
-      $("#question_develop_msg").text(msg);
+      $("#detect_planets_number_display").show();
+      $("#detect_number_msg").text(msg);
       
-      $("#dev_submit").click(function(event){
+      $("#submit_choose_number").click(function(event){
 
          socket.develop.emit('add_p', {
             'username' : user['name'], 
