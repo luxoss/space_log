@@ -934,30 +934,47 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #question_develop_msg {
-   background  : transparent;
-   color       : rgba(255, 255, 255, 1);
-   font-weight : bold;
-   font-size   : 12pt;
-   width       : 400px;
-   height      : 100px;
-   text-align  : center;
-   line-height : 100px;
-   left        : 50px;
-   position    : absolute;
+   background-color : transparent;
+   color            : rgba(255, 255, 255, 1);
+   font-weight      : bold;
+   border           : 0px;
+   width            : 500px;
+   height           : 100px;
+   top              : 0px;
+   left             : 0px;
+   position         : absolute;
 }
 
-#anser_develop_msg {
-   background  : transparent;
-   color       : rgba(255, 255, 255, 1);
-   font-weight : bold;
-   font-size   : 12pt;
-   width       : 400px;
-   height      : 100px;
-   text-align  : center;
-   line-height : 100px;
-   left        : 50px;
-   top         : 100px;
-   position    : absolute;
+#input_number {
+   background-color : transparent;
+   border           : 0px;
+   width            : 500px;
+   height           : 100px;
+   top              : 100px;
+   left             : 0px;
+   position         : absolute;
+}
+
+#answer_develop_msg {
+   background-color : rgba(0, 0, 0, 0.3);
+   color            : rgba(255, 255, 255, 1);
+   font-weight      : bold;
+   border           : 0px;
+   width            : 400px;
+   height           : 100px;
+   top              : 0px;
+   left             : 50px;
+   position         : absolute;
+}
+
+#dev_submit {
+   background-color : rgba(0, 0, 0, 0.3);
+   border           : 0px;
+   width            : 500px;
+   height           : 100px;
+   top              : 200px;
+   left             : 0px;
+   position         : absolute;
 }
 
 #bg_sound_control {

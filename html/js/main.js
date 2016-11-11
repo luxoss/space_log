@@ -644,6 +644,9 @@ function keyHandler(user, socket)
 
 function develop(user, socket)
 {
+   var devUser = user;
+   var devSocket = socket;
+
    socket.userPos.emit('collision_req', {
       'username' : user['name'], 
       'location_x' : user['x'],
@@ -705,12 +708,10 @@ function develop(user, socket)
 
          $("#cancel").click(function(event){
             $("#develop_planet_ui").hide();
-
             event.stopImmediatePropagation();
          });
 
          $("#develop_planet").mouseover(function(event) {
-
             menuSelection.play();
             $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
             menuSelection.currentTime = 0;
@@ -720,7 +721,6 @@ function develop(user, socket)
          });
 
          $("#develop_planet").mouseout(function(event) {
-
             menuSelection.play();
             $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
             menuSelection.currentTime = 0;
@@ -730,35 +730,8 @@ function develop(user, socket)
          
          // Developed planet event that clicked.
          $("#develop_planet").click(function(event){
-
-            socket.develop.emit('add_p', {'username' : user['name'], 'p_id' : developPlanet});
-
-            socket.develop.on('add_p_res_userinfo', function(data){
-
-               devScore  = parseInt(data.score, 10);  // Number() -> parseInt()
-               devTicket = parseInt(data.ticket, 10); // Number() -> parseInt()
-
-               $("#score_point").text(devScore);
-               $("#ticket_point").text(devTicket);
-
-            });
-
-            socket.develop.on('chng_info', function(data){
-
-               devMineral = parseInt(data.mineral, 10);
-               devGas     = parseInt(data.gas, 10);
-               devUnknown = parseInt(data.unknown, 10);
-
-               $("#mineral").text(devMineral);
-               $("#gas").text(devGas);
-               $("#unknown").text(devUnknown); 
-
-            });
-          
             $("#develop_planet_ui").hide();
-        
-            popUpMsg("Complete develop planet.");      
-
+            devPopUpMsg(devSocket, devUser, "행성을 방어할 숫자(1~10)를 입력하세요!");
             event.stopImmediatePropagation();
          });
       }
@@ -776,6 +749,59 @@ function develop(user, socket)
       }
    });
 }
+
+function devPopUpMsg(socket, user, msg)
+{
+   var state = $("#develop_planet_question_pop_up_view").css('display');
+   var chooseNum = $("#answer_develop_msg").val();
+
+   $("#develop_planet_question_pop_up_view").css({
+      'left' : ($(window).width() - $("#develop_planet_question_pop_up_view").outerWidth()) / 2, 
+      'top'  : ($(window).height() - $("#develop_planet_question_pop_up_view").outerHeight()) / 2
+   });
+
+   if(state == 'none') {
+      $("#develop_planet_question_pop_up_view").show();
+      $("#question_develop_msg").text(msg);
+      
+      $("#dev_submit").click(function(event){
+
+         socket.develop.emit('add_p', {
+            'username' : user['name'], 
+            'p_id' : developPlanet,
+            'choose_number' : chooseNum
+         });
+
+         socket.develop.on('add_p_res_userinfo', function(data){
+
+            devScore  = parseInt(data.score, 10);  // Number() -> parseInt()
+            devTicket = parseInt(data.ticket, 10); // Number() -> parseInt()
+
+            $("#score_point").text(devScore);
+            $("#ticket_point").text(devTicket);
+
+         });
+
+         socket.develop.on('chng_info', function(data){
+
+            devMineral = parseInt(data.mineral, 10);
+            devGas     = parseInt(data.gas, 10);
+            devUnknown = parseInt(data.unknown, 10);
+
+            $("#mineral").text(devMineral);
+            $("#gas").text(devGas);
+            $("#unknown").text(devUnknown); 
+
+         });
+
+         popUpMsg("행성이 개척되었습니다. :)");      
+
+         event.stopImmediatePropagation();
+      });
+   }
+}
+
+
 
 function logout(user) 
 {
@@ -802,16 +828,9 @@ function logout(user)
                'lastPosX': user['x'],     
                'lastPosY': user['y']     
             }); 
-/*
-            localStorage.removeItem('username');
-            localStorage.removeItem('x');
-            localStorage.removeItem('y'); 
-            localStorage.removeItem('mineral');
-            localStorage.removeItem('gas');
-            localStorage.removeItem('unknown');
-            localStorage.removeItem('exp');
-            localStorage.removeItem('hp');
-*/
+
+            localStorage.clear();
+
             socket.userInit.disconnect();
             socket.userInfo.disconnect();
             socket.userPos.disconnect();
@@ -1056,17 +1075,6 @@ function popUpMsg(msg)
 }
 
 /*
-function devPopUpMsg()
-{
-   var state = $("#develop_planet_question_pop_up_view").css('display');
-   var chooseNum = $("#anser_develop_msg").val();
-
-   if(state == 'none') {
-      $("#develop_planet_question_pop_up_view").show();
-      $("#question_develop_msg").text(msg);
-   }
-}
-
 function keySetDisplay() 
 {
    var display_state = $("#key_set").css('display');
