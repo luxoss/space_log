@@ -737,7 +737,7 @@ function develop(user, socket)
       }
       else if(collisionFlag == 1 && developThis === 'true')
       {
-         popUpMsg(data['username'] + "께서 개척하신 행성입니다.");
+         extractPlanet(socket, user, data['username'] + "께서 개척하신 행성입니다.");
       }
       else if(devTicket == 0)
       {
@@ -767,44 +767,103 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
       
       $("#submit_choose_number").click(function(event){
          //console.log("[CLIENT LOG] SELECT NUMBER: ", chooseNum);
+         if(isNaN(chooseNum) == true) {
+            console.log("[CLIENT LOG]: ", chooseNum);
+            popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
+         }
+         else {         
+            socket.develop.emit('add_p', {
+               'username' : user['name'], 
+               'p_id' : developPlanet,
+               'choose_number' : chooseNum
+            });
 
-         socket.develop.emit('add_p', {
-            'username' : user['name'], 
-            'p_id' : developPlanet,
-            'choose_number' : chooseNum
-         });
+            socket.develop.on('add_p_res_userinfo', function(data){
+               devScore  = Number(data.score);  
+               devTicket = Number(data.ticket);
 
-         socket.develop.on('add_p_res_userinfo', function(data){
+               $("#score_point").text(devScore);
+               $("#ticket_point").text(devTicket);
+            });
 
-            devScore  = Number(data.score);  
-            devTicket = Number(data.ticket);
+            socket.develop.on('chng_info', function(data){
+               devMineral = parseInt(data.mineral, 10);
+               devGas     = parseInt(data.gas, 10);
+               devUnknown = parseInt(data.unknown, 10);
 
-            $("#score_point").text(devScore);
-            $("#ticket_point").text(devTicket);
+               $("#mineral").text(devMineral);
+               $("#gas").text(devGas);
+               $("#unknown").text(devUnknown); 
+            });
 
-         });
-
-         socket.develop.on('chng_info', function(data){
-
-            devMineral = parseInt(data.mineral, 10);
-            devGas     = parseInt(data.gas, 10);
-            devUnknown = parseInt(data.unknown, 10);
-
-            $("#mineral").text(devMineral);
-            $("#gas").text(devGas);
-            $("#unknown").text(devUnknown); 
-
-         });
-
-         $("#detect_planets_number_display").hide();
-         popUpMsg("행성이 개척되었습니다. :)");      
-         
-         event.stopImmediatePropagation();
+            $("#detect_planets_number_display").hide();
+            popUpMsg("행성이 개척되었습니다. :)");      
+            
+            event.stopImmediatePropagation();
+         }
       });
    }
 }
 
+function extractPlanet(socket, user, msg)
+{
+   var state = $("#extract_planets_number_display").css('display');
+   var chooseNum = $("#input_extract_planet_core_field").val();
 
+   $("#extract_planets_number_display").css({
+      'left' : ($(window).width() - $("#extract_planets_number_display").outerWidth()) / 2, 
+      'top'  : ($(window).height() - $("#extract_planets_number_display").outerHeight()) / 2
+   });
+
+   if(state == 'none') {
+      $("#extract_planets_number_display").show();
+      $("#extract_number_msg").text(msg);
+      
+      $("#exract_planet_core").click(function(event){
+         /*
+         if(isNaN(chooseNum) == true) {
+            console.log("[CLIENT LOG]: ", chooseNum);
+            popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
+         }
+         else {         
+            socket.develop.emit('add_p', {
+               'username' : user['name'], 
+               'p_id' : developPlanet,
+               'choose_number' : chooseNum
+            });
+
+            socket.develop.on('add_p_res_userinfo', function(data){
+               devScore  = Number(data.score);  
+               devTicket = Number(data.ticket);
+
+               $("#score_point").text(devScore);
+               $("#ticket_point").text(devTicket);
+            });
+
+            socket.develop.on('chng_info', function(data){
+               devMineral = parseInt(data.mineral, 10);
+               devGas     = parseInt(data.gas, 10);
+               devUnknown = parseInt(data.unknown, 10);
+
+               $("#mineral").text(devMineral);
+               $("#gas").text(devGas);
+               $("#unknown").text(devUnknown); 
+            });
+
+            $("#extract_planets_number_display").hide();
+            popUpMsg(data[p_id] + "행성을 점령하였습니다. :)");      
+            
+            event.stopImmediatePropagation();
+         }
+         */
+      });
+
+      $("#cancel_extract_planet_core").click(function(event){
+         $("#extract_planets_number_display").hide();
+         event.stopImmediatePropagation();
+      });
+   }
+}
 
 function logout(user) 
 {

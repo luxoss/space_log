@@ -329,8 +329,6 @@ function selectTeam()
 {
    var red = $("#select_red_team").text();
    var blue = $("#select_blue_team").text();
-
-   console.log(red, blue);
 }
 
 function popUpMsg(msg)
