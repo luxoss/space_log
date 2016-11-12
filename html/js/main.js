@@ -737,7 +737,7 @@ function develop(user, socket)
       }
       else if(collisionFlag == 1 && developThis === 'true')
       {
-         extractPlanet(socket, user, data['username'] + "께서 개척하신 행성입니다.");
+         extractPlanet(socket, user, "[" + data['username'] + "]" + " 께서 개척하신 행성입니다.");
       }
       else if(devTicket == 0)
       {
