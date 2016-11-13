@@ -79,6 +79,7 @@ function rankViewLayer(socket)
 	else
 	{
       $("#rank_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
+      $("#user_list").empty(); // Added a code line
 		$('#rank_ui').hide();
 	}
 }
