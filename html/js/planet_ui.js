@@ -7,8 +7,7 @@
 var planetViewLayer = function(user, socket) {
 
    var state = $('#planet_ui').css('display');
-   var styleTop = 0;
-   var myStyleTop = 0;
+   var styleTop = 0, myStyleTop = 0;
    var planetViewSocket = socket;
   
    if(state == 'none') 
