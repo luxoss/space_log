@@ -753,6 +753,8 @@ function develop(user, socket)
 function devPopUpMsg(socket, user, msg/*, keyState*/)
 {
    //if(keyState == LEFT && keyState == RIGHT && keyState == UP && keyState == DOWN){ return false; } 
+   //if(keyState >= 48 && keyState <= 57) {} // 일반 숫자키 
+   //if(keyState >= 96 && keyState <= 105) {} // 넘버락 숫자키 
    var state = $("#detect_planets_number_display").css('display');
   
    $("#detect_planets_number_display").css({
