@@ -20,7 +20,7 @@ var planetViewLayer = function(user, socket) {
       
       $("#planet_btn").css('background-color', 'rgba(255, 47, 77, 0.7)');
       $('#planet_ui').show();
-      $("#planet_list").animate({ scrollTop : 0 }, 1000);
+      //$("#planet_list").animate({ scrollTop : 0 }, 1000);
 
       // All planet listing
       planetViewSocket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });

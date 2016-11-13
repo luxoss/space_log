@@ -768,10 +768,11 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
       $("#submit_choose_number").click(function(event){
          //console.log("[CLIENT LOG] SELECT NUMBER: ", chooseNum);
          if(isNaN(chooseNum) == true) {
-            console.log("[CLIENT LOG]: ", chooseNum);
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
          }
          else {         
+            console.log("[CLIENT LOG]: ", chooseNum);
+
             socket.develop.emit('add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
