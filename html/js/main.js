@@ -767,7 +767,7 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
       
       $("#submit_choose_number").click(function(event){
          //console.log("[CLIENT LOG] SELECT NUMBER: ", chooseNum);
-         if(isNaN(chooseNum) == true) {
+         if(isNaN(typeof chooseNum) == true) {
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
          }
          else {         
