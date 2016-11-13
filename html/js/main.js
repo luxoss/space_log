@@ -813,7 +813,6 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
 function extractPlanet(socket, user, msg)
 {
    var state = $("#extract_planets_number_display").css('display');
-   var chooseNum = $("#input_extract_planet_core_field").val();
 
    $("#extract_planets_number_display").css({
       'left' : ($(window).width() - $("#extract_planets_number_display").outerWidth()) / 2, 
@@ -826,11 +825,17 @@ function extractPlanet(socket, user, msg)
       
       $("#exract_planet_core").click(function(event){
          /*
-         if(isNaN(chooseNum) == true) {
+         var extractNum = document.getElementById('input_extract_planet_core_field').value;
+         
+         extractNum = Number(extractNum);
+
+         if(isNaN(chooseNum) === true) 
+         {
             console.log("[CLIENT LOG]: ", chooseNum);
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
          }
-         else {         
+         else 
+         {         
             socket.develop.emit('add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
