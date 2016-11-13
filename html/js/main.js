@@ -406,13 +406,13 @@ function keyHandler(user, socket)
       }
    };
    
-   $('body').keydown(function(ev){ //.off('keydown').on('keydown', function(ev) {  
+   $('body').keydown(function(event){ //.off('keydown').on('keydown', function(ev) {  
       
-      var keyState = ev.keyCode;
+      var keyState = event.keyCode;
       var viewOffset = $("#view_layer").offset();
       var offset = $("#" + user['name']).offset();
 
-      ev.stopImmediatePropagation();
+      event.stopImmediatePropagation();
       
       //if(keyState == BACK_SPACE) { return false; }
       if(keyState == F5) { return false; } 
@@ -518,80 +518,22 @@ function keyHandler(user, socket)
       }
       
       // command line R key is 'redo' and r key is 'undo'
-      if(keyState == DEVELOP_PLANET) 
-      {        
-         develop(user, socket);
-      }
-              
+      if(keyState === DEVELOP_PLANET) { develop(user, socket); }              
    });
 
    // Handling keyup event.
-   $('body').keyup(function(ev){ 
+   $('body').keyup(function(event){ 
       //.off('keyup').on('keyup', function(ev) {
 
-      ev.stopImmediatePropagation();
+      event.stopImmediatePropagation();
 
-      if(ev.keyCode == BACK_SPACE) { return false; }
-      if(ev.keyCode == F5) { return false; } 
-      if(ev.keyCode == SHIFT) { return false; }
-
-      switch(ev)
-      {
-         case LEFT:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case UP:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case RIGHT:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case DOWN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case MINIMAP_BTN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case PLANET_BTN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case LOGOUT_BTN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case RANK_BTN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         case KEYSET_BTN:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-         
-         case DEVELOP_PLANET:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-
-         default:
-            ev.keyCode = 0;
-            ev.stopImmediatePropagation();
-            break;
-       }
+      if(event.keyCode == BACK_SPACE) { return false; }
+      if(event.keyCode == F5) { return false; } 
+      if(event.keyCode == SHIFT) { return false; }
+      if(event.keyCode == LEFT) { return false; }
+      if(event.keyCode == RIGHT) { return false; }
+      if(event.keyCode == UP) { return false; }
+      if(event.keyCode == DOWN) { return false; }
     });
    
    $("#logout_btn").click(function(event){ 
@@ -669,7 +611,7 @@ function develop(user, socket)
       var collisionUser = parseInt(data['username'], 10);
       var developThis = data['develop'];
 
-      if((collisionFlag === 1) && (developThis === 'false') && (devTicket > 0)) 
+      if((collisionFlag === 1) && (developThis === "false") && (devTicket > 0)) 
       {
          var state = $("#develop_planet_ui").css('display');
 
@@ -700,10 +642,12 @@ function develop(user, socket)
             event.stopImmediatePropagation();
          });
 
-         $("#cancel").mouseout(function() {
+         $("#cancel").mouseout(function(event) {
             menuSelection.play();
             $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
             menuSelection.currentTime = 0;
+
+            event.stopImmediatePropagation();
          });
 
          $("#cancel").click(function(event){
@@ -717,7 +661,6 @@ function develop(user, socket)
             menuSelection.currentTime = 0;
 
             event.stopImmediatePropagation();
-
          });
 
          $("#develop_planet").mouseout(function(event) {
@@ -735,8 +678,9 @@ function develop(user, socket)
             event.stopImmediatePropagation();
          });
       }
-      else if(collisionFlag == 1 && developThis === 'true')
+      else if(collisionFlag == 1 && developThis === "true")
       {
+         console.log(data);
          extractPlanet(socket, user, "[" + data['username'] + "]" + " 께서 개척하신 행성입니다.");
       }
       else if(devTicket == 0)
@@ -839,11 +783,11 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
                $("#mineral").text(devMineral);
                $("#gas").text(devGas);
                $("#unknown").text(devUnknown); 
+
+               $("#detect_planets_number_display").hide();
+               popUpMsg("행성이 개척되었습니다. :)");       
             });
 
-            $("#detect_planets_number_display").hide();
-            popUpMsg("행성이 개척되었습니다. :)");      
-            
             event.stopImmediatePropagation();
          }
       });
