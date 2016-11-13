@@ -731,7 +731,7 @@ function develop(user, socket)
          // Developed planet event that clicked.
          $("#develop_planet").click(function(event){
             $("#develop_planet_ui").hide();
-            devPopUpMsg(devSocket, devUser, "행성을 방어할 숫자(1~10)를 입력하세요!");
+            devPopUpMsg(devSocket, devUser, data['p_id'] + "행성을 방어할 숫자(1~10)를 입력하세요!");
             event.stopImmediatePropagation();
          });
       }
@@ -806,6 +806,13 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
             
             event.stopImmediatePropagation();
          }
+      });
+
+      $("#cancel_include_planet_core").click(function(event){
+         $("#detect_planets_number_display").hide();
+         $("#input_number_text_field").val('');
+
+         event.stopImmediatePropagation();
       });
    }
 }

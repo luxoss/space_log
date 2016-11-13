@@ -31,7 +31,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
    background-color : rgba(0, 0, 0, 0.8);
   	width            : 3500px;
   	height           : 3500px; 
-   border           : 0px;
+   border           : 2px dotted rgba(255, 255, 0, 0.7);
   	position         : absolute;
 	z-index          : 1;
    overflow         : hidden !important;
@@ -921,7 +921,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #detect_planets_number_display {
-   background-color : rgba(128, 0, 128, 0.8);
+   background-color : rgba(128, 0, 28, 0.8);
    border           : 2px solid white;
    border-radius    : 5px;
    border-style     : dotted;
@@ -971,7 +971,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
    border           : 2px solid rgba(255, 255, 255, 1);
    border-radius    : 5px;
    border-style     : dotted;
-   width            : 400px;
+   width            : 200px;
    height           : 50px;
    top              : 220px;
    left             : 50px;
@@ -981,8 +981,26 @@ div { margin: 0px; padding: 0px; display: inline-block;}
    cursor           : pointer;
 }
 
+#cancel_include_planet_core {
+   background-color : rgba(0, 0, 0, 0.7);
+   color            : rgba(255, 255, 255, 1);
+   font-size        : 12pt;
+   font-weight      : bold;
+   border           : 2px solid rgba(255, 255, 255, 1);
+   border-radius    : 5px;
+   border-style     : dotted;
+   width            : 200px;
+   height           : 50px;
+   top              : 220px;
+   left             : 250px;
+   position         : absolute;
+   line-height      : 50px;
+   text-align       : center;
+   cursor           : pointer;
+}
+
 #extract_planets_number_display {
-   background-color : rgba(128, 0, 128, 0.8);
+   background-color : rgba(128, 0, 28, 0.8);
    border           : 2px solid white;
    border-radius    : 5px;
    border-style     : dotted;
