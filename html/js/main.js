@@ -750,17 +750,17 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
          var chooseNum = document.getElementById('input_number_text_field').value;
 
          chooseNum = Number(chooseNum);
-
-         if(chooseNum.length == 0) { popUpMsg("행성을 방어할 숫자를 입력해주세요. :)"); } 
         
          if(isNaN(chooseNum) === true)
          {
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
          }
-         else 
+         else if($("#input_number_text_field").val() == '')
+         {
+            popUpMsg("행성을 방어할 숫자를 입력해주세요. :)"); 
+         }
+         else if((chooseNum >= 1) && (chooseNum <= 10))
          {         
-            console.log("[CLIENT LOG]: ", chooseNum);
-
             socket.develop.emit('add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
@@ -789,6 +789,10 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
             });
 
             event.stopImmediatePropagation();
+         }
+         else
+         {
+            popUpMsg("1에서 10사이의 수를 입력해주세요. :)");
          }
       });
 
