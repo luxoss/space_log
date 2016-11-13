@@ -888,7 +888,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
    width            : 500px;
    height           : 100px;
    position         : fixed;
-   z-index          : 3;
+   z-index          : 5;
    display          : none;
 }
 

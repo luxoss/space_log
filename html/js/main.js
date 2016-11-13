@@ -754,8 +754,7 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
 {
    //if(keyState == LEFT && keyState == RIGHT && keyState == UP && keyState == DOWN){ return false; } 
    var state = $("#detect_planets_number_display").css('display');
-   var chooseNum = $("#input_number_text_field").val();
-
+  
    $("#detect_planets_number_display").css({
       'left' : ($(window).width() - $("#detect_planets_number_display").outerWidth()) / 2, 
       'top'  : ($(window).height() - $("#detect_planets_number_display").outerHeight()) / 2
@@ -766,11 +765,16 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
       $("#detect_number_msg").text(msg);
       
       $("#submit_choose_number").click(function(event){
-         //console.log("[CLIENT LOG] SELECT NUMBER: ", chooseNum);
-         if(isNaN(typeof chooseNum) == true) {
+         var chooseNum = document.getElementById('input_number_text_field').value;
+         
+         chooseNum = Number(chooseNum);
+
+         if(isNaN(chooseNum) === true)
+         {
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
          }
-         else {         
+         else 
+         {         
             console.log("[CLIENT LOG]: ", chooseNum);
 
             socket.develop.emit('add_p', {
