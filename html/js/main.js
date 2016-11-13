@@ -753,10 +753,18 @@ function develop(user, socket)
 function devPopUpMsg(socket, user, msg/*, keyState*/)
 {
    //if(keyState == LEFT && keyState == RIGHT && keyState == UP && keyState == DOWN){ return false; } 
-   //if(keyState >= 48 && keyState <= 57) {} // 일반 숫자키 
-   //if(keyState >= 96 && keyState <= 105) {} // 넘버락 숫자키 
    var state = $("#detect_planets_number_display").css('display');
-  
+/*
+   $("#detect_planets_number_display").keydown(event) {
+      if(!(keyState >= 48 && keyState <= 57)) { return false; } // normal number key
+      if(!(keyState >= 96 && keyState <= 105)) { return false; } // number lock key
+   });
+
+   $("#detect_planets_number_display").keyup(event) {
+      if(!(keyState >= 48 && keyState <= 57)) { return false; } 
+      if(!(keyState >= 96 && keyState <= 105)) { return false; }
+   });
+*/  
    $("#detect_planets_number_display").css({
       'left' : ($(window).width() - $("#detect_planets_number_display").outerWidth()) / 2, 
       'top'  : ($(window).height() - $("#detect_planets_number_display").outerHeight()) / 2
@@ -765,12 +773,42 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
    if(state == 'none') {
       $("#detect_planets_number_display").show();
       $("#detect_number_msg").text(msg);
+
+      $("#submit_choose_number").mouseover(function(event){
+         menuSelection.play();
+         $("#submit_choose_number").css('background-color', 'rgba(255, 0, 0, 0.3)');
+         menuSelection.currentTime = 0;
+
+         event.stopImmediatePropagation();
+      });
+
+      $("#submit_choose_number").mouseout(function(event){
+         $("#submit_choose_number").css('background-color', 'rgba(0, 0, 0, 0.7)');
+
+         event.stopImmediatePropagation();
+      });
+
+      $("#cancel_include_planet_core").mouseover(function(event){
+         menuSelection.play();
+         $("#cancel_include_planet_core").css('background-color', 'rgba(0, 0, 255, 0.3)');
+         menuSelection.currentTime = 0;
+
+         event.stopImmediatePropagation();
+      });
+
+      $("#cancel_include_planet_core").mouseout(function(event){
+         $("#cancel_include_planet_core").css('background-color', 'rgba(0, 0, 0, 0.7)');
+
+         event.stopImmediatePropagation();
+      });
       
       $("#submit_choose_number").click(function(event){
          var chooseNum = document.getElementById('input_number_text_field').value;
-         
+
          chooseNum = Number(chooseNum);
 
+         if(chooseNum.length == 0) { popUpMsg("행성을 방어할 숫자를 입력해주세요. :)"); } 
+        
          if(isNaN(chooseNum) === true)
          {
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
@@ -831,7 +869,35 @@ function extractPlanet(socket, user, msg)
    if(state == 'none') {
       $("#extract_planets_number_display").show();
       $("#extract_number_msg").text(msg);
-      
+
+      $("#extract_planet_core").mouseover(function(event){
+         menuSelection.play();
+         $("#extract_planet_core").css('background-color', 'rgba(255, 0, 0, 0.3)');
+         menuSelection.currentTime = 0;
+
+         event.stopImmediatePropagation();
+      });
+
+      $("#extract_planet_core").mouseout(function(event){
+         $("#extract_planet_core").css('background-color', 'rgba(0, 0, 0, 0.7)');
+
+         event.stopImmediatePropagation();
+      });
+
+      $("#cancel_extract_planet_core").mouseover(function(event){
+         menuSelection.play();
+         $("#cancel_extract_planet_core").css('background-color', 'rgba(0, 0, 255, 0.3)');
+         menuSelection.currentTime = 0;
+
+         event.stopImmediatePropagation();
+      });
+
+      $("#cancel_extract_planet_core").mouseout(function(event){
+         $("#cancel_extract_planet_core").css('background-color', 'rgba(0, 0, 0, 0.7)');
+
+         event.stopImmediatePropagation();
+      });
+       
       $("#exract_planet_core").click(function(event){
          /*
          var extractNum = document.getElementById('input_extract_planet_core_field').value;
@@ -878,6 +944,7 @@ function extractPlanet(socket, user, msg)
       });
 
       $("#cancel_extract_planet_core").click(function(event){
+         $("#extract_number_msg").val('');
          $("#extract_planets_number_display").hide();
          event.stopImmediatePropagation();
       });

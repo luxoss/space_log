@@ -54,7 +54,7 @@ $(document).ready(function() {
 
       event.stopImmediatePropagation();
    });
-
+/*
    $("#select_red_team").click(function(event){
       selectButton.play();
       $("#select_blue_team").css('background-color', 'transparent');
@@ -72,7 +72,7 @@ $(document).ready(function() {
 
       event.stopImmediatePropagation();
    });
-
+*/
    $("#join_submit").mouseover(function(event) {
       selectButton.play();
       $("#join_submit").css('background-color', 'rgba(255, 0, 0, 0.3)');

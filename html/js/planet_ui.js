@@ -25,7 +25,7 @@ var planetViewLayer = function(user, socket) {
       planetViewSocket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       planetViewSocket.planet.on('planet_res', function(data){
-
+         /*
          var planet = {
             name : data.p_id,
             gas : data.gas,
@@ -34,30 +34,29 @@ var planetViewLayer = function(user, socket) {
             develop : data.develop,
             grade : data.create_spd
          }; 
+         */
 
          // TODO: Remove overlaping tags 
-         $("#planet_list").append("<div id='pv_name_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_mineral_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_gas_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_unknown_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_develop_" + planet.name + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_grade_" + planet.name + "'style = 'position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_name_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_mineral_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_gas_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_unknown_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_develop_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append("<div id='pv_grade_" + data.p_id + "'style = 'position:inherit; line-height:100px;'></div>");
 
-         $("#pv_name_" + planet.name).text("planet" + planet['name']);
-         $("#pv_mineral_" + planet.name).text(planet['mineral']);
-         $("#pv_gas_" + planet.name).text(planet['gas']);
-         $("#pv_unknown_" + planet.name).text(planet['unknown']);
-
-         if(planet['develop'] == 'true') {
-            $("#pv_develop_" + planet.name).text("개척된 행성");
+         $("#pv_name_" + data.p_id).text("planet" + data.p_id);
+         $("#pv_mineral_" + data.p_id).text(data.mineral);
+         $("#pv_gas_" + data.p_id).text(data.gas);
+         $("#pv_unknown_" + data.p_id).text(data.unknown);
+         if(data.develop === 'true') {
+            $("#pv_develop_" + data.p_id).text(data.username);
          }
          else {
-            $("#pv_develop_" + planet.name).text("미 개척된 행성");
+            $("#pv_develop_" + data.p_id).text("미 개척된 행성");
          }
-
-         $("#pv_grade_" + planet.name).text(parseInt(planet['grade'] + 1));
+         $("#pv_grade_" + data.p_id).text(Number(data.create_spd + 1));
   
-         $("#pv_name_" + planet.name).css({
+         $("#pv_name_" + data.p_id).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
             'font-weight': 'bold',
@@ -68,7 +67,7 @@ var planetViewLayer = function(user, socket) {
             top: Math.floor(0 + styleTop)
          });
 
-         $("#pv_mineral_" + planet.name).css({
+         $("#pv_mineral_" + data.p_id).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
             'font-weight': 'bold',
@@ -79,7 +78,7 @@ var planetViewLayer = function(user, socket) {
             top   : Math.floor(0 + styleTop)
          });
 
-         $("#pv_gas_" + planet.name).css({
+         $("#pv_gas_" + data.p_id).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
             'font-weight': 'bold',
@@ -90,7 +89,7 @@ var planetViewLayer = function(user, socket) {
             top   : Math.floor(0 + styleTop)
          });
 
-         $("#pv_unknown_" + planet.name).css({
+         $("#pv_unknown_" + data.p_id).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
             'font-weight': 'bold',
@@ -101,18 +100,33 @@ var planetViewLayer = function(user, socket) {
             top   : Math.floor(0 + styleTop)
          });
 
-         $("#pv_develop_" + planet.name).css({
-            'background-color' : 'rgba(0, 0, 0, 0.7)',
-            'color' : 'rgba(255, 255, 255, 1)',
-            'font-weight': 'bold',
-            'width': 200,
-            'height': 100,
-            'text-align': 'center',
-            left  : 591,
-            top   : Math.floor(0 + styleTop)
-         });
+         if(data.develop === 'true') {
+            $("#pv_develop_" + data.p_id).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 0, 1)',
+               'font-weight': 'bold',
+               'width': 200,
+               'height': 100,
+               'text-align': 'center',
+               left  : 591,
+               top   : Math.floor(0 + styleTop)
+            });
+         }
+         else {
+            $("#pv_develop_" + data.p_id).css({
+               'background-color' : 'rgba(0, 0, 0, 0.7)',
+               'color' : 'rgba(255, 255, 255, 1)',
+               'font-weight': 'bold',
+               'width': 200,
+               'height': 100,
+               'text-align': 'center',
+               left  : 591,
+               top   : Math.floor(0 + styleTop)
+            });
+         }
 
-         $("#pv_grade_" + planet.name).css({
+
+         $("#pv_grade_" + data.p_id).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',
             'color' : 'rgba(255, 255, 255, 1)',
             'font-weight': 'bold',
@@ -129,6 +143,7 @@ var planetViewLayer = function(user, socket) {
    else
    {
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
+      $("#planet_list").empty();
       $('#planet_ui').hide();
    }
 };
