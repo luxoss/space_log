@@ -547,8 +547,6 @@ function keyHandler(user, socket)
    });	
 
    $("#planet_btn").click(function(event){ 
-
-      //.off('click.planet').on('click.planet', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       planetViewLayer(user, socket);
@@ -558,7 +556,6 @@ function keyHandler(user, socket)
    });
 
    $("#rank_btn").click(function(event){ 
-      //.off('click.rank').on('click.rank', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
       rankViewLayer();
@@ -567,7 +564,6 @@ function keyHandler(user, socket)
    });
 
    $('#minimap_btn').click(function(event){ 
-      //.off('click.minimap_btn').on('click.minimap_btn', function(event) {      
       drawMinimap(user, enemy, socket);   
 
       event.stopImmediatePropagation();
@@ -579,7 +575,6 @@ var develop = function(user, socket) {
    var devSocket = socket;
 
    //TODO: Test this code line.
-   socket.userPos.connect();
 
    socket.userPos.emit('collision_req', {
       'username' : user['name'], 
@@ -599,9 +594,9 @@ var develop = function(user, socket) {
          grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
          develop : $("#p_develop")
       };
-
-      var collisionFlag = Number(data['collision']);
-      var developThis = data['develop'];
+      
+      var collisionFlag = Number(data['collision']),
+          developThis = data['develop'];
 
       if((collisionFlag === 1) && (developThis === "false") && (devTicket > 0)) 
       {
@@ -617,14 +612,14 @@ var develop = function(user, socket) {
          if(state == 'none')
          {
             $("#develop_planet_ui").show();
-
+            
             developPlanetInfo.name;
             developPlanetInfo.resource.mineral;
             developPlanetInfo.resource.gas;
             developPlanetInfo.resource.unknown;
             developPlanetInfo.grade;
             developPlanetInfo.develop.text("미개척 행성");
-        
+
             $("#cancel").mouseover(function(event) {
                menuSelection.play();
                $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
@@ -683,9 +678,6 @@ var develop = function(user, socket) {
          console.log('[CLIENT LOG]: ', data);
       }
    });
-
-   //TODO: Test this code line.
-   socket.userPos.disconnect();
 };
 
 function devPopUpMsg(socket, user, msg/*, keyState*/)
