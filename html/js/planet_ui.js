@@ -12,7 +12,7 @@ var planetViewLayer = function(user, socket) {
   
    if(state == 'none') 
    {
-      planetViewSocket.connect();
+      planetViewSocket.planet.connect();
 
       $('#planet_ui').css({
          left: ($(window).width() - $('#planet_ui').outerWidth()) / 2,
@@ -149,7 +149,7 @@ var planetViewLayer = function(user, socket) {
       $("#planet_list").empty();
       $('#planet_ui').hide();
       
-      planetViewSocket.disconnect();
+      planetViewSocket.planet.disconnect();
    }
 };
 
