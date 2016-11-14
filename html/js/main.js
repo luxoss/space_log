@@ -4,6 +4,7 @@
    ** Author: luxoss
 */
 
+
 //TODO: http://203.237.179.21 have to change that 'game.smuc.ac.kr' 
 var serverUrl = "http://game.smuc.ac.kr";
 var indexPageUrl = serverUrl;
@@ -34,20 +35,20 @@ var user = {
 var enemy = {}; // Create other users object
 
 // Set develop information that are resource, score, and ticket. 
-var devMineral    = Number(user.resource.mineral); //parseInt(localStorage.getItem('mineral'), 10);
-var devGas        = Number(user.resource.gas);     //parseInt(localStorage.getItem('gas'), 10);
-var devUnknown    = Number(user.resource.unknown); //parseInt(localStorage.getItem('unknown'), 10);
-var devScore      = Number(user.state.score);      //parseInt(localStorage.getItem('score'), 10);
-var devTicket     = Number(user.state.ticket);     //parseInt(localStorage.getItem('ticket'), 10);
-
-var discovered    = new Audio();
-var menuSelection = new Audio();
-var developPlanet = 0;
+var devMineral    = Number(user.resource.mineral), 
+    devGas        = Number(user.resource.gas),     
+    devUnknown    = Number(user.resource.unknown), 
+    devScore      = Number(user.state.score),      
+    devTicket     = Number(user.state.ticket);
+         
+var discovered    = new Audio(),
+    menuSelection = new Audio(),
+    developPlanet = 0;
 
 //discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + "/res/sound/effect/menu_selection.wav";
 
-$(document).ready(function(){ // After onload document, execute inner functions
+$(document).ready(function(){ // After onload main html document, execute inner functions
 
    backgroundSoundControl();
    loginAll(user, enemy, socket);
