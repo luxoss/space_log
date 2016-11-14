@@ -787,13 +787,13 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
                $("#detect_planets_number_display").hide();
                popUpMsg("행성이 개척되었습니다. :)");       
             });
-
-            event.stopImmediatePropagation();
          }
          else
          {
             popUpMsg("1에서 10사이의 수를 입력해주세요. :)");
          }
+
+         event.stopImmediatePropagation();
       });
 
       $("#cancel_include_planet_core").click(function(event){
@@ -852,12 +852,15 @@ function extractPlanet(socket, user, msg)
          
          extractNum = Number(extractNum);
 
-         if(isNaN(chooseNum) === true) 
+         if(isNaN(extractNum) === true)
          {
-            console.log("[CLIENT LOG]: ", chooseNum);
             popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
          }
-         else 
+         else if($("#input_number_text_field").val() == '')
+         {
+            popUpMsg("행성을 방어할 숫자를 입력해주세요. :)"); 
+         }
+         else if((extractNum >= 1) && (extractNum <= 10))
          {         
             socket.develop.emit('add_p', {
                'username' : user['name'], 
@@ -884,11 +887,14 @@ function extractPlanet(socket, user, msg)
             });
 
             $("#extract_planets_number_display").hide();
-            popUpMsg(data[p_id] + "행성을 점령하였습니다. :)");      
-            
-            event.stopImmediatePropagation();
+            popUpMsg(data[p_id] + "행성을 점령하였습니다. :)");                  
+         }
+         else
+         {
+            popUpMsg("1에서 10사이의 수를 입력해주세요. :)");
          }
          */
+         event.stopImmediatePropagation();
       });
 
       $("#cancel_extract_planet_core").click(function(event){
