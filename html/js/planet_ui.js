@@ -12,6 +12,8 @@ var planetViewLayer = function(user, socket) {
   
    if(state == 'none') 
    {
+      planetViewSocket.connect();
+
       $('#planet_ui').css({
          left: ($(window).width() - $('#planet_ui').outerWidth()) / 2,
 	      top: ($(window).height() - $('#planet_ui').outerHeight()) / 2
@@ -146,6 +148,8 @@ var planetViewLayer = function(user, socket) {
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $("#planet_list").empty();
       $('#planet_ui').hide();
+      
+      planetViewSocket.disconnect();
    }
 };
 

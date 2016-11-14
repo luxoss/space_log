@@ -31,6 +31,8 @@ function drawMinimap(user, enemy, socket)
    
    if(state === 'none')
    {
+      socket.planet.connect();
+
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
 
@@ -113,7 +115,10 @@ function drawMinimap(user, enemy, socket)
    {
       menuSelectSound.play();
       menuSelectSound.currentTime = 0;
+
       $("#minimap_btn").css('background-color', 'rgba(0, 0, 0, 0.7)');
       $("#minimap_ui").hide();
+      
+      socket.planet.disconnect();
    }
 }

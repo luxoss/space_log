@@ -12,6 +12,8 @@ function rankViewLayer(socket)
 
 	if(state == 'none')
 	{
+      socket.rank.connect();
+
       $('#rank_ui').css({
          left: ($(window).width() - $('#rank_ui').outerWidth()) / 2,
          top: ($(window).height() - $('#rank_ui').outerHeight()) / 2
@@ -81,6 +83,8 @@ function rankViewLayer(socket)
       $("#rank_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $("#user_list").empty(); // Added a code line
 		$('#rank_ui').hide();
+
+      socket.rank.disconnect();
 	}
 }
 	

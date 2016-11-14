@@ -578,6 +578,9 @@ var develop = function(user, socket) {
    var devUser = user;
    var devSocket = socket;
 
+   //TODO: Test this code line.
+   socket.userPos.connect();
+
    socket.userPos.emit('collision_req', {
       'username' : user['name'], 
       'location_x' : user['x'],
@@ -680,6 +683,9 @@ var develop = function(user, socket) {
          console.log('[CLIENT LOG]: ', data);
       }
    });
+
+   //TODO: Test this code line.
+   socket.userPos.disconnect();
 };
 
 function devPopUpMsg(socket, user, msg/*, keyState*/)
@@ -749,7 +755,10 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
             popUpMsg("행성을 방어할 숫자를 입력해주세요. :)"); 
          }
          else if((chooseNum >= 1) && (chooseNum <= 10))
-         {         
+         {
+            //TODO: Test this code line.         
+            socket.develop.connect();
+
             socket.develop.emit('add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
@@ -776,6 +785,9 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
                $("#detect_planets_number_display").hide();
                popUpMsg("행성이 개척되었습니다. :)");       
             });
+
+            //TODO: Test this code line.
+            socket.develop.disconnect();
          }
          else
          {
