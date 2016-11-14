@@ -78,17 +78,9 @@ $(document).ready(function(){ // After onload document, execute inner functions
 
    });
 /*
-   socket.develop.on('chng_info', function(data){
-      console.log("receive resource");
-
-      devMineral = Number(data.mineral);
-      devGas = Number(data.gas);
-      devUnknown = Number(data.unknown);
-
-      $("#mineral").text(devMineral);
-      $("#gas").text(devGas);
-      $("#unknown").text(devUnknown);
-   });
+   //TODO: The resources are increased by 1/6sec
+   setInterval(function(){
+   }, 6000);
 */
 });
 
@@ -119,7 +111,6 @@ function backgroundSoundControl()
 function loginAll(user, enemy, socket)
 {
   socket.userPos.on('login_all', function(data) {
-      //console.log("[CLIENT LOG] me: ", user['name']);
 
       if(data['username'] !== user['name']) 
       {
@@ -355,7 +346,6 @@ function drawAllAssets(mainLayer, user, socket)
       top: user['y']
    });
 
-   // TODO: Test auto focus user's battleship. 화면을 벗어날 때만 auto focus?
    var offset = $("#" + user['name']).offset();
 
    $("html, body").animate({
@@ -406,15 +396,12 @@ function keyHandler(user, socket)
       }
    };
    
-   $('body').keydown(function(event){ //.off('keydown').on('keydown', function(ev) {  
+   $('body').keydown(function(event){   
       
       var keyState = event.keyCode;
       var viewOffset = $("#view_layer").offset();
       var offset = $("#" + user['name']).offset();
-
-      event.stopImmediatePropagation();
       
-      //if(keyState == BACK_SPACE) { return false; }
       if(keyState == F5) { return false; } 
       if(keyState == SHIFT) { return false; }
           
@@ -507,8 +494,8 @@ function keyHandler(user, socket)
       if(keyState == LOGOUT_BTN) // press logout(q), isKeydown[81]
       {
          if(user['name'] != null) 
-         {
-            logout(user);
+         { 
+            logout(user); 
          }
          else 
          {
@@ -517,15 +504,13 @@ function keyHandler(user, socket)
          }
       }
       
-      // command line R key is 'redo' and r key is 'undo'
-      if(keyState === DEVELOP_PLANET) { develop(user, socket); }              
+      if(keyState == DEVELOP_PLANET) { develop(user, socket); }              
+      
+      event.stopImmediatePropagation();
    });
 
    // Handling keyup event.
    $('body').keyup(function(event){ 
-      //.off('keyup').on('keyup', function(ev) {
-
-      event.stopImmediatePropagation();
 
       if(event.keyCode == BACK_SPACE) { return false; }
       if(event.keyCode == F5) { return false; } 
@@ -534,6 +519,14 @@ function keyHandler(user, socket)
       if(event.keyCode == RIGHT) { return false; }
       if(event.keyCode == UP) { return false; }
       if(event.keyCode == DOWN) { return false; }
+      if(event.keyCode == DEVELOP_PLANET) { return false; }
+      if(event.keyCode == MINIMAP_BTN) { return false; }
+      if(event.keyCode == RANK_BTN) { return false; }
+      if(event.keyCode == LOGOUT_BTN) { return false; }
+      if(event.keyCode == PLANET_BTN) { return false; }
+      if(event.keyCode == FOCUS) { return false; }
+
+      event.stopImmediatePropagation();
     });
    
    $("#logout_btn").click(function(event){ 
@@ -565,7 +558,6 @@ function keyHandler(user, socket)
    });
 
    $("#rank_btn").click(function(event){ 
-
       //.off('click.rank').on('click.rank', function(event) {
       menuSelection.play();
       menuSelection.currentTime = 0;
@@ -575,17 +567,14 @@ function keyHandler(user, socket)
    });
 
    $('#minimap_btn').click(function(event){ 
-
       //.off('click.minimap_btn').on('click.minimap_btn', function(event) {      
       drawMinimap(user, enemy, socket);   
 
       event.stopImmediatePropagation();
-
    });
 }
 
-function develop(user, socket)
-{
+var develop = function(user, socket) {
    var devUser = user;
    var devSocket = socket;
 
@@ -596,6 +585,7 @@ function develop(user, socket)
    });
 
    socket.userPos.on('collision_res', function(data) {
+      //console.log(data);
       var developPlanetInfo = {
          name : $("#p_name").text("planet" + data.p_id),
          resource : {
@@ -607,8 +597,7 @@ function develop(user, socket)
          develop : $("#p_develop")
       };
 
-      var collisionFlag = parseInt(data['collision'], 10);
-      var collisionUser = parseInt(data['username'], 10);
+      var collisionFlag = Number(data['collision']);
       var developThis = data['develop'];
 
       if((collisionFlag === 1) && (developThis === "false") && (devTicket > 0)) 
@@ -632,55 +621,54 @@ function develop(user, socket)
             developPlanetInfo.resource.unknown;
             developPlanetInfo.grade;
             developPlanetInfo.develop.text("미개척 행성");
+        
+            $("#cancel").mouseover(function(event) {
+               menuSelection.play();
+               $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
+               menuSelection.currentTime = 0;
+
+               event.stopImmediatePropagation();
+            });
+
+            $("#cancel").mouseout(function(event) {
+               menuSelection.play();
+               $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
+               menuSelection.currentTime = 0;
+
+               event.stopImmediatePropagation();
+            });
+
+            $("#cancel").click(function(event){
+               $("#develop_planet_ui").hide();
+               event.stopImmediatePropagation();
+            });
+
+            $("#develop_planet").mouseover(function(event) {
+               menuSelection.play();
+               $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
+               menuSelection.currentTime = 0;
+
+               event.stopImmediatePropagation();
+            });
+
+            $("#develop_planet").mouseout(function(event) {
+               menuSelection.play();
+               $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
+               menuSelection.currentTime = 0;
+
+               event.stopImmediatePropagation();
+            });
+            
+            // Developed planet event that clicked.
+            $("#develop_planet").click(function(event){
+               $("#develop_planet_ui").hide();
+               devPopUpMsg(devSocket, devUser, data['p_id'] + "행성을 방어할 숫자(1~10)를 입력하세요!");
+               event.stopImmediatePropagation();
+            });
          }
-
-         $("#cancel").mouseover(function(event) {
-            menuSelection.play();
-            $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
-            menuSelection.currentTime = 0;
-
-            event.stopImmediatePropagation();
-         });
-
-         $("#cancel").mouseout(function(event) {
-            menuSelection.play();
-            $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
-            menuSelection.currentTime = 0;
-
-            event.stopImmediatePropagation();
-         });
-
-         $("#cancel").click(function(event){
-            $("#develop_planet_ui").hide();
-            event.stopImmediatePropagation();
-         });
-
-         $("#develop_planet").mouseover(function(event) {
-            menuSelection.play();
-            $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
-            menuSelection.currentTime = 0;
-
-            event.stopImmediatePropagation();
-         });
-
-         $("#develop_planet").mouseout(function(event) {
-            menuSelection.play();
-            $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
-            menuSelection.currentTime = 0;
-
-            event.stopImmediatePropagation();
-         });
-         
-         // Developed planet event that clicked.
-         $("#develop_planet").click(function(event){
-            $("#develop_planet_ui").hide();
-            devPopUpMsg(devSocket, devUser, data['p_id'] + "행성을 방어할 숫자(1~10)를 입력하세요!");
-            event.stopImmediatePropagation();
-         });
       }
-      else if(collisionFlag == 1 && developThis === "true")
+      else if(collisionFlag === 1 && developThis === "true" && devTicket > 0)
       {
-         console.log(data);
          extractPlanet(socket, user, "[" + data['username'] + "]" + " 께서 개척하신 행성입니다.");
       }
       else if(devTicket == 0)
@@ -692,7 +680,7 @@ function develop(user, socket)
          console.log('[CLIENT LOG]: ', data);
       }
    });
-}
+};
 
 function devPopUpMsg(socket, user, msg/*, keyState*/)
 {
@@ -714,7 +702,8 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
       'top'  : ($(window).height() - $("#detect_planets_number_display").outerHeight()) / 2
    });
 
-   if(state == 'none') {
+   if(state == 'none') 
+   {
       $("#detect_planets_number_display").show();
       $("#detect_number_msg").text(msg);
 
@@ -814,7 +803,8 @@ function extractPlanet(socket, user, msg)
       'top'  : ($(window).height() - $("#extract_planets_number_display").outerHeight()) / 2
    });
 
-   if(state == 'none') {
+   if(state == 'none') 
+   {
       $("#extract_planets_number_display").show();
       $("#extract_number_msg").text(msg);
 
