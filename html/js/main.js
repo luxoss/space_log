@@ -848,11 +848,11 @@ function extractPlanet(socket, user, msg)
 
          if(isNaN(extractNum) === true)
          {
-            popUpMsg("수가 아닙니다. 행성을 방어할 숫자를 입력해주세요. :)");
+            popUpMsg("수가 아닙니다. 행성을 쟁취할 키를 입력하세요. :)");
          }
          else if($("#input_number_text_field").val() == '')
          {
-            popUpMsg("행성을 방어할 숫자를 입력해주세요. :)"); 
+            popUpMsg("행성을 쟁취할 키를 입력해주세요. :)"); 
          }
          else if((extractNum >= 1) && (extractNum <= 10))
          {         
