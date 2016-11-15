@@ -19,9 +19,9 @@ var socket = {
 };
 
 var user = {
-       name : localStorage.getItem('username'),
-          x : parseInt(localStorage.getItem('x')),
-          y : parseInt(localStorage.getItem('y')),
+   name : localStorage.getItem('username'),
+      x : parseInt(localStorage.getItem('x')),
+      y : parseInt(localStorage.getItem('y')),
    resource : {
       mineral : parseInt(localStorage.getItem('mineral')),
           gas : parseInt(localStorage.getItem('gas')),
