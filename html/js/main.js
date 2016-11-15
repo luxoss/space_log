@@ -49,6 +49,9 @@ var discovered    = new Audio(),
 menuSelection.src = serverUrl + "/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload main html document, execute inner functions
+   popUpMsg(user.name + "님SPACE LOG 세계에 오신 것을 환영합니다.");
+
+   drawAllAssets("planets", user, socket); 		
 
    backgroundSoundControl();
    loginAll(user, enemy, socket);
@@ -57,10 +60,6 @@ $(document).ready(function(){ // After onload main html document, execute inner 
       'left' : ($(window).width() - $('#main_pop_up_view').outerWidth()) / 2,
       'top'  : ($(window).height() - $('#main_pop_up_view').outerHeight()) / 2
    });
-
-   popUpMsg(user.name + "님SPACE LOG 세계에 오신 것을 환영합니다.");
-
-   drawAllAssets("planets", user, socket); 		
 
    keyHandler(user, socket);
    userPosUpdate(user, enemy); 
