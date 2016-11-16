@@ -754,7 +754,7 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
             socket.develop.emit('add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
-               'number' : chooseNum
+               'choose_number' : chooseNum
             });
 
             socket.develop.on('add_p_res_userinfo', function(data){
@@ -859,7 +859,7 @@ function extractPlanet(socket, user, msg)
             socket.develop.emit('add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
-               'number' : chooseNum
+               'choose_number' : chooseNum
             });
 
             socket.develop.on('add_p_res_userinfo', function(data){
