@@ -1,3 +1,6 @@
+//module : send mail
+var nodemailer = require('nodemailer');
+
 var devPlntio = require('socket.io').listen(5003);
 var MongoClient = require('mongodb').MongoClient;
 var planet, mem_info, mem_plan;
@@ -8,9 +11,11 @@ var add_score=0;
 var crt_spd;
 
 var arrMP = [], arrMI = [];
-var i=0, j=0;
+var i=0, j=0, z=0;
 
 var sum_score, ticket;
+
+
 
 
 
@@ -20,10 +25,14 @@ devPlntio.on('connection', function(socket){
 		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 			planet = db.collection("PLANET");
 			mem_info = db.collection("MEM_INFO");
-		//	mem_plan = db.collection("MEM_PLAN");
+			console.log('[devPlanet.js] : ' + data.p_id);
+			console.log('[devPlanet.js] : ' + data.username);
+			console.log('[devPlanet.js] : ' + data.choose_number);		
+		
 			p_id = data.p_id;
 			username = data.username;
-//			console.log(p_id);
+			number = data.choose_number;
+
 			console.log("CHECK the p_id value in add_p message !!|||!|!|!|!|!|!|" + p_id);;
 
 
@@ -31,45 +40,44 @@ devPlntio.on('connection', function(socket){
 				if(mpRes){
 					arrMP[i++] = mpRes;
 				}
-			
+			console.log("arrMP's length : " + arrMP.length);
+
 			});
 			mem_info.find().each(function(err, miRes){
 				if(miRes){
 					arrMI[j++] = miRes;
-				
 				}
 			});
+			console.log("arrMP's length : " + arrMP.length);
 
-			for(var z =0; z<arrMP.length; z++){
-			//	console.log(z);
+			while(z<arrMP.length){
+				console.log("[devPlanet.js] : count z " + z);
+
+
+				z++;
+			}
+
+
+			
+			for(z=0; z<arrMP.length; z++){
+				console.log("/////////////" +z);
 				if(arrMP[z].develop == "false" && arrMP[z].p_id == p_id){
-					
-					console.log("Planet's develop is FALSE!!!");
-					planet.update({p_id : p_id}, {$set : {develop : "true", username: username}}, function(err, res){
+			
+					console.log("[devPlanet.js] Planet's develop is FALSE!!!");
+					planet.update({p_id : p_id}, {$set : {develop : "true", username : username, number : number}}, function(err, res){
 						if(err){
 							console.log("ERRROROROROROOR!!!!    " + err);
 						} else if(res){
 							console.log("SUCCESS!!!!!!!");
 							//sum_score = res.create_spd + 	
-						
-	
-						
 							
 							mem_info.findOne({username:username }, function(err, findRes){
 								if(findRes){
-								//	var sum_score = 0;
-							//		if(findRes.ticket<=10){
-	
-
-									console.log("devPlanet.js ::: find Memebr in mem_info collection       !!!!!!!   " + arrMP[z].create_spd);
+									console.log("[devPlanet.js] ::: find Memebr in mem_info collection       !!!!!!!   " + arrMP[z].create_spd);
 									
 									sum_score = parseInt(findRes.score) +  parseInt(arrMP[z].create_spd, 10) +1;
 									ticket = parseInt(findRes.ticket , 10);
-									console.log("SUM_SOCRE :: " + sum_score);
-									console.log("TICKET    :: " + ticket);
-	
-									console.log('devPlanet ::::::::::::::::::::::::::::::::::' + username);
-														
+													
 									mem_info.update({username : username}, {$set :{score : sum_score +1, ticket : ticket - 1}}, function(err, updt){
 										if(updt){
 											console.log('[devPlanet.js] : add_p_res_userinfo data');
@@ -78,25 +86,51 @@ devPlntio.on('connection', function(socket){
 												console.log(res);
 												socket.emit('add_p_res_userinfo', res);
 											} );
-										
 										}
 									});
 								//		socket.emit('add_p_res_userinfo', );
-							//		}
+							
 								  } else{
 								  //	socket.emit('');
 								  }
 
-							});
-						
-
+							});	
 							socket.emit('chng_plan', res);
-							//Not Complete!
-						
 						}
-
 					});
 					break;
+				} else if(arrMP[z].develop == "true" && arrMP[z].p_id == p_id){
+					console.log("[devPlanet.js] Planet's develop is TRUE!");
+					if(number < arrMP[z].number){
+						mem_info.update({username : username}, {$inc : {mineral : -100 , gas : -100, unknown : -100}});
+						mem_info.update({username : arrMP[z].usernmae}, {$inc:{mineral : 100, gas : 100, unknown : 100}});
+					
+					} else if (number == arrMP[z].number){
+						planet.update({p_id : p_id}, {$set : {username:"", develop:"false", number:0}});	
+					} else if (number > arrMP[z].number){
+						planet.update({p_id : p_id}, {$set : {username: username, number:number}});
+						var smtpTransport = nodemailer.createTransport("SMTP", {
+							service : 'Daum',
+							auth: {
+								user : 'ujuin13',
+								pass : 'dnwnwjdqhr13'
+							}
+						});
+						var mailOptions={
+							from : '관리자<ujuin13@daum.net>',
+							to : 'kapoochino93@gmail.com',
+							subject:'Node js mail 테스트',
+							text : '테스트다'
+						};
+						smtpTransport.sendMail(mailOptions, function(err, response){
+							if(err){
+								console.log('[devPlanet.js] : error');
+							} else{
+								console.log("[devPlanet.js] : Message send : " + response.message);
+							}
+							smtpTransport.close();
+						});
+					}
 				}
 			}
 			
@@ -109,85 +143,6 @@ devPlntio.on('connection', function(socket){
 			});
 		
 
-
-			/*
-		//	var findByPid = {"p_id" : p_id};
-			mem_plan.findOne({p_id : p_id}, ifunction(err, f_res){
-				if(err){
-					console.log('MEM_PLAN FindOne query error :::');
-					console.log(err);
-				} else if(f_res){
-					console.log('MEM_PLAN.FINDONE ::: ');
-					if(f_res.develop == "false"){
-						console.log('MEM_PLAN document develop field value : false');
-						mem_plan.update({"p_id":p_id}, {$set: {"develop" : "true", "username":username}}, function(err, r){
-							if(err){
-								console.log('///////////');
-								console.log(err);
-						
-							} else if(r){
-								crt_spd = r.create_spd;
-								console.log("!!!!!!!!!!!!!!!!!!!!!!" +crt_spd);
-								mem_info.findOne({username, username}, function(err, mires){
-									if(mires){
-										console.log('devPlanet.js file ::: mires ::::');
-										console.log('r.create_spd :::: ' + crt_spd);i
-										sum_score = mires.score + crt_spd;
-										console.log('||||mires.score ::: ' + mires.score + "  |||||| sum_score ::: " + sum_score);
-										mem_info.update({username:username}, {$set:{score: sum_score}});
-									}
-								});
-							//	mem_info.update({username:username}, {$set : {score:}});
-								socket.emit('chng_plan', r);//p_id, username, develop
-							}
-							
-						});
-					}
-				}
-
-			});*/
-	
-
-			/*
-			mem_plan.findOne({"p_id" : p_id}, function(err, result){
-				console.log("MEM_PLAN find query");
-				if(err){
-					console.log(err);
-				} else if (result){
-					console.log('result!');
-					if(result.develop == "false"){
-						console.log('result.develop : false');
-						console.log(p_id);
-						mem_plan.findOne({p_id:p_id},  function(err,res_id){
-							if(err){
-								console.log(err);
-							//	console.log('/////////////////');
-
-							} else if(res_id){
-								if(p_id == res_id.p_id){
-									console.log('/////');
-									mem_plan.update({"p_id":p_id}, {$set:{"develop":"true"}}, function(err, x){
-										if(err){
-											console.log("WHY!!!!!!!!!!!!");
-											console.log(err);
-										}
-									});	
-								}
-							}
-
-						});
-						
-						
-						devPlntio.emit('add_p_result', {"p_id":p_id, "username":username, "develop":"true"});
-					} else if (result.develop == "true"){
-						console.log("resulte.develop : true");	
-					} else {
-						console.log("PLANET Collection's [develop] field value is not true or false. Please check the value");
-					}	
-				} else{
-					
-				}
-			});*/
 			
 		});
 	});
@@ -196,6 +151,139 @@ devPlntio.on('connection', function(socket){
 	});*/
 
 });
+
+
+/*
+devPlntio.on('connection', function(socket){
+	socket.on('add_p', function(data){
+		console.log('add_p MESSAGE');
+		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
+			planet = db.collection("PLANET");
+			mem_info = db.collection("MEM_INFO");
+			console.log('[devPlanet.js] : ' + data.p_id);
+			console.log('[devPlanet.js] : ' + data.username);
+			console.log('[devPlanet.js] : ' + data.choose_number);		
+		
+			p_id = data.p_id;
+			username = data.username;
+			number = data.choose_number;
+
+			console.log("CHECK the p_id value in add_p message !!|||!|!|!|!|!|!|" + p_id);;
+
+
+			planet.find().each(function(err, mpRes){
+				if(mpRes){
+					arrMP[i++] = mpRes;
+				}
+			console.log("arrMP's length : " + arrMP.length);
+
+			});
+			mem_info.find().each(function(err, miRes){
+				if(miRes){
+					arrMI[j++] = miRes;
+				}
+			});
+			console.log("arrMP's length : " + arrMP.length);
+
+			while(z<arrMP.length){
+				console.log("[devPlanet.js] : count z " + z);
+
+
+				z++;
+			}
+
+
+			
+			for(z=0; z<arrMP.length; z++){
+				console.log("/////////////" +z);
+				if(arrMP[z].develop == "false" && arrMP[z].p_id == p_id){
+			
+					console.log("[devPlanet.js] Planet's develop is FALSE!!!");
+					planet.update({p_id : p_id}, {$set : {develop : "true", username : username, number : number}}, function(err, res){
+						if(err){
+							console.log("ERRROROROROROOR!!!!    " + err);
+						} else if(res){
+							console.log("SUCCESS!!!!!!!");
+							//sum_score = res.create_spd + 	
+							
+							mem_info.findOne({username:username }, function(err, findRes){
+								if(findRes){
+									console.log("[devPlanet.js] ::: find Memebr in mem_info collection       !!!!!!!   " + arrMP[z].create_spd);
+									
+									sum_score = parseInt(findRes.score) +  parseInt(arrMP[z].create_spd, 10) +1;
+									ticket = parseInt(findRes.ticket , 10);
+													
+									mem_info.update({username : username}, {$set :{score : sum_score +1, ticket : ticket - 1}}, function(err, updt){
+										if(updt){
+											console.log('[devPlanet.js] : add_p_res_userinfo data');
+										//	console.log(updt);
+											mem_info.findOne({username:username},function(err, res){
+												console.log(res);
+												socket.emit('add_p_res_userinfo', res);
+											} );
+										}
+									});
+								//		socket.emit('add_p_res_userinfo', );
+							
+								  } else{
+								  //	socket.emit('');
+								  }
+
+							});	
+							socket.emit('chng_plan', res);
+						}
+					});
+					break;
+				} else if(arrMP[z].develop == "true" && arrMP[z].p_id == p_id){
+					console.log("[devPlanet.js] Planet's develop is TRUE!");
+					if(number < arrMP[z].number){
+						mem_info.update({username : username}, {$inc : {mineral : -100 , gas : -100, unknown : -100}});
+						mem_info.update({username : arrMP[z].usernmae}, {$inc:{mineral : 100, gas : 100, unknown : 100}});
+					
+					} else if (number == arrMP[z].number){
+						planet.update({p_id : p_id}, {$set : {username:"", develop:"false", number:0}});	
+					} else if (number > arrMP[z].number){
+						planet.update({p_id : p_id}, {$set : {username: username, number:number}});
+						var smtpTransport = nodemailer.createTransport("SMTP", {
+							service : 'Daum',
+							auth: {
+								user : 'ujuin13',
+								pass : 'dnwnwjdqhr13'
+							}
+						});
+						var mailOptions={
+							from : '관리자<ujuin13@daum.net>',
+							to : 'kapoochino93@gmail.com',
+							subject:'Node js mail 테스트',
+							text : '테스트다'
+						};
+						smtpTransport.sendMail(mailOptions, function(err, response){
+							if(err){
+								console.log('[devPlanet.js] : error');
+							} else{
+								console.log("[devPlanet.js] : Message send : " + response.message);
+							}
+							smtpTransport.close();
+						});
+					}
+				}
+			}
+			
+			mem_info.findOne({username:username}, function(err,res){
+				if(res){
+					console.log('CHNG_INFO');
+					console.log(res);
+					socket.emit('chng_info', res);
+				}
+			});
+		
+
+			
+		});
+	});
+
+
+});*/
 
 
 console.log("devPlanet.js : https://203.237.179.21:5003");
