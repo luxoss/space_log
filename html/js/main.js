@@ -369,9 +369,10 @@ function keyHandler(user, socket)
    
    var userId = user['name'];
    var LEFT = 37, UP = 38, RIGHT = 39, DOWN = 40;
-   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, LOGOUT_BTN = 81, RANK_BTN = 82, KEYSET_BTN = 73;
-   var DEVELOP_PLANET = 32, FOCUS = 83, SHIFT = 16, CTRL = 17, BACK_SPACE = 8, F5 = 116;
-   //shift: 16, backspace: 8, f5:116, tab: 9, ctrl: 17 
+   var BATTLESHIP_BTN = 66, MINIMAP_BTN = 77, PLANET_BTN = 80, 
+       LOGOUT_BTN = 81, RANK_BTN = 82, KEYSET_BTN = 73,
+       DEVELOP_PLANET = 32, FOCUS = 83, SHIFT = 16, CTRL = 17, 
+       BACK_SPACE = 8, F5 = 116;
    var speed = 4;
    var bg = {
       x : function(divId, position) {
