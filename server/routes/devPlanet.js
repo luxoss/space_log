@@ -16,63 +16,59 @@ var i=0, j=0, z=0;
 var sum_score, ticket;
 
 devPlntio.on('connection', function(socket){
-	socket.on('add_p', function(data){
-		console.log('add_p MESSAGE');
+	socket.on('bet_add_p',  function(data){
+		console.log("[devPlanet.js] bet_add_p message");
 		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 			planet = db.collection("PLANET");
 			mem_info = db.collection("MEM_INFO");
-			console.log('[devPlanet.js] : ' + data.p_id);
-			console.log('[devPlanet.js] : ' + data.username);
-			console.log('[devPlanet.js] : ' + data.choose_number);		
-		
 			p_id = data.p_id;
 			username = data.username;
 			number = data.choose_number;
-
+			console.log("[devPlanet.js] p_id : " , p_id);
+			console.log("[devPlanet.js] username : " , username);
+			console.log("[devPlanet.js] number : ", number);
 			planet.find().each(function(err, mpRes){
-				console.log("[devPlanet.js] mpRes Objects ::: ");
-				console.log(mpRes);
 				if(mpRes == null){
 					return ;
 				}
 				if(mpRes.p_id == p_id){
-				if(mpRes.develop == "false"){
-					console.log("{devPlanet.js} Planet's develop is FALSE !!");
-					planet.update({p_id : p_id}, {$set : {develop : "true", username : username, number : number}}, function(err, res){
-						if(err){
-							console.log("[devPlanet.js] Plnaet collection update(develop: false -> true) is failed" + err);
-						} else if (res){
-							console.log("[devPlanet.js] Planet's update is SUCCESS !");
-							mem_info.update({username:username}, {$inc:{score : +1, ticket:-1}}, function(err, update_res){
-								if(err){
-									console.log("[devPlanet.js] mem_info collection update is failed" + err);
-								} else if(update_res){
-									console.log("[devPlanet.js] mem_info collection update is success\n" + update_res) ;
-							//		socket.emit('add_p_res_userinfo', update_res);
-									mem_info.findOne({username:username}, function(err, findRes){
-										if(findRes){
-											console.log("[devPlanet.js] send the result to client what Server process the data");
-											socket.emit('add_p_res_userinfo', findRes);
-
-										}
-									});
-
-								}
-							});
-							socket.emit('chng_plan', res);
-						}
-					});
-				} else if(mpRes.develop =="true"){
 					console.log("[devPlanet.js] Planet's develop is TRUE !!");
 					if(number < mpRes.number){
-						mem_info.update({username : username}, {$inc : {mineral : -100 , gas : -100, unknown : -100}});
-						mem_info.update({username : arrMP[z].usernmae}, {$inc:{mineral : 100, gas : 100, unknown : 100}});
+						console.log("[devPlanet.js] number is so small");
+						mem_info.update({username : username}, {$inc : {mineral : -500 , gas : -500, unknown : -500}}, function(err, res){
+							
+							if(err){
+									
+							} else if (res){
+								mem_info.findOne({username:username}, function(err, mem_find_res){
+									socket.emit('bet_num', "fail");	
+									socket.emit('chng_user', mem_find_res);
+								});
+									
+							} 
+						});
+						mem_info.update({username : arrMP[z].usernmae}, {$inc:{mineral : 500, gas : 500, unknown : 500}});
 	
+		
 					} else if(number == mpRes.number){
 						planet.update({p_id : p_id}, {$set : {username:"", develop:"false", number:0}});	
+						mem_info.findOne({username: username}, function(err, mem_find_res){
+							if(mem_find_res){
+								socket.emit('bet_num', "same");
+							}
+						});
+						mem_info.update({username : username}, {$inc: {mineral : -1000, gas : -1000, unknown : -1000}});
+						mem_info.update({username : mpRes.username}, {$inc:{mineral : -1000, gas : -1000, unknown : -1000}});
 
+
+	
 					} else if(number > mpRes.number){
+						console.log("[devPlanet.js] number is so big");
 						planet.update({p_id : p_id}, {$set : {username: username, number:number}});
+						mem_info.findOne({username:username}, function(err, mem_find_res){
+							socket.emit('bet_num', "success");
+							socket.emit('chng_user', mem_find_res);
+						});	
 						var smtpTransport = nodemailer.createTransport("SMTP", {
 							service : 'Daum',
 							auth: {
@@ -94,18 +90,138 @@ devPlntio.on('connection', function(socket){
 							}
 							smtpTransport.close();
 						});
-
 					
 					}
 
+					/*	mem_info.findOne({username:username}, function(err, mem_find_res){
+							socket.emit('chng_plan', mem_find_res);	
+						});*/
+	
 				}
+			});
+
+
+		});
+	});
+
+	socket.on('add_p', function(data){
+		console.log('add_p MESSAGE');
+		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
+			planet = db.collection("PLANET");
+			mem_info = db.collection("MEM_INFO");
+			console.log('[devPlanet.js] : ' + data.p_id);
+			console.log('[devPlanet.js] : ' + data.username);
+			console.log('[devPlanet.js] : ' + data.choose_number);		
+		
+			p_id = data.p_id;
+			username = data.username;
+			number = data.choose_number;
+
+			planet.find().each(function(err, mpRes){
+		//		console.log("[devPlanet.js] mpRes Objects ::: ");
+		//		console.log(mpRes);
+				if(mpRes == null){
+					return ;
+				}
+				if(mpRes.p_id == p_id){
+					//if(mpRes.develop == "false"){
+						console.log("{devPlanet.js} Planet's develop is FALSE !!");
+						planet.update({p_id : p_id}, {$set : {develop : "true", username : username, number : number}}, function(err, res){
+							if(err){
+								console.log("[devPlanet.js] Plnaet collection update(develop: false -> true) is failed" + err);
+							} else if (res){
+								console.log("[devPlanet.js] Planet's update is SUCCESS !");
+								mem_info.update({username:username}, {$inc:{score : +1, ticket:-1}}, function(err, update_res){
+								if(err){
+									console.log("[devPlanet.js] mem_info collection update is failed" + err);
+									} else if(update_res){
+										console.log("[devPlanet.js] mem_info collection update is success\n" + update_res) ;
+							//			socket.emit('add_p_res_userinfo', update_res);
+										mem_info.findOne({username:username}, function(err, findRes){
+											if(findRes){
+												console.log("[devPlanet.js] send the result to client what Server process the data");
+												socket.emit('add_p_res_userinfo', findRes);
+
+											}
+										});
+
+									}
+								});
+								socket.emit('chng_plan', res);
+							}
+						});
+				//	} 
+				/*	if(mpRes.develop == "true"){
+						console.log("[devPlanet.js] Planet's develop is TRUE !!");
+						if(number < mpRes.number){i
+							console.log("[devPlanet.js] number is so small");
+							mem_info.update({username : username}, {$inc : {mineral : -100 , gas : -100, unknown : -100}}, function(err, res){
+							
+								if(err){
+								
+								} else if (res){
+									mem_info.findOne({username:username}, function(err, mem_find_res){
+										socket.emit('bet_num', "fail");	
+										socket.emit('chng_user', mem_find_res);
+									});
+								
+								} 
+							});
+							mem_info.update({username : arrMP[z].usernmae}, {$inc:{mineral : 100, gas : 100, unknown : 100}});
+	
+		
+						} else if(number == mpRes.number){
+							planet.update({p_id : p_id}, {$set : {username:"", develop:"false", number:0}});	
+							mem_info.update({username: username}, function(err, mem_find_res){
+								if(mem_find_res){
+									socket.emit('bet_num');
+								}
+							});
+	
+						} else if(number > mpRes.number){
+							console.log("[devPlanet.js] number is so big");
+							planet.update({p_id : p_id}, {$set : {username: username, number:number}});
+							mem_info.findOne({username:username}, function(err, mem_find_res){
+								socket.emit('bet_num', "success");
+								socket.emit('chng_user', mem_find_res);
+							});	
+							var smtpTransport = nodemailer.createTransport("SMTP", {
+								service : 'Daum',
+								auth: {
+									user : 'ujuin13',
+									pass : 'dnwnwjdqhr13'
+								}
+							});
+							var mailOptions={
+								from : '관리자<ujuin13@daum.net>',
+								to : 'kapoochino93@gmail.com',
+								subject:'Node js mail 테스트',
+								text : '테스트다'
+							};
+							smtpTransport.sendMail(mailOptions, function(err, response){
+								if(err){
+									console.log('[devPlanet.js] : error');
+								} else{
+									console.log("[devPlanet.js] : Message send : " + response.message);
+								}
+								smtpTransport.close();
+							});
+
+					
+						}
+
+						mem_info.findOne({username:username}, function(err, mem_find_res){
+							socket.emit('chng_plan', mem_find_res);	
+						});
+
+					}*/
 				}
 			});
 				
 			mem_info.findOne({username:username}, function(err,res){
 				if(res){
-					console.log('CHNG_INFO');
-					console.log(res);
+				//	console.log('CHNG_INFO');
+				//	console.log(res);
 					socket.emit('chng_info', res);
 				}
 			});

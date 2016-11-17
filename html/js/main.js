@@ -598,6 +598,8 @@ var develop = function(user, socket) {
       
       var collisionFlag = Number(data['collision']),
           developThis = data['develop'];
+      
+      developPlanet = data['p_id'];
 
       if((collisionFlag === 1) && (developThis === "false") && (devTicket > 0)) 
       {
@@ -841,8 +843,7 @@ function extractPlanet(socket, user, msg)
          event.stopImmediatePropagation();
       });
        
-      $("#exract_planet_core").click(function(event){
-         /*
+      $("#extract_planet_core").click(function(event){
          var extractNum = document.getElementById('input_extract_planet_core_field').value;
          
          extractNum = Number(extractNum);
@@ -851,50 +852,81 @@ function extractPlanet(socket, user, msg)
          {
             popUpMsg("수가 아닙니다. 행성을 쟁취할 키를 입력하세요. :)");
          }
-         else if($("#input_number_text_field").val() == '')
+         else if($("#input_extract_planet_core_field").val() == '')
          {
             popUpMsg("행성을 쟁취할 키를 입력해주세요. :)"); 
          }
          else if((extractNum >= 1) && (extractNum <= 10))
          {         
-            socket.develop.emit('add_p', {
+            socket.develop.emit('bet_add_p', {
                'username' : user['name'], 
                'p_id' : developPlanet,
-               'choose_number' : chooseNum
+               'choose_number' : extractNum
             });
 
-            socket.develop.on('add_p_res_userinfo', function(data){
-               devScore  = Number(data.score);  
-               devTicket = Number(data.ticket);
+            socket.develop.on('bet_num', function(data) {
+               console.log("BET_NUM DATA SET:", data);
+               var betFlag = {
+                  success : data.success,
+                  fail : data.fail
+               };
 
-               $("#score_point").text(devScore);
-               $("#ticket_point").text(devTicket);
+               if(data.fail === betFlag.fail)
+               {
+                  socket.develop.on('chng_user', function(data) {
+                     devMineral = parseInt(data.mineral, 10);
+                     devGas     = parseInt(data.gas, 10);
+                     devUnknown = parseInt(data.unknown, 10);
+
+                     $("#mineral").text(devMineral);
+                     $("#gas").text(devGas);
+                     $("#unknown").text(devUnknown); 
+                  });
+
+                  console.log("[CLIENT LOG] mineral:",devMineral, "gas:", devGas, "unknown:", unknown);
+                  popUpMsg("행성 코어를 각인할 수가 없습니다. 다시 시도해주세요. :)");
+               }
+               else if(data.success === betFlag.success)
+               {
+                  socket.develop.on('add_p_res_userinfo', function(data){
+                     devScore  = Number(data.score);  
+                     devTicket = Number(data.ticket);
+
+                     $("#score_point").text(devScore);
+                     $("#ticket_point").text(devTicket);
+                  });
+
+                  socket.develop.on('chng_info', function(data){
+                     devMineral = parseInt(data.mineral, 10);
+                     devGas     = parseInt(data.gas, 10);
+                     devUnknown = parseInt(data.unknown, 10);
+
+                     $("#mineral").text(devMineral);
+                     $("#gas").text(devGas);
+                     $("#unknown").text(devUnknown); 
+
+                     $("#extract_planets_number_display").hide();
+                     popUpMsg(data[p_id] + "행성을 점령하였습니다. :)");                  
+                  });
+               }
+               else
+               {
+                  console.log("[CLIENT LOG 908 LINE]", data);
+               }
             });
-
-            socket.develop.on('chng_info', function(data){
-               devMineral = parseInt(data.mineral, 10);
-               devGas     = parseInt(data.gas, 10);
-               devUnknown = parseInt(data.unknown, 10);
-
-               $("#mineral").text(devMineral);
-               $("#gas").text(devGas);
-               $("#unknown").text(devUnknown); 
-            });
-
-            $("#extract_planets_number_display").hide();
-            popUpMsg(data[p_id] + "행성을 점령하였습니다. :)");                  
          }
          else
          {
             popUpMsg("1에서 10사이의 수를 입력해주세요. :)");
          }
-         */
+
          event.stopImmediatePropagation();
       });
 
       $("#cancel_extract_planet_core").click(function(event){
          $("#extract_number_msg").val('');
          $("#extract_planets_number_display").hide();
+
          event.stopImmediatePropagation();
       });
    }
