@@ -47,19 +47,21 @@ devPlntio.on('connection', function(socket){
 									
 							} 
 						});
-						mem_info.update({username : arrMP[z].usernmae}, {$inc:{mineral : 500, gas : 500, unknown : 500}});
+						mem_info.update({username : mpRes.username}, {$inc:{mineral : 500, gas : 500, unknown : 500}});
 	
 		
 					} else if(number == mpRes.number){
 						planet.update({p_id : p_id}, {$set : {username:"", develop:"false", number:0}});	
-						mem_info.findOne({username: username}, function(err, mem_find_res){
-							if(mem_find_res){
-								socket.emit('bet_num', "same");
-							}
-						});
 						mem_info.update({username : username}, {$inc: {mineral : -1000, gas : -1000, unknown : -1000}});
 						mem_info.update({username : mpRes.username}, {$inc:{mineral : -1000, gas : -1000, unknown : -1000}});
 
+						mem_info.findOne({username: username}, function(err, mem_find_res){
+							if(mem_find_res){
+								socket.emit('bet_num', "same");
+								socket.emit('chng_user', mem_find_res);
+							}
+						});
+						
 
 	
 					} else if(number > mpRes.number){

@@ -38,7 +38,6 @@ var planetViewLayer = function(user, socket) {
          }; 
          */
 
-         // TODO: Remove overlaping tags 
          $("#planet_list").append("<div id='pv_name_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
          $("#planet_list").append("<div id='pv_mineral_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
          $("#planet_list").append("<div id='pv_gas_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
@@ -50,10 +49,12 @@ var planetViewLayer = function(user, socket) {
          $("#pv_mineral_" + data.p_id).text(data.mineral);
          $("#pv_gas_" + data.p_id).text(data.gas);
          $("#pv_unknown_" + data.p_id).text(data.unknown);
-         if(data.develop === 'true') {
+         if(data.develop === "true") 
+         {
             $("#pv_develop_" + data.p_id).text(data.username);
          }
-         else {
+         else 
+         {
             $("#pv_develop_" + data.p_id).text("미 개척된 행성");
          }
          $("#pv_grade_" + data.p_id).text(Number(data.create_spd + 1));
@@ -102,7 +103,7 @@ var planetViewLayer = function(user, socket) {
             top   : Math.floor(0 + styleTop)
          });
 
-         if(data.develop === 'true') {
+         if(data.develop === "true") {
             $("#pv_develop_" + data.p_id).css({
                'background-color' : 'rgba(0, 0, 0, 0.7)',
                'color' : 'rgba(255, 255, 0, 1)',
@@ -126,7 +127,6 @@ var planetViewLayer = function(user, socket) {
                top   : Math.floor(0 + styleTop)
             });
          }
-
 
          $("#pv_grade_" + data.p_id).css({
             'background-color' : 'rgba(0, 0, 0, 0.7)',

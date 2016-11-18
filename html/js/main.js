@@ -45,11 +45,10 @@ var discovered    = new Audio(),
     menuSelection = new Audio(),
     developPlanet = 0;
 
-//discovered.src = serverUrl + ":8000/res/sound/effect/kkang.mp3";
 menuSelection.src = serverUrl + "/res/sound/effect/menu_selection.wav";
 
 $(document).ready(function(){ // After onload main html document, execute inner functions
-   popUpMsg(user.name + "님SPACE LOG 세계에 오신 것을 환영합니다.");
+   popUpMsg(user['name'] + "님SPACE LOG 세계에 오신 것을 환영합니다.");
 
    drawAllAssets("planets", user, socket); 		
 
@@ -577,13 +576,13 @@ var develop = function(user, socket) {
 
    //TODO: Test this code line.
 
-   socket.userPos.emit('collision_req', {
-      'username' : user['name'], 
+   devSocket.userPos.emit('collision_req', {
+      'username' : devUser['name'], 
       'location_x' : user['x'],
       'location_y' : user['y'],
    });
 
-   socket.userPos.on('collision_res', function(data) {
+   devSocket.userPos.on('collision_res', function(data) {
       //console.log(data);
       var developPlanetInfo = {
          name : $("#p_name").text("planet" + data.p_id),
@@ -605,7 +604,7 @@ var develop = function(user, socket) {
       {
          var state = $("#develop_planet_ui").css('display');
 
-         developPlanet = data['p_id'];
+         //developPlanet = data['p_id'];
 
          $("#develop_planet_ui").css({
             left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
@@ -663,14 +662,21 @@ var develop = function(user, socket) {
             // Developed planet event that clicked.
             $("#develop_planet").click(function(event){
                $("#develop_planet_ui").hide();
-               devPopUpMsg(devSocket, devUser, data['p_id'] + "행성을 방어할 숫자(1~10)를 입력하세요!");
+               devPopUpMsg(devSocket, devUser, developPlanet, data['p_id'] + "행성을 방어할 숫자(1~10)를 입력하세요!");
                event.stopImmediatePropagation();
             });
          }
       }
       else if(collisionFlag === 1 && developThis === "true" && devTicket > 0)
       {
-         extractPlanet(socket, user, "[" + data['username'] + "]" + " 께서 개척하신 행성입니다.");
+         if(user['name'] === data['username'])
+         {
+            popUpMsg("이미 개척하신 행성입니다.");
+         }
+         else
+         {
+            extractPlanet(devSocket, devUser, developPlanet, "[" + data['username'] + "]" + " 께서 개척하신 행성입니다.");
+         }
       }
       else if(devTicket == 0)
       {
@@ -683,21 +689,10 @@ var develop = function(user, socket) {
    });
 };
 
-function devPopUpMsg(socket, user, msg/*, keyState*/)
+function devPopUpMsg(devSocket, devUser, developPlanet, msg)
 {
-   //if(keyState == LEFT && keyState == RIGHT && keyState == UP && keyState == DOWN){ return false; } 
    var state = $("#detect_planets_number_display").css('display');
-/*
-   $("#detect_planets_number_display").keydown(event) {
-      if(!(keyState >= 48 && keyState <= 57)) { return false; } // normal number key
-      if(!(keyState >= 96 && keyState <= 105)) { return false; } // number lock key
-   });
 
-   $("#detect_planets_number_display").keyup(event) {
-      if(!(keyState >= 48 && keyState <= 57)) { return false; } 
-      if(!(keyState >= 96 && keyState <= 105)) { return false; }
-   });
-*/  
    $("#detect_planets_number_display").css({
       'left' : ($(window).width() - $("#detect_planets_number_display").outerWidth()) / 2, 
       'top'  : ($(window).height() - $("#detect_planets_number_display").outerHeight()) / 2
@@ -751,16 +746,13 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
          }
          else if((chooseNum >= 1) && (chooseNum <= 10))
          {
-            //TODO: Test this code line.         
-            socket.develop.connect();
-
-            socket.develop.emit('add_p', {
-               'username' : user['name'], 
+            devSocket.develop.emit('add_p', {
+               'username' : devUser['name'], 
                'p_id' : developPlanet,
                'choose_number' : chooseNum
             });
 
-            socket.develop.on('add_p_res_userinfo', function(data){
+            devSocket.develop.on('add_p_res_userinfo', function(data){
                devScore  = Number(data.score);  
                devTicket = Number(data.ticket);
 
@@ -768,10 +760,10 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
                $("#ticket_point").text(devTicket);
             });
 
-            socket.develop.on('chng_info', function(data){
-               devMineral = parseInt(data.mineral, 10);
-               devGas     = parseInt(data.gas, 10);
-               devUnknown = parseInt(data.unknown, 10);
+            devSocket.develop.on('chng_info', function(data){
+               devMineral = Number(data.mineral);
+               devGas     = Number(data.gas);
+               devUnknown = Number(data.unknown);
 
                $("#mineral").text(devMineral);
                $("#gas").text(devGas);
@@ -780,9 +772,6 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
                $("#detect_planets_number_display").hide();
                popUpMsg("행성이 개척되었습니다. :)");       
             });
-
-            //TODO: Test this code line.
-            socket.develop.disconnect();
          }
          else
          {
@@ -801,7 +790,7 @@ function devPopUpMsg(socket, user, msg/*, keyState*/)
    }
 }
 
-function extractPlanet(socket, user, msg)
+function extractPlanet(devSocket, devUser, developPlanet, msg)
 {
    var state = $("#extract_planets_number_display").css('display');
 
@@ -809,6 +798,8 @@ function extractPlanet(socket, user, msg)
       'left' : ($(window).width() - $("#extract_planets_number_display").outerWidth()) / 2, 
       'top'  : ($(window).height() - $("#extract_planets_number_display").outerHeight()) / 2
    });
+   
+   $("#input_extract_planet_core_field").val('');
 
    if(state == 'none') 
    {
@@ -858,37 +849,38 @@ function extractPlanet(socket, user, msg)
          }
          else if((extractNum >= 1) && (extractNum <= 10))
          {         
-            socket.develop.emit('bet_add_p', {
-               'username' : user['name'], 
+            devSocket.develop.emit('bet_add_p', {
+               'username' : devUser['name'], 
                'p_id' : developPlanet,
                'choose_number' : extractNum
             });
 
-            socket.develop.on('bet_num', function(data) {
-               console.log("BET_NUM DATA SET:", data);
+            devSocket.develop.on('bet_num', function(data) {
+               console.log("[CLIENT LOG]", data);
                var betFlag = {
-                  success : data.success,
-                  fail : data.fail
+                  success : "success",
+                  fail : "fail",
+                  same : "same"
                };
+               console.log(betFlag['success'], betFlag['fail'], betFlag['same']);
 
-               if(data.fail === betFlag.fail)
+               if(data === betFlag['fail'])
                {
-                  socket.develop.on('chng_user', function(data) {
-                     devMineral = parseInt(data.mineral, 10);
-                     devGas     = parseInt(data.gas, 10);
-                     devUnknown = parseInt(data.unknown, 10);
+                  devSocket.develop.on('chng_user', function(data) {
+                     devMineral = Number(data.mineral);
+                     devGas     = Number(data.gas);
+                     devUnknown = Number(data.unknown);
 
                      $("#mineral").text(devMineral);
                      $("#gas").text(devGas);
                      $("#unknown").text(devUnknown); 
                   });
 
-                  console.log("[CLIENT LOG] mineral:",devMineral, "gas:", devGas, "unknown:", unknown);
-                  popUpMsg("행성 코어를 각인할 수가 없습니다. 다시 시도해주세요. :)");
+                  popUpMsg("행성 코어를 각인할 수가 없습니다. 다시 시도해주세요. :(");
                }
-               else if(data.success === betFlag.success)
+               else if(data === betFlag['success'])
                {
-                  socket.develop.on('add_p_res_userinfo', function(data){
+                  devSocket.develop.on('add_p_res_userinfo', function(data){
                      devScore  = Number(data.score);  
                      devTicket = Number(data.ticket);
 
@@ -896,22 +888,37 @@ function extractPlanet(socket, user, msg)
                      $("#ticket_point").text(devTicket);
                   });
 
-                  socket.develop.on('chng_info', function(data){
-                     devMineral = parseInt(data.mineral, 10);
-                     devGas     = parseInt(data.gas, 10);
-                     devUnknown = parseInt(data.unknown, 10);
+                  devSocket.develop.on('chng_info', function(data){
+                     devMineral = Number(data.mineral);
+                     devGas     = Number(data.gas);
+                     devUnknown = Number(data.unknown);
 
                      $("#mineral").text(devMineral);
                      $("#gas").text(devGas);
                      $("#unknown").text(devUnknown); 
-
-                     $("#extract_planets_number_display").hide();
-                     popUpMsg(data[p_id] + "행성을 점령하였습니다. :)");                  
                   });
+
+                  $("#extract_planets_number_display").hide();
+                  popUpMsg(devPlanet + "행성을 점령하였습니다. :)");                  
+               }
+               else if(data === betFlag['same'])
+               {
+                  devSocket.develop.on('chng_user', function(data) {
+                     devMineral = Number(data.mineral);
+                     devGas     = Number(data.gas);
+                     devUnknown = Number(data.unknown);
+
+                     $("#mineral").text(devMineral);
+                     $("#gas").text(devGas);
+                     $("#unknown").text(devUnknown); 
+                  });
+                  
+                  $("#extract_planets_number_display").hide();
+                  popUpMsg("행성을 반환합니다. :(");
                }
                else
                {
-                  console.log("[CLIENT LOG 908 LINE]", data);
+                  console.log("[CLIENT LOG]", data);
                }
             });
          }
