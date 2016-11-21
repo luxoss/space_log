@@ -1,9 +1,10 @@
 //module : send mail
 var nodemailer = require('nodemailer');
 
+
 var devPlntio = require('socket.io').listen(5003);
 var MongoClient = require('mongodb').MongoClient;
-var planet, mem_info, mem_plan;
+var planet, mem_info, member;
 
 var p_id, username;
 var r_id;
@@ -21,6 +22,7 @@ devPlntio.on('connection', function(socket){
 		MongoClient.connect("mongodb://localhost:27017/space_log", function(err, db){
 			planet = db.collection("PLANET");
 			mem_info = db.collection("MEM_INFO");
+			member = db.collection("MEMBER");
 			p_id = data.p_id;
 			username = data.username;
 			number = data.choose_number;
@@ -61,7 +63,43 @@ devPlntio.on('connection', function(socket){
 								socket.emit('chng_user', mem_find_res);
 							}
 						});
+					
+						member.findOne({username:mpRes.username}, function(err, findMem){
+							if(err){
+								console.log("[devPlanet.js] Finding member is error");
+							}else if(findMem){
+								console.log("[devPlanet.js] Finding member is success. send the mail to member");
+								var smtpTransport = nodemailer.createTransport("SMTP", {
+									service : '',
+									auth: {
+										user : '',
+										pass : ''
+									}
+								});
+								var mailOptions={
+									from : '관리자<@gmail.com>',
+									to : findMem.email,
+									subject:'행성의 소유권이 박탈 되었습니다 !',
+									text : '당신이 보유한 행성 중 하나의 소유권이 박탈되었습니다. 현재 해당 행성은 그 어느 누구의 소유도 아닙니다. 지금 바로 접속 하셔서 다시 행성을 소유하세요!.\ngame.smuc.ac.kr'
+								};
+								smtpTransport.sendMail(mailOptions, function(err, response){
+									if(err){
+										console.log('[devPlanet.js] : error');
+										console.log(err);
+									} else if(response){
+										console.log("[devPlanet.js] : Message send : " + response.message);
+									}
+									smtpTransport.close();
+								});
+							}
+
 						
+
+
+
+						});
+
+
 
 	
 					} else if(number > mpRes.number){
@@ -70,16 +108,51 @@ devPlntio.on('connection', function(socket){
 						mem_info.findOne({username:username}, function(err, mem_find_res){
 							socket.emit('bet_num', "success");
 							socket.emit('chng_user', mem_find_res);
-						});	
+						});
+						member.findOne({username:mpRes.username}, function(err, findMem){
+							if(err){
+								console.log("[devPlanet.js] Finding member is error");
+							}else if(findMem){
+								console.log("[devPlanet.js] Finding member is success. send the mail to member");
+								var smtpTransport = nodemailer.createTransport("SMTP", {
+									service : '',
+									auth: {
+										user : '',
+										pass : ''
+									}
+								});
+								var mailOptions={
+									from : '관리자<@gmail.com>',
+									to : findMem.email,
+									subject:'행성을 빼앗겼습니다!',
+									text : '당신이 보유한 행성 중 하나를 누군가에게 빼앗겼습니다. 지금 접속 해서 확인하세요.\ngame.smuc.ac.kr'
+								};
+								smtpTransport.sendMail(mailOptions, function(err, response){
+									if(err){
+										console.log('[devPlanet.js] : error');
+										console.log(err);
+									} else if(response){
+										console.log("[devPlanet.js] : Message send : " + response.message);
+									}
+									smtpTransport.close();
+								});
+							}
+
+						
+
+
+
+						});
+					/*						
 						var smtpTransport = nodemailer.createTransport("SMTP", {
-							service : 'Daum',
+							service : 'Gmail',
 							auth: {
-								user : 'ujuin13',
-								pass : 'dnwnwjdqhr13'
+								user : 'ujuin93',
+								pass : 'dnwnwjdqhr159753'
 							}
 						});
 						var mailOptions={
-							from : '관리자<ujuin13@daum.net>',
+							from : '관리자<ujuin93@gmail.com>',
 							to : 'kapoochino93@gmail.com',
 							subject:'Node js mail 테스트',
 							text : '테스트다'
@@ -87,12 +160,13 @@ devPlntio.on('connection', function(socket){
 						smtpTransport.sendMail(mailOptions, function(err, response){
 							if(err){
 								console.log('[devPlanet.js] : error');
-							} else{
+								console.log(err);
+							} else if(response){
 								console.log("[devPlanet.js] : Message send : " + response.message);
 							}
 							smtpTransport.close();
 						});
-					
+					*/
 					}
 
 					/*	mem_info.findOne({username:username}, function(err, mem_find_res){
