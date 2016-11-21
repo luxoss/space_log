@@ -102,9 +102,21 @@ UsersPio.on('connection', function(socket){
 					arrP[a].collision = 1;
 					collision = 1;
 					planet.findOne({p_id:arrP[a].p_id}, function(err, res){
-						res.collision = collision;
+				//		res.collision = collision;
+						var sendRes = {
+							p_id 		: res.p_id,
+							mineral 	: res.mineral,
+							gas 		: res.gas,
+							unknown 	: res.unknown,
+							location_x 	: res.location_x, 
+							location_y 	: res.location_y,
+							develop	 	: res.develop,
+							username 	: res.username,
+							collision 	: collision
+						}
 						console.log('COLLISION !!//////////////////// ' + res.collision);
-						socket.emit('collision_res', res);
+					//	socket.emit('collision_res', res);
+						socket.emit('collision_res', sendRes);
 					});
 				//	socket.emit('collision_res', arrP[a]);
 					break;

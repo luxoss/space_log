@@ -10,7 +10,7 @@ $(document).ready(function() {
   
    selectButton.src = "http://game.smuc.ac.kr/res/sound/effect/menu_selection.wav";
 
-   selectTeam();
+   //selectTeam();
 
    $(window).resize(function(){
 
