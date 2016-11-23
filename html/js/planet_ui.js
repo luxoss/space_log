@@ -7,12 +7,13 @@
 var planetViewLayer = function(user, socket) {
 
    var state = $('#planet_ui').css('display');
-   var styleTop = 0, myStyleTop = 0;
    var planetViewSocket = socket;
+   var planetInfo = {};
+   var styleTop = 0;
   
    if(state == 'none') 
    {
-      planetViewSocket.planet.connect();
+      //planetViewSocket.planet.connect();
 
       $('#planet_ui').css({
          left: ($(window).width() - $('#planet_ui').outerWidth()) / 2,
@@ -26,146 +27,76 @@ var planetViewLayer = function(user, socket) {
       planetViewSocket.planet.emit('planet_req', { 'ready' : 'Ready to receive' });
 
       planetViewSocket.planet.on('planet_res', function(data){
-         /*
-         console.log("[CLIENT LOG :: RECEIVED PLANET DATA]", data.p_id, data.username);
-         var planet = {
-            name : data.p_id,
-            gas : data.gas,
-            mineral : data.mineral, 
-            unknown : data.unknown,
-            develop : data.develop,
-            grade : data.create_spd
-         }; 
-         */
+         console.log(data);
+         planetInfo.name = "행성" + data.p_id;
+         planetInfo.mineral = "[M] " + data.mineral;
+         planetInfo.gas = "[G] " + data.gas;
+         planetInfo.unknown = "[U] " + data.unknown;
+         planetInfo.develop = data.develop;
+         planetInfo.grade = (Number(data.create_spd) + 1);
 
-         $("#planet_list").append("<div id='pv_name_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_mineral_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_gas_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_unknown_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_develop_" + data.p_id + "'style='position:inherit; line-height:100px;'></div>");
-         $("#planet_list").append("<div id='pv_grade_" + data.p_id + "'style = 'position:inherit; line-height:100px;'></div>");
+         $("#planet_list").append(
+            "<div id='pv_name_" + planetInfo.name + "'style='position:absolute; line-height:100px; background-color: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 0, 0.7);" + 
+            "font-weight:bold; width: 200px; height: 100px; text-align: center; left: 10px;" + "top:" + parseInt(Number(styleTop) + 0) + "px;'></div>"
+         );
+         $("#planet_list").append(
+            "<div id='pv_mineral_" + planetInfo.name + "'style='position:absolute; line-height:100px; background-color: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 255, 0.7);" + 
+            "font-weight:bold; width: 127px; height: 100px; text-align: center; left: 210px;" + "top:" + parseInt(Number(styleTop) + 0) + "px;'></div>" 
+         );
+         $("#planet_list").append(
+            "<div id='pv_gas_" + planetInfo.name + "'style='position:absolute; line-height:100px; background-color: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 255, 0.7);" + 
+            "font-weight:bold; width: 127px; height: 100px; text-align: center; left: 337px;" + "top:" + parseInt(Number(styleTop) + 0) + "px;'></div>"
+         );
+         $("#planet_list").append(
+            "<div id='pv_unknown_" + planetInfo.name + "'style='position:absolute; line-height:100px; background-color: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 255, 0.7);" + 
+            "font-weight:bold; width: 127px; height: 100px; text-align: center; left: 464px;" + "top:" + parseInt(Number(styleTop) + 0) + "px;'></div>"
+         );
+         $("#planet_list").append(
+            "<div id='pv_develop_" + planetInfo.name + "'style='position:absolute; line-height:100px; background-color: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 0, 0.7);" + 
+            "font-weight:bold; width: 200px; height: 100px; text-align: center; left: 591px;" + "top:" + parseInt(Number(styleTop) + 0) + "px;'></div>"
+         );
+         $("#planet_list").append(
+            "<div id='pv_grade_" + planetInfo.name + "'style='position:absolute; line-height:100px; background-color: rgba(0, 0, 0, 0.7); color: rgba(255, 255, 255, 0.7);" + 
+            "font-weight:bold; width: 190px; height: 100px; text-align: center; left: 791px;" + "top:" + parseInt(Number(styleTop) + 0) + "px;'></div>"
+         );
 
-         $("#pv_name_" + data.p_id).text("planet" + data.p_id);
-         $("#pv_mineral_" + data.p_id).text(data.mineral);
-         $("#pv_gas_" + data.p_id).text(data.gas);
-         $("#pv_unknown_" + data.p_id).text(data.unknown);
-         if(data.develop === "true") 
+         switch(planetInfo['develop'])
          {
-            $("#pv_develop_" + data.p_id).text(data.username);
+            case "true" :
+         
+               $("#pv_name_" + planetInfo.name).text(planetInfo.name);
+               $("#pv_mineral_" + planetInfo.name).text(planetInfo.mineral);
+               $("#pv_gas_" + planetInfo.name).text(planetInfo.gas);
+               $("#pv_unknown_" + planetInfo.name).text(planetInfo.unknown);
+               $("#pv_develop_" + planetInfo.name).text(data.username);
+               $("#pv_grade_" + planetInfo.name).text(planetInfo.grade);
+               break;
+
+            case "false" :
+               $("#pv_name_" + planetInfo.name).text(planetInfo.name);
+               $("#pv_mineral_" + planetInfo.name).text(planetInfo.mineral);
+               $("#pv_gas_" + planetInfo.name).text(planetInfo.gas);
+               $("#pv_unknown_" + planetInfo.name).text(planetInfo.unknown);
+               $("#pv_develop_" + planetInfo.name).text("미 개척된 행성");
+               $("#pv_grade_" + planetInfo.name).text(planetInfo.grade);
+               break;
+
+            default :
+               console.log("[CLIENT LOG] It was wrong:", data);
+               break;
          }
-         else 
-         {
-            $("#pv_develop_" + data.p_id).text("미 개척된 행성");
-         }
-         $("#pv_grade_" + data.p_id).text(Number(data.create_spd + 1));
-  
-         $("#pv_name_" + data.p_id).css({
-            'background-color' : 'rgba(0, 0, 0, 0.7)',
-            'color' : 'rgba(255, 255, 255, 1)',
-            'font-weight': 'bold',
-            'width': 200,
-            'height': 100,
-            'text-align': 'center',
-            left: 10,
-            top: Math.floor(0 + styleTop)
-         });
-
-         $("#pv_mineral_" + data.p_id).css({
-            'background-color' : 'rgba(0, 0, 0, 0.7)',
-            'color' : 'rgba(255, 255, 255, 1)',
-            'font-weight': 'bold',
-            'width': 127,
-            'height': 100,
-            'text-align': 'center',
-            left  : 210,
-            top   : Math.floor(0 + styleTop)
-         });
-
-         $("#pv_gas_" + data.p_id).css({
-            'background-color' : 'rgba(0, 0, 0, 0.7)',
-            'color' : 'rgba(255, 255, 255, 1)',
-            'font-weight': 'bold',
-            'width' : 127,
-            'height': 100,
-            'text-align': 'center',
-            left  : 337,
-            top   : Math.floor(0 + styleTop)
-         });
-
-         $("#pv_unknown_" + data.p_id).css({
-            'background-color' : 'rgba(0, 0, 0, 0.7)',
-            'color' : 'rgba(255, 255, 255, 1)',
-            'font-weight': 'bold',
-            'width': 127,
-            'height': 100,
-            'text-align': 'center',
-            left  : 464,
-            top   : Math.floor(0 + styleTop)
-         });
-
-         if(data.develop === "true") {
-            $("#pv_develop_" + data.p_id).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 0, 1)',
-               'font-weight': 'bold',
-               'width': 200,
-               'height': 100,
-               'text-align': 'center',
-               left  : 591,
-               top   : Math.floor(0 + styleTop)
-            });
-         }
-         else {
-            $("#pv_develop_" + data.p_id).css({
-               'background-color' : 'rgba(0, 0, 0, 0.7)',
-               'color' : 'rgba(255, 255, 255, 1)',
-               'font-weight': 'bold',
-               'width': 200,
-               'height': 100,
-               'text-align': 'center',
-               left  : 591,
-               top   : Math.floor(0 + styleTop)
-            });
-         }
-
-         $("#pv_grade_" + data.p_id).css({
-            'background-color' : 'rgba(0, 0, 0, 0.7)',
-            'color' : 'rgba(255, 255, 255, 1)',
-            'font-weight': 'bold',
-            'width': 190,
-            'height': 100,
-            'text-align': 'center',
-            left  : 791,
-            top   : Math.floor(0 + styleTop)
-         });
-
-         styleTop = Math.floor(styleTop + 100);
-      });
+         
+         styleTop = (Number(styleTop) + 100);
+     });
    }
    else
    {
       $("#planet_btn").css("background-color", "rgba(0, 0, 0, 0.7)");
       $("#planet_list").empty();
       $('#planet_ui').hide();
-      
-      planetViewSocket.planet.disconnect();
+      //planetViewSocket.planet.disconnect();
    }
 };
-
-
-/*
-   // TODO: Change html() -> text()
-   if(planet['develop'] == 'true') {  
-      document.getElementById('pv_name_' + planet.name).innerHTML = "개척된 행성";
-   }
-   else {  
-      document.getElementById('pv_name_' + planet.name).innerHTML = "미 개척된 행성";
-   } 
-   document.getElementById('pv_name_' + planet.name).innerHTML = "planet" + planet['name'];
-   document.getElementById('pv_name_' + planet.name).innerHTML = planet['mineral'];
-   document.getElementById('pv_name_' + planet.name).innerHTML = planet['gas'];                   
-   document.getElementById('pv_name_' + planet.name).innerHTML = planet['grade'];
-*/ 
 
 /*
    //TODO: TEST...

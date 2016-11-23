@@ -168,8 +168,8 @@ function drawAllAssets(mainLayer, user, socket)
 
          $("#star_" + i).css({
             'background-color' : 'rgba(255, 255, 0, 1)',
-            'left'             : Math.floor(Math.random() * 7000 - 1),
-            'top'              : Math.floor(Math.random() * 7000 - 1),
+            'left'             : Math.floor(Math.random() * 9000 - 1),
+            'top'              : Math.floor(Math.random() * 9000 - 1),
             'border'           : '0px',
             'border-radius'    : '5px'
          });
@@ -183,8 +183,8 @@ function drawAllAssets(mainLayer, user, socket)
 
          $("#star_" + i).css({
             'background-color' : 'rgba(255, 255, 255, 0.8)',
-            'left'             : Math.floor(Math.random() * 3500 - 1),
-            'top'              : Math.floor(Math.random() * 3500 - 1),
+            'left'             : Math.floor(Math.random() * 5000 - 1),
+            'top'              : Math.floor(Math.random() * 5000 - 1),
             'border'           : '0px',
             'border-radius'    : '10px'
          });
@@ -195,7 +195,7 @@ function drawAllAssets(mainLayer, user, socket)
 
    socket.planet.on('planet_res', function(data) {
       var planet = {
-         id : "planet" + data.p_id,
+         id : "행성" + data.p_id,
          x  : data.location_x,
          y  : data.location_y,
          grade : data.create_spd,
@@ -224,7 +224,7 @@ function drawAllAssets(mainLayer, user, socket)
          });
          
          $("#" + planet['id']).append(
-            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:rgba(255, 255, 0, 0.7); font-weight:bold; text-align: center;'>" 
             + planet['id'] + "</div>"
          );
       }
@@ -245,7 +245,7 @@ function drawAllAssets(mainLayer, user, socket)
          });
 
          $("#" + planet['id']).append(
-            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:rgba(255, 255, 0, 0.7); font-weight:bold; text-align: center;'>" 
             + planet['id'] + "</div>"
          );
       }
@@ -266,7 +266,7 @@ function drawAllAssets(mainLayer, user, socket)
          });
 
          $("#" + planet['id']).append(
-            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:rgba(255, 255, 0, 0.7); font-weight:bold; text-align: center;'>" 
             + planet['id'] + "</div>"
          );
       }
@@ -287,7 +287,7 @@ function drawAllAssets(mainLayer, user, socket)
          });
 
          $("#" + planet['id']).append(
-            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align:center;'>" 
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:rgba(255, 255, 0, 0.7); font-weight:bold; text-align:center;'>" 
             + planet['id'] + "</div>"
          );
       }
@@ -308,7 +308,7 @@ function drawAllAssets(mainLayer, user, socket)
          });
 
          $("#" + planet['id']).append(
-            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:yellow; font-weight:bold; text-align: center;'>" 
+            "<div style='position:absolute; width: 100px; left:0px; top:100px; color:rgba(255, 255, 0, 0.7); font-weight:bold; text-align: center;'>" 
             + planet['id'] + "</div>"
          );
       }
@@ -585,13 +585,13 @@ var develop = function(user, socket) {
    devSocket.userPos.on('collision_res', function(data) {
       //console.log(data);
       var developPlanetInfo = {
-         name : $("#p_name").text("planet" + data.p_id),
+         name : $("#p_name").text("행성" + data.p_id),
          resource : {
             mineral : $("#p_mineral").text(data.mineral),
             gas : $("#p_gas").text(data.gas),
             unknown : $("#p_unknown").text(data.unknown)
          },
-         grade : $("#p_grade").text(parseInt(data.create_spd + 1)),
+         grade : $("#p_grade").text((Number(data.create_spd) + 1)),
          develop : $("#p_develop")
       };
       
@@ -603,8 +603,6 @@ var develop = function(user, socket) {
       if((collisionFlag === 1) && (developThis === "false") && (devTicket > 0)) 
       {
          var state = $("#develop_planet_ui").css('display');
-
-         //developPlanet = data['p_id'];
 
          $("#develop_planet_ui").css({
             left: ($(window).width() - $("#develop_planet_ui").outerWidth()) / 2, 
@@ -624,7 +622,7 @@ var develop = function(user, socket) {
 
             $("#cancel").mouseover(function(event) {
                menuSelection.play();
-               $("#cancel").css('color', 'rgba(255, 255, 0, 0.7)');
+               $("#cancel").css('color', 'rgba(255, 255, 0, 1)');
                menuSelection.currentTime = 0;
 
                event.stopImmediatePropagation();
@@ -632,7 +630,7 @@ var develop = function(user, socket) {
 
             $("#cancel").mouseout(function(event) {
                menuSelection.play();
-               $("#cancel").css('color', 'rgba(255, 255, 255, 0.7)');
+               $("#cancel").css('color', 'rgba(255, 255, 255, 1)');
                menuSelection.currentTime = 0;
 
                event.stopImmediatePropagation();
@@ -645,7 +643,7 @@ var develop = function(user, socket) {
 
             $("#develop_planet").mouseover(function(event) {
                menuSelection.play();
-               $("#develop_planet").css('color', 'rgba(255, 255, 0, 0.7)');
+               $("#develop_planet").css('color', 'rgba(255, 255, 0, 1)');
                menuSelection.currentTime = 0;
 
                event.stopImmediatePropagation();
@@ -653,7 +651,7 @@ var develop = function(user, socket) {
 
             $("#develop_planet").mouseout(function(event) {
                menuSelection.play();
-               $("#develop_planet").css('color', 'rgba(255, 255, 255, 0.7)');
+               $("#develop_planet").css('color', 'rgba(255, 255, 255, 1)');
                menuSelection.currentTime = 0;
 
                event.stopImmediatePropagation();
@@ -1050,9 +1048,9 @@ function userPosUpdate(user, enemy)
 
                $("#position_x").text(user['x']);
 
-               if(user['x'] >= 3430) 
+               if(user['x'] >= 4930) 
                {
-                  user['x'] = 3430;
+                  user['x'] = 4930;
                   user['y'] = parseInt(data.location_y);
 
                   $("#" + data.username).css({
@@ -1098,10 +1096,10 @@ function userPosUpdate(user, enemy)
 
                $("#position_y").text(user['y']);
 
-               if(user['y'] >= 3430) 
+               if(user['y'] >= 4930) 
                {
                   user['x'] = parseInt(data.location_x);
-                  user['y'] = 3430;
+                  user['y'] = 4930;
 
                   $("#" + data.username).css({
 	                 "backgroundImage" : imgSprite.player.DOWN,

@@ -24,6 +24,7 @@ function drawMinimap(user, enemy, socket)
    };
    // Caching the jquery selector 
    var minimapBtn = $("#minimap_btn");
+   var mainDisplayWidth = 5000, mainDisplayHeight = 5000;
 
    minimapEnemy = enemy;
 
@@ -49,8 +50,8 @@ function drawMinimap(user, enemy, socket)
          'position' : 'absolute',
          'width'    : '5px',
          'height'   : '5px',
-         'left' : Math.floor((user['x'] * 300) / 3500),
-         'top'  : Math.floor((user['y'] * 300) / 3500) 
+         'left' : Math.floor((user['x'] * 300) / mainDisplayWidth),
+         'top'  : Math.floor((user['y'] * 300) / mainDisplayHeight) 
       });
 
       socket.planet.emit('planet_req', {'ready' : 'ready to draw minimap'});
@@ -60,7 +61,7 @@ function drawMinimap(user, enemy, socket)
          assets.planet.x = parseInt(data.location_x, 10);
          assets.planet.y = parseInt(data.location_y, 10);
          // Not a received by the same tags.
-         $("#minimap_assets").append("<div id='minimap_" + data.p_id + "' style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" +  ((assets.planet['x'] * 300) / 3500) + "px; top:" + ((assets.planet['y'] * 300) / 3500) + "px;'></div>");
+         $("#minimap_assets").append("<div id='minimap_" + data.p_id + "' style='position: absolute; width: 3px; height: 3px; background-color: rgba(255, 255, 255, 0.7); left:" +  ((assets.planet['x'] * 300) / mainDisplayWidth) + "px; top:" + ((assets.planet['y'] * 300) / mainDisplayHeight) + "px;'></div>");
         
       });
 
@@ -72,8 +73,8 @@ function drawMinimap(user, enemy, socket)
             assets.player.y = data.location_y;
             
             $("#minimap_" + user['name']).css({
-               'left' : Math.floor((assets.player.x * 300) / 3500),
-               'top'  : Math.floor((assets.player.y * 300) / 3500)
+               'left' : Math.floor((assets.player.x * 300) / mainDisplayWidth),
+               'top'  : Math.floor((assets.player.y * 300) / mainDisplayHeight)
             });
          }         
          else if(minimapEnemy[data.username] !== user['name'])
@@ -91,8 +92,8 @@ function drawMinimap(user, enemy, socket)
                'position'         : 'absolute',
                'width'            : '5px',
                'height'           : '5px',
-               'left' : Math.floor(((minimapEnemy[data.username + "X"]) * 300) / 3500),
-               'top'  : Math.floor(((minimapEnemy[data.username + "Y"]) * 300) / 3500)
+               'left' : Math.floor(((minimapEnemy[data.username + "X"]) * 300) / mainDisplayWidth),
+               'top'  : Math.floor(((minimapEnemy[data.username + "Y"]) * 300) / mainDisplayHeight)
             });
          }
          else

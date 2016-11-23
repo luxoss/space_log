@@ -8,8 +8,8 @@ html { overflow : hidden !important; margin: 0px; padding: 0px; }
 body { 
    background-color : rgba(19, 35, 56, 1); 
    overflow : hidden !important; 
-   width: 7000px;
-   height: 7000px;
+   width: 9000px;
+   height: 9000px;
    margin: 0 auto; 
    padding: 0px; 
 }
@@ -29,8 +29,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 #main_layer {
    /*background-image : url('http://game.smuc.ac.kr/res/img/space_tile1.png');*/
    background-color : rgba(0, 0, 0, 0.8);
-  	width            : 3500px;
-  	height           : 3500px; 
+  	width            : 5000px;
+  	height           : 5000px; 
    border           : 2px dotted rgba(255, 255, 0, 0.7);
   	position         : absolute;
 	z-index          : 1;
@@ -634,10 +634,10 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #develop_planet_ui {
-   background-color  : rgba(255, 255, 255, 1);
+/*   background-color  : transparent;*/
+   background-color : rgba(128, 0, 28, 0.8);
 	box-shadow        : rgba(0, 0, 0, 0.5) 0 0 0 9999px, rgba(0, 0, 0, 0.5) 2px 2px 3px 3px;
-   border            : 1px solid white;
-   border-style      : dotted;
+   border            : 3px dotted white;
    border-radius     : 5px;
    width             : 500px;
    height            : 700px;
@@ -648,7 +648,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #d_name {
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 1);
+   color             : rgba(255, 255, 0, 1);
    font-size         : 20pt;
    font-weight       : bold;
    left              : 0px;
@@ -663,7 +663,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #p_name {
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 1);
+   color             : rgba(255, 255, 0, 1);
    font-size         : 20pt;
    font-weight       : bold;
    border            : 0px;
@@ -677,7 +677,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #d_resource {
-   background-color  : rgba(255, 255, 0, 0.3);
+   background-color  : transparent;
    width             : 500px;
    height            : 300px;
    left              : 0px;
@@ -686,8 +686,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #d_gas { 
-   background-color  : rgba(0, 255, 0, 0.7);
-   color             : rgba(0, 0, 0, 1);
+   background-color  : rgba(26, 61, 19, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -701,8 +701,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #d_mineral { 
-   background-color  : rgba(0, 0, 255, 0.7);
-   color             : rgba(0, 0, 0, 1);
+   background-color  : rgba(29, 66, 107, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -716,8 +716,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }  
 
 #d_unknown { 
-   background-color  : rgba(255, 0, 0, 0.7);
-   color             : rgba(0, 0, 0, 1);
+   background-color  : rgba(28, 21, 28, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -731,7 +731,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #p_gas { 
-   background-color : rgba(0, 255, 0, 0.7);
+   background-color  : rgba(26, 61, 19, 0.7);
+   color       : rgba(255, 255, 255, 1);
    font-size   : 20pt;
    font-weight : bold;
    width       : 250px; 
@@ -745,7 +746,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #p_mineral { 
-   background-color : rgba(0, 0, 255, 0.7);
+   background-color  : rgba(29, 66, 107, 0.7);
+   color       : rgba(255, 255, 255, 1);
    font-size   : 20pt;
    font-weight : bold;
    width       : 250px; 
@@ -759,7 +761,8 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 }
 
 #p_unknown { 
-   background-color: rgba(255, 0, 0, 0.7);
+   background-color  : rgba(28, 21, 28, 0.7);
+   color       : rgba(255, 255, 255, 1);
    font-size   : 20pt;
    font-weight : bold;
    width       : 250px; 
@@ -774,7 +777,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #d_grade { 
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -789,7 +792,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #p_grade { 
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px; 
@@ -804,7 +807,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #d_develop {
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px;
@@ -819,7 +822,7 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #p_develop {
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size   : 20pt;
    font-weight : bold;
    width       : 250px;
@@ -834,12 +837,12 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #develop_planet {
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
    width             : 250px;
    height            : 100px;
-   border            : 0px;
+   border            : 2px dotted rgba(255, 255, 255, 0.7);
    left              : 0px;
    top               : 600px;
    position          : absolute;
@@ -850,12 +853,12 @@ div { margin: 0px; padding: 0px; display: inline-block;}
 
 #cancel {
    background-color  : rgba(0, 0, 0, 0.7);
-   color             : rgba(255, 255, 255, 0.7);
+   color             : rgba(255, 255, 255, 1);
    font-size         : 20pt;
    font-weight       : bold;
-   width             : 250px;
+   width             : 248px;
    height            : 100px;
-   border            : 0px;
+   border            : 2px dotted rgba(255, 255, 255, 0.7);
    left              : 250px;
    top               : 600px;
    position          : absolute;
